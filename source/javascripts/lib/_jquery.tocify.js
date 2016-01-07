@@ -30,12 +30,13 @@
         tocHoverClassName = "tocify-hover",
         hideTocClassName = "tocify-hide",
         hideTocClass = "." + hideTocClassName,
-        headerClassName = "tocify-header",
+        headerClassName = "sidebar-nav-heading",
         headerClass = "." + headerClassName,
-        subheaderClassName = "tocify-subheader",
+        subheaderClassName = "sidebar-nav-items",
         subheaderClass = "." + subheaderClassName,
         itemClassName = "tocify-item",
         itemClass = "." + itemClassName,
+        itemLinkClassName = "sidebar-nav-item",
         extendPageClassName = "tocify-extend-page",
         extendPageClass = "." + extendPageClassName;
 
@@ -400,6 +401,8 @@
                 "data-unique": hashValue
 
             }).append($("<a/>", {
+
+                "class": itemLinkClassName,
 
                 "text": self.text()
 
@@ -964,6 +967,14 @@
             else if(this.options.theme === "bootstrap") {
 
                 this.element.find(headerClass + "," + subheaderClass).addClass("nav nav-list");
+
+                this.focusClass = "active";
+
+            }
+
+            else if(this.options.theme === "agave") {
+
+                this.element.find(headerClass + "," + subheaderClass).addClass("sidebar-nav-item expandable");
 
                 this.focusClass = "active";
 

@@ -1,0 +1,35 @@
+{
+  "name": "agave-fonticons",
+  "main": [
+    "./css/style.css"
+  ],
+  "ignore": [
+    "config",
+    "docset",
+    "sass",
+    "source",
+    "styleguide",
+    ".DS_Store",
+    ".editorconfig",
+    ".gitignore",
+    ".npmignore",
+    ".jshintrc",
+    "bower.json",
+    "compile.sh",
+    "component.json",
+    "composer.json",
+    "Gruntfile.js",
+    "package.json",
+    "README.md"
+  ],
+  "description": "Agave Platform Font Icons",
+  "_release": "5dc87a441f",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "5dc87a441fa726d4d066309fda2690f9cd7928cf"
+  },
+  "_source": "https://bitbucket.org/agaveapi/fonticons.git",
+  "_target": "*",
+  "_originalSource": "git+https://bitbucket.org/agaveapi/fonticons.git"
+}

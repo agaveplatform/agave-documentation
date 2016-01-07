@@ -1,0 +1,125 @@
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot?otgspq');
+	src:url('fonts/icomoon.eot?otgspq#iefix') format('embedded-opentype'),
+		url('fonts/icomoon.ttf?otgspq') format('truetype'),
+		url('fonts/icomoon.woff?otgspq') format('woff'),
+		url('fonts/icomoon.svg?otgspq#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-semantic-web:before {
+	content: "\f000";
+}
+.icon-share:before {
+	content: "\f006";
+}
+.icon-share-o:before {
+	content: "\f007";
+}
+.icon-oauth:before {
+	content: "\f008";
+}
+.icon-feed:before {
+	content: "\f009";
+}
+.icon-rss:before {
+	content: "\f00a";
+}
+.icon-geotag:before {
+	content: "\f00b";
+}
+.icon-openid:before {
+	content: "\f00d";
+}
+.icon-federated:before {
+	content: "\f011";
+}
+.icon-dataportability:before {
+	content: "\f013";
+}
+.icon-html5:before {
+	content: "\f016";
+}
+.icon-css3:before {
+	content: "\f017";
+}
+.icon-semantics:before {
+	content: "\f019";
+}
+.icon-qr:before {
+	content: "\f022";
+}
+.icon-info-card:before {
+	content: "\f024";
+}
+.icon-persona:before {
+	content: "\f027";
+}
+.icon-markdown:before {
+	content: "\f029";
+}
+.icon-device-access:before {
+	content: "\f031";
+}
+.icon-multimedia:before {
+	content: "\f032";
+}
+.icon-perfintegration:before {
+	content: "\f034";
+}
+.icon-webhooks:before {
+	content: "\f036";
+}
+.icon-wordpress:before {
+	content: "\f054";
+}
+.icon-unhosted:before {
+	content: "\f05b";
+}
+.icon-uniF080:before {
+	content: "\f080";
+}
+.icon-openstack:before {
+	content: "\e607";
+}
+.icon-aws:before {
+	content: "\e606";
+}
+.icon-hardhat2:before {
+	content: "\e604";
+}
+.icon-hardhat:before {
+	content: "\e603";
+}
+.icon-docker:before {
+	content: "\f100";
+}
+.icon-job:before {
+	content: "\e602";
+}
+.icon-server:before {
+	content: "\e600";
+}
+.icon-cpu:before {
+	content: "\e601";
+}
+.icon-agave:before {
+	content: "\e605";
+}
+

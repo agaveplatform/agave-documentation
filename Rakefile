@@ -1,3 +1,4 @@
+require './lib/redcarpet_mods'
 require 'middleman-gh-pages'
 require 'rake/clean'
 

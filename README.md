@@ -52,8 +52,8 @@ You're going to need:
 Or use the included Dockerfile! (must install Docker first)
 
 ```shell
-docker build -t slate .
-docker run -d -p 4567:4567 --name slate -v $(pwd)/source:/app/source slate
+docker build -t agave-documentation .
+docker run -d -p 4567:4567 --name agave-documentation -v $(pwd)/source:/app/source agave-documentation
 ```
 
 You can now see the docs at <http://localhost:4567>. Whoa! That was fast!
@@ -69,7 +69,6 @@ Examples of Slate in the Wild
 * [Travis-CI's API docs](http://docs.travis-ci.com/api/)
 * [Mozilla's localForage docs](http://mozilla.github.io/localForage/)
 * [Mozilla Recroom](http://mozilla.github.io/recroom/)
-* [ChaiOne Gameplan API docs](http://chaione.github.io/gameplanb2b/#introduction)
 * [Drcaban's Build a Quine tutorial](http://drcabana.github.io/build-a-quine/#introduction)
 * [PricePlow API docs](https://www.priceplow.com/api/documentation)
 * [Emerging Threats API docs](http://apidocs.emergingthreats.net/)
@@ -86,7 +85,7 @@ Examples of Slate in the Wild
 * [Whispir.io API](https://whispir.github.io/api)
 * [NASA API](https://data.nasa.gov/developer/external/planetary/)
 * [CardPay API](https://developers.cardpay.com/)
-* [IBM Cloudant](https://docs-testb.cloudant.com/content-review/_design/couchapp/index.html)
+* [IBM Cloudant](https://docs.cloudant.com/api.html)
 * [Bitrix basis components](http://bbc.bitrix.expert/)
 * [viagogo API Documentation](http://developer.viagogo.net/)
 * [Fidor Bank API Documentation](http://docs.fidor.de/)
@@ -97,6 +96,9 @@ Examples of Slate in the Wild
 * [SocialRadar's LocationKit Docs](https://docs.locationkit.io/)
 * [SafetyCulture API Documentation](https://developer.safetyculture.io/)
 * [hosting.de API Documentation](https://www.hosting.de/docs/api/)
+* [BlockCypher's API Documentation](http://dev.blockcypher.com)
+* [InterServer API Documentation](https://my.interserver.net/apidoc/)
+* [ActionHeroJS's API Documentation](http://www.actionherojs.com/docs)
 
 (Feel free to add your site to this list in a pull request!)
 

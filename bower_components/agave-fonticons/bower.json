@@ -1,0 +1,7 @@
+{
+  "name": "agave-fonticons",
+  "version": "1.0.0",
+  "main": ["./css/style.css"],
+  "ignore": ["config", "docset", "sass", "source", "styleguide", ".DS_Store", ".editorconfig", ".gitignore", ".npmignore", ".jshintrc", "bower.json", "compile.sh", "component.json", "composer.json", "Gruntfile.js", "package.json", "README.md"],
+  "description": "Agave Platform Font Icons"
+}

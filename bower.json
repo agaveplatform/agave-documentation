@@ -1,0 +1,29 @@
+{
+  "name": "agave-developer-docs",
+  "version": "1.4.4",
+  "homepage": "https://agaveapi.co",
+  "authors": [
+    "Rion Dooley <dooley@tacc.utexas.edu>"
+  ],
+  "description": "Developer documentation for the Agave Platform.",
+  "main": "js/app.js",
+  "keywords": [
+    "science-as-a-service",
+    "science",
+    "apis",
+    "agave"
+  ],
+  "license": "BSD-2Clause",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "prism": "~1.3.0",
+    "jquery": "~2.1.4",
+    "agave-fonticons": "git+https://bitbucket.org/agaveapi/fonticons.git"
+  }
+}
