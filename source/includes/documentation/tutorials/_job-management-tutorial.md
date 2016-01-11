@@ -94,7 +94,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@job.
 ``` 
 
 
-```cli
+```plaintext
 
 
 [/tabgroup]
@@ -484,13 +484,13 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "action=kill" https
 
 
 [tab title="Deleting"]
-```bash 
+```shell 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID
 ```
 
 
 [tab title="Resubmitting"]
-```bash 
+```shell 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "action=resubmit" https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID
 ```
 
@@ -504,18 +504,18 @@ As with the <a title="System Registration" href="http://agaveapi.co/system-regis
 Job permissions are managed through a set of URLs consistent with the permissions URL elsewhere in the API.
 
 ```shell
-```bash
+```shell
 curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID/pems
 ```
 
 Permissions granted to a specific user: 
-```bash
+```shell
 curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID/pems/$USERNAME
 ```
 
 
 [tab title="Adding &amp; Updating"]
-```bash 
+```shell 
 curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" -X POST -d "permission:$PERMISSION" https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID/$USERNAME
 ```
 
@@ -523,13 +523,13 @@ curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" -X POST -d "permission:$PERMI
 [tab title="Deleting"]
 Deleting permissions for all users on a job: 
 
-```bash 
+```shell 
 curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID
 ```
 
 Deleting permissions for a specific user on a job: 
 
-```bash
+```shell
 curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID/$USERNAME
 ``` 
 

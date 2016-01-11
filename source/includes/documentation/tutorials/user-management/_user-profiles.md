@@ -5,11 +5,11 @@ Agave provides a service for searching and viewing profile information about use
 ### Viewing a specific user profile  
 
 
-```bash  
+```shell  
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/profiles/v2/me
 ```  
 
-```cli
+```plaintext
 profiles-list -v me
 ```  
 
@@ -65,7 +65,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" http://$API_BASE_URL/profiles/
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" http://$API_BASE_URL/profiles/v2/search/username/$USERNAME
 ```  
 
-```cli
+```plaintext
 # Search by name
 profiles-list -v -N $NAME
 
@@ -90,13 +90,13 @@ Agave's hosted Identity service supports full CRUD access to user accounts throu
 To create a new user profile, send a POST request with a JSON description of the user to the `/profiles/v2/` endpoint.
 
 
-```bash  
+```shell  
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
    --data &#039;{"username":"rclemens","email":"rclemens@mlb.com", "firstname":"Roger","lastname":"Clemens"}&#039;
    "https://public.tenants.agaveapi.co/profiles/v2/
 ```  
 
-```cli
+```plaintext
 profiles-addupdate -v -F rclemens.json
 ```  
 
@@ -143,13 +143,13 @@ To update a user profile, make a PUT request to the URI of the user, passing the
 updated description of the user in the payload.
 
 
-```bash  
+```shell  
 curl -sk -X PUT -H "Authorization: Bearer $ACCESS_TOKEN"
    --data &#039;{"username":"rclemens","email":"rclemens@mlb.com", "firstname":"Roger","lastname":"Clemens"}&#039;
    "https://public.tenants.agaveapi.co/profiles/v2/rclemens
 ```  
 
-```cli
+```plaintext
 profiles-addupdate -v -F profile.json
 ```  
 
@@ -190,12 +190,12 @@ The response from the service will resemble the following:
 To delete a user profile, make a DELETE request to the URI of the user.
 
 
-```bash  
+```shell  
 curl -sk -X DELETE -H "Authorization: Bearer $ACCESS_TOKEN"
    "https://public.tenants.agaveapi.co/profiles/v2/rclemens
 ```  
 
-```cli
+```plaintext
 profiles-users-delete -v rclemens
 ```  
 

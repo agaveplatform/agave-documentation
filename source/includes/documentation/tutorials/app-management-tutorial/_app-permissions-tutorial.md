@@ -15,7 +15,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 ```
 
 
-```cli
+```plaintext
 apps-pems-list -v -u $USERNAME $APP_ID
 ```
 
@@ -51,7 +51,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 ```
 
 
-```cli
+```plaintext
 apps-pems-list -v $APP_ID
 ```
 
@@ -87,16 +87,16 @@ This time the service will respond with a JSON array of permission objects.
 Setting permissions is done by posting a JSON object containing a permission and username. Alternatively, you can POST just the permission and append the username to the URL.
 
 ```shell
-```bash
+```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "username=bgibson&amp;permission=READ" https://public.tenants.agaveapi.co/apps/v2/$APP_ID/pems
 ```
 Abbreviated POST data to grant permission to a single user
-```bash
+```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "permission=READ" https://public.tenants.agaveapi.co/apps/v2/$APP_ID/pems/bgibson
 ```
 
 
-```cli
+```plaintext
 apps-pems-update -v -u bgibson -p READ $APP_ID
 ```
 
@@ -132,12 +132,12 @@ The response will contain a JSON object representing the permission that was jus
 Permissions can be deleted on a user-by-user basis, or all at once. To delete an individual user permission, make a DELETE request on the user's app permission URL.
 
 [oldy]
-```bash
+```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/apps/v2/$APP_ID/bgibson
 ```
 
 
-```cli
+```plaintext
 apps-pems-delete -u bgibson $APP_ID
 ```
 
@@ -149,16 +149,16 @@ The response will be an empty result object.
 You can accomplish the same thing by updating the user permission to an empty value or <em>NONE</em>.
 
 ```shell
-```bash
+```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "username=bgibson&amp;permission=NONE" https://public.tenants.agaveapi.co/apps/v2/$APP_ID/pems
 ```
 Delete permission for a single user by updating with an empty permission value
-```bash
+```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "permission=" https://public.tenants.agaveapi.co/apps/v2/$APP_ID/pems/bgibson
 ```
 
 
-```cli
+```plaintext
 apps-pems-update -v -u bgibson $APP_ID
 ```
 
@@ -194,7 +194,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenan
 ```
 
 
-```cli
+```plaintext
 apps-pems-delete $APP_ID
 ```
 

@@ -17,7 +17,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 ```
 
 
-```cli
+```plaintext
 systems-list -v
 ```
 
@@ -62,45 +62,45 @@ The response will be a JSON array of summary system objects. The full system des
 You can further filter the results by type, scope, and default status.
 
 ```shell
-```bash
+```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?type=storage
 ```
 Only execution systems
-```bash
+```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?type=execution
 ```
 Only public systems
-```bash
+```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?publicOnly=true
 ```
 Only private systems
-```bash
+```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?privateOnly=true
 ```
 Only give the user's default systems
-```bash
+```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?default=true
 ```
 
 
-```cli
-```bash
+```plaintext
+```shell
 systems-list -v -S
 ```
 Only execution systems
-```bash
+```shell
 systems-list -v -E
 ```
 Only public systems
-```bash
+```shell
 systems-list -v -P
 ```
 Only private systems
-```bash
+```shell
 systems-list -v -Q
 ```
 Only give the user's default systems
-```bash
+```shell
 systems-list -v -D
 ```
 
@@ -112,7 +112,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 ```
 
 
-```cli
+```plaintext
 systems-list -v $SYSTEM_ID
 ```
 
@@ -526,7 +526,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -F "fileToUpload=@sftp-passwor
 ```
 
 
-```cli
+```plaintext
 systems-addupdate -v -F sftp-password.json
 ```
 
@@ -818,7 +818,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -F "fileToUpload=@ssh-password
 ```
 
 
-```cli
+```plaintext
 systems-addupdate -v -F ssh-password.json
 ```
 
@@ -913,7 +913,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=clone&amp;id
 ```
 
 
-```cli
+```plaintext
 systems-clone -v -I systest.demo.clone $SYSTEM_ID
 ```
 
@@ -959,7 +959,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=publish" htt
 ```
 
 
-```cli
+```plaintext
 systems-publish -v $SYSTEM_ID
 ```
 
@@ -973,7 +973,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unpublish" h
 ```
 
 
-```cli
+```plaintext
 systems-unpublish -v $SYSTEM_ID
 ```
 
@@ -999,7 +999,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=setdefault" 
 ```
 
 
-```cli
+```plaintext
 systems-setdefault -v $SYSTEM_ID
 ```
 
@@ -1015,7 +1015,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unsetDefault
 ```
 
 
-```cli
+```plaintext
 systems-unsetdefault -v $SYSTEM_ID
 ```
 
@@ -1029,7 +1029,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=setglobaldef
 ```
 
 
-```cli
+```plaintext
 systems-setdefault -v -G $SYSTEM_ID
 ```
 
@@ -1045,7 +1045,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unsetGlobalD
 ```
 
 
-```cli
+```plaintext
 systems-unsetdefault -v -G $SYSTEM_ID
 ```
 
@@ -1061,7 +1061,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenan
 ```
 
 
-```cli
+```plaintext
 systems-delete $SYSTEM_ID
 ```
 

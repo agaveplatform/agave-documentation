@@ -6,23 +6,10 @@ In the last beginner's guide on system discovery we found several public systems
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/files/v2/listings/data.iplantcollaborative.org/$API_USERNAME
 ```
 
-```cli
+```plaintext
 files-list -v -S data.iplantcollaborative.org $API_USERNAME
 ```
-
-Browsing files and folders with Agave's Files service is the same regardless of the type, location, or protocols used by the underlying storage system. Let's list our home directory to see how it's done.
-
-```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/files/v2/listings/data.iplantcollaborative.org/$API_USERNAME
-```
-
-```cli
-files-list -v -S data.iplantcollaborative.org $API_USERNAME
-```
-
-The response to this contains a summary listing of the contents of our home directory on `data.iplantcollaborative.org`. Appending a file path to our commands above would give information on a specific file.
-
-```javascript
+```json
 [
     {
         "format": "folder",
@@ -45,6 +32,11 @@ The response to this contains a summary listing of the contents of our home dire
     }
 ]
 ```
+Browsing files and folders with Agave's Files service is the same regardless of the type, location, or protocols used by the underlying storage system. Let's list our home directory to see how it's done.`
+
+The response to this contains a summary listing of the contents of our home directory on `data.iplantcollaborative.org`. Appending a file path to our commands above would give information on a specific file.
+
+
 
 ## Uploading data  
 
@@ -52,15 +44,10 @@ The response to this contains a summary listing of the contents of our home dire
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@files/picksumipsum.txt" https://public.tenants.agaveapi.co/files/v2/media/data.iplantcollaborative.org/$API_USERNAME
 ```
 
-```cli
+```plaintext
 files-upload -v -F files/picksumipsum.txt -S data.iplantcollaborative.org $API_USERNAME
 ```
-
-You may upload data to a remote systems by performing a multipart POST on the FILES service. Using the CLI, recursive directory uploads are supported. If you are manually calling curl, you will need to manually create the directories and upload the local contents one at a time. You can take a look in the `files-upload` script to see how this is done. Let's keep moving forward with our lesson by uploading a file we can use in the rest of this section. 
-
-You will see a progress bar while the file uploads, followed by a response from the server with a description of the uploaded file. Agave does not block during data movement operations, so it may be just a second before the file physically shows up on the remote system.
-
-```javascript
+```json
 {
     "_links": {
         "history": {
@@ -85,14 +72,20 @@ You will see a progress bar while the file uploads, followed by a response from 
     "uuid": "0001409758089943-5056a550b8-0001-002"
 }
 ```
+You may upload data to a remote systems by performing a multipart POST on the FILES service. Using the CLI, recursive directory uploads are supported. If you are manually calling curl, you will need to manually create the directories and upload the local contents one at a time. You can take a look in the `files-upload` script to see how this is done. Let's keep moving forward with our lesson by uploading a file we can use in the rest of this section. 
+
+You will see a progress bar while the file uploads, followed by a response from the server with a description of the uploaded file. Agave does not block during data movement operations, so it may be just a second before the file physically shows up on the remote system.
 
 ## Importing data from a URL  
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -- data &#039;{ "url":"https://bitbucket.org/taccaci/agave-samples/raw/master/README.md"}&#039; https://public.tenants.agaveapi.co/files/v2/media/data.iplantcollaborative.org/$API_USERNAME
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -H "Content-Type: application/json" -F "fileToUpload=@" https://public.tenants.agaveapi.co/files/v2/media/data.iplantcollaborative.org/$API_USERNAME
+{ 
+  "url": "https://bitbucket.org/taccaci/agave-samples/raw/master/README.md" 
+}
 ```
 
-```cli
+```plaintext
 files-import -v -U "https://bitbucket.org/taccaci/agave-samples/raw/master/README.md" -S data.iplantcollaborative.org $API_USERNAME
 ```
 
@@ -106,10 +99,13 @@ For this exercise, the file we just imported is just a few KB, so you should see
 ## Transferring data between systems  
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -- data &#039;{ "url":"agave://stampede.tacc.utexas.edu//etc/motd"}&#039; https://public.tenants.agaveapi.co/files/v2/media/data.iplantcollaborative.org/$API_USERNAME
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@" https://public.tenants.agaveapi.co/files/v2/media/data.iplantcollaborative.org/$API_USERNAME
+{ 
+  "url": "agave://stampede.tacc.utexas.edu//etc/motd"
+}
 ```
 
-```cli
+```plaintext
 files-import -v -U "agave://stampede.tacc.utexas.edu//etc/motd" -S data.iplantcollaborative.org $API_USERNAME
 ```
 
@@ -122,34 +118,99 @@ The response from the service will be nearly identical to the one we received im
 
 ## Performing operations on your data  
 
+Standard data management tasks are supported as well. Agave gives you a common interface for interacting with your data.
+
+### Creating directories
+ 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@files/picksumipsum.txt" https://public.tenants.agaveapi.co/files/v2/media/data.iplantcollaborative.org/$API_USERNAME
+curl -sk -H "Authorization: Bearer 35ed548df42cb551e7a5dbbc28a37d32" -X PUT -d "action=mkdir&path=foo/biz" https://agave.iplantc.org/files/v2/media/dooley?pretty=true&naked=true
+```
+```plaintext
+files-mkdir -N foo/biz -V dooley
+```
+```json
+{
+    "name" : "biz",
+    "uuid" : "4639785346841317861-e0bd34dffff8de6-0001-002",
+    "owner" : "dooley",
+    "internalUsername" : null,
+    "lastModified" : "2016-01-11T11:39:23.054-06:00",
+    "source" : "dooley/foo/biz",
+    "path" : "dooley/foo/biz",
+    "status" : "TRANSFORMING_COMPLETED",
+    "systemId" : "data.iplantcollaborative.org",
+    "nativeFormat" : "dir",
+    "_links" : {
+      "self" : {
+        "href" : "https://agave.iplantc.org/files/v2/media/system/data.iplantcollaborative.org/dooley/foo/biz"
+      },
+      "system" : {
+        "href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+      },
+      "history" : {
+        "href" : "https://agave.iplantc.org/files/v2/history/system/data.iplantcollaborative.org/dooley/foo/biz"
+      }
+    }
+}
+```
+Creating a single directory or a nested directory hierarchy is identical. Simply supply the new directory list as the new directory name. The appropriate result will be created relative to the path you specify.
+
+
+### Copying data 
+
+```shell
+$ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@files/picksumipsum.txt" https://public.tenants.agaveapi.co/files/v2/media/data.iplantcollaborative.org/$API_USERNAME $API_USERNAME/foo/picksumipsum.txt -S data.iplantcollaborative.org $ $API_USERNAME/picksumipsum.txt
+``` 
+
+```plaintext
+$ files-copy -D $API_USERNAME/foo/picksumipsum.txt -S data.iplantcollaborative.org $ $API_USERNAME/picksumipsum.txt
 ```
 
-```cli
+### Moving data 
+
+```shell 
+# Move a file or folder
+$ files-move -D $API_USERNAME/foo/picksumipsum2.txt -S data.iplantcollaborative.org $API_USERNAME/foo/picksumipsum.txt
+```
+
+```plaintext 
+files-list -S data.iplantcollaborative.org $API_USERNAME/foo 
+```
+
+```json 
+
+```
+
+# Rename a file or folder
+$ files-rename -N picksumipsum.txt -S data.iplantcollaborative.org $API_USERNAME/foo/picksumipsum2.txt
+Successfully renamed $API_USERNAME/foo/picsumipsum2.txt to $API_USERNAME/foo/picsumipsum.txt
+
+
+
+```
+
+```plaintext
+# Create a directory
 $ files-mkdir -N foo -S data.iplantcollaborative.org $API_USERNAME
-Successfully created directory $API_USERNAME/foo
-$ files-list -S data.iplantcollaborative.org $API_USERNAME
-.
-foo
-motd
-picksumipsum.txt
-README.md
+
+# Copy a file or folder
 $ files-copy -D $API_USERNAME/foo/picksumipsum.txt -S data.iplantcollaborative.org $ $API_USERNAME/picksumipsum.txt
 Successfully copied $API_USERNAME/picsumipsum.txt to $API_USERNAME/foo/picsumipsum.txt
 $ files-list -S data.iplantcollaborative.org $API_USERNAME/foo
 .
 picksumipsum.txt
+
+# Move a file or folder
 $ files-move -D $API_USERNAME/foo/picksumipsum2.txt -S data.iplantcollaborative.org $API_USERNAME/foo/picksumipsum.txt
 Successfully moved $API_USERNAME/foo/picsumipsum.txt to $API_USERNAME/foo/picsumipsum2.txt
 $ files-list -S data.iplantcollaborative.org $API_USERNAME/foo
 .
 picksumipsum2.txt
+
+# Rename a file or folder
 $ files-rename -N picksumipsum.txt -S data.iplantcollaborative.org $API_USERNAME/foo/picksumipsum2.txt
 Successfully renamed $API_USERNAME/foo/picsumipsum2.txt to $API_USERNAME/foo/picsumipsum.txt
-$ files-list -S data.iplantcollaborative.org $API_USERNAME/foo
-.
-picksumipsum.txt 
+
 ``` 
 
 Similar to the POSIX paradigm, we can create, copy, move, rename, and delete files and folders. Let's try these out on one of the files we just uploaded. For brevity, we omitted the `-v` option from the CLI calls to get abbreviated output.
@@ -161,7 +222,7 @@ Similar to the POSIX paradigm, we can create, copy, move, rename, and delete fil
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/files/v2/media/data.iplantcollaborative.org/$API_USERNAME/foo/picksumipsum.txt
 ```
 
-```cli
+```plaintext
 files-history -S data.iplantcollaborative.org $API_USERNAME/foo/picksumipsum.txt
 ```
 
@@ -195,7 +256,7 @@ Before we delete our sample data, let's briefly point out one other feature of t
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/files/v2/media/data.iplantcollaborative.org/$API_USERNAME/foo
 ```
 
-```cli
+```plaintext
 files-delete -S data.iplantcollaborative.org $API_USERNAME/foo
 ```
 

@@ -19,7 +19,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@post
 ```
 
 
-```cli
+```plaintext
 postits-create -v -m 2 https://public.tenants.agaveapi.co/meta/v2/data/0001409792924730-5056a550b8-0001-012
 ```
 
@@ -64,7 +64,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@outp
 ```
 
 
-```cli
+```plaintext
 postits-create -v -m 2 https://public.tenants.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt
 ```
 
@@ -101,6 +101,6 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenan
 ```
 
 
-```cli
+```plaintext
 postits-delete -v https://public.tenants.agaveapi.co/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f
 ```

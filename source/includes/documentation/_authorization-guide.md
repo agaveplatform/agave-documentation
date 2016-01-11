@@ -48,7 +48,7 @@ The method is suitable for long-running applications in which the user logs in o
 
 ### 1. Your application requests authorization  
 
-```shell
+```always
 # A typical request will look something like this
 GET https://public.tenants.agaveapi.co/authorize/?client_id=gTgp...SV8a&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&amp;scope=PRODUCTION&amp;state=866
 ```
@@ -67,14 +67,14 @@ When the user is logged in, they are asked to authorize access to the actions an
 
 ### 3. The user is redirected back to your specified URI  
 
-```shell
+```always
 # Let's assume you provided the following callback URL
 https://example.com/callback
 ```
 
 After the user accepts (or denies) your request, the Agave Authorization service redirects back to the redirect_uri. If the user has accepted your request, the response query string contains a `code` parameter with the access code you will use in the next step to retrieve an access token. 
 
-```shell
+```always
 # Sample success redirect back from the server
 https://example.com/callback?code=Pq3S..M4sY&amp;state=866
 ```
@@ -83,7 +83,7 @@ https://example.com/callback?code=Pq3S..M4sY&amp;state=866
 
 If the user has denied access, there will be no access token and the final URL will have a query string containing the following parameters:
 
-```shell
+```always
 # Sample denial redirect back from the server 
 https://example.com/callback?error=access_denied&amp;state=867
 ```
@@ -93,7 +93,7 @@ https://example.com/callback?error=access_denied&amp;state=867
 
 ### 4. Your application requests refresh and access tokens  
 
-```shell
+```always
 POST https://public.tenants.agaveapi.co/token
 ```
 
@@ -103,7 +103,7 @@ When the authorization code has been received, you will need to exchange it with
 
 ### 5. The tokens are returned to your application  
 
-```shell
+```always
 # An example cURL request 
 curl -X POST -d "grant_type= authorization_code"
     -d "code=Pq3S..M4sY"
@@ -127,7 +127,7 @@ On success, the response from the Agave Authorization service has the status cod
 
 ### 6. Use the access token to access the Agave REST APIs  
 
-```shell
+```always
 # Request a refresh token
 curl -H "Authorization: Bearer a742...12d2" https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true&naked=true
 ```  
@@ -150,7 +150,7 @@ Once you have a valid access token, you can include it in `Authorization` header
 
 ### 7. Requesting access token from refresh token  
 
-```shell
+```always
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=refresh_token
     -d refresh_token=d77c...Sacf https://public.tenants.agaveapi.co/token
@@ -191,7 +191,7 @@ Implicit grant flow is for clients that are implemented entirely using JavaScrip
 
 ### 1. Your application requests authorization  
 
-```shell
+```always
 https://public.tenants.agaveapi.co/authorize?client_id=gTgp...SV8a&amp;redirect_uri=http:%2F%2Fexample.com%2Fcallback&amp;scope=PRODUCTION&amp;response_type=token&amp;state=867
 ```
 
@@ -208,7 +208,7 @@ When the user is logged in, they are asked to authorize access to the services d
 
 ### 3. The user is redirected back to your specified URI  
 
-```shell
+```always
 # Let's assume we specified the following callback address 
 https://example.com/callback
 
@@ -222,7 +222,7 @@ After the user grants (or denies) access, the Agave Authorization service redire
 
 If the user has denied access, there will be no access token and the final URL will have a query string containing the following parameters:
 
-```shell
+```always
 # Failed response
 https://example.com/callback?error=access_denied&amp;state=867
 ```
@@ -230,10 +230,10 @@ https://example.com/callback?error=access_denied&amp;state=867
 
 ### 4. Use the access token to access the Agave REST APIs
 
-```shell
+```always
 curl -H "Authorization: Bearer 61e6...Mc96" https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true
-```
-```javascript
+``` 
+```json
 {
     "create_time": "20140905072223Z",
     "email": "nryan@mlb.com",
@@ -259,14 +259,14 @@ The method is suitable for scenarios where there is a high degree of trust betwe
 
 ### 1. Your application requests authorization  
 
-```shell
+```always
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=password
     -d username=rjohnson
     -d password=password
     -d scope=PRODUCTION https://public.tenants.agaveapi.co/token
-```
-```json
+``` 
+```json    
 {
     "access_token": "3Dsr...pv21",
     "expires_in": 14400,
@@ -285,7 +285,7 @@ The header of this POST request must contain the following parameter:
 
 <aside class="notice">It is not necessary for the username and password sent in the authorization request correspond to those of the client credentials owner, you can obtain an access token for any user provided you have their username and password. It is important to note that this flow should ***only*** be used in situations of high trust where no browser is available to handle the HTTP redirects required by the Authorization Code flow. Collecting and/or unnecessarily exposing user passwords is a violation of the <a href="/terms-of-service/" title="Terms of Service">Terms of Service</a> and subject to immediate account revocation.</aside>
 
-```shell
+```always
 https://example.com/callback?error=access_denied
 ```
 
@@ -293,7 +293,7 @@ If the user has not accepted your request or an error has occurred, the response
 
 ### 2. Use the access token to access the Agave REST APIs  
 
-```shell
+```always
 curl -H "Authorization: Bearer 3Dsr...pv21" https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true
 ```
 ```json
@@ -315,7 +315,7 @@ The access token allows you to make requests to any of the Agave REST APIs on be
 
 ### 3. Requesting access token from refresh token  
 
-```shell
+```always
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=refresh_token
     -d refresh_token=dyVa...MqR0
@@ -347,7 +347,7 @@ The method is suitable for authenticating your requests to the Agave REST API. T
 
 ### 1. Your application requests authorization  
 
-```shell
+```always
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=client_credentials
     -d scope=PRODUCTION https://public.tenants.agaveapi.co/token
@@ -371,21 +371,32 @@ The header of this POST request must contain the following parameter:
 
 ### 2. Use the access token to access the Agave REST APIs  
 
-```shell
+```always
 curl -H "Authorization: Bearer 61e6...Mc96" https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true
-```
+``` 
 ```json
 {
-    "create_time": "20140905072223Z",
     "email": "nryan@mlb.com",
-    "first_name": "Nolan",
-    "full_name": "Nolan Ryan",
-    "last_name": "Ryan",
-    "mobile_phone": "(123) 456-7890",
+    "firstName" : "Nolan",
+    "lastName" : "Ryan",
+    "position" : "null",
+    "institution" : "Houston Astros",
     "phone": "(123) 456-7890",
-    "status": "Active",
-    "uid": 0,
-    "username": "nryan"
+    "fax" : null,
+    "researchArea" : null,
+    "department" : null,
+    "city" : "Houston",
+    "state" : "TX",
+    "country" : "USA",
+    "gender" : "M",
+    "_links" : {
+      "self" : {
+        "href" : "https://public.tenants.agaveapi.co/profiles/v2/nryan"
+      },
+      "users" : {
+        "href" : "https://public.tenants.agaveapi.co/profiles/v2/nryan/users"
+      }
+    }
 }
 ```
 

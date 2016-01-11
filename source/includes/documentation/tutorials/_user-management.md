@@ -22,7 +22,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "username=testuser&
 
 
 
-```cli
+```plaintext
 
 ```
 
@@ -89,7 +89,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@prof
 ```
 
 
-```cli
+```plaintext
 metadata-addupdate -v -F profile_ex 
 ```
 
@@ -142,7 +142,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "password=abcd123&am
 ```
 
 
-```cli
+```plaintext
 profiles-update -v -p abcd123 -e "testuser@test.com" -f Test -l User testuser
 ```
 
@@ -180,7 +180,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenan
 ```
 
 
-```cli
+```plaintext
 profiles-delete -v testuser
 ```
 

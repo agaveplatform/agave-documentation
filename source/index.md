@@ -2,8 +2,8 @@
 title: Agave Platform Developer Documentation
 
 language_tabs:
-  - shell
-  - cli
+  - shell: cURL
+  - plaintext: CLI
 
 toc_footers:
   - <a href='https://public.agaveapi.co/signup'>Sign Up for a Developer Key</a>

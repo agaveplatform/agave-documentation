@@ -1,6 +1,6 @@
 # App Tutorial 
 
-> binary code + system = app
+    binary code + system = app
 
 We saw in the <a href="http://agaveapi.co/documentation/beginners-guides/system-discovery/" title="System Discovery">System Discovery</a> guide that there were both storage and execution systems. The <a href="http://agaveapi.co/documentation/beginners-guides/managing-data/" title="Managing Data">Data Management</a> guide covered interacting with storage systems. In this section we look at Apps, which are the primary point of interaction with execution systems.
 
@@ -11,120 +11,47 @@ An app in Agave is most easily thought of as the installation of a simulation co
 ```shell 
 curl -sk -H "Authorization: Bearer ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/apps/v2
 ``` 
-
-```cli 
+```plaintext 
 apps-list -v
+```
+```json
+[  
+  {  
+    "executionSystem":"docker.agaveapi.co",
+    "id":"cloud-runner-0.1.0u1",
+    "isPublic":true,
+    "lastModified":"2014-06-30T17:19:56.000-05:00",
+    "name":"cloud-runner",
+    "revision":1,
+    "shortDescription":"Generic app to run arbitrary docker images in the cloud.",
+    "version":"0.1.0",
+    "_links":{  
+      "self":{  
+        "href":"https://public.tenants.agaveapi.co/apps/v2/cloud-runner-0.1.0u1"
+      }
+    }
+  },
+  {  
+    "executionSystem":"docker.agaveapi.co",
+    "id":"wordcount-1.0u1",
+    "isPublic":true,
+    "lastModified":"2014-06-30T17:19:56.000-05:00",
+    "name":"wordcount",
+    "revision":1,
+    "shortDescription":"Demo R app running as a Docker container.",
+    "version":"1.0",
+    "_links":{  
+      "self":{  
+        "href":"https://public.tenants.agaveapi.co/apps/v2/wordcount-1.0u1"
+      }
+    }
+  }
+]
 ```
 
 To view a list of all the apps available to you, make a GET request to the Apps service.
 
 The response is a JSON array of summary app descriptions.
-
-```shell
-[  
-   {  
-      "executionSystem":"condor.opensciencegrid.org",
-      "id":"wc-osg-1.00u1",
-      "isPublic":true,
-      "lastModified":"2014-06-07T12:29:12.000-05:00",
-      "name":"wc-osg",
-   }
-]
-```
-```cli
-[  
-   {  
-      "executionSystem":"condor.opensciencegrid.org",
-      "id":"wc-osg-1.00u1",
-      "isPublic":true,
-      "lastModified":"2014-06-07T12:29:12.000-05:00",
-      "name":"wc-osg",
-      "revision":1,
-      "shortDescription":"Count words in a file",
-      "version":"1.00",
-      "_links":{  
-         "self":{  
-            "href":"https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00u1"
-         }
-      }
-   },
-   {  
-      "executionSystem":"docker.iplantcollaborative.org",
-      "id":"docker-python-demo-0.1.0u2",
-      "isPublic":true,
-      "lastModified":"2014-06-13T12:13:47.000-05:00",
-      "name":"docker-python-demo",
-      "revision":2,
-      "shortDescription":"Demo Python app running as a Docker container.",
-      "version":"0.1.0",
-      "_links":{  
-         "self":{  
-            "href":"https://public.tenants.agaveapi.co/apps/v2/docker-python-demo-0.1.0u2"
-         }
-      }
-   },
-   {  
-      "executionSystem":"docker.iplantcollaborative.org",
-      "id":"docker-python-demo-0.1.0u1",
-      "isPublic":true,
-      "lastModified":"2014-06-07T19:02:53.000-05:00",
-      "name":"docker-python-demo",
-      "revision":1,
-      "shortDescription":"Demo Python app running as a Docker container.",
-      "version":"0.1.0",
-      "_links":{  
-         "self":{  
-            "href":"https://public.tenants.agaveapi.co/apps/v2/docker-python-demo-0.1.0u1"
-         }
-      }
-   },
-   {  
-      "executionSystem":"docker.iplantcollaborative.org",
-      "id":"docker-python-demo-0.1.0u3",
-      "isPublic":true,
-      "lastModified":"2014-06-30T17:20:12.000-05:00",
-      "name":"docker-python-demo",
-      "revision":3,
-      "shortDescription":"Demo Python app running as a Docker container.",
-      "version":"0.1.0",
-      "_links":{  
-         "self":{  
-            "href":"https://public.tenants.agaveapi.co/apps/v2/docker-python-demo-0.1.0u3"
-         }
-      }
-   },
-   {  
-      "executionSystem":"docker.iplantcollaborative.org",
-      "id":"docker-r-demo-0.1.0u1",
-      "isPublic":true,
-      "lastModified":"2014-06-07T19:02:41.000-05:00",
-      "name":"docker-r-demo",
-      "revision":1,
-      "shortDescription":"Demo R app running as a Docker container.",
-      "version":"0.1.0",
-      "_links":{  
-         "self":{  
-            "href":"https://public.tenants.agaveapi.co/apps/v2/docker-r-demo-0.1.0u1"
-         }
-      }
-   },
-   {  
-      "executionSystem":"docker.iplantcollaborative.org",
-      "id":"docker-r-demo-0.1.0u2",
-      "isPublic":true,
-      "lastModified":"2014-06-30T17:19:56.000-05:00",
-      "name":"docker-r-demo",
-      "revision":2,
-      "shortDescription":"Demo R app running as a Docker container.",
-      "version":"0.1.0",
-      "_links":{  
-         "self":{  
-            "href":"https://public.tenants.agaveapi.co/apps/v2/docker-r-demo-0.1.0u2"
-         }
-      }
-   }
-]
-```
 
 <aside class="notice">Depending on who is administering the Agave platform for your organization, you may see many or few apps returned from the above response. This is normal and has to do with what systems and apps they have chosen to make publicly available. If you don't see any apps there by default, no worries, see the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a> for a quick reference on how to add your own.</aside>
 
@@ -134,7 +61,7 @@ The response is a JSON array of summary app descriptions.
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00u1
 ``` 
 
-```cli
+```plaintext
 apps-list -v wc-osg-1.00u1
 ``` 
 
@@ -143,119 +70,119 @@ Appending an app's id to the above commands will give the full app description. 
 
 The response is a JSON object with a lot of information that we elaborate more on in the App Service tutorial.
 
-```json
-{
-   "available":true,
-   "checkpointable":true,
-   "defaultMaxRunTime":null,
-   "defaultMemoryPerNode":null,
-   "defaultNodeCount":null,
-   "defaultProcessorsPerNode":null,
-   "defaultQueue":null,
-   "deploymentPath":"/api/v2/apps/wc-osg-1.00u1.zip",
-   "deploymentSystem":"data.iplantcollaborative.org",
-   "executionSystem":"condor.opensciencegrid.org",
-   "executionType":"CONDOR",
-   "helpURI":"http://www.gnu.org/s/coreutils/manual/html_node/wc-invocation.html",
-   "icon":null,
-   "id":"wc-osg-1.00u1",
-   "inputs":[  
-      {  
-         "details":{  
-            "argument":null,
-            "description":"",
-            "label":"File to count words in: ",
-            "showArgument":false,
-            "visible":true
-         },
-         "id":"query1",
-         "semantics":{  
-            "fileTypes":[  
-               "text-0"
-            ],
-            "minCardinality":1,
-            "ontology":[  
-               "http://sswapmeet.sswap.info/util/TextDocument"
-            ]
-         },
-         "value":{  
-            "default":"read1.fq",
-            "order":0,
-            "required":false,
-            "validator":"",
-            "visible":true
-         }
+```json 
+{  
+  "available":true,
+  "checkpointable":true,
+  "defaultMaxRunTime":null,
+  "defaultMemoryPerNode":null,
+  "defaultNodeCount":null,
+  "defaultProcessorsPerNode":null,
+  "defaultQueue":null,
+  "deploymentPath":"/api/v2/apps/wc-osg-1.00u1.zip",
+  "deploymentSystem":"data.iplantcollaborative.org",
+  "executionSystem":"condor.opensciencegrid.org",
+  "executionType":"CONDOR",
+  "helpURI":"http://www.gnu.org/s/coreutils/manual/html_node/wc-invocation.html",
+  "icon":null,
+  "id":"wc-osg-1.00u1",
+  "inputs":[  
+    {  
+      "details":{  
+        "argument":null,
+        "description":"",
+        "label":"File to count words in: ",
+        "showArgument":false,
+        "visible":true
+      },
+      "id":"query1",
+      "semantics":{  
+        "fileTypes":[  
+          "text-0"
+        ],
+        "minCardinality":1,
+        "ontology":[  
+          "http://sswapmeet.sswap.info/util/TextDocument"
+        ]
+      },
+      "value":{  
+        "default":"read1.fq",
+        "order":0,
+        "required":false,
+        "validator":"",
+        "visible":true
       }
-   ],
-   "isPublic":true,
-   "label":"wc condor",
-   "lastModified":"2014-06-07T12:29:12.000-05:00",
-   "longDescription":"",
-   "modules":[  
-      "load TACC",
-      "purge"
-   ],
-   "name":"wc-osg",
-   "ontology":[  
-      "http://sswapmeet.sswap.info/algorithms/wc"
-   ],
-   "outputs":[  
-      {  
-         "details":{  
-            "description":"Results of WC",
-            "label":"Text file"
-         },
-         "id":"outputWC",
-         "semantics":{  
-            "fileTypes":[  
+    }
+  ],
+  "isPublic":true,
+  "label":"wc condor",
+  "lastModified":"2014-06-07T12:29:12.000-05:00",
+  "longDescription":"",
+  "modules":[  
+    "load TACC",
+    "purge"
+  ],
+  "name":"wc-osg",
+  "ontology":[  
+    "http://sswapmeet.sswap.info/algorithms/wc"
+  ],
+  "outputs":[  
+    {  
+      "details":{  
+        "description":"Results of WC",
+        "label":"Text file"
+      },
+      "id":"outputWC",
+      "semantics":{  
+        "fileTypes":[  
 
-            ],
-            "maxCardinality":1,
-            "minCardinality":1,
-            "ontology":[  
-               "http://sswapmeet.sswap.info/util/TextDocument"
-            ]
-         },
-         "value":{  
-            "default":"wc_out.txt",
-            "validator":""
-         }
+        ],
+        "maxCardinality":1,
+        "minCardinality":1,
+        "ontology":[  
+          "http://sswapmeet.sswap.info/util/TextDocument"
+        ]
+      },
+      "value":{  
+        "default":"wc_out.txt",
+        "validator":""
       }
-   ],
-   "parallelism":"SERIAL",
-   "parameters":[  
+    }
+  ],
+  "parallelism":"SERIAL",
+  "parameters":[  
 
-   ],
-   "revision":1,
-   "shortDescription":"Count words in a file",
-   "tags":[  
-      "gnu",
-      "textutils"
-   ],
-   "templatePath":"/wrapper.sh",
-   "testPath":"/wrapper.sh",
-   "uuid":"0001402162152914-5056a550b8-0001-005",
-   "version":"1.00",
-   "_links":{  
-      "executionSystem":{  
-         "href":"https://public.tenants.agaveapi.co/systems/v2/condor.opensciencegrid.org"
-      },
-      "metadata":{  
-         "href":"https://public.tenants.agaveapi.co/meta/v2/data/?q={\\"associationIds\\":\\"0001402162152914-5056a550b8-0001-005\\"}"
-      },
-      "owner":{  
-         "href":"https://public.tenants.agaveapi.co/profiles/v2/dooley"
-      },
-      "permissions":{  
-         "href":"https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00u1/pems"
-      },
-      "self":{  
-         "href":"https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00u1"
-      },
-      "storageSystem":{  
-         "href":"https://public.tenants.agaveapi.co/systems/v2/data.iplantcollaborative.org"
-      }
-   }
+  ],
+  "revision":1,
+  "shortDescription":"Count words in a file",
+  "tags":[  
+    "gnu",
+    "textutils"
+  ],
+  "templatePath":"/wrapper.sh",
+  "testPath":"/wrapper.sh",
+  "uuid":"0001402162152914-5056a550b8-0001-005",
+  "version":"1.00",
+  "_links":{  
+    "executionSystem":{  
+      "href":"https://public.tenants.agaveapi.co/systems/v2/condor.opensciencegrid.org"
+    },
+    "metadata":{  
+      "href":"https://public.tenants.agaveapi.co/meta/v2/data/?q={\"associationIds\":\"0001402162152914-5056a550b8-0001-005\"}"
+    },
+    "owner":{  
+      "href":"https://public.tenants.agaveapi.co/profiles/v2/dooley"
+    },
+    "permissions":{  
+      "href":"https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00u1/pems"
+    },
+    "self":{  
+      "href":"https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00u1"
+    },
+    "storageSystem":{  
+      "href":"https://public.tenants.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+    }
+  }
 }
 ```
 

@@ -29,7 +29,7 @@ In order to authenticate and interact with the API, you will need to get a set o
 ```shell
 curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "client_name=my_cli_app&description=Client app used for scripting up cool stuff" https://public.tenants.agaveapi.co/clients/v2
 ```
-```cli
+```plaintext
 clients-create -S -v -N my_cli_app -D "Client app used for scripting up cool stuff"
 ```
 > Note: the -S option will store the new API keys for future use so you don't need to manually enter then when you authenticate later.
@@ -74,7 +74,7 @@ Using the API username, password, and keys from above, you can obtain an authent
 curl -sku "hZ_z3f4Hf3CcgvGoMix0aksN4BOD6:gTgpCecqtOc6Ao3GmZ_FecVSSV8a" -X POST -d "grant_type=client_credentials&username=$API_USERNAME&password=$API_USERNAME&scope=PRODUCTION" -H "Content-Type:application/x-www-form-urlencoded" https://public.tenants.agaveapi.co/token
 ```
 
-```cli
+```plaintext
 auth-tokens-create -S -v
 ```
 > Note: the -S option will store the token for future use so you don't need to keep re-authenticating with every call.

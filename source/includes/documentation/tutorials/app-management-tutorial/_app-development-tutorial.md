@@ -256,7 +256,7 @@ curl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c" -X POST -d 
 
 
 [oldy]
-```bash
+```shell
 # Check to see if you have an applications directory
 files-list -S data.iplantcollaborative.org $IPLANTUSERNAME/applications
 # If you see: File/folder does not exist

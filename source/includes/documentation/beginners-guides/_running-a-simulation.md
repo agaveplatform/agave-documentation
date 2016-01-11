@@ -28,7 +28,7 @@ Running a job is simply a matter of sending a POST request to the Jobs service w
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST --data &#039;&#039; https://public.tenants.agaveapi.co/jobs/v2
 ```
 
-```cli
+```plaintext
 jobs-submit -v -F submit.json
 ```
 
@@ -105,7 +105,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 ```
 ```
 
-```cli
+```plaintext
 jobs-status -v 0001409784588509-5056a550b8-0001-007
 ```
 
@@ -147,7 +147,7 @@ As with the Files service, Agave keeps a complete history of all activity relate
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/history```
 
-```cli
+```plaintext
 jobs-history -v 0001409784588509-5056a550b8-0001-007
 ```
 
@@ -271,7 +271,7 @@ Now that your job has completed, you will probably want to retrieve the output. 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/listing```
 
-```cli
+```plaintext
 jobs-output -v 0001409784588509-5056a550b8-0001-007
 ```
 
@@ -429,7 +429,7 @@ Downloading job data is just as easy and uses the same conventions from the File
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/output.txt```
 
-```cli
+```plaintext
 jobs-output -D -P output.txt 0001409784588509-5056a550b8-0001-007
 ```
 

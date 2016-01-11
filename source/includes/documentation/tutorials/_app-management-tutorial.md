@@ -12,13 +12,13 @@ Registering an app with the Apps service is conceptually simple. Just describe y
 
 The second tool is the <a href="https://bitbucket.org/taccaci/agave-samples/" title="Agave Samples Repository" target="_blank">Agave Samples</a> project. The Agave Samples project is a set of sample data used throughout these tutorials. The project contains several app definitions ranging in complexity from a trivial no-parameter, no-argument hello world, to a complex multi-input application with multiple parameter types. The Agave Samples project is a great place to start when building your app by hand because it draws on the experiences of many successful application publishers. You can check out the Agave Samples project from Bitbucket by cloning the Git repository:
 
-```shell
-git clone https://bitbucket.org/taccaci/agave-apps-boilerplate
-```
+
+> git clone https://bitbucket.org/taccaci/agave-apps-boilerplate
+
 
 ### Choosing an execution system  
 
-The first step in registering your app is knowing where you want Agave to run it. Any execution system on which you have PUBLISH permissions is a valid execution target, however, it is important to keep in mind the `executionType` and `scheduler` of the target system. If you need fast turnaround times, submitting to an execution system that uses a batch scheduler may not be the ideal target for your application as your jobs may have to wait their turn in a queue for quite a while before they run. Alternatively, if your app is a parallel code, you probably <i>need</i> a batch scheduler to allocate the nodes you successfully run.
+The first step in registering your app is knowing where you want Agave to run it. Any execution system on which you have PUBLISH permissions is a valid execution target, however, it is important to keep in mind the `executionType` and `scheduler` of the target system. If you need fast turnaround times, submitting to an execution system that uses a batch scheduler may not be the ideal target for your application as your jobs may have to wait their turn in a queue for quite a while before they run. Alternatively, if your app is a parallel code, you probably *need* a batch scheduler to allocate the nodes you successfully run.
 
 ### Choosing a deployment system  
 
@@ -26,45 +26,42 @@ Once you know where you want your application to run, you need to specify where 
 
 Several other things to consider when picking execution and deployment systems are:
 
-<ul>
-<li><strong>Throughput:</strong> if the app is stored remotely, it will have to be staged into the execution system prior to your job running. This can impact throughput and it can also potentially eat up disc space depending on your execution system configuration and policies.</li>
-<li><strong>Bandwidth:</strong> if your execution systems are in the cloud, large applications can eat up a significant amount of bandwidth moving to your execution systems. This can result in unnecessary bandwidth charges.</li>
-<li><strong>Reusability:</strong> if you have an application that can run on multiple systems, storing it remotely can be advantageous. If a single execution system goes down, you are still able to run your app on other systems.</li>
-<li><strong>Reliability:</strong> if you store your app on a system you don't own or on which you don't have long-term access, you may lose access to your app and its assets if your account is removed, the system is decommissioned, or the system is deleted from Agave.</li>
-</ul>
+    * **Throughput:** if the app is stored remotely, it will have to be staged into the execution system prior to your job running. This can impact throughput and it can also potentially eat up disc space depending on your execution system configuration and policies. 
+    * **Bandwidth:** if your execution systems are in the cloud, large applications can eat up a significant amount of bandwidth moving to your execution systems. This can result in unnecessary bandwidth charges. 
+    * **Reusability:** if you have an application that can run on multiple systems, storing it remotely can be advantageous. If a single execution system goes down, you are still able to run your app on other systems. 
+    * **Reliability:** if you store your app on a system you don't own or on which you don't have long-term access, you may lose access to your app and its assets if your account is removed, the system is decommissioned, or the system is deleted from Agave. 
 
-In this tutorial, we will store our application assets on our private storage system, <em>demo.storage.example.com</em> and run it on our private execution system, <em>condor.opensciencegrid.org</em>.
+In this tutorial, we will store our application assets on our private storage system, `demo.storage.example.com` and run it on our private execution system, `condor.opensciencegrid.org`.
 
 ### Packaging your app  
 
 Now that you know where your app will live and where it will execute, its time to organize it in a way that Agave can properly invoke it. At the very least, your application folder should have the following in it:
 
-<ul>
-<li>An execution script that creates and executes an instance of the application. We refer to this as the <em>wrapper template</em> throughout the documentation. For the sake of maintainability, it should be named something simple and intuitive like `wrapper.sh`. More on this in the next section</li>
-<li>A library subdirectory: This contains all scripts, non-standard dependencies, binaries needed to execute an instance of the application.</li>
-<li>A test directory containing a script named something simple and intuitive like `test.sh`, along with any sample data needed to evaluating whether the application can be executed in a current command-line environment. It should exit with a status of 0 on success when executed on the command line. A simple way to create your test script is to create a script that sets some sensible default values for your app's inputs and parameters and then call your wrapper template.</li>
-</ul>
+* An execution script that creates and executes an instance of the application. We refer to this as the <em>wrapper template</em> throughout the documentation. For the sake of maintainability, it should be named something simple and intuitive like `wrapper.sh`. More on this in the next section. 
+* A library subdirectory: This contains all scripts, non-standard dependencies, binaries needed to execute an instance of the application.  
+* A test directory containing a script named something simple and intuitive like `test.sh`, along with any sample data needed to evaluating whether the application can be executed in a current command-line environment. It should exit with a status of 0 on success when executed on the command line. A simple way to create your test script is to create a script that sets some sensible default values for your app's inputs and parameters and then call your wrapper template. 
 
 The resulting minimal app bundle would look something like the following:
 
-<pre>`pyplot-0.1.0
+```always
+pyplot-0.1.0
 |- app.json
 |+ lib
  |- main.py
 |+ test
  |- test.sh
 |- wrapper.sh
-`</pre>
+```
 
 For other examples of more complicated app bundles, consult the <a title="Agave Samples project" href="https://bitbucket.org/taccaci/agave-samples">Agave Samples</a> repository.
 
-### Creating a wrapper template <a name="creating-a-wrapper-template">&nbsp;</a>  
+### Creating a wrapper template  
 
-When you submit a job request to run your app, Agave will execute the file you define in the `templatePath` parameter of your app description. This file serves as a template script that contains all the information needed to execute your app. Any inputs or parameters you define in the app description will be injected into the template file at run time using a simple string replacement where <em>${input_or_parameter_key}</em> will be replaced by the value of the variable.
+When you submit a job request to run your app, Agave will execute the file you define in the `templatePath` parameter of your app description. This file serves as a template script that contains all the information needed to execute your app. Any inputs or parameters you define in the app description will be injected into the template file at run time using a simple string replacement where `${input_or_parameter_key}` will be replaced by the value of the variable.
 
 Consider the following example template script of for an app that takes .csv files as input and produces graph outputs.
 
-```shell
+```always 
 WRAPPERDIR=$( cd "$( dirname "$0" )" && pwd )
 
 # Set the x and y labels. Since we need to quote the values, we check for existence first
@@ -129,12 +126,11 @@ for i in `find $WRAPPERDIR -name "*.csv"`; do
 
 	done
 done
+```
 
-</pre> 
+> The corresponding app description is given below
 
-
-[tab title=JSON]
-```javascript
+```json
 {  
   "id":"wc-1.00",
   "available":true,
@@ -306,19 +302,13 @@ The structure of a JSON app output description is identical to a JSON app input 
 
 ### Registering an apps  
 
-Now that we understand what goes into an app and how to describe it, let's register it with Agave by issuing a POST request to the Apps service. The following tabs show how to do this using the unix `curl` command as well as with the Agave CLI. For reference, we will be using the app description from our <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/advanced-app-example/" title="Advanced App Example">PyPlot example</a>.
-
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "fileToUpload=@app.json" https://public.tenants.agaveapi.co/apps/v2/?pretty=true
-```
-
-
-```cli
+``` 
+```plaintext
 apps-addupdate -v -F app.json
-```
-
-
-[javascript collapse="true"]
+``` 
+```json
 {
   "status" : "success",
   "message" : null,
@@ -658,7 +648,10 @@ apps-addupdate -v -F app.json
     }
   }
 }
-[/javascript]
+```
+
+Now that we understand what goes into an app and how to describe it, let's register it with Agave by issuing a POST request to the Apps service. The following tabs show how to do this using the unix `curl` command as well as with the Agave CLI. For reference, we will be using the app description from our <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/advanced-app-example/" title="Advanced App Example">PyPlot example</a>.
+
 
 ### Updating assets  
 
@@ -666,19 +659,15 @@ Agave does not store your app bundle along with the description, thus it is poss
 
 ## Updating a registered app  
 
-Updating your app is simply a matter of posting an updated JSON description to your app's URL. The following tabs show how to do this using the unix `curl` command as well as with the Agave CLI. Notice that when you POST an update, the revision number increases. This provides a quick way to track changes to an app description without querying the full provenance history.
-
-```shell
+```shell 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@app.json" https://public.tenants.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0?pretty=true
-```
+``` 
 
-[tab title=CLI]
-```bash
+```plaintext 
 apps-addupdate -v -F app.json demo-pyplot-demo-advanced-0.1.0
-```
+``` 
 
-
-[javascript collapse="true"]
+```json 
 {
   "status" : "success",
   "message" : null,
@@ -1018,100 +1007,92 @@ apps-addupdate -v -F app.json demo-pyplot-demo-advanced-0.1.0
     }
   }
 }
-[/javascript]
+``` 
+
+Updating your app is simply a matter of posting an updated JSON description to your app's URL. The following tabs show how to do this using the unix `curl` command as well as with the Agave CLI. Notice that when you POST an update, the revision number increases. This provides a quick way to track changes to an app description without querying the full provenance history.
+
 
 ## Deleting an app  
-
-Deleting an app is done by calling a HTTP DELETE on an app's URL. The following tabs show how to do this using the unix `curl` command as well as with the Agave CLI. Note that deleting an app does not make its id available for reuse.
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0?pretty=true
 ```
 
-[tab title=CLI]
-```bash
+```plaintext
 apps-delete demo-pyplot-demo-advanced-0.1.0
 ```
 
+Deleting an app is done by calling a HTTP DELETE on an app's URL. Note that deleting an app does not make its id available for reuse.
 
 ## Permissions and sharing  
 
-Apps have fine grained permissions similar to those found in the <a title="Job Management" href="/job-management/">Jobs</a> and <a title="File Management" href="/file-management/">Files</a> services. Using these, you can share your app other Agave users. App permissions are private by default. App permissions are separate from system, data, and job permissions. Thus, you may grant READ_EXECUTE permissions on an app to another user, but if the user does not have rights to run jobs on the execution system specified by the app, they will not be able to submit jobs. Similarly, if you do not have the right to publish on the execution system or use the deployment system in your app description, you will not be able to publish the app. For more information on app permissions and sharing, see the App Permissions Tutorial
-
-App permissions are managed through a set of URLs consistent with the permissions URL elsewhere in the API.
-
-```shell
-
-```  
+```shell 
+# Listing all permissions 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/apps/v2/$APP_ID/pems
-``` 
 
-Permissions granted to a specific user: 
-
-```  
+# Permissions granted to a specific user: 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/apps/v2/$APP_ID/pems/$USERNAME
-```  
 
-
-
-[tab title="Updating"]
-  
-``` 
+# Updating a permission 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "permission:$PERMISSION" https://public.tenants.agaveapi.co/apps/v2/$APP_ID/$USERNAME
-``` 
-
-
-
-[tab title="Deleting"]
   
-Deleting permissions for all users on an app: 
-
-``` 
+# Deleting permissions for all users on an app: 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/apps/v2/$APP_ID
 ``` 
 
-Deleting permissions for a specific user on an app: 
-
-``` 
+# Deleting permissions for a specific user on an app: 
 curl -sk -H "Authorization: Bearer ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/apps/v2/$APP_ID/$USERNAME
 ``` 
 
+```plaintext 
+# List all permissions for an app
+apps-pems-list $APP_ID
 
+# List specific user permissions for an app
+apps-pems-list -u $USERNAME $APP_ID 
 
-[/tabgroup]
+# Granting a user permission to an app 
+apps-pems-update -u $USERNAME -p $PERMISSION $APP_ID 
+  
+# Deleting all permissions for an app 
+apps-pems-delete $APP_ID 
 
-The available permission values are listed in the following table:
+# Deleting a specific user permission for an app: 
+apps-pems-delete -u $USERNAME $APP_ID  
+``` 
+
+Apps have fine grained permissions similar to those found in the <a title="Job Management" href="/job-management/">Jobs</a> and <a title="File Management" href="/file-management/">Files</a> services. Using these, you can share your app other Agave users. App permissions are private by default. App permissions are separate from system, data, and job permissions. Thus, you may grant READ_EXECUTE permissions on an app to another user, but if the user does not have rights to run jobs on the execution system specified by the app, they will not be able to submit jobs. Similarly, if you do not have the right to publish on the execution system or use the deployment system in your app description, you will not be able to publish the app. For more information on app permissions and sharing, see the App Permissions Tutorial
+
+App permissions are managed through a set of URLs consistent with the permissions URL elsewhere in the API. The available permission values are listed in the following table:
 
 [table id=65 /]
 
 <p class="table-caption">Table 5. Supported app permission values.</p>
 
-## Application visibility <a name="application-visibility">&nbsp;</a>  
+## Application visibility  
 
 In addition to traditional permissions, apps also have a concept of scope. Unless otherwise configured, apps are private to the owner and the users they grant permission. Applications can, however move from the private space into the public space for use any anyone. Moving an app into the public space is called publishing. Publishing an app gives it much greater exposure and results in increased usage by the user community. It also comes with increased responsibilities for the original owner as well as the API administrators. Several of these are listed below:
 
-<ul class="bulleted">
-    <li>Public apps must run on public systems. This makes the app available to everyone.</li>
-    <li>Public apps must be vetted for performance, reliability, and security by the API administrators.</li>
-    <li>The original app author must remain available via email for ongoing support.</li>
-    <li>Public apps must be copied into a public repository and checksummed.</li>
-    <li>Updates to public apps must create a new checksummed snapshot of the original app.</li>
-    <li>API administrators must maintain and support the app throughout its lifetime.</li>
-</ul>
+    * Public apps must run on public systems. This makes the app available to everyone. 
+    * Public apps must be vetted for performance, reliability, and security by the API administrators. 
+    * The original app author must remain available via email for ongoing support. 
+    * Public apps must be copied into a public repository and checksummed. 
+    * Updates to public apps must create a new checksummed snapshot of the original app. 
+    * API administrators must maintain and support the app throughout its lifetime. 
 
 If you have an app you would like to see published, please contact your API administrators for more information.
 
 ## Cloning an app  
 
-Often times you will want to copy an existing app for use on another system, or simply to obtain a private copy of the app for your own use. This can be done using the clone functionality in the Apps service. The following tabs show how to do this using the unix `curl` command as well as with the Agave CLI.
-
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "action=clone&amp;name=my-pyplot-demo&amp;version=0.1.0&amp;executionSystem=sftp.storage.example.com&amp;deploymentSystem=2.2&amp;deploymentPath=/apps/" https://public.tenants.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0?pretty=true
 ```
 
-```cli
+```plaintext
 apps-clone -N my-pyplot-demo -V 2.2 demo-pyplot-demo-advanced-0.1.0
 ``` 
 
+Often times you will want to copy an existing app for use on another system, or simply to obtain a private copy of the app for your own use. This can be done using the clone functionality in the Apps service. The following tabs show how to do this using the unix `curl` command as well as with the Agave CLI.
 
-<aside class="notice">When cloning public apps, the entire app bundle will be recreated on the deploymentSystem you specify or your default storage system. The same is not true for private apps. Cloning a private app will copy the job description, but not the app bundle. This is to honor the original ownership of the assets and prevent them from leaking out to the public space without the owner's permission. If you need direct access to the app's assets, request that the owner give you read access to the folder listed as the deploymentPath in the app description.</aside>
+
+<aside class="notice">When cloning public apps, the entire app bundle will be recreated on the `deploymentSystem` you specify or your default storage system. The same is not true for private apps. Cloning a private app will copy the job description, but not the app bundle. This is to honor the original ownership of the assets and prevent them from leaking out to the public space without the owner's permission. If you need direct access to the app's assets, request that the owner give you read access to the folder listed as the deploymentPath in the app description.</aside>

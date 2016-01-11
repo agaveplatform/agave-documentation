@@ -132,12 +132,12 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST
     https://public.tenants.agaveapi.co/notifications/v2?pretty=true
 ```
 
-```cli
+```plaintext
 notifications-addupdate -V -F notification.json
 ```
 
 [tab title="Raw JSON"]
-```bash
+```shell
 
 ```
 
@@ -178,12 +178,12 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST
 ```
 
 
-```cli
+```plaintext
 notifications-addupdate -V -F notification.json 0989079870809-b0b0b0-012
 ```
 
 [tab title="Raw JSON"]
-```bash
+```shell
 {
     "associatedUuid": "0002032313456-b0b0b0-007"
     "event": "FINISHED",
@@ -272,7 +272,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
 ```
 
 
-```cli
+```plaintext
 notifications-list -V
 ```
 
@@ -356,7 +356,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenan
 ```
 
 
-```cli
+```plaintext
 notifications-delete -V
 ```
 

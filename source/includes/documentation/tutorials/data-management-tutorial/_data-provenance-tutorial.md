@@ -36,7 +36,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 ```
 
 
-```cli
+```plaintext
 files-history -v -S data.iplantcollaborative.org $API_USERNAME/picksumipsum.txt
 ``` 
 
@@ -54,7 +54,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 ```
 
 
-```cli
+```plaintext
 files-history -v -S data.iplantcollaborative.org -U rjohnson $API_USERNAME/picksumipsum.txt
 ``` 
 

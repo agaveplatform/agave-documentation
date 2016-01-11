@@ -23,7 +23,7 @@ We will POST this to the Metadata service to get a uuid we can reference when ad
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@project.json" https://public.tenants.agaveapi.co/meta/v2/data
 ```
 
-```cli
+```plaintext
 metadata-addupdate -v -F project.json
 ```
 
@@ -80,7 +80,7 @@ As before, we will POST the JSON to the Metadata service.
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@project_note.json" https://public.tenants.agaveapi.co/meta/v2/data
 ```
 
-```cli
+```plaintext
 metadata-addupdate -v -F project_note.json
 ```
 
@@ -120,7 +120,7 @@ In the future, when referring back to this experiment, we can simply refer to th
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@project_note.json" https://public.tenants.agaveapi.co/meta/v2/data?q=%7b%6e%61%6d%65%3a%22%70%72%6f%6a%65%63%74%22%7d```
 
-```cli
+```plaintext
 metadata-list -v -Q &#039;{name:"project"}&#039;
 ```
 
@@ -135,7 +135,7 @@ This time the response will be a JSON array of metadata objects matching your qu
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@project_note.json" https://public.tenants.agaveapi.co/meta/v2/data?q=%7b%61%73%73%6f%63%69%61%74%69%6f%6e%49%64%73%3a%22%30%30%30%31%34%30%39%37%39%32%39%32%34%37%33%30%2d%35%30%35%36%61%35%35%30%62%38%2d%30%30%30%31%2d%30%31%32%22%2c%20%6e%61%6d%65%3a%22%6e%6f%74%65%22%7d
 ```
 
-```cli
+```plaintext
 metadata-list -v -Q &#039;{associationIds:"0001409792924730-5056a550b8-0001-012", name:"note"}&#039;
 ```
 
@@ -145,6 +145,6 @@ metadata-list -v -Q &#039;{associationIds:"0001409792924730-5056a550b8-0001-012"
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@project_note.json" https://public.tenants.agaveapi.co/meta/v2/data?q=%7b%61%73%73%6f%63%69%61%74%69%6f%6e%49%64%73%3a%22%30%30%30%31%34%30%39%37%38%34%35%38%38%35%30%39%2d%35%30%35%36%61%35%35%30%62%38%2d%30%30%30%31%2d%30%30%37%22%7d```
 
-```cli
+```plaintext
 metadata-list -v -Q &#039;{associationIds:"0001409784588509-5056a550b8-0001-007"}&#039;
 ```

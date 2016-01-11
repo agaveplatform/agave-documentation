@@ -37,7 +37,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 ```
 
 
-```cli
+```plaintext
 systems-roles-list -v $SYSTEM_ID
 ```
 
@@ -73,7 +73,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 ```
 
 
-```cli
+```plaintext
 systems-roles-list -v data.iplantcollaborative.org
 ```
 
@@ -113,7 +113,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST
 ```
 
 
-```cli
+```plaintext
 systems-roles-addupdate -v -u rjohnson -r USER systest-rodeo-docker
 ```
 
@@ -151,7 +151,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST
 ```
 
 
-```cli
+```plaintext
 systems-roles-addupdate -v -u rjohnson -r ADMIN systest-rodeo-docker
 ```
 
@@ -191,7 +191,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST
 ```
 
 
-```cli
+```plaintext
 systems-roles-addupdate -v -u rjohnson -r NONE systest-rodeo-docker
 ```
 
@@ -205,7 +205,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenan
 ```
 
 
-```cli
+```plaintext
 systems-roles-delete -v -u rjohnson systest-rodeo-docker
 ```
 
@@ -223,13 +223,13 @@ The response from the service in both cases will be an empty result object.
 Occasionally you may want to remove all user roles from a system. To do this, perform a delete on the system roles collection.
 
 ```shell
-```bash
+```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID/roles
 ```
 
 
-```cli
-```bash
+```plaintext
+```shell
 systems-roles-delete -v $SYSTEM_ID
 ```
 

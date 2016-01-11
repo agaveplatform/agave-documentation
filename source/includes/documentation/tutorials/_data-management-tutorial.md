@@ -56,7 +56,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST
 
 
 
-```cli
+```plaintext
 files-upload -v -F files/picksumipsum.txt -S data.iplantcollaborative.org $API_USERNAME
 ``` 
 
@@ -104,7 +104,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST
 ```
 
 
-```cli
+```plaintext
 files-import -v -U "https://bitbucket.org/taccaci/agave-samples/raw/master/README.md"  
     -S data.iplantcollaborative.org $API_USERNAME
 ``` 
@@ -155,7 +155,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST
 ```
 
 
-```cli
+```plaintext
 files-import -v -U "agave://stampede.tacc.utexas.edu//etc/motd" -S data.iplantcollaborative.org $API_USERNAME
 ``` 
 
@@ -174,7 +174,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
 ```
 
 
-```cli
+```plaintext
 files-import -v -U "agave://data.iplantcollaborative.org/$API_USERNAME/foo_project" -S $API_USERNAME.storage1
 files-import -v -U "agave://data.iplantcollaborative.org/$API_USERNAME/foo_project" -S $API_USERNAME.storage2
 ``` 
@@ -196,7 +196,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
 ```
 
 
-```cli
+```plaintext
 files-list -v -S data.iplantcollaborative.org $API_USERNAME
 ``` 
 
@@ -257,15 +257,15 @@ Basic file operations are available by sending a POST request the the `/files/v2
 Copying can be performed on any remote system. Unlike the Unix `cp` command, all copy invocations in Agave will overwrite the destination target if it exists. In the event of a directory collision, the contents of the two directory trees will be merged with the source overwriting the destination. Any overwritten files will maintain their provenance records and have an additional entry added to record the copy operation.
 
 ```shell
-```bash
+```shell
 curl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c"  
     -X POST -d "action=copy&amp;path=$DESTPATH" 
     https://public.tenants.agaveapi.co/files/v2/media/system/$SYSTEM_ID/$PATH
 ```
 
 
-```cli
-```bash
+```plaintext
+```shell
 files-copy -D $DESTPATH -S $SYSTEM_ID $PATH
 ```
 
@@ -281,15 +281,15 @@ The response from a copy operation will be a JSON object describing the new file
 Moving can be performed on any remote system. Moving a file or directory will overwrite the destination target if it exists. Unlike copy operations, the destination will be completely replaced by the source in the event of a collision. No merge will take place. Further, the provenance of the source will replace that of the target.
 
 ```shell
-```bash
+```shell
 curl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c"  
     -X POST -d "action=move&amp;path=$DESTPATH"  
     https://public.tenants.agaveapi.co/files/v2/media/system/$SYSTEM_ID/$PATH
 ```
 
 
-```cli
-```bash
+```plaintext
+```shell
 files-move -D $DESTPATH -S $SYSTEM_ID $PATH
 ```
 
@@ -301,15 +301,15 @@ files-move -D $DESTPATH -S $SYSTEM_ID $PATH
 Renaming, like copying and moving, is only applicable within the context of a single system. Unlike on Unix systems, renaming and moving are not synonymous. When specifying a new name for a file or directory, the new name is relative to the parent directory of the original file or directory. Also, If a file or directory already exists with that name, the operation will fail and an error message will be returned. All provenance information will follow the renamed file or directory.
 
 ```shell
-```bash
+```shell
 curl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c" 
     -X POST -d "action=rename&amp;path=$NEWNAME" 
     https://public.tenants.agaveapi.co/files/v2/media/system/$SYSTEM_ID/$PATH
 ```
 
 
-```cli
-```bash
+```plaintext
+```shell
 files-rename -N $NEWNAME -S $SYSTEM_ID $PATH
 ```
 
@@ -321,15 +321,15 @@ files-rename -N $NEWNAME -S $SYSTEM_ID $PATH
 Creating a new directory is a recursive action in Agave. If the parent directories do not exist, they will be created on the fly. If a file or directory already exists with that name, the operation will fail and an error message will be returned.
 
 ```shell
-```bash
+```shell
 curl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c" 
     -X POST -d "action=mkdir&amp;path=$NEWDIR" 
     https://public.tenants.agaveapi.co/files/v2/media/system/$SYSTEM_ID/$PATH
 ```
 
 
-```cli
-```bash
+```plaintext
+```shell
 files-mkdir -N $NEWDIR -S $SYSTEM_ID $PATH
 ```
 
@@ -341,14 +341,14 @@ files-mkdir -N $NEWDIR -S $SYSTEM_ID $PATH
 As with creating a directory, deleting a file or directory is a recursive action in Agave. No prompt or warning will be given once the request is sent. It is up to you to implement such checks in your application logic and/or user interface.
 
 ```shell
-```bash
+```shell
 curl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c" 
     -X DELETE https://public.tenants.agaveapi.co/files/v2/media/system/$SYSTEM_ID/$PATH
 ```
 
 
-```cli
-```bash
+```plaintext
+```shell
 files-delete -S $SYSTEM_ID $PATH
 ```
 

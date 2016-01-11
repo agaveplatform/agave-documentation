@@ -41,7 +41,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 ```
 
 
-```cli
+```plaintext
 files-list -v -S data.iplantcollaborative.org $API_USERNAME
 ``` 
 

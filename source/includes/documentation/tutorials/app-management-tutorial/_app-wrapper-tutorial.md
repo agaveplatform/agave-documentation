@@ -91,7 +91,7 @@ Agave runs a job by first transferring a copy of this directory into temporary d
 
 ### Build a samtools application bundle  
 
-```bash
+```shell
 # Log into Stampede
 ssh stampede.tacc.utexas.edu
 
@@ -158,7 +158,7 @@ or you can any other BAM file for your testing purposes. Make sure if you use an
 
 Now, author your script. You can paste the following code into a file called <em>test-sort.sh</em> or you can copy it from $IPLANT_SDK_HOME/examples/samtools-0.1.19/stampede/test-sort.sh
 
-```bash
+```shell
 #!/bin/bash
 
 # Agave automatically writes these scheduler
@@ -818,7 +818,7 @@ cp test-sort.sh sort.template
 
 Now, open sort.template in the text editor of your choice. Delete the bash shebang line and the SLURM pragmas. Replace the hard-coded values for inputs and parameters with variables defined by your app description.
 
-```bash
+```shell
 # Set up inputs...
 # Since we don&#039;t check these when constructing the
 # command line later, these will be marked as required

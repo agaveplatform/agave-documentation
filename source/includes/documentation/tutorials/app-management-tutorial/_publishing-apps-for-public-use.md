@@ -37,12 +37,12 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=publish" htt
 ```
 
 
-```cli
+```plaintext
 apps-publish -v demo-pyplot-demo-advanced-0.1.0
 ```
 
 
-[javascript collapse="true"]
+```json
 {
   "status" : "success",
   "message" : null,
@@ -404,12 +404,12 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=publish" htt
 ```
 
 
-```cli
+```plaintext
 apps-publish -v demo-pyplot-demo-advanced-0.1.0
 ```
 
 
-[javascript collapse="true"]
+```json
 {
   "status" : "success",
   "message" : null,
@@ -769,7 +769,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenan
 ``` 
 
 
-```cli
+```plaintext
 apps-delete demo-pyplot-demo-advanced-0.1.0u1
 ```
 

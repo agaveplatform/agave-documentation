@@ -1,21 +1,16 @@
+# User Discovery Tutorial
+
 Nothing great is ever accomplished alone. In the course of conducting your research, you will want to share your systems, results, data, etc with other people if for no other reason than to verify that Agave works as advertised. You can use the Profiles service to lookup other users by name, username, or email address.
 
 ## Finding others  
 
-To search for other users, make a GET request to the Profiles service with the search type and value in the URL query.
-
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/profiles/v2/?email=dooley
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/profiles/v2/?email=dooley?naked=true
 ```
 
-
-```cli
+```plaintext
 profiles-list -v -E dooley
 ``` 
-
-
-The response to this call is a JSON array of users who email addresses match the search term `dooley` in some way.
-
 ```javascript
 [ 
   {
@@ -93,21 +88,28 @@ The response to this call is a JSON array of users who email addresses match the
 ]
 ```
 
+To search for other users, make a GET request to the Profiles service with the search type and value in the URL query.
+
+The response to this call is a JSON array of users who email addresses match the search term `dooley` in some way.
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
 ## Finding yourself  
 
-You can also lookup your own profile using the special 'me' username.
-
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/profiles/v2/me
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/profiles/v2/me?naked=true
 ```
 
-
-```cli
+```plaintext
 profiles-list -v me
 ``` 
-
-
-The response to this call for our example user looks like this:
 
 ```javascript
 {
@@ -135,3 +137,5 @@ The response to this call for our example user looks like this:
     }
 }
 ```
+
+You can also lookup your own profile using the special `me` username.

@@ -8,7 +8,7 @@ Agave enables you to group together one or more compute and storage systems to a
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2
 ```
 
-```cli
+```plaintext
 systems-list -v
 ```
 
@@ -100,7 +100,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 ```
 
 
-```cli
+```plaintext
 systems-list -v docker.iplantcollaborative.org
 ```
 
