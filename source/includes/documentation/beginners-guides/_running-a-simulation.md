@@ -78,7 +78,7 @@ Submitting this job description will return a JSON object with a full descriptio
 "href": "https://public.tenants.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/history"
 },
 "metadata": {
-"href": "https://public.tenants.agaveapi.co/meta/v2/data/?q={"associationIds":"0001409784588509-5056a550b8-0001-007"}"
+"href": "https://public.tenants.agaveapi.co/meta/v2/data/?q={\"associationIds\":\"0001409784588509-5056a550b8-0001-007\"}"
 },
 "notifications": {
 "href": "https://public.tenants.agaveapi.co/notifications/v2/?associatedUuid=0001409784588509-5056a550b8-0001-007"
