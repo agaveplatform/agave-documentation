@@ -8,7 +8,7 @@ The Apps service is the central registry for all Agave apps. The Apps service pr
 
 ## Registering an app  
 
-Registering an app with the Apps service is conceptually simple. Just describe your app as a JSON document and POST it to the Apps service. Historically, this has actually been the hardest part for new users to figure out. So, to ease the process, we've created a couple tools that you can use to define your apps. The first is the <a href="http://agaveapi.co/tools/app-builder/" title="App Builder">App Builder</a> page. On this page you will find a form-driven wizard that you can fill out generate the JSON description for your app. Once created, you can POST the JSON directly to the Apps service. If you are new to app registration, this is a great place to start because it shrinks the learning curve involved in defining your app.
+Registering an app with the Apps service is conceptually simple. Just describe your app as a JSON document and POST it to the Apps service. Historically, this has actually been the hardest part for new users to figure out. So, to ease the process, we've created a couple tools that you can use to define your apps. The first is the <a href="http://togo.agaveapi.co/app/" title="App Builder">App Builder</a> page. On this page you will find a form-driven wizard that you can fill out generate the JSON description for your app. Once created, you can POST the JSON directly to the Apps service. If you are new to app registration, this is a great place to start because it shrinks the learning curve involved in defining your app.
 
 The second tool is the <a href="https://bitbucket.org/taccaci/agave-samples/" title="Agave Samples Repository" target="_blank">Agave Samples</a> project. The Agave Samples project is a set of sample data used throughout these tutorials. The project contains several app definitions ranging in complexity from a trivial no-parameter, no-argument hello world, to a complex multi-input application with multiple parameter types. The Agave Samples project is a great place to start when building your app by hand because it draws on the experiences of many successful application publishers. You can check out the Agave Samples project from Bitbucket by cloning the Git repository:
 
@@ -130,7 +130,7 @@ for i in `find $WRAPPERDIR -name "*.csv"`; do
 	done
 done
 
-</pre> 
+</pre>
 
 
 [tab title=JSON]
@@ -1044,9 +1044,9 @@ App permissions are managed through a set of URLs consistent with the permission
 
 ```  
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/apps/$API_VERSION/$APP_ID/pems
-``` 
+```
 
-Permissions granted to a specific user: 
+Permissions granted to a specific user:
 
 ```  
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/apps/$API_VERSION/$APP_ID/pems/$USERNAME
@@ -1055,26 +1055,26 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/apps/$AP
 
 
 [tab title="Updating"]
-  
-``` 
+
+```
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "permission:$PERMISSION" https://$API_BASE_URL/apps/$API_VERSION/$APP_ID/$USERNAME
-``` 
+```
 
 
 
 [tab title="Deleting"]
-  
-Deleting permissions for all users on an app: 
 
-``` 
+Deleting permissions for all users on an app:
+
+```
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://$API_BASE_URL/apps/$API_VERSION/$APP_ID
-``` 
+```
 
-Deleting permissions for a specific user on an app: 
+Deleting permissions for a specific user on an app:
 
-``` 
+```
 curl -sk -H "Authorization: Bearer ACCESS_TOKEN" -X DELETE https://$API_BASE_URL/apps/$API_VERSION/$APP_ID/$USERNAME
-``` 
+```
 
 
 
@@ -1111,7 +1111,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "action=clone&amp;n
 
 ```cli
 apps-clone -N my-pyplot-demo -V 2.2 demo-pyplot-demo-advanced-0.1.0
-``` 
+```
 
 
 <aside class="notice">When cloning public apps, the entire app bundle will be recreated on the deploymentSystem you specify or your default storage system. The same is not true for private apps. Cloning a private app will copy the job description, but not the app bundle. This is to honor the original ownership of the assets and prevent them from leaking out to the public space without the owner's permission. If you need direct access to the app's assets, request that the owner give you read access to the folder listed as the deploymentPath in the app description.</aside>
