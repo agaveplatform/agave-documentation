@@ -1,3 +1,5 @@
+# Managing Data
+
 In the last beginner's guide on system discovery we found several public systems we could use to test out the APIs. One of the great things about Agave is that it takes care of all the protocol management and account juggling so you can focus on <em>what</em> you want to do rather than <em>how</em> to do it. Let's look at the storage system `data.iplantcollaborative.org` to see how we can interact with data in Agave.
 
 ## Directory listing  

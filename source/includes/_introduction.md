@@ -1,3 +1,5 @@
+# About Agave
+
 ## What is the Agave Platform?
 
 The Agave Platform ([http://agaveapi.co](http://agaveapi.co)) is an open source, science-as-a-service API platform for
