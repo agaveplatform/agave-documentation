@@ -1,0 +1,366 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Agave Live Docs</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+
+    <script type="text/javascript">
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+      analytics.load("ahAKHCapavwGo8rmdDxiohHIV8W660mc");
+      analytics.page()
+      }}();
+    </script>
+    <script src="https://use.typekit.net/squ8frf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+
+    <link href="../../../../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../../../../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="../../../../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+    <style>
+    .js #fouc { display: none; }
+    </style>
+    <script type="text/javascript">
+        document.documentElement.className = 'js';
+    </script>
+  </head>
+
+  <body class="migrated_docs migrated_docs_documentation migrated_docs_documentation_tutorials migrated_docs_documentation_tutorials_app-management-tutorial migrated_docs_documentation_tutorials_app-management-tutorial_app-development-tutorial">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../../../../images/navbar.png" />
+      </span>
+    </a>
+    <div id="fouc">
+        <div class="tocify-wrapper">
+          <img class="menu-logo" src="../../../../images/agave-docs-logo.png" />
+          
+          <div id="toc">
+          </div>
+        </div>
+        <div class="page-wrapper">
+          <div class="dark-box"></div>
+          <div class="content">
+            <p>We will now go through the process of building and deploying an Agave application to provide &lsquo;samtools sort&rsquo; functionality on TACC&rsquo;s Stampede system. The following tutorial assumes you have properly installed and configured the iPlant SDK on Stampede. They assume you have defined an environment variable IPLANTUSERNAME as your iPlant username (e.g. IPLANTUSERNAME=youriplantusername).</p>
+
+<h2 id="agave-application-packaging">Agave application packaging</h2>
+
+<p>Agave API apps have a generalized structure that allows them to carry dependencies around with them. In the case below, <em>package-name-version.dot.dot</em> is a folder that you build on your local system, then store in the iPlant Data Store in a designated location (we recommend IPLANTUSERNAME/applications/APPFOLDER). It contains binaries, support scripts, test data, etc. all in one package. Agave basically uses a very rough form of containerized applications (more on this later). We suggest you set your apps up to look something like the following:</p>
+
+<p>[code lang=text]
+package-name-version.dot.dot
+|&ndash;system_name
+|&mdash;-bin.tgz (optional)
+|&mdash;-lib.tgz (optional)
+|&mdash;-include.tgz (optional)
+|&mdash;-test.sh
+|&mdash;-script.template
+|&mdash;-test_data (optional)
+|&mdash;-app.json
+&ldquo;`</p>
+
+<p>Agave runs a job by first transferring a copy of this directory into temporary directory on the target executionSystem. Then, the input data files (we&rsquo;ll show you how to specify those are later) are staged into place automatically. Next, Agave writes a scheduler submit script (using a template you provide i.e. script.template) and puts it in the queue on the target system. The Agave service then monitors progress of the job and, assuming it completes, copies all newly-created files to the location specified when the job was submitted. Along the way, critical milestones and metadata are recorded in the job&rsquo;s history.</p>
+
+<p><em>Agave app development proceeds via the following steps:</em></p>
+
+<ol>
+<li>Build the application locally on the executionSystem</li>
+<li>Ensure that you are able to run it directly on the executionSystem</li>
+<li>Describe the application using an Agave app description</li>
+<li>Create a shell template for running the app</li>
+<li>Upload the application directory to a storageSystem</li>
+<li>Post the app description to the Agave apps service</li>
+<li>Debug your app by running jobs and updating the app until it works as intended</li>
+<li>(Optional) Share the app with some friends to let them test it</li>
+</ol>
+
+<h3 id="build-a-samtools-application-bundle">Build a samtools application bundle</h3>
+<pre class="highlight shell"><code><span class="c">#!/bin/bash</span>
+
+<span class="c"># Log into Stampede </span>
+ssh stampede.tacc.utexas.edu
+
+<span class="c"># Unload system&amp;#039;s samtools module if it happens to be loaded by default</span>
+module unload samtools
+
+<span class="c"># All TACC systems have a directory than can be accessed as $WORK</span>
+<span class="nb">cd</span> <span class="nv">$WORK</span>
+
+<span class="c"># Set up a project directory</span>
+mkdir iPlant
+mkdir iPlant/src
+mkdir -p iPlant/samtools-0.1.19/stampede/bin
+mkdir -p iPlant/samtools-0.1.19/stampede/test
+
+<span class="c"># Build samtools using the Intel C Compiler</span>
+<span class="c"># If you don&amp;#039;t have icc, gcc will work but icc usually gives more efficient binaries</span>
+<span class="nb">cd </span>iPlant/src
+wget <span class="s2">"http://downloads.sourceforge.net/project/samtools/samtools/0.1.19/samtools-0.1.19.tar.bz2"</span>
+tar -jxvf samtools-0.1.19.tar.bz2
+<span class="nb">cd </span>samtools-0.1.19
+make <span class="nv">CC</span><span class="o">=</span>icc
+
+<span class="c"># Copy the samtools binary and support scripts to the project bin directory</span>
+cp -R samtools bcftools misc ../../samtools-0.1.19/stampede/bin/
+<span class="nb">cd</span> ../../samtools-0.1.19/stampede
+
+<span class="c"># Test that samtools will launch</span>
+bin/samtools
+
+    Program: samtools <span class="o">(</span>Tools <span class="k">for </span>alignments <span class="k">in </span>the SAM format<span class="o">)</span>
+    Version: 0.1.19-44428cd
+
+    Usage:   samtools &amp;lt;command&amp;gt; <span class="o">[</span>options]
+
+    Command: view        SAM&amp;lt;-&amp;gt;BAM conversion
+             sort        sort alignment file
+             mpileup     multi-way pileup...
+
+<span class="c"># Package up the bin directory as an compressed archive </span>
+<span class="c"># and remove the original. This preserves the execute bit</span>
+<span class="c"># and other permissions and consolidates movement of all</span>
+<span class="c"># bundled dependencies in bin to a single operation. You</span>
+<span class="c"># can adopt a similar approach with lib and include.</span>
+tar -czf bin.tgz bin &amp;amp;&amp;amp; rm -rf bin
+</code></pre>
+
+<h3 id="run-samtools-sort-locally">Run samtools sort locally</h3>
+
+<p>Your first objective is to create a script that you know will run to completion under the Stampede scheduler and environment (or whatever executionSystem you&rsquo;re working on). It will serve as a model for the template file you create later. In our case, we need to write a script that can be submitted to the Slurm scheduler. The standard is to use Bash for such scripts. You have five main objectives in your script:</p>
+
+<ul>
+<li>Unpack binaries from bin.tgz</li>
+<li>Extend your PATH to contain bin</li>
+<li>Craft some option-handling logic to accept parameters from Agave</li>
+<li>Craft a command line invocation of the application you will run</li>
+<li>Clean up when you&rsquo;re done</li>
+</ul>
+
+<p>First, you will need some test data in your current directory (i.e., $WORK/iPlant/samtools-0.1.19/stampede/ ). You can use this test file</p>
+<pre class="highlight shell"><code>files-get -S data.iplantcollaborative.org /shared/iplantcollaborative/example_data/Samtools_mpileup/ex1.bam
+</code></pre>
+
+<p>or you can any other BAM file for your testing purposes. Make sure if you use another file to change the filename in your test script accordingly!</p>
+
+<p>Now, author your script. You can paste the following code into a file called <em>test-sort.sh</em> or you can copy it from $IPLANT_SDK_HOME/examples/samtools-0.1.19/stampede/test-sort.sh</p>
+<pre class="highlight shell"><code><span class="c">#!/bin/bash</span>
+
+<span class="c"># Agave automatically writes these scheduler</span>
+<span class="c"># directives when you submit a job but we have to</span>
+<span class="c"># do it by hand when writing our test</span>
+
+<span class="c">#SBATCH -p development</span>
+<span class="c">#SBATCH -t 00:30:00</span>
+<span class="c">#SBATCH -n 16</span>
+<span class="c">#SBATCH -A iPlant-Collabs </span>
+<span class="c">#SBATCH -J test-samtools</span>
+<span class="c">#SBATCH -o test-samtools.o%j</span>
+
+<span class="c"># Set up inputs and parameters</span>
+<span class="c"># We&amp;#039;re emulating passing these in from Agave</span>
+<span class="c"># inputBam is the name of the file to be sorted</span>
+<span class="nv">inputBam</span><span class="o">=</span><span class="s2">"ex1.bam"</span>
+<span class="c"># outputPrefix is a parameter that establishes</span>
+<span class="c"># the prefix for the final sorted file</span>
+<span class="nv">outputPrefix</span><span class="o">=</span><span class="s2">"sorted"</span>
+<span class="c"># Parameter for memory used in sort operation, in bytes</span>
+<span class="nv">maxMemSort</span><span class="o">=</span>500000000
+<span class="c"># Boolean: Sort by name instead of coordinate</span>
+<span class="nv">nameSort</span><span class="o">=</span>0
+
+<span class="c"># Unpack the bin.tgz file containing samtools binaries</span>
+<span class="c"># If you are relying entirely on system-supplied binaries </span>
+<span class="c"># you don&amp;#039;t need this bit</span>
+tar -xvf bin.tgz
+<span class="c"># Extend PATH to include binaries in bin</span>
+<span class="c"># If you need to extend lib, include, etc </span>
+<span class="c"># the same approach is applicable</span>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/bin"</span>
+
+<span class="c"># Dynamically construct a command line</span>
+<span class="c"># by building an ARGS string then</span>
+<span class="c"># adding the command, file specifications, etc</span>
+<span class="c">#</span>
+<span class="c"># We&amp;#039;re doing this in a way familar to Agave V1 users</span>
+<span class="c"># first. Later, we&amp;#039;ll illustrate how to make use of</span>
+<span class="c"># Agave V2&amp;#039;s new parameter passing functions</span>
+<span class="c">#</span>
+<span class="c"># Start with empty ARGS...</span>
+<span class="nv">ARGS</span><span class="o">=</span><span class="s2">""</span>
+<span class="c"># Add -m flag if maxMemSort was specified</span>
+<span class="c"># You might want to add a constraint for how large maxMemSort</span>
+<span class="c"># can be based on the available memory on your executionSystem</span>
+<span class="k">if</span> <span class="o">[</span> <span class="k">${</span><span class="nv">maxMemSort</span><span class="k">}</span> -gt 0 <span class="o">]</span>; <span class="k">then </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">ARGS</span><span class="k">}</span><span class="s2"> -m </span><span class="nv">$maxMemSort</span><span class="s2">"</span>; <span class="k">fi</span>
+
+<span class="c"># Boolean handler for -named sort</span>
+<span class="k">if</span> <span class="o">[</span> <span class="k">${</span><span class="nv">nameSort</span><span class="k">}</span> -eq 1 <span class="o">]</span>; <span class="k">then </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">ARGS</span><span class="k">}</span><span class="s2"> -n "</span>; <span class="k">fi</span>
+
+<span class="c"># Run the actual program</span>
+samtools sort <span class="k">${</span><span class="nv">ARGS</span><span class="k">}</span> <span class="k">${</span><span class="nv">inputBam</span><span class="k">}</span> <span class="k">${</span><span class="nv">outputPrefix</span><span class="k">}</span>
+
+<span class="c"># Now, delete the bin/ directory</span>
+rm -rf bin
+</code></pre>
+
+<h3 id="submit-the-job-to-the-queue-on-stampede">Submit the job to the queue on Stampede&hellip;</h3>
+<pre class="highlight shell"><code>chmod 700 <span class="nb">test</span>-sort.sh 
+sbatch <span class="nb">test</span>-sort.sh 
+</code></pre>
+
+<p>You can monitor your jobs in the queue using</p>
+<pre class="highlight shell"><code>showq -u your_tacc_username
+</code></pre>
+
+<p>Assuming all goes according to plan, you&rsquo;ll end up with a sorted BAM called <em>sorted.bam</em>, and your bin directory (but not the bin.tgz file) should be erased. Congratulations, you&rsquo;re in the home stretch: it&rsquo;s time to turn the test script into an Agave app.</p>
+
+<h2 id="craft-an-agave-app-description">Craft an Agave app description</h2>
+
+<p>In order for Agave to know how to run an instance of the application, we need to provide quite a bit of metadata about the application. This includes a unique name and version, the location of the application bundle, the identities of the execution system and destination system for results, whether its an HPC or other kind of job, the default number of processors and memory it needs to run, and of course, all the inputs and parameters for the actual program. It seems a bit over-complicated, but only because you&rsquo;re comfortable with the command line already. Your goal here is to allow your applications to be portable across systems and present a web-enabled, rationalized interface for your code to consumers.</p>
+
+<p>Rather than have you write a description for &quot;samtools sort&rdquo; from scratch, let&rsquo;s systematically dissect an existing file provided with the SDK. Go ahead and copy the file into place and open it in your text editor of choice. If you don&rsquo;t have the SDK installed, you can <a href="../examples/samtools-0.1.19/stampede/samtools-sort.json">grab it here</a>.</p>
+<pre class="highlight shell"><code><span class="nb">cd</span> <span class="nv">$WORK</span>/iPlant/samtools-0.1.19/stampede/
+cp <span class="nv">$IPLANT_SDK_HOME</span>/examples/samtools-0.1.19/stampede/samtools-sort.json .
+</code></pre>
+
+<p>Open up samtools-sort.json in a text editor or <a href="../examples/samtools-0.1.19/stampede/samtools-sort.json">in your web browser</a> and follow along below.</p>
+
+<h2 id="craft-a-shell-script-template">Craft a shell script template</h2>
+
+<p>Create sort.template using your test-sort.sh script as the starting point.</p>
+<pre class="highlight shell"><code>cp <span class="nb">test</span>-sort.sh sort.template
+</code></pre>
+
+<p>Now, open sort.template in the text editor of your choice. Delete the bash shebang line and the SLURM pragmas. Replace the hard-coded values for inputs and parameters with variables defined by your app description.</p>
+<pre class="highlight shell"><code><span class="c"># Set up inputs...</span>
+<span class="c"># Since we don&amp;#039;t check these when constructing the</span>
+<span class="c"># command line later, these will be marked as required</span>
+<span class="nv">inputBam</span><span class="o">=</span><span class="k">${</span><span class="nv">inputBam</span><span class="k">}</span>
+<span class="c"># and parameters</span>
+<span class="nv">outputPrefix</span><span class="o">=</span><span class="k">${</span><span class="nv">outputPrefix</span><span class="k">}</span>
+<span class="c"># Maximum memory for sort, in bytes</span>
+<span class="c"># Be careful, Neither Agave nor scheduler will</span>
+<span class="c"># check that this is a reasonable value. In production</span>
+<span class="c"># you might want to code min/max for this value</span>
+<span class="nv">maxMemSort</span><span class="o">=</span><span class="k">${</span><span class="nv">maxMemSort</span><span class="k">}</span>
+<span class="c"># Boolean: Sort by name instead of coordinate</span>
+<span class="nv">nameSort</span><span class="o">=</span><span class="k">${</span><span class="nv">nameSort</span><span class="k">}</span>
+
+<span class="c"># Unpack the bin.tgz file containing samtools binaries</span>
+tar -xvf bin.tgz
+<span class="c"># Set the PATH to include binaries in bin</span>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/bin"</span>
+
+<span class="c"># Build up an ARGS string for the program</span>
+<span class="c"># Start with empty ARGS...</span>
+<span class="nv">ARGS</span><span class="o">=</span><span class="s2">""</span>
+<span class="c"># Add -m flag if maxMemSort was specified</span>
+<span class="k">if</span> <span class="o">[</span> <span class="k">${</span><span class="nv">maxMemSort</span><span class="k">}</span> -gt 0 <span class="o">]</span>; <span class="k">then </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">ARGS</span><span class="k">}</span><span class="s2"> -m </span><span class="nv">$maxMemSort</span><span class="s2">"</span>; <span class="k">fi</span>
+
+<span class="c"># Boolean handler for -named sort</span>
+<span class="k">if</span> <span class="o">[</span> <span class="k">${</span><span class="nv">nameSort</span><span class="k">}</span> -eq 1 <span class="o">]</span>; <span class="k">then </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">ARGS</span><span class="k">}</span><span class="s2"> -n "</span>; <span class="k">fi</span>
+
+<span class="c"># Run the actual program</span>
+samtools sort <span class="k">${</span><span class="nv">ARGS</span><span class="k">}</span> <span class="nv">$inputBam</span> <span class="k">${</span><span class="nv">outputPrefix</span><span class="k">}</span>
+
+<span class="c"># Now, delete the bin/ directory</span>
+rm -rf bin
+</code></pre>
+
+<h2 id="storing-an-app-bundle-on-a-storagesystem">### Storing an app bundle on a storageSystem</h2>
+
+<p>Each time you (or another user) requests an instance of samtools sort, Agave copies data from a &ldquo;deploymentPath&rdquo; on a &ldquo;storageSystem&rdquo; as part of creating the temporary working directory on an &ldquo;executionSystem&rdquo;. Now that you&rsquo;ve crafted the application bundle&rsquo;s dependencies and script template, it&rsquo;s time to store it somewhere accessible by Agave.</p>
+
+<aside class="notice">If you&rsquo;ve never deployed an Agave-based app, you may not have an applications directory in your home folder. Since this is where we recommend you store the apps, create one.</aside>
+<pre class="highlight shell"><code><span class="c"># Check to see if you have an applications directory</span>
+curl -sk -H <span class="s2">"Authorization: Bearer api-access-token"</span> https://api.example.com/files/v2/listings/data.iplantcollaborative.org/<span class="nv">$API_USERNAME</span>/applications
+
+<span class="c"># If you see: File/folder does not exist</span>
+<span class="c"># then you need to create an applications directory</span>
+curl -sk -H <span class="s2">"Authorization: Bearer de32225c235cf47b9965997270a1496c"</span> -X POST -d <span class="s2">"action=mkdir&amp;amp;path=applications"</span> https://api.example.com/files/v2/listings/data.iplantcollaborative.org/<span class="nv">$API_USERNAME</span>
+</code></pre>
+
+<p>[oldy]
+&ldquo;`bash</p>
+
+<h1 id="check-to-see-if-you-have-an-applications-directory">Check to see if you have an applications directory</h1>
+
+<p>files-list -S data.iplantcollaborative.org $IPLANTUSERNAME/applications</p>
+
+<h1 id="if-you-see-file-folder-does-not-exist">If you see: File/folder does not exist</h1>
+
+<h1 id="then-you-need-to-create-an-applications-directory">then you need to create an applications directory</h1>
+
+<p>files-mkdir -S data.iplantcollaborative.org -N &quot;applications&rdquo; $IPLANTUSERNAME/
+&ldquo;`</p>
+
+<p>[/tabgroup]</p>
+
+<p>Now, go ahead with the upload:</p>
+<pre class="highlight shell"><code><span class="c"># cd out of the bundle</span>
+<span class="nb">cd</span> <span class="nv">$WORK</span>/iPlant
+<span class="c"># Upload using files-upload</span>
+files-upload -S data.iplantcollaborative.org -F samtools-0.1.19 <span class="nv">$IPLANTUSERNAME</span>/applications
+</code></pre>
+
+<h2 id="post-the-app-description-to-agave">Post the app description to Agave</h2>
+
+<p>As mentioned in the overview, several personalizations to samtools-sort.json are required.  Specifically, edit the samtools-sort.json file to change:</p>
+
+<ul>
+<li>the <em>executionSystem</em> to your private Stampede system, </li>
+<li>the <em>deploymentPath</em> to your own iPlant applications directory for samtools</li>
+<li>the <em>name</em> to <em>$IPLANTUSERNAME-samtools-sort</em></li>
+</ul>
+
+<p>Post the JSON file to Agave&rsquo;s app service.</p>
+<pre class="highlight shell"><code>apps-addupdate -F samtools-0.1.19/stampede/samtools-sort.json
+</code></pre>
+
+<aside class="notice">If you see this error &quot;Permission denied. An application with this unique id already exists and you do not have permission to update this application. Please either change your application name or update the version number&rdquo;, you forgot to change the name or the name you chose conflicts with another Agave application. Change it again in the JSON file and resubmit.</aside>
+
+<h2 id="updating-your-application-metadata-or-bundle">Updating your application metadata or bundle</h2>
+
+<p>Any time you need to update the metadata description of your non-public application, you can just make the changes locally to the JSON file and and re-post it. The next time Agave creates a job using this application, it will use the new description.</p>
+<pre class="highlight shell"><code>apps-addupdate -F samtools-0.1.19/stampede/samtools-sort.json <span class="nv">$IPLANTUSERNAME</span>-samtools-sort-0.1.19
+</code></pre>
+
+<p>The field <em>$IPLANTUSERNAME-samtools-sort-0.1.19</em> at the end is the appid you&rsquo;re updating. Agave tries to guess from the JSON file but to remove uncertainty, we recommend always specifying it explicitly.</p>
+
+<p>Any time you need to update the binaries, libraries, templates, etc. in your non-public application, you can just make the changes locally and re-upload the bundle. The next time Agave creates a job using this application, it will stage the updated version of the application bundle into place on the executionSystem and it to complete your task. It&rsquo;s a little more complicated to deal with fully public apps, and so we&rsquo;ll cover that in a separate document.</p>
+
+<h2 id="verify-your-new-app-description">Verify your new app description</h2>
+
+<p>First, you may check to see if your new application shows up in the bulk listing:</p>
+<pre class="highlight shell"><code><span class="c"># Shows all apps that are public, private to you, or shared with you</span>
+apps-list 
+<span class="c"># Show all apps on a specific system that are public, private to you, or shared with you</span>
+apps-list -S stampede.tacc.utexas.edu
+<span class="c"># Show only your private apps</span>
+apps-list --privateonly
+</code></pre>
+
+<p>You should see <em>your new app ID</em> in &ldquo;apps-list&rdquo; and &ldquo;apps-list &ndash;privateonly&rdquo; but not &ldquo;apps-list -S stampede.tacc.utexas.edu&rdquo;. Why do you think this is the case? Give up? It&rsquo;s because your new app is not registered to the public iPlant-maintained executionSystem called &ldquo;stampede.tacc.utexas.edu&rdquo; and so is filtered from display.</p>
+
+<p>You can print a detailed view, in JSON format, of any app description to your screen:</p>
+<pre class="highlight shell"><code>apps-list -v APP_ID
+</code></pre>
+
+<p>Take some time to review how the app description looks when printed from app-list relative to how it looked as a JSON file in your text editor. There are likely some additional fields present (generated by the Agave service) and the presentation may differ from your expectation. Understanding the relationship between what the service returns and the input data structure is crucial for being able to debug effectively.</p>
+
+          </div>
+          <div class="dark-box">
+          </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+      document.getElementById("fouc").style.display="block";
+    </script>
+  </body>
+</html>

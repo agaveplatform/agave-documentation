@@ -1,0 +1,986 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Agave Live Docs</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+
+    <script type="text/javascript">
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+      analytics.load("ahAKHCapavwGo8rmdDxiohHIV8W660mc");
+      analytics.page()
+      }}();
+    </script>
+    <script src="https://use.typekit.net/squ8frf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+
+    <link href="../../../../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../../../../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="../../../../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+    <style>
+    .js #fouc { display: none; }
+    </style>
+    <script type="text/javascript">
+        document.documentElement.className = 'js';
+    </script>
+  </head>
+
+  <body class="migrated_docs migrated_docs_documentation migrated_docs_documentation_tutorials migrated_docs_documentation_tutorials_app-management-tutorial migrated_docs_documentation_tutorials_app-management-tutorial_app-wrapper-tutorial">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../../../../images/navbar.png" />
+      </span>
+    </a>
+    <div id="fouc">
+        <div class="tocify-wrapper">
+          <img class="menu-logo" src="../../../../images/agave-docs-logo.png" />
+          
+          <div id="toc">
+          </div>
+        </div>
+        <div class="page-wrapper">
+          <div class="dark-box"></div>
+          <div class="content">
+            <h2 id="introduction">Introduction</h2>
+
+<p>In order to run your application, you will need to create a wrapper template that calls your executable code. The wrapper template is a simple script that Agave will filter and execute to start your app. The filtering Agave applies to your wrapper script is to inject runtime values from a job request into the script to replace the template variables representing the inputs and parameters of your app.</p>
+
+<p>The order in which wrapper templates are processed in HPC and CLI apps is as follows.</p>
+<pre class="highlight shell"><code>
+    1. &lt;span <span class="nv">class</span><span class="o">=</span><span class="s2">"code"</span>&gt;environment&lt;/span&gt; variables injected.
+    2. &lt;span <span class="nv">class</span><span class="o">=</span><span class="s2">"code"</span>&gt;startupScript&lt;/span&gt; run.
+    3. Scheduler directives prepended to the wrapper template.
+    4. &lt;span <span class="nv">class</span><span class="o">=</span><span class="s2">"code"</span>&gt;additionalDirectives&lt;/span&gt; concatenated after the scheduler directives.
+    5. Custom &lt;span <span class="nv">class</span><span class="o">=</span><span class="s2">"code"</span>&gt;modules&lt;/span&gt; concatenated after the &lt;span <span class="nv">class</span><span class="o">=</span><span class="s2">"code"</span>&gt;additionalDirectives&lt;/span&gt;.
+    6. &lt;span <span class="nv">class</span><span class="o">=</span><span class="s2">"code"</span>&gt;inputs&lt;/span&gt; and &lt;span <span class="nv">class</span><span class="o">=</span><span class="s2">"code"</span>&gt;parameters&lt;/span&gt; template variables replaced with values from the job request.
+    7. Blacklist commands, <span class="k">if </span>present, are disabled <span class="k">in </span>the scripts.
+    8. &gt;Resulting script is written to the remote job execution folder and executed.
+
+
+
+<span class="o">[</span>tab <span class="nv">title</span><span class="o">=</span><span class="s2">"CLI Wrappers"</span><span class="o">]</span>
+&amp;nbsp; &amp;nbsp;  
+
+    1. Shell environment sourced
+    2. &lt;span <span class="nv">class</span><span class="o">=</span><span class="s2">"code"</span>&gt;environment&lt;/span&gt; variables injected
+    3. &lt;span <span class="nv">class</span><span class="o">=</span><span class="s2">"code"</span>&gt;startupScript&lt;/span&gt; run
+    4. Custom &lt;span <span class="nv">class</span><span class="o">=</span><span class="s2">"code"</span>&gt;modules&lt;/span&gt; prepended to the top of the wrapper
+    5. &lt;span <span class="nv">class</span><span class="o">=</span><span class="s2">"code"</span>&gt;inputs&lt;/span&gt; and &lt;span <span class="nv">class</span><span class="o">=</span><span class="s2">"code"</span>&gt;parameters&lt;/span&gt; template variables replaced with values from the  job request&lt;/li&gt;
+    6. Blacklist commands, <span class="k">if </span>present, are disabled <span class="k">in </span>the scripts.
+    7. Resulting script is forked into the background immediately.
+
+
+
+<span class="o">[</span>/tabgroup]
+
+<span class="c">## Environment  </span>
+
+Comes from the system definition. Handle <span class="k">in </span>your script <span class="k">if </span>you cannot change the system definition to suite your needs. Ship whatever you need with your app<span class="s1">'s assets.
+
+## Modules  
+
+See more about &lt;a href="http://modules.sourceforge.net/" title="The Environment Modules Project" target="_blank"&gt;Modules&lt;/a&gt; and &lt;a href="https://github.com/TACC/Lmod" title="Lmod: An Environment Module System based on Lua" target="_blank"&gt;Lmod&lt;/a&gt;. Can be used to customize your environment, locate your application, and improve portability between systems. Agave does not install or manage the module installation on a particular system, however it does know how to interact with it. Specifying the modules needed to run your app either in your wrapper template or in your system definition can greatly help you during the development process.
+
+## Input data  
+
+Agave will stage the files and folders you specify as inputs to your app. These will be available in the top level of your job directory at runtime. Additionally, the names of each of the inputs will be injected into your wrapper template for you to use in your application logic. Please be aware that Agave will not attempt to resolve namespace conflicts between your app inputs. That means that if a job specifies two inputs with the same name, one will overwrite the other during the input staging phase of the job and, though the variable names will be correctly injected to the wrapper script, your job will most likely fail due to missing data.
+
+## Variable injection  
+
+If you refer back to the app definition we used in the App Management Tutorial, you will see there are multiple inputs and parameters defined for that app. Each input and parameter object had an &lt;code&gt;id&lt;/code&gt; attribute. That &lt;code&gt;id&lt;/code&gt; value is the attribute name you use to associate runtime values with app inputs and parameters. When a job is submitted to Agave, prior to physically running the wrapper template, all instances of that &lt;code&gt;id&lt;/code&gt; are replaced with the actual value from the job request. For example, the following example shows our app description, a job request, and the resulting wrapper template at run time.
+
+### Type declarations  
+
+During the jobs submission process, Agave will store your inputs and parameters as serialized JSON. At the point that variable injection occurs, Agave will
+
+### Boolean values  
+
+### Cardinality  
+
+### Validation  
+
+### Parameter Flags  
+
+## App packaging  
+
+Agave API apps have a generalized structure that allows them to carry dependencies around with them. In the case below, &lt;em&gt;package-name-version.dot.dot&lt;/em&gt; is a folder that you build on your local system, then store in the iPlant Data Store in a designated location (we recommend /iplant/home/IPLANTUSERNAME/applications/APPFOLDER). It contains binaries, support scripts, test data, etc. all in one package. Agave basically uses a very rough form of containerized applications (more on this later). We suggest you set your apps up to look something like the following:
+
+[code lang=text]
+package-name-version.dot.dot
+|--system_name
+|----bin.tgz (optional)
+|----lib.tgz (optional)
+|----include.tgz (optional)
+|----test.sh
+|----script.template
+|----test_data (optional)
+|----app.json
+</span></code></pre>
+
+<p>Agave runs a job by first transferring a copy of this directory into temporary directory on the target executionSystem. Then, the input data files (we&rsquo;ll show you how to specify those are later) are staged into place automatically. Next, Agave writes a scheduler submit script (using a template you provide i.e. script.template) and puts it in the queue on the target system. The Agave service then monitors progress of the job and, assuming it completes, copies all newly-created files to the location specified when the job was submitted. Along the way, critical milestones and metadata are recorded in the job&rsquo;s history.</p>
+
+<p><em>Agave app development proceeds via the following steps:</em></p>
+
+<ol>
+<li>Build the application locally on the executionSystem</li>
+<li>Ensure that you are able to run it directly on the executionSystem</li>
+<li>Describe the application using an Agave app description</li>
+<li>Create a shell template for running the app</li>
+<li>Upload the application directory to a storageSystem</li>
+<li>Post the app description to the Agave apps service</li>
+<li>Debug your app by running jobs and updating the app until it works as intended</li>
+<li>(Optional) Share the app with some friends to let them test it</li>
+</ol>
+
+<h3 id="build-a-samtools-application-bundle">Build a samtools application bundle</h3>
+
+<p>[code lang=text]</p>
+
+<h1 id="log-into-stampede">Log into Stampede</h1>
+
+<p>ssh stampede.tacc.utexas.edu</p>
+
+<h1 id="unload-system-039-s-samtools-module-if-it-happens-to-be-loaded-by-default">Unload system&#039;s samtools module if it happens to be loaded by default</h1>
+
+<p>module unload samtools</p>
+
+<h1 id="all-tacc-systems-have-a-directory-than-can-be-accessed-as-work">All TACC systems have a directory than can be accessed as $WORK</h1>
+
+<p>cd $WORK</p>
+
+<h1 id="set-up-a-project-directory">Set up a project directory</h1>
+
+<p>mkdir iPlant
+mkdir iPlant/src
+mkdir -p iPlant/samtools-0.1.19/stampede/bin
+mkdir -p iPlant/samtools-0.1.19/stampede/test</p>
+
+<h1 id="build-samtools-using-the-intel-c-compiler">Build samtools using the Intel C Compiler</h1>
+
+<h1 id="if-you-don-039-t-have-icc-gcc-will-work-but-icc-usually-gives-more-efficient-binaries">If you don&#039;t have icc, gcc will work but icc usually gives more efficient binaries</h1>
+
+<p>cd iPlant/src
+wget &ldquo;http://downloads.sourceforge.net/project/samtools/samtools/0.1.19/samtools-0.1.19.tar.bz2&rdquo;
+tar -jxvf samtools-0.1.19.tar.bz2
+cd samtools-0.1.19
+make CC=icc</p>
+
+<h1 id="copy-the-samtools-binary-and-support-scripts-to-the-project-bin-directory">Copy the samtools binary and support scripts to the project bin directory</h1>
+
+<p>cp -R samtools bcftools misc ../../samtools-0.1.19/stampede/bin/
+cd ../../samtools-0.1.19/stampede</p>
+
+<h1 id="test-that-samtools-will-launch">Test that samtools will launch</h1>
+
+<p>bin/samtools</p>
+
+<p>Program: samtools (Tools for alignments in the SAM format)
+  Version: 0.1.19-44428cd</p>
+
+<p>Usage:   samtools &lt;command&gt; [options]</p>
+
+<p>Command: view        SAM&lt;-&gt;BAM conversion
+           sort        sort alignment file
+           mpileup     multi-way pileup&hellip;</p>
+
+<h1 id="package-up-the-bin-directory-as-an-compressed-archive">Package up the bin directory as an compressed archive</h1>
+
+<h1 id="and-remove-the-original-this-preserves-the-execute-bit">and remove the original. This preserves the execute bit</h1>
+
+<h1 id="and-other-permissions-and-consolidates-movement-of-all">and other permissions and consolidates movement of all</h1>
+
+<h1 id="bundled-dependencies-in-bin-to-a-single-operation-you">bundled dependencies in bin to a single operation. You</h1>
+
+<h1 id="can-adopt-a-similar-approach-with-lib-and-include">can adopt a similar approach with lib and include.</h1>
+
+<p>tar -czf bin.tgz bin &amp;&amp; rm -rf bin
+&ldquo;`</p>
+
+<h3 id="run-samtools-sort-locally">Run samtools sort locally</h3>
+
+<p>Your first objective is to create a script that you know will run to completion under the Stampede scheduler and environment (or whatever executionSystem you&rsquo;re working on). It will serve as a model for the template file you create later. In our case, we need to write a script that can be submitted to the Slurm scheduler. The standard is to use Bash for such scripts. You have five main objectives in your script:
+* Unpack binaries from bin.tgz
+* Extend your PATH to contain bin
+* Craft some option-handling logic to accept parameters from Agave
+* Craft a command line invocation of the application you will run
+* Clean up when you&rsquo;re done</p>
+
+<p>First, you will need some test data in your current directory (i.e., $WORK/iPlant/samtools-0.1.19/stampede/ ). You can use this test file</p>
+
+<p>[code lang=text]
+files-get -S data.iplantcollaborative.org /shared/iplantcollaborative/example_data/Samtools_mpileup/ex1.bam
+&rdquo;`</p>
+
+<p>or you can any other BAM file for your testing purposes. Make sure if you use another file to change the filename in your test script accordingly!</p>
+
+<p>Now, author your script. You can paste the following code into a file called <em>test-sort.sh</em> or you can copy it from $IPLANT_SDK_HOME/examples/samtools-0.1.19/stampede/test-sort.sh</p>
+
+<p>[code lang=text]</p>
+
+<h1 id="bin-bash">!/bin/bash</h1>
+
+<h1 id="agave-automatically-writes-these-scheduler">Agave automatically writes these scheduler</h1>
+
+<h1 id="directives-when-you-submit-a-job-but-we-have-to">directives when you submit a job but we have to</h1>
+
+<h1 id="do-it-by-hand-when-writing-our-test">do it by hand when writing our test</h1>
+
+<h1 id="sbatch-p-development">SBATCH -p development</h1>
+
+<h1 id="sbatch-t-00-30-00">SBATCH -t 00:30:00</h1>
+
+<h1 id="sbatch-n-16">SBATCH -n 16</h1>
+
+<h1 id="sbatch-a-iplant-collabs">SBATCH -A iPlant-Collabs</h1>
+
+<h1 id="sbatch-j-test-samtools">SBATCH -J test-samtools</h1>
+
+<h1 id="sbatch-o-test-samtools-o-j">SBATCH -o test-samtools.o%j</h1>
+
+<h1 id="set-up-inputs-and-parameters">Set up inputs and parameters</h1>
+
+<h1 id="we-039-re-emulating-passing-these-in-from-agave">We&#039;re emulating passing these in from Agave</h1>
+
+<h1 id="inputbam-is-the-name-of-the-file-to-be-sorted">inputBam is the name of the file to be sorted</h1>
+
+<p>inputBam=&ldquo;ex1.bam&rdquo;</p>
+
+<h1 id="outputprefix-is-a-parameter-that-establishes">outputPrefix is a parameter that establishes</h1>
+
+<h1 id="the-prefix-for-the-final-sorted-file">the prefix for the final sorted file</h1>
+
+<p>outputPrefix=&ldquo;sorted&rdquo;</p>
+
+<h1 id="parameter-for-memory-used-in-sort-operation-in-bytes">Parameter for memory used in sort operation, in bytes</h1>
+
+<p>maxMemSort=500000000</p>
+
+<h1 id="boolean-sort-by-name-instead-of-coordinate">Boolean: Sort by name instead of coordinate</h1>
+
+<p>nameSort=0</p>
+
+<h1 id="unpack-the-bin-tgz-file-containing-samtools-binaries">Unpack the bin.tgz file containing samtools binaries</h1>
+
+<h1 id="if-you-are-relying-entirely-on-system-supplied-binaries">If you are relying entirely on system-supplied binaries</h1>
+
+<h1 id="you-don-039-t-need-this-bit">you don&#039;t need this bit</h1>
+
+<p>tar -xvf bin.tgz</p>
+
+<h1 id="extend-path-to-include-binaries-in-bin">Extend PATH to include binaries in bin</h1>
+
+<h1 id="if-you-need-to-extend-lib-include-etc">If you need to extend lib, include, etc</h1>
+
+<h1 id="the-same-approach-is-applicable">the same approach is applicable</h1>
+
+<p>export PATH=$PATH:&ldquo;$PWD/bin&rdquo;</p>
+
+<h1 id="dynamically-construct-a-command-line">Dynamically construct a command line</h1>
+
+<h1 id="by-building-an-args-string-then">by building an ARGS string then</h1>
+
+<h1 id="adding-the-command-file-specifications-etc">adding the command, file specifications, etc</h1>
+
+<h1 id="we-039-re-doing-this-in-a-way-familar-to-agave-v1-users">We&#039;re doing this in a way familar to Agave V1 users</h1>
+
+<h1 id="first-later-we-039-ll-illustrate-how-to-make-use-of">first. Later, we&#039;ll illustrate how to make use of</h1>
+
+<h1 id="agave-v2-039-s-new-parameter-passing-functions">Agave V2&#039;s new parameter passing functions</h1>
+
+<h1 id="start-with-empty-args">Start with empty ARGS&hellip;</h1>
+
+<p>ARGS=&ldquo;&rdquo;</p>
+
+<h1 id="add-m-flag-if-maxmemsort-was-specified">Add -m flag if maxMemSort was specified</h1>
+
+<h1 id="you-might-want-to-add-a-constraint-for-how-large-maxmemsort">You might want to add a constraint for how large maxMemSort</h1>
+
+<h1 id="can-be-based-on-the-available-memory-on-your-executionsystem">can be based on the available memory on your executionSystem</h1>
+
+<p>if [ ${maxMemSort} -gt 0 ]; then ARGS=&ldquo;${ARGS} -m $maxMemSort&rdquo;; fi</p>
+
+<h1 id="boolean-handler-for-named-sort">Boolean handler for -named sort</h1>
+
+<p>if [ ${nameSort} -eq 1 ]; then ARGS=&ldquo;${ARGS} -n &rdquo;; fi</p>
+
+<h1 id="run-the-actual-program">Run the actual program</h1>
+
+<p>samtools sort ${ARGS} ${inputBam} ${outputPrefix}</p>
+
+<h1 id="now-delete-the-bin-directory">Now, delete the bin/ directory</h1>
+
+<p>rm -rf bin
+&ldquo;`</p>
+
+<h3 id="submit-the-job-to-the-queue-on-stampede">Submit the job to the queue on Stampede&hellip;</h3>
+
+<p>[code lang=text]
+chmod 700 test-sort.sh 
+sbatch test-sort.sh 
+&rdquo;`</p>
+
+<p>You can monitor your jobs in the queue using</p>
+
+<p>[code lang=text]
+showq -u your_tacc_username 
+&ldquo;`</p>
+
+<p>Assuming all goes according to plan, you&rsquo;ll end up with a sorted BAM called <em>sorted.bam</em>, and your bin directory (but not the bin.tgz file) should be erased. Congratulations, you&rsquo;re in the home stretch: it&rsquo;s time to turn the test script into an Agave app.</p>
+
+<h3 id="craft-an-agave-app-description">Craft an Agave app description</h3>
+
+<p>In order for Agave to know how to run an instance of the application, we need to provide quite a bit of metadata about the application. This includes a unique name and version, the location of the application bundle, the identities of the execution system and destination system for results, whether its an HPC or other kind of job, the default number of processors and memory it needs to run, and of course, all the inputs and parameters for the actual program. It seems a bit over-complicated, but only because you&rsquo;re comfortable with the command line already. Your goal here is to allow your applications to be portable across systems and present a web-enabled, rationalized interface for your code to consumers.</p>
+
+<p>Rather than have you write a description for &quot;samtools sort&rdquo; from scratch, let&rsquo;s systematically dissect an existing file provided with the SDK. Go ahead and copy the file into place and open it in your text editor of choice. If you don&rsquo;t have the SDK installed, you can <a href="../examples/samtools-0.1.19/stampede/samtools-sort.json">grab it here</a>.</p>
+
+<p>[code lang=text]
+cd $WORK/iPlant/samtools-0.1.19/stampede/
+cp $IPLANT_SDK_HOME/examples/samtools-0.1.19/stampede/samtools-sort.json .
+&ldquo;`</p>
+
+<p>Open up samtools-sort.json in a text editor or <a href="../examples/samtools-0.1.19/stampede/samtools-sort.json">in your web browser</a> and follow along below.</p>
+
+<h3 id="overview">Overview</h3>
+
+<p>Your file <em>samtools-sort.json</em> is written in <a href="http://www.json.org/">JSON</a>, and conforms to an Agave-specific data model. You can find fully fleshed out details about all fields under <em>Parameters -&gt; Data Type -&gt; Model</em> at the <a href="http://agaveapi.co/live-docs/#!/apps/add_post_1">Agave API live docs on the /apps service</a>. We will dive into key elements here:</p>
+
+<p>To make this file work for you, you will be, at a minimum, editting:</p>
+
+<ol>
+<li>Its <em>executionSystem</em> to match your private instance of Stampede.</li>
+<li>Its <em>deploymentPath</em> to match your iPlant applications path</li>
+<li>The <em>name</em> of the app to something besides &quot;samtools-sort&rdquo;. We recommend &ldquo;$IPLANTUSERNAME-samtools-sort&rdquo;. </li>
+</ol>
+
+<p>Instructions for making these changes will follow.</p>
+
+<p>All Agave application descriptions have the following structure:</p>
+<pre class="highlight javascript"><code><span class="p">{</span>   <span class="s2">"application_metadata"</span><span class="err">:</span><span class="s2">"value"</span><span class="p">,</span>
+  <span class="s2">"inputs"</span><span class="err">:</span><span class="p">[],</span>
+  <span class="s2">"parameters"</span><span class="err">:</span><span class="p">[],</span>
+  <span class="s2">"outputs"</span><span class="err">:</span><span class="p">[]</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>There is a defined list of application metadata fields, some of which are mandatory. Inputs, parameters, and outputs are specified as an array of simple data structures, which will be described below.</p>
+
+<h3 id="application-metadata">Application metadata</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Field</th>
+  <th>Mandatory</th>
+  <th>Type</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>checkpointable</td>
+  <td>X</td>
+  <td>boolean</td>
+  <td>Application supports checkpointing</td>
+</tr>
+<tr>
+  <td>defaultMemoryPerNode</td>
+  <td></td>
+  <td>integer</td>
+  <td>Default RAM (GB) to request per compute node</td>
+</tr>
+<tr>
+  <td>defaultProcessorsPerNode</td>
+  <td></td>
+  <td>integer</td>
+  <td>Default processor count to request per compute node</td>
+</tr>
+<tr>
+  <td>defaultMaxRunTime</td>
+  <td></td>
+  <td>integer</td>
+  <td>Default maximum run time (hours:minutes:seconds) to request per compute node</td>
+</tr>
+<tr>
+  <td>defaultNodeCount</td>
+  <td></td>
+  <td>integer</td>
+  <td>Default number of compute nodes per job</td>
+</tr>
+<tr>
+  <td>defaultQueue</td>
+  <td></td>
+  <td>string</td>
+  <td>On HPC systems, default batch queue for jobs</td>
+</tr>
+<tr>
+  <td>deploymentPath</td>
+  <td>X</td>
+  <td>string</td>
+  <td>Path relative to homeDir on deploymentSystem where application bundle will reside</td>
+</tr>
+<tr>
+  <td>deployementSystem</td>
+  <td>X</td>
+  <td>string</td>
+  <td>The Agave-registered STORAGE system upon which you have write permissions where the app bundle resides</td>
+</tr>
+<tr>
+  <td>executionSystem</td>
+  <td>X</td>
+  <td>string</td>
+  <td>An Agave-registered EXECUTION system upon which you have execute and app registration permissions where jobs will run</td>
+</tr>
+<tr>
+  <td>helpURI</td>
+  <td>X</td>
+  <td>string</td>
+  <td>A URL pointing to help or description for the app you are deploying</td>
+</tr>
+<tr>
+  <td>label</td>
+  <td>X</td>
+  <td>string</td>
+  <td>Human-readable title for the app</td>
+</tr>
+<tr>
+  <td>longDescription</td>
+  <td></td>
+  <td>string</td>
+  <td>A short paragraph describing the functionality of the app</td>
+</tr>
+<tr>
+  <td>modules</td>
+  <td></td>
+  <td>array[string]</td>
+  <td>Ordered list of modules on systems that use lmod or modules</td>
+</tr>
+<tr>
+  <td>name</td>
+  <td>X</td>
+  <td>string</td>
+  <td>unique, URL-compatible (no special chars or spaces) name for the app</td>
+</tr>
+<tr>
+  <td>ontology</td>
+  <td>X</td>
+  <td>array[string]</td>
+  <td>List of ontology terms (or URIs pointing to ontology terms) associated with the app</td>
+</tr>
+<tr>
+  <td>parallelism</td>
+  <td>X</td>
+  <td>string</td>
+  <td>Is your application capable of using more than a single compute node? (SERIAL or PARALLEL)</td>
+</tr>
+<tr>
+  <td>shortDescription</td>
+  <td>X</td>
+  <td>string</td>
+  <td>Brief description of the app</td>
+</tr>
+<tr>
+  <td>storageSystem</td>
+  <td>X</td>
+  <td>string</td>
+  <td>The Agave-registered STORAGE system upon which you have write permissions. Default source of and destination for data consumed and emitted by the app</td>
+</tr>
+<tr>
+  <td>tags</td>
+  <td></td>
+  <td>array[string]</td>
+  <td>List of human-readable tags for the app</td>
+</tr>
+<tr>
+  <td>templatePath</td>
+  <td>X</td>
+  <td>string</td>
+  <td>Path to the shell template file, relative to deploymentPath</td>
+</tr>
+<tr>
+  <td>testPath</td>
+  <td>X</td>
+  <td>string</td>
+  <td>Path to the shell test file, relative to deploymentPath</td>
+</tr>
+<tr>
+  <td>version</td>
+  <td>X</td>
+  <td>string</td>
+  <td>Preferred format: Major.minor.point integer values for app</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>Note *: The combination of <em>name</em> and <em>version</em> must be unique the entire iPlant API namespace. </li>
+</ul>
+
+<h3 id="inputs">Inputs</h3>
+
+<p>To tell Agave what files to stage into place before job execution, you need to define the app&rsquo;s inputs in a JSON array. To implement the SAMtools sort app, you need to tell Agave that a BAM file is needed to act as the subject of our sort:</p>
+<pre class="highlight javascript"><code><span class="p">{</span>  
+  <span class="s2">"id"</span><span class="err">:</span><span class="s2">"inputBam"</span><span class="p">,</span>
+  <span class="s2">"value"</span><span class="err">:</span><span class="p">{</span>  
+    <span class="s2">"default"</span><span class="err">:</span><span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"order"</span><span class="err">:</span><span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"required"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"validator"</span><span class="err">:</span><span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"visible"</span><span class="err">:</span><span class="kc">true</span>
+  <span class="p">},</span>
+  <span class="s2">"semantics"</span><span class="err">:</span><span class="p">{</span>  
+    <span class="s2">"ontology"</span><span class="err">:</span><span class="p">[</span>  
+      <span class="s2">"http://sswapmeet.sswap.info/mime/application/X-bam"</span>
+    <span class="p">],</span>
+    <span class="s2">"minCardinality"</span><span class="err">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"fileTypes"</span><span class="err">:</span><span class="p">[</span>  
+      <span class="s2">"raw-0"</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">"details"</span><span class="err">:</span><span class="p">{</span>  
+    <span class="s2">"description"</span><span class="err">:</span><span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"label"</span><span class="err">:</span><span class="s2">"The BAM file to sort"</span><span class="p">,</span>
+    <span class="s2">"argument"</span><span class="err">:</span><span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"showArgument"</span><span class="err">:</span><span class="kc">false</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Here&rsquo;s a walkthrough of what these fields mean:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Field</th>
+  <th>Mandatory</th>
+  <th>Type</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>id</td>
+  <td>X</td>
+  <td>string</td>
+  <td>This is the &ldquo;name&rdquo; of the file. You will use this in your wrapper script later whenever you need to refer to the BAM file being sorted</td>
+</tr>
+<tr>
+  <td>value.default</td>
+  <td></td>
+  <td>string</td>
+  <td>The path, relative to X, of the default value for the input</td>
+</tr>
+<tr>
+  <td>value.order</td>
+  <td></td>
+  <td>integer</td>
+  <td>Ignore for now</td>
+</tr>
+<tr>
+  <td>value.required</td>
+  <td>X</td>
+  <td>boolean</td>
+  <td>Is specification of this input mandatory to run a job?</td>
+</tr>
+<tr>
+  <td>value.validator</td>
+  <td></td>
+  <td>string</td>
+  <td><a href="https://www.cs.tut.fi/~jkorpela/perl/regexp.html">Perl-format regular expression</a> to restrict valid values</td>
+</tr>
+<tr>
+  <td>value.visible</td>
+  <td></td>
+  <td>boolean</td>
+  <td>When automatically generated a UI, should this field be visible to end users?</td>
+</tr>
+<tr>
+  <td>semantics.ontology</td>
+  <td></td>
+  <td>array[string]</td>
+  <td>List of ontology terms (or URIs pointing to ontology terms) applicable to the input format</td>
+</tr>
+<tr>
+  <td>semantics.minCardinality</td>
+  <td></td>
+  <td>integer</td>
+  <td>Minimum number of values accepted for this input</td>
+</tr>
+<tr>
+  <td>semantics.maxCardinality</td>
+  <td></td>
+  <td>integer</td>
+  <td>Maximum number of values accepted for this input</td>
+</tr>
+<tr>
+  <td>semantics.fileTypes</td>
+  <td>X</td>
+  <td>array[string]</td>
+  <td>List of Agave file types accepted. Always use &ldquo;raw-0&rdquo; for the time being</td>
+</tr>
+<tr>
+  <td>details.description</td>
+  <td></td>
+  <td>string</td>
+  <td>Human-readable description of the input. Often implemented as contextual help in automatically generated UI</td>
+</tr>
+<tr>
+  <td>details.label</td>
+  <td></td>
+  <td>string</td>
+  <td>Human-readable label for the input. Often implemented as text label next to the field in automatically generated UI</td>
+</tr>
+<tr>
+  <td>details.argument</td>
+  <td></td>
+  <td>string</td>
+  <td>The command-line argument associated with specifying this input at run time</td>
+</tr>
+<tr>
+  <td>details.showArgument</td>
+  <td></td>
+  <td>boolean</td>
+  <td>Include the argument in the substitution done by Agave when a run script is generated</td>
+</tr>
+</tbody>
+</table>
+
+<p><em>A note on paths</em>: In this iPlant-oriented tutorial, we assume you will stage data to and from &ldquo;data.iplantcollaborative.org&rdquo;, the default storage system for iPlant users. In this case, you can use relative paths relative to homeDir on that system (i.e. vaughn/analyses/foobar). To add portability, marshal data from other storageSystems, or import from public servers, you can also specify fully qualified URIs as follows:
+* storageSystem namespace: agave://storage-system-name/path/to/file
+* public URI namespace: https://www.cnn.com/index.html</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<p>Parameters are specified in a JSON array, and are broadly similar to inputs. Here&rsquo;s an example of the parameter we will define allowing users to specify how much RAM to use in a &ldquo;samtools sort&rdquo; operation.</p>
+<pre class="highlight javascript"><code><span class="p">{</span>  
+  <span class="s2">"id"</span><span class="err">:</span><span class="s2">"maxMemSort"</span><span class="p">,</span>
+  <span class="s2">"value"</span><span class="err">:</span><span class="p">{</span>  
+    <span class="s2">"default"</span><span class="err">:</span><span class="s2">"500000000"</span><span class="p">,</span>
+    <span class="s2">"order"</span><span class="err">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"required"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"type"</span><span class="err">:</span><span class="s2">"number"</span><span class="p">,</span>
+    <span class="s2">"validator"</span><span class="err">:</span><span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"visible"</span><span class="err">:</span><span class="kc">true</span>
+  <span class="p">},</span>
+  <span class="s2">"semantics"</span><span class="err">:</span><span class="p">{</span>  
+    <span class="s2">"ontology"</span><span class="err">:</span><span class="p">[</span>  
+      <span class="s2">"xs:integer"</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">"details"</span><span class="err">:</span><span class="p">{</span>  
+    <span class="s2">"description"</span><span class="err">:</span><span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"label"</span><span class="err">:</span><span class="s2">"Maxiumum memory in bytes, used for sorting"</span><span class="p">,</span>
+    <span class="s2">"argument"</span><span class="err">:</span><span class="s2">"-m"</span><span class="p">,</span>
+    <span class="s2">"showArgument"</span><span class="err">:</span><span class="kc">false</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<table>
+<thead>
+<tr>
+  <th>Field</th>
+  <th>Mandatory</th>
+  <th>Type</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>id</td>
+  <td>X</td>
+  <td>string</td>
+  <td>This is the &ldquo;name&rdquo; of the parameter. At runtime, it will be replaced in your script template based on the value passed as part of the job specification</td>
+</tr>
+<tr>
+  <td>value.default</td>
+  <td></td>
+  <td>string</td>
+  <td>If your app has a fixed-name output, specify it here</td>
+</tr>
+<tr>
+  <td>value.order</td>
+  <td></td>
+  <td>integer</td>
+  <td>Ignore for now. Supports automatic generation of command lines.</td>
+</tr>
+<tr>
+  <td>value.required</td>
+  <td></td>
+  <td>boolean</td>
+  <td>Is specification of this parameter mandatory to run a job?</td>
+</tr>
+<tr>
+  <td>value.type</td>
+  <td></td>
+  <td>string</td>
+  <td>JSON type for this parameter (used to generate and validate UI). Valid values: &ldquo;string&rdquo;, &ldquo;number&rdquo;, &ldquo;enumeration&rdquo;, &ldquo;bool&rdquo;, &ldquo;flag&rdquo;</td>
+</tr>
+<tr>
+  <td>value.validator</td>
+  <td></td>
+  <td>string</td>
+  <td><a href="https://www.cs.tut.fi/~jkorpela/perl/regexp.html">Perl-formatted regular expression</a> to restrict valid values</td>
+</tr>
+<tr>
+  <td>value.visible</td>
+  <td></td>
+  <td>boolean</td>
+  <td>When automatically generated a UI, should this field be visible to end users?</td>
+</tr>
+<tr>
+  <td>semantics.ontology</td>
+  <td></td>
+  <td>array[string]</td>
+  <td>List of ontology terms (or URIs pointing to ontology terms) applicable to the parameter. We recommend at least specifying an <a href="http://www.schemacentral.com/sc/xsd/s-datatypes.xsd.html">XSL Schema Simple Type</a>.</td>
+</tr>
+<tr>
+  <td>details.description</td>
+  <td></td>
+  <td>string</td>
+  <td>Human-readable description of the parameter. Often used to create contextual help in automatically generated UI</td>
+</tr>
+<tr>
+  <td>details.label</td>
+  <td></td>
+  <td>string</td>
+  <td>Human-readable label for the parameter. Often implemented as text label next to the field in automatically generated UI</td>
+</tr>
+<tr>
+  <td>details.argument</td>
+  <td></td>
+  <td>string</td>
+  <td>The command-line argument associated with specifying this parameter at run time</td>
+</tr>
+<tr>
+  <td>details.showArgument</td>
+  <td></td>
+  <td>boolean</td>
+  <td>Include the argument in the substitution done by Agave when a run script is generated</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="outputs">Outputs</h3>
+
+<p>While we don&rsquo;t support outputs 100% yet, Agave apps are designed to participate in workflows. Thus, just as we define the list of valid and required inputs to an app, we also must (when we know them) define a list of its outputs. This allows it to &ldquo;advertise&rdquo; to consumers of Agave services what it expects to emit, allowing apps to be chained together. Note that unlike inputs and parameters, output &ldquo;id&quot;s are NOT passed to the template file.  If you must specify an output filename in the application json, do it as a parameter!  Outputs are defined basically the same way as inputs:</p>
+<pre class="highlight javascript"><code><span class="p">{</span>  
+  <span class="s2">"id"</span><span class="err">:</span><span class="s2">"bam"</span><span class="p">,</span>
+  <span class="s2">"value"</span><span class="err">:</span><span class="p">{</span>  
+    <span class="s2">"default"</span><span class="err">:</span><span class="s2">"sorted.bam"</span><span class="p">,</span>
+    <span class="s2">"order"</span><span class="err">:</span><span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"required"</span><span class="err">:</span><span class="kc">false</span><span class="p">,</span>
+    <span class="s2">"validator"</span><span class="err">:</span><span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"visible"</span><span class="err">:</span><span class="kc">true</span>
+  <span class="p">},</span>
+  <span class="s2">"semantics"</span><span class="err">:</span><span class="p">{</span>  
+    <span class="s2">"ontology"</span><span class="err">:</span><span class="p">[</span>  
+      <span class="s2">"http://sswapmeet.sswap.info/mime/application/X-bam"</span>
+    <span class="p">],</span>
+    <span class="s2">"minCardinality"</span><span class="err">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"fileTypes"</span><span class="err">:</span><span class="p">[</span>  
+      <span class="s2">"raw-0"</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">"details"</span><span class="err">:</span><span class="p">{</span>  
+    <span class="s2">"description"</span><span class="err">:</span><span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"label"</span><span class="err">:</span><span class="s2">"Sorted BAM file"</span><span class="p">,</span>
+    <span class="s2">"argument"</span><span class="err">:</span><span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"showArgument"</span><span class="err">:</span><span class="kc">false</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Obligatory field walk-through:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Field</th>
+  <th>Mandatory</th>
+  <th>Type</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>id</td>
+  <td>X</td>
+  <td>string</td>
+  <td>This is the &quot;name&rdquo; of the output. It is not currently used by the wrapper script but may be in the future</td>
+</tr>
+<tr>
+  <td>value.default</td>
+  <td></td>
+  <td>string</td>
+  <td>If your app has a fixed-name output, specify it here</td>
+</tr>
+<tr>
+  <td>value.order</td>
+  <td></td>
+  <td>integer</td>
+  <td>Ignore for now</td>
+</tr>
+<tr>
+  <td>value.required</td>
+  <td>X</td>
+  <td>boolean</td>
+  <td>Is specification of this input mandatory to run a job?</td>
+</tr>
+<tr>
+  <td>value.validator</td>
+  <td></td>
+  <td>string</td>
+  <td><a href="https://www.cs.tut.fi/~jkorpela/perl/regexp.html">Perl-format regular expression</a> used to match output files</td>
+</tr>
+<tr>
+  <td>value.visible</td>
+  <td></td>
+  <td>boolean</td>
+  <td>When automatically generated a UI, should this field be visible to end users?</td>
+</tr>
+<tr>
+  <td>semantics.ontology</td>
+  <td></td>
+  <td>array[string]</td>
+  <td>List of ontology terms (or URIs pointing to ontology terms) applicable to the output format</td>
+</tr>
+<tr>
+  <td>semantics.minCardinality</td>
+  <td></td>
+  <td>integer</td>
+  <td>Minimum number of values expected for this output</td>
+</tr>
+<tr>
+  <td>semantics.maxCardinality</td>
+  <td></td>
+  <td>integer</td>
+  <td>Maximum number of values expected for this output</td>
+</tr>
+<tr>
+  <td>semantics.fileTypes</td>
+  <td>X</td>
+  <td>array[string]</td>
+  <td>List of Agave file types that may apply to the output. Always use &ldquo;raw-0&rdquo; for the time being</td>
+</tr>
+<tr>
+  <td>details.description</td>
+  <td></td>
+  <td>string</td>
+  <td>Human-readable description of the output</td>
+</tr>
+<tr>
+  <td>details.label</td>
+  <td></td>
+  <td>string</td>
+  <td>Human-readable label for the output</td>
+</tr>
+<tr>
+  <td>details.argument</td>
+  <td></td>
+  <td>string</td>
+  <td>The command-line argument associated with specifying this output at run time (not currently used)</td>
+</tr>
+<tr>
+  <td>details.showArgument</td>
+  <td></td>
+  <td>boolean</td>
+  <td>Include the argument in the substitution done by Agave when a run script is generated (not currently used)</td>
+</tr>
+</tbody>
+</table>
+
+<p><em>Note</em>: If the app you are working on doesn&rsquo;t natively produce output with a predictable name, one thing you can do is add extra logic to your script to take the existing output and rename it to something you can control or predict.</p>
+
+<h3 id="tools-and-utilities">Tools and Utilities</h3>
+
+<ol>
+<li>Stumped for ontology terms to apply to your Agave app inputs, outputs, and parameters? SSWAPmeet has many URI-format terms for <a href="http://sswapmeet.sswap.info/mime/">MIME</a> types, and BioPortal can provide links to <a href="http://bioportal.bioontology.org/ontologies/EDAM">EDAM</a>. </li>
+<li>Need to validate JSON files? Try <a href="http://jsonlint.com/">JSONlint</a> or <a href="http://json.parser.online.fr/">JSONparser</a></li>
+</ol>
+
+<h2 id="craft-a-shell-script-template">Craft a shell script template</h2>
+
+<p>Create sort.template using your test-sort.sh script as the starting point.</p>
+
+<p>[code lang=text]
+cp test-sort.sh sort.template
+&ldquo;`</p>
+
+<p>Now, open sort.template in the text editor of your choice. Delete the bash shebang line and the SLURM pragmas. Replace the hard-coded values for inputs and parameters with variables defined by your app description.</p>
+
+<p>[code lang=text]</p>
+
+<h1 id="set-up-inputs">Set up inputs&hellip;</h1>
+
+<h1 id="since-we-don-039-t-check-these-when-constructing-the">Since we don&#039;t check these when constructing the</h1>
+
+<h1 id="command-line-later-these-will-be-marked-as-required">command line later, these will be marked as required</h1>
+
+<p>inputBam=${inputBam}</p>
+
+<h1 id="and-parameters">and parameters</h1>
+
+<p>outputPrefix=${outputPrefix}</p>
+
+<h1 id="maximum-memory-for-sort-in-bytes">Maximum memory for sort, in bytes</h1>
+
+<h1 id="be-careful-neither-agave-nor-scheduler-will">Be careful, Neither Agave nor scheduler will</h1>
+
+<h1 id="check-that-this-is-a-reasonable-value-in-production">check that this is a reasonable value. In production</h1>
+
+<h1 id="you-might-want-to-code-min-max-for-this-value">you might want to code min/max for this value</h1>
+
+<p>maxMemSort=${maxMemSort}</p>
+
+<h1 id="boolean-sort-by-name-instead-of-coordinate">Boolean: Sort by name instead of coordinate</h1>
+
+<p>nameSort=${nameSort}</p>
+
+<h1 id="unpack-the-bin-tgz-file-containing-samtools-binaries">Unpack the bin.tgz file containing samtools binaries</h1>
+
+<p>tar -xvf bin.tgz</p>
+
+<h1 id="set-the-path-to-include-binaries-in-bin">Set the PATH to include binaries in bin</h1>
+
+<p>export PATH=$PATH:&rdquo;$PWD/bin&quot;</p>
+
+<h1 id="build-up-an-args-string-for-the-program">Build up an ARGS string for the program</h1>
+
+<h1 id="start-with-empty-args">Start with empty ARGS&hellip;</h1>
+
+<p>ARGS=&ldquo;&rdquo;</p>
+
+<h1 id="add-m-flag-if-maxmemsort-was-specified">Add -m flag if maxMemSort was specified</h1>
+
+<p>if [ ${maxMemSort} -gt 0 ]; then ARGS=&ldquo;${ARGS} -m $maxMemSort&rdquo;; fi</p>
+
+<h1 id="boolean-handler-for-named-sort">Boolean handler for -named sort</h1>
+
+<p>if [ ${nameSort} -eq 1 ]; then ARGS=&ldquo;${ARGS} -n &rdquo;; fi</p>
+
+<h1 id="run-the-actual-program">Run the actual program</h1>
+
+<p>samtools sort ${ARGS} $inputBam ${outputPrefix}</p>
+
+<h1 id="now-delete-the-bin-directory">Now, delete the bin/ directory</h1>
+
+<p>rm -rf bin
+&ldquo;`</p>
+
+          </div>
+          <div class="dark-box">
+          </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+      document.getElementById("fouc").style.display="block";
+    </script>
+  </body>
+</html>

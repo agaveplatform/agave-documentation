@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Agave Live Docs</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+
+    <script type="text/javascript">
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+      analytics.load("ahAKHCapavwGo8rmdDxiohHIV8W660mc");
+      analytics.page()
+      }}();
+    </script>
+    <script src="https://use.typekit.net/squ8frf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+
+    <link href="../../../../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../../../../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="../../../../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+    <style>
+    .js #fouc { display: none; }
+    </style>
+    <script type="text/javascript">
+        document.documentElement.className = 'js';
+    </script>
+  </head>
+
+  <body class="migrated_docs migrated_docs_documentation migrated_docs_documentation_tutorials migrated_docs_documentation_tutorials_user-management migrated_docs_documentation_tutorials_user-management_user-profiles">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../../../../images/navbar.png" />
+      </span>
+    </a>
+    <div id="fouc">
+        <div class="tocify-wrapper">
+          <img class="menu-logo" src="../../../../images/agave-docs-logo.png" />
+          
+          <div id="toc">
+          </div>
+        </div>
+        <div class="page-wrapper">
+          <div class="dark-box"></div>
+          <div class="content">
+            <h2 id="introduction">Introduction</h2>
+
+<p>Agave provides a service for searching and viewing profile information about users associated with your tenant of the API. Generally speaking, these would be other people who were issued accounts by the same organization that issued you the username and password you used to login to this developer portal.</p>
+
+<h3 id="viewing-a-specific-user-profile">Viewing a specific user profile</h3>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/profiles/<span class="nv">$API_VERSION</span>/me
+</code></pre>
+<pre class="highlight plaintext"><code>profiles-list -v me
+</code></pre>
+
+<p>The response from the service will resemble the following:</p>
+<pre class="highlight javascript"><code><span class="p">{</span>
+  <span class="s2">"status"</span><span class="err">:</span><span class="s2">"success"</span><span class="p">,</span>
+  <span class="s2">"message"</span><span class="err">:</span><span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"version"</span><span class="err">:</span><span class="s2">"2.1.8-SNAPSHOT-r8244"</span><span class="p">,</span>
+  <span class="s2">"result"</span><span class="err">:</span><span class="p">[</span>
+     <span class="p">{</span>
+        <span class="s2">"username"</span><span class="p">:</span><span class="s2">"nryan"</span><span class="p">,</span>
+        <span class="s2">"email"</span><span class="p">:</span><span class="s2">"nryan@astros.mlb.com"</span><span class="p">,</span>
+        <span class="s2">"firstName"</span><span class="p">:</span><span class="s2">"Nolan"</span><span class="p">,</span>
+        <span class="s2">"lastName"</span><span class="p">:</span><span class="s2">"Ryan"</span><span class="p">,</span>
+        <span class="s2">"position"</span><span class="p">:</span><span class="s2">"Pitcher"</span><span class="p">,</span>
+        <span class="s2">"institution"</span><span class="p">:</span><span class="s2">"Baseball"</span><span class="p">,</span>
+        <span class="s2">"phone"</span><span class="p">:</span><span class="s2">"(817) 273-5222"</span><span class="p">,</span>
+        <span class="s2">"fax"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"researchArea"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"department"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"city"</span><span class="p">:</span><span class="s2">"Houston"</span><span class="p">,</span>
+        <span class="s2">"state"</span><span class="p">:</span><span class="s2">"TX"</span><span class="p">,</span>
+        <span class="s2">"country"</span><span class="p">:</span><span class="s2">"USA"</span><span class="p">,</span>
+        <span class="s2">"gender"</span><span class="p">:</span><span class="s2">"MALE"</span><span class="p">,</span>
+        <span class="s2">"_links"</span><span class="p">:{</span>
+           <span class="s2">"self"</span><span class="p">:{</span>
+<span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://$API_BASE_URL/profiles/$API_VERSION/nryan"</span>
+           <span class="p">},</span>
+           <span class="s2">"users"</span><span class="err">:</span><span class="p">{</span>
+<span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://$API_BASE_URL/profiles/$API_VERSION/nryan/users"</span>
+           <span class="p">}</span>
+        <span class="p">}</span>
+     <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+
+<h2 id="searching-for-other-users">Searching for other users</h2>
+
+<p>It is also possible to search for users by partial name, email address, or username. The syntax for these queries are as follows:</p>
+<pre class="highlight shell"><code><span class="c"># Search by name</span>
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> http://<span class="nv">$API_BASE_URL</span>/profiles/<span class="nv">$API_VERSION</span>/search/name/<span class="nv">$NAME</span>
+
+<span class="c"># Search by email address</span>
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> http://<span class="nv">$API_BASE_URL</span>/profiles/<span class="nv">$API_VERSION</span>/search/name/<span class="nv">$EMAIL</span>
+
+<span class="c"># Search by username</span>
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> http://<span class="nv">$API_BASE_URL</span>/profiles/<span class="nv">$API_VERSION</span>/search/username/<span class="nv">$USERNAME</span>
+</code></pre>
+<pre class="highlight plaintext"><code># Search by name
+profiles-list -v -N $NAME
+
+# Search by email address
+profiles-list -v -E $EMAIL
+
+# Search by username
+profiles-list -v -U $USERNAME
+</code></pre>
+
+<p>Search values can be partial values. The service will look for case-insensitive matches for the given value anywhere within the specified field. For name searches, the service will look for matches in the user&rsquo;s first name, last name, and first name + last name separated by a space.</p>
+
+<h2 id="identity-management">Identity Management</h2>
+
+<p>Agave&rsquo;s hosted Identity service supports full CRUD access to user accounts through a REST API and an OpenLDAP interface. Extensive documentation on the OpenLDAP interface can be found on the OpenLDAP <a href="http://www.openldap.org/" title="OpenLDAP" target="_blank">website</a> and is beyond the scope of this document. For more information on how to create a tenant of Agave for your project or organization, please reach out to dooley [at] tacc [dot] utexas [dot] edu.</p>
+
+<aside class="notice">If your organization runs their own identity service, the information available through the Profiles will most likely be restricted to read only access. This will still allow you to search for and view other users, but you will not be able to do things like update your personal profile information or create new user accounts. To do that, consult your organization&rsquo;s user portal or contact their user support team.</aside>
+
+<h2 id="creating-users">Creating users</h2>
+
+<p>To create a new user profile, send a POST request with a JSON description of the user to the <code>/profiles/$API_VERSION/</code> endpoint.</p>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+   --data &amp;#039;<span class="o">{</span><span class="s2">"username"</span>:<span class="s2">"rclemens"</span>,<span class="s2">"email"</span>:<span class="s2">"rclemens@mlb.com"</span>, <span class="s2">"firstname"</span>:<span class="s2">"Roger"</span>,<span class="s2">"lastname"</span>:<span class="s2">"Clemens"</span><span class="o">}</span>&amp;#039;
+   <span class="s2">"https://</span><span class="nv">$API_BASE_URL</span><span class="s2">/profiles/</span><span class="nv">$API_VERSION</span><span class="s2">/
+</span></code></pre>
+<pre class="highlight plaintext"><code>profiles-addupdate -v -F rclemens.json
+</code></pre>
+
+<p>The response from the service will resemble the following:</p>
+<pre class="highlight javascript"><code><span class="p">{</span>
+  <span class="s2">"status"</span><span class="err">:</span><span class="s2">"success"</span><span class="p">,</span>
+  <span class="s2">"message"</span><span class="err">:</span><span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"version"</span><span class="err">:</span><span class="s2">"2.1.8-SNAPSHOT-r8244"</span><span class="p">,</span>
+  <span class="s2">"result"</span><span class="err">:</span><span class="p">[</span>
+     <span class="p">{</span>
+        <span class="s2">"username"</span><span class="p">:</span><span class="s2">"rclemens"</span><span class="p">,</span>
+        <span class="s2">"email"</span><span class="p">:</span><span class="s2">"rclemens@mlb.com"</span><span class="p">,</span>
+        <span class="s2">"firstName"</span><span class="p">:</span><span class="s2">"Roger"</span><span class="p">,</span>
+        <span class="s2">"lastName"</span><span class="p">:</span><span class="s2">"Clemens"</span><span class="p">,</span>
+        <span class="s2">"position"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"institution"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"phone"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"fax"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"researchArea"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"department"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"city"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"state"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"country"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"gender"</span><span class="p">:</span><span class="s2">"MALE"</span><span class="p">,</span>
+        <span class="s2">"_links"</span><span class="p">:{</span>
+           <span class="s2">"self"</span><span class="p">:{</span>
+<span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://$API_BASE_URL/profiles/$API_VERSION/rclemens"</span>
+           <span class="p">},</span>
+           <span class="s2">"users"</span><span class="err">:</span><span class="p">{</span>
+<span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://$API_BASE_URL/profiles/$API_VERSION/rclemens/users"</span>
+           <span class="p">}</span>
+        <span class="p">}</span>
+     <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+
+<h2 id="updating-users">Updating users</h2>
+
+<p>To update a user profile, make a PUT request to the URI of the user, passing the
+updated description of the user in the payload.</p>
+<pre class="highlight shell"><code>curl -sk -X PUT -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+   --data &amp;#039;<span class="o">{</span><span class="s2">"username"</span>:<span class="s2">"rclemens"</span>,<span class="s2">"email"</span>:<span class="s2">"rclemens@mlb.com"</span>, <span class="s2">"firstname"</span>:<span class="s2">"Roger"</span>,<span class="s2">"lastname"</span>:<span class="s2">"Clemens"</span><span class="o">}</span>&amp;#039;
+   <span class="s2">"https://</span><span class="nv">$API_BASE_URL</span><span class="s2">/profiles/</span><span class="nv">$API_VERSION</span><span class="s2">/rclemens
+</span></code></pre>
+<pre class="highlight plaintext"><code>profiles-addupdate -v -F profile.json
+</code></pre>
+
+<p>The response from the service will resemble the following:</p>
+<pre class="highlight javascript"><code><span class="p">[</span>  
+  <span class="p">{</span>  
+    <span class="s2">"username"</span><span class="p">:</span><span class="s2">"rclemens"</span><span class="p">,</span>
+    <span class="s2">"email"</span><span class="p">:</span><span class="s2">"rclemens@mlb.com"</span><span class="p">,</span>
+    <span class="s2">"firstName"</span><span class="p">:</span><span class="s2">"Roger"</span><span class="p">,</span>
+    <span class="s2">"lastName"</span><span class="p">:</span><span class="s2">"Clemens"</span><span class="p">,</span>
+    <span class="s2">"position"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"institution"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"phone"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"fax"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"researchArea"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"department"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"city"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"state"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"country"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"gender"</span><span class="p">:</span><span class="s2">"MALE"</span><span class="p">,</span>
+    <span class="s2">"_links"</span><span class="p">:{</span>  
+      <span class="s2">"self"</span><span class="p">:{</span>  
+        <span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://$API_BASE_URL/profiles/$API_VERSION/rclemens"</span>
+      <span class="p">},</span>
+      <span class="s2">"users"</span><span class="err">:</span><span class="p">{</span>  
+        <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://$API_BASE_URL/profiles/$API_VERSION/rclemens/users"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre>
+
+<h2 id="deleting-users">Deleting users</h2>
+
+<p>To delete a user profile, make a DELETE request to the URI of the user.</p>
+<pre class="highlight shell"><code>curl -sk -X DELETE -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+   <span class="s2">"https://</span><span class="nv">$API_BASE_URL</span><span class="s2">/profiles/</span><span class="nv">$API_VERSION</span><span class="s2">/rclemens
+</span></code></pre>
+<pre class="highlight plaintext"><code>profiles-users-delete -v rclemens
+</code></pre>
+
+<p>The response from the service will be an empty result object.</p>
+<pre class="highlight javascript"><code><span class="p">{}</span>
+</code></pre>
+
+<h2 id="user-roles">User roles</h2>
+
+<p>Agave supports three user roles: user, tenant admin, and super admin. Each role is described in the following table. User roles are currently assigned and managed by Agave staff. If you need help configuring user roles for your tenant, please contact your tenant admin at $TENANT_ADMIN_EMAIL.</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/56&rdquo; %&gt;</p>
+
+          </div>
+          <div class="dark-box">
+          </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+      document.getElementById("fouc").style.display="block";
+    </script>
+  </body>
+</html>

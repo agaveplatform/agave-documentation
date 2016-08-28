@@ -1,0 +1,395 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Agave Live Docs</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+
+    <script type="text/javascript">
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+      analytics.load("ahAKHCapavwGo8rmdDxiohHIV8W660mc");
+      analytics.page()
+      }}();
+    </script>
+    <script src="https://use.typekit.net/squ8frf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+
+    <link href="../../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="../../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+    <style>
+    .js #fouc { display: none; }
+    </style>
+    <script type="text/javascript">
+        document.documentElement.className = 'js';
+    </script>
+  </head>
+
+  <body class="migrated_docs migrated_docs_documentation migrated_docs_documentation_authorization-guide">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../../images/navbar.png" />
+      </span>
+    </a>
+    <div id="fouc">
+        <div class="tocify-wrapper">
+          <img class="menu-logo" src="../../images/agave-docs-logo.png" />
+          
+          <div id="toc">
+          </div>
+        </div>
+        <div class="page-wrapper">
+          <div class="dark-box"></div>
+          <div class="content">
+            <h2 id="introduction">Introduction</h2>
+
+<p>Most requests to the Agave REST APIs require authorization; that is, the user must have granted permission for an application to access the requested data. To prove that the user has granted permission, the request header sent by the application must include a valid access token.</p>
+
+<p>Before you can begin the authorization process, you will need to <a title="Client Registration" href="/documentation/tutorials/client-registration/">register your client application</a>. That will give you a unique client key and secret key to use in the authorization flows.</p>
+
+<h2 id="supported-authorization-flows">Supported Authorization Flows</h2>
+
+<p>The Agave REST APIs currently supports four authorization flows:</p>
+
+<ol>
+<li>The <a href="#authorization_code_flow">Authorization Code</a> flow first gets a code then exchanges it for an access token and a refresh token. Since the exchange uses your client secret key, you should make that request server-side to keep the integrity of the key. An advantage of this flow is that you can use refresh tokens to extend the validity of the access token.</p></li>
+<li><p>The <a href="#implicit_grant_flow">Implicit Grant</a> flow is carried out client-side and does not involve secret keys. The access tokens that are issued are short-lived and there are no refresh tokens to extend them when they expire.</p></li>
+<li><p><a href="#resource_owner_flow">Resource Owner Password Credentials</a> flow is suitable for native and mobile applications as well as web services, this flow allows client applications to obtain an access token for a user by directly providing the user credentials in an authentication request. This flow exposes the user&rsquo;s credentials to the client application and is primarily used in situations where the client application is highly trusted such as the command line.</p></li>
+<li><p>The <a href="#client_credentials_flow">Client Credentials</a> flow enables users to interact with their own protected resources directly without requiring browser interaction. This is a critical addition for use at the command line, in scripts, and in offline programs. This flow assumes the person registering the client application and the user on whose behalf requests are made be the same person.</p></li>
+</ol>
+
+<p><p>&lt;%= partial &ldquo;includes/tables/6&rdquo; %&gt;</p>
+
+<aside class="notice">**Additional Help:** You can read our <a href="/tools/web-application-tutorial" title="Agave Web Application Tutorial">step-by-step tutorial</a> where we explain how to run an example application using these flows. In addition, we have a list of <a href="/tools/" title="Tools">handy wrappers and tools</a> for your language of choice.</aside>
+
+<h2 id="authorization-code"><a id="authorization_code_flow"></a>Authorization Code</h2>
+
+<p>The method is suitable for long-running applications in which the user logs in once and the access token can be refreshed. Since the token exchange involves sending your secret key, this should happen on a secure location, like a backend service, not from a client like a browser or mobile apps. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>. This flow is also the authorization flow used in our REST API Tutorial.</p>
+
+<p><img src="/wp-content/uploads/2014/09/Authorization-Code-Flow.png" alt="Authorization Code Flow Diagram" style="width: 100%; height: auto;"/></p>
+
+<h3 id="1-your-application-requests-authorization">1. Your application requests authorization</h3>
+
+<p>The authorization process starts with your application sending a request to the Agave authorization service. (The reason your application sends this request can vary: it may be a step in the initialization of your application or in response to some user action, like a button click.) The request is sent to the /authorize endpoint of the Authorization service:</p>
+<pre class="highlight shell"><code>GET https://public.agaveapi.co/authorize
+</code></pre>
+
+<p>The request will include parameters in the query string:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/17&rdquo; %&gt;</p>
+
+<p>A typical request looks like this:</p>
+<pre class="highlight shell"><code>GET https://public.agaveapi.co/authorize/?client_id<span class="o">=</span>gTgp...SV8a&amp;amp;response_type<span class="o">=</span>code&amp;amp;redirect_uri<span class="o">=</span>https%3A%2F%2Fexample.com%2Fcallback&amp;amp;scope<span class="o">=</span>PRODUCTION&amp;amp;state<span class="o">=</span>866
+</code></pre>
+
+<h3 id="2-the-user-is-asked-to-authorize-access-within-the-scopes">2. The user is asked to authorize access within the scopes</h3>
+
+<p>The Agave Authorization service presents details of the scopes for which access is being sought. If the user is not logged in, they are prompted to do so using their API username and password.</p>
+
+<p>When the user is logged in, they are asked to authorize access to the actions and services defined in the scopes.</p>
+
+<h3 id="3-the-user-is-redirected-back-to-your-specified-uri">3. The user is redirected back to your specified URI</h3>
+
+<p>After the user accepts (or denies) your request, the Agave Authorization service redirects back to the redirect_uri. For our example, this would be the address:</p>
+<pre class="highlight shell"><code>https://example.com/callback
+</code></pre>
+
+<p>If the user has accepted your request, the response query string contains a <code>code</code> parameter with the access code you will use in the next step to retrieve an access token. For example:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/18&rdquo; %&gt;</p>
+
+<p>For example:</p>
+<pre class="highlight shell"><code>https://example.com/callback?code<span class="o">=</span>Pq3S..M4sY&amp;amp;state<span class="o">=</span>866
+</code></pre>
+
+<p>If the user has denied access, there will be no access token and the final URL will have a query string containing the following parameters:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/19&rdquo; %&gt;</p>
+
+<p>For example:</p>
+<pre class="highlight shell"><code>https://example.com/callback?error<span class="o">=</span>access_denied&amp;amp;state<span class="o">=</span>867
+</code></pre>
+
+<h3 id="4-your-application-requests-refresh-and-access-tokens">4. Your application requests refresh and access tokens</h3>
+
+<p>When the authorization code has been received, you will need to exchange it with an access token by making a POST request to the Agave Authorization service, this time to its <code>/token</code> endpoint:</p>
+<pre class="highlight shell"><code>POST https://public.agaveapi.co/token
+</code></pre>
+
+<p>The body of this POST request must contain the following parameters:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/9&rdquo; %&gt;</p>
+
+<h3 id="5-the-tokens-are-returned-to-your-application">5. The tokens are returned to your application</h3>
+
+<p>On success, the response from the Agave Authorization service has the status code 200 OK in the response header, and the following JSON data in the response body:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/10&rdquo; %&gt;</p>
+
+<p>An example cURL request and response from the token endpoint will look something like this:</p>
+<pre class="highlight shell"><code>curl -X POST -d <span class="s2">"grant_type= authorization_code"</span>
+    -d <span class="s2">"code=Pq3S..M4sY"</span>
+    -d <span class="s2">"client_id=gTgp...SV8a"</span>
+    -d <span class="s2">"client_secret=hZ_z3f...BOD6"</span>
+    <span class="s2">"redirect_uri=https%3A%2F%2Fwww.foo.com%2Fauth"</span> https://public.agaveapi.co/token
+</code></pre>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"access_token"</span><span class="err">:</span> <span class="s2">"a742...12d2"</span><span class="p">,</span>
+    <span class="s2">"expires_in"</span><span class="err">:</span> <span class="mi">14400</span><span class="p">,</span>
+    <span class="s2">"refresh_token"</span><span class="err">:</span> <span class="s2">"d77c...Sacf"</span><span class="p">,</span>
+    <span class="s2">"token_type"</span><span class="err">:</span> <span class="s2">"bearer"</span>
+<span class="p">}</span>
+</code></pre>
+
+<h3 id="6-use-the-access-token-to-access-the-agave-rest-apis">6. Use the access token to access the Agave REST APIs</h3>
+
+<p>The access token allows you to make requests to the Agave REST APIs on a behalf of a user, for example:</p>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer a742...12d2"</span> https://public.agaveapi.co/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"create_time"</span><span class="err">:</span> <span class="s2">"20140905072223Z"</span><span class="p">,</span>
+    <span class="s2">"email"</span><span class="err">:</span> <span class="s2">"rjohnson@mlb.com"</span><span class="p">,</span>
+    <span class="s2">"first_name"</span><span class="err">:</span> <span class="s2">"Randy"</span><span class="p">,</span>
+    <span class="s2">"full_name"</span><span class="err">:</span> <span class="s2">"Randy Johnson"</span><span class="p">,</span>
+    <span class="s2">"last_name"</span><span class="err">:</span> <span class="s2">"Johnson"</span><span class="p">,</span>
+    <span class="s2">"mobile_phone"</span><span class="err">:</span> <span class="s2">"(123) 456-7890"</span><span class="p">,</span>
+    <span class="s2">"phone"</span><span class="err">:</span> <span class="s2">"(123) 456-7890"</span><span class="p">,</span>
+    <span class="s2">"status"</span><span class="err">:</span> <span class="s2">"Active"</span><span class="p">,</span>
+    <span class="s2">"uid"</span><span class="err">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"username"</span><span class="err">:</span> <span class="s2">"rjohnson"</span>
+<span class="p">}</span>
+</code></pre>
+
+<h3 id="7-requesting-access-token-from-refresh-token">7. Requesting access token from refresh token</h3>
+
+<p>Access tokens are deliberately set to expire after a short time, usually 4 hours, after which new tokens may be granted by supplying the refresh token originally obtained during the authorization code exchange.</p>
+
+<p>The request is sent to the token endpoint of the Agave Authorization service:</p>
+<pre class="highlight shell"><code>POST https://public.agaveapi.co/token
+</code></pre>
+
+<p>The body of this POST request must contain the following parameters:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/11&rdquo; %&gt;</p>
+
+<p>The header of this POST request must contain the following parameter:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/12&rdquo; %&gt;</p>
+
+<p>For example:</p>
+<pre class="highlight shell"><code>curl -sku <span class="s2">"Authorization: Basic Qt3c...Rm1y="</span>
+    -d <span class="nv">grant_type</span><span class="o">=</span>refresh_token
+    -d <span class="nv">refresh_token</span><span class="o">=</span>d77c...Sacf https://public.agaveapi.co/token
+</code></pre>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"access_token"</span><span class="err">:</span> <span class="s2">"61e6...Mc96"</span><span class="p">,</span>
+    <span class="s2">"expires_in"</span><span class="err">:</span> <span class="mi">14400</span><span class="p">,</span>
+    <span class="s2">"token_type"</span><span class="err">:</span> <span class="s2">"bearer"</span>
+<span class="p">}</span>
+</code></pre>
+
+<h2 id="implicit-grant"><a id="implicit_grant_flow"></a>Implicit Grant</h2>
+
+<p>Implicit grant flow is for clients that are implemented entirely using JavaScript and running in resource owner&rsquo;s browser. You do not need any server side code to use it. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>.</p>
+
+<p><img src="/wp-content/uploads/2014/09/Implicit-Flow.png" alt="Implicit Flow" style="width: 100%; height:auto"/></p>
+
+<h3 id="1-your-application-requests-authorization">1. Your application requests authorization</h3>
+
+<p>Redirect the user to the /authorize endpoint of the Accounts service:</p>
+<pre class="highlight shell"><code>GET https://public.agaveapi.co/authorize
+</code></pre>
+
+<p>The request will include parameters in the query string:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/16&rdquo; %&gt;</p>
+
+<p>For example you would redirect the user to</p>
+<pre class="highlight shell"><code>https://public.agaveapi.co/authorize?client_id<span class="o">=</span>gTgp...SV8a&amp;amp;redirect_uri<span class="o">=</span>http:%2F%2Fexample.com%2Fcallback&amp;amp;scope<span class="o">=</span>PRODUCTION&amp;amp;response_type<span class="o">=</span>token&amp;amp;state<span class="o">=</span>867
+</code></pre>
+
+<h3 id="2-the-user-is-asked-to-authorize-access-within-the-scopes">2. The user is asked to authorize access within the scopes</h3>
+
+<p>The Agave Authorization service presents details of the scopes for which access is being sought. If the user is not logged in, they are prompted to do so using their API username and password.</p>
+
+<p>When the user is logged in, they are asked to authorize access to the data sets defined in the scopes.</p>
+
+<h3 id="3-the-user-is-redirected-back-to-your-specified-uri">3. The user is redirected back to your specified URI</h3>
+
+<p>After the user grants (or denies) access, the Agave Authorization service redirects the user to the <code>redirect_uri</code>. For our example, this would be the address:</p>
+<pre class="highlight shell"><code>https://example.com/callback
+</code></pre>
+
+<p>If the user has granted access, the final URL will contain the following data parameters in the query string:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/18&rdquo; %&gt;</p>
+
+<p>For example:</p>
+<pre class="highlight shell"><code>https://example.com/callback?access_token<span class="o">=</span>Vr17...amUa&amp;amp;token_type<span class="o">=</span>bearer&amp;amp;expires_in<span class="o">=</span>14400&amp;amp;state<span class="o">=</span>867
+</code></pre>
+
+<p>If the user has denied access, there will be no access token and the final URL will have a query string containing the following parameters:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/19&rdquo; %&gt;</p>
+
+<p>For example:</p>
+<pre class="highlight shell"><code>https://example.com/callback?error<span class="o">=</span>access_denied&amp;amp;state<span class="o">=</span>867
+</code></pre>
+
+<h2 id="resource-owner-password-credentials"><a id="resource_owner_flow"></a>Resource Owner Password Credentials</h2>
+
+<p>The method is suitable for scenarios where there is a high degree of trust between the end-user and the client application. This could be a Desktop application, shell script, or server-to-server communication where user authorization is needed. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>.</p>
+
+<p><img src="/wp-content/uploads/2014/09/Resource-Owner-Password-Flow.png" style="width:100%; height:auto;"></p>
+
+<h3 id="1-your-application-requests-authorization">1. Your application requests authorization</h3>
+
+<p>The request is sent to the <code>/token</code> endpoint of the Agave Authentication service.</p>
+<pre class="highlight shell"><code>POST https://public.agaveapi.co/token
+</code></pre>
+
+<p>The request will include the following parameters in the request body:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/14&rdquo; %&gt;</p>
+
+<p>The header of this POST request must contain the following parameter:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/12&rdquo; %&gt;</p>
+
+<p>For example:</p>
+<pre class="highlight shell"><code>curl -sku <span class="s2">"Authorization: Basic Qt3c...Rm1y="</span>
+    -d <span class="nv">grant_type</span><span class="o">=</span>password
+    -d <span class="nv">username</span><span class="o">=</span>rjohnson
+    -d <span class="nv">password</span><span class="o">=</span>password
+    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION https://public.agaveapi.co/token
+</code></pre>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"access_token"</span><span class="err">:</span> <span class="s2">"3Dsr...pv21"</span><span class="p">,</span>
+    <span class="s2">"expires_in"</span><span class="err">:</span> <span class="mi">14400</span><span class="p">,</span>
+    <span class="s2">"refresh_token"</span><span class="err">:</span> <span class="s2">"dyVa...MqR0"</span><span class="p">,</span>
+    <span class="s2">"token_type"</span><span class="err">:</span> <span class="s2">"bearer"</span>
+<span class="p">}</span>
+</code></pre>
+
+<aside class="notice">It is not necessary for the username and password sent in the authorization request correspond to those of the client credentials owner, you can obtain an access token for any user provided you have their username and password. It is important to note that this flow should ***only*** be used in situations of high trust where no browser is available to handle the HTTP redirects required by the Authorization Code flow. Collecting and/or unnecessarily exposing user passwords is a violation of the <a href="/terms-of-service/" title="Terms of Service">Terms of Service</a> and subject to immediate account revocation.</aside>
+
+<p>If the user has not accepted your request or an error has occurred, the response query string contains an error parameter indicating the error that occurred during login. For example:</p>
+<pre class="highlight shell"><code>https://example.com/callback?error<span class="o">=</span>access_denied
+</code></pre>
+
+<h3 id="2-use-the-access-token-to-access-the-agave-rest-apis">2. Use the access token to access the Agave REST APIs</h3>
+
+<p>The access token allows you to make requests to any of the Agave REST APIs on behalf of the authenticated user.</p>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer 3Dsr...pv21"</span> https://public.agaveapi.co/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"create_time"</span><span class="err">:</span> <span class="s2">"20140905072223Z"</span><span class="p">,</span>
+    <span class="s2">"email"</span><span class="err">:</span> <span class="s2">"rjohnson@mlb.com"</span><span class="p">,</span>
+    <span class="s2">"first_name"</span><span class="err">:</span> <span class="s2">"Randy"</span><span class="p">,</span>
+    <span class="s2">"full_name"</span><span class="err">:</span> <span class="s2">"Randy Johnson"</span><span class="p">,</span>
+    <span class="s2">"last_name"</span><span class="err">:</span> <span class="s2">"Johnson"</span><span class="p">,</span>
+    <span class="s2">"mobile_phone"</span><span class="err">:</span> <span class="s2">"(123) 456-7890"</span><span class="p">,</span>
+    <span class="s2">"phone"</span><span class="err">:</span> <span class="s2">"(123) 456-7890"</span><span class="p">,</span>
+    <span class="s2">"status"</span><span class="err">:</span> <span class="s2">"Active"</span><span class="p">,</span>
+    <span class="s2">"uid"</span><span class="err">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"username"</span><span class="err">:</span> <span class="s2">"rjohnson"</span>
+<span class="p">}</span>
+</code></pre>
+
+<h3 id="3-requesting-access-token-from-refresh-token">3. Requesting access token from refresh token</h3>
+
+<p>Access tokens are deliberately set to expire after a short time, usually 4 hours, after which new tokens may be granted by supplying the refresh token obtained during original request.</p>
+
+<p>The request is sent to the token endpoint of the Agave Authorization service:</p>
+<pre class="highlight shell"><code>POST https://public.agaveapi.co/token
+</code></pre>
+
+<p>The body of this POST request must contain the following parameters:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/15&rdquo; %&gt;</p>
+
+<p>The header of this POST request must contain the following parameter:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/12&rdquo; %&gt;</p>
+
+<p>For example:</p>
+<pre class="highlight shell"><code>curl -sku <span class="s2">"Authorization: Basic Qt3c...Rm1y="</span>
+    -d <span class="nv">grant_type</span><span class="o">=</span>refresh_token
+    -d <span class="nv">refresh_token</span><span class="o">=</span>dyVa...MqR0
+    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION https://public.agaveapi.co/token
+</code></pre>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"access_token"</span><span class="err">:</span> <span class="s2">"8erF...NGly"</span><span class="p">,</span>
+    <span class="s2">"expires_in"</span><span class="err">:</span> <span class="mi">14400</span><span class="p">,</span>
+    <span class="s2">"token_type"</span><span class="err">:</span> <span class="s2">"bearer"</span>
+<span class="p">}</span>
+</code></pre>
+
+<h2 id="client-credentials"><a id="client_credentials_flow"></a>Client Credentials</h2>
+
+<p>The method is suitable for authenticating your requests to the Agave REST API. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>.</p>
+
+<p><img src="/wp-content/uploads/2014/09/Client-Credentials-Flow.png" style="width:100%; height:auto;"></p>
+
+<h3 id="1-your-application-requests-authorization">1. Your application requests authorization</h3>
+
+<p>The request is sent to the <code>/token</code> endpoint of the Agave Authentication service:</p>
+<pre class="highlight shell"><code>POST https://public.agaveapi.co/token
+</code></pre>
+
+<p>The request will include parameters in the request body:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/13&rdquo; %&gt;</p>
+
+<p>The header of this POST request must contain the following parameter:</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/12&rdquo; %&gt;</p>
+
+<p>For example:</p>
+<pre class="highlight shell"><code>curl -sku <span class="s2">"Authorization: Basic Qt3c...Rm1y="</span>
+    -d <span class="nv">grant_type</span><span class="o">=</span>client_credentials
+    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION https://public.agaveapi.co/token
+</code></pre>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"access_token"</span><span class="err">:</span> <span class="s2">"61e6...Mc96"</span><span class="p">,</span>
+    <span class="s2">"expires_in"</span><span class="err">:</span> <span class="mi">14400</span><span class="p">,</span>
+    <span class="s2">"token_type"</span><span class="err">:</span> <span class="s2">"bearer"</span>
+<span class="p">}</span>
+</code></pre>
+
+<h3 id="2-use-the-access-token-to-access-the-agave-rest-apis">2. Use the access token to access the Agave REST APIs</h3>
+
+<p>Agave REST APIs that do not require user authorization or which are owned by user who registered the client application:</p>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer 61e6...Mc96"</span> https://public.agaveapi.co/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"create_time"</span><span class="err">:</span> <span class="s2">"20140905072223Z"</span><span class="p">,</span>
+    <span class="s2">"email"</span><span class="err">:</span> <span class="s2">"nryan@mlb.com"</span><span class="p">,</span>
+    <span class="s2">"first_name"</span><span class="err">:</span> <span class="s2">"Nolan"</span><span class="p">,</span>
+    <span class="s2">"full_name"</span><span class="err">:</span> <span class="s2">"Nolan Ryan"</span><span class="p">,</span>
+    <span class="s2">"last_name"</span><span class="err">:</span> <span class="s2">"Ryan"</span><span class="p">,</span>
+    <span class="s2">"mobile_phone"</span><span class="err">:</span> <span class="s2">"(123) 456-7890"</span><span class="p">,</span>
+    <span class="s2">"phone"</span><span class="err">:</span> <span class="s2">"(123) 456-7890"</span><span class="p">,</span>
+    <span class="s2">"status"</span><span class="err">:</span> <span class="s2">"Active"</span><span class="p">,</span>
+    <span class="s2">"uid"</span><span class="err">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"username"</span><span class="err">:</span> <span class="s2">"nryan"</span>
+<span class="p">}</span>
+</code></pre>
+
+          </div>
+          <div class="dark-box">
+          </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+      document.getElementById("fouc").style.display="block";
+    </script>
+  </body>
+</html>

@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Agave Live Docs</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+
+    <script type="text/javascript">
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+      analytics.load("ahAKHCapavwGo8rmdDxiohHIV8W660mc");
+      analytics.page()
+      }}();
+    </script>
+    <script src="https://use.typekit.net/squ8frf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+
+    <link href="../../../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../../../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="../../../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+    <style>
+    .js #fouc { display: none; }
+    </style>
+    <script type="text/javascript">
+        document.documentElement.className = 'js';
+    </script>
+  </head>
+
+  <body class="migrated_docs migrated_docs_documentation migrated_docs_documentation_beginners-guides migrated_docs_documentation_beginners-guides_system-discovery">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../../../images/navbar.png" />
+      </span>
+    </a>
+    <div id="fouc">
+        <div class="tocify-wrapper">
+          <img class="menu-logo" src="../../../images/agave-docs-logo.png" />
+          
+          <div id="toc">
+          </div>
+        </div>
+        <div class="page-wrapper">
+          <div class="dark-box"></div>
+          <div class="content">
+            <h1 id="system-discovery">System Discovery</h1>
+
+<p>Agave enables you to group together one or more compute and storage systems to assemble the infrastructure you need to power your digital lab. To help you get started with Agave, we provide several sandbox environments you can use to walk through these tutorials. These compute and storage resources are available to all users and will be used throughout the tutorials and examples on this site. Let&rsquo;s start out by querying the systems service to see what we already have.</p>
+
+<h2 id="find-all-systems-available-to-you">Find all systems available to you</h2>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/systems/<span class="nv">$API_VERSION</span>
+</code></pre>
+<pre class="highlight plaintext"><code>systems-list -v
+</code></pre>
+
+<p>The response to this call for our example user looks like this:</p>
+<pre class="highlight javascript"><code><span class="p">[</span>  
+   <span class="p">{</span>  
+      <span class="s2">"_links"</span><span class="p">:{</span>  
+         <span class="s2">"self"</span><span class="p">:{</span>  
+            <span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/lonestar4.tacc.teragrid.org"</span>
+         <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">"default"</span><span class="err">:</span><span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"description"</span><span class="err">:</span><span class="s2">"The TACC Dell Linux Cluster (Lonestar) is a powerful, multi-use cyberinfrastructure HPC and remote visualization resource. Lonestar contains 22,656 cores within 1,888 Dell PowerEdgeM610 compute blades (nodes), 16 PowerEdge R610 compute-I/Oserver-nodes, an..."</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="err">:</span><span class="s2">"lonestar4.tacc.teragrid.org"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="err">:</span><span class="s2">"TACC Lonestar (Public)"</span><span class="p">,</span>
+      <span class="s2">"public"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
+      <span class="s2">"status"</span><span class="err">:</span><span class="s2">"UP"</span><span class="p">,</span>
+      <span class="s2">"type"</span><span class="err">:</span><span class="s2">"EXECUTION"</span>
+   <span class="p">},</span>
+   <span class="p">{</span>  
+      <span class="s2">"_links"</span><span class="p">:{</span>  
+         <span class="s2">"self"</span><span class="p">:{</span>  
+            <span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+         <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">"default"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
+      <span class="s2">"description"</span><span class="err">:</span><span class="s2">"The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&amp;#039;s technologies."</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="err">:</span><span class="s2">"data.iplantcollaborative.org"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="err">:</span><span class="s2">"iPlant Data Store"</span><span class="p">,</span>
+      <span class="s2">"public"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
+      <span class="s2">"status"</span><span class="err">:</span><span class="s2">"UP"</span><span class="p">,</span>
+      <span class="s2">"type"</span><span class="err">:</span><span class="s2">"STORAGE"</span>
+   <span class="p">},</span>
+   <span class="p">{</span>  
+      <span class="s2">"_links"</span><span class="p">:{</span>  
+         <span class="s2">"self"</span><span class="p">:{</span>  
+            <span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/condor.opensciencegrid.org"</span>
+         <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">"default"</span><span class="err">:</span><span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"description"</span><span class="err">:</span><span class="s2">"The Open Science Grid (OSG) advances science through open distributed computing. The OSG is a multi-disciplinary partnership to federate local, regional, community and national cyberinfrastructures to meet the needs of research and academic communities at..."</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="err">:</span><span class="s2">"condor.opensciencegrid.org"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="err">:</span><span class="s2">"Open Science Grid"</span><span class="p">,</span>
+      <span class="s2">"public"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
+      <span class="s2">"status"</span><span class="err">:</span><span class="s2">"UP"</span><span class="p">,</span>
+      <span class="s2">"type"</span><span class="err">:</span><span class="s2">"EXECUTION"</span>
+   <span class="p">},</span>
+   <span class="p">{</span>  
+      <span class="s2">"_links"</span><span class="p">:{</span>  
+         <span class="s2">"self"</span><span class="p">:{</span>  
+            <span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org"</span>
+         <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">"default"</span><span class="err">:</span><span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"description"</span><span class="err">:</span><span class="s2">"Atmosphere VM used for Docker demonstrations and tutorials."</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="err">:</span><span class="s2">"docker.iplantcollaborative.org"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="err">:</span><span class="s2">"Demo Docker VM"</span><span class="p">,</span>
+      <span class="s2">"public"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
+      <span class="s2">"status"</span><span class="err">:</span><span class="s2">"UP"</span><span class="p">,</span>
+      <span class="s2">"type"</span><span class="err">:</span><span class="s2">"EXECUTION"</span>
+   <span class="p">},</span>
+   <span class="p">{</span>  
+      <span class="s2">"_links"</span><span class="p">:{</span>  
+         <span class="s2">"self"</span><span class="p">:{</span>  
+            <span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/stampede.tacc.utexas.edu"</span>
+         <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">"default"</span><span class="err">:</span><span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"description"</span><span class="err">:</span><span class="s2">"Stampede is intended primarily for parallel applications scalable to tens of thousands of cores. Normal batch queues will enable users to run simulations up to 24 hours. Jobs requiring run times and more cores than allowed by the normal queues will be run..."</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="err">:</span><span class="s2">"stampede.tacc.utexas.edu"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="err">:</span><span class="s2">"TACC Stampede (Public)"</span><span class="p">,</span>
+      <span class="s2">"public"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
+      <span class="s2">"status"</span><span class="err">:</span><span class="s2">"UP"</span><span class="p">,</span>
+      <span class="s2">"type"</span><span class="err">:</span><span class="s2">"EXECUTION"</span>
+   <span class="p">}</span>
+<span class="p">]</span>
+</code></pre>
+
+<p>The response contains a list of abbreviated system descriptions. Notice that there are two kinds of systems returned: <code>EXECUTION</code> and <code>STORAGE</code>. Execution systems are used to run your simulations and optionally store and cache data. Storage systems are used to exclusively to store data. Agave speaks multiple data, scheduling, and authentication protocols, so chances are that whatever mechanism you are using to interact with your data and compute resources today, Agave can use those same mechanisms out of the box with no installation needed. The systems in the above example all use different combinations of protocols.</p>
+
+<h2 id="viewing-system-details">Viewing system details</h2>
+
+<p>You can see each system&rsquo;s detailed description by adding the system id to the above request.</p>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/systems/<span class="nv">$API_VERSION</span>/docker.iplantcollaborative.org
+</code></pre>
+<pre class="highlight plaintext"><code>systems-list -v docker.iplantcollaborative.org
+</code></pre>
+
+<p>The response to this contains the full description of the system <code>docker.iplantcollaborative.org</code>:</p>
+<pre class="highlight javascript"><code><span class="p">{</span>  
+   <span class="s2">"description"</span><span class="err">:</span><span class="s2">"Atmosphere VM used for Docker demonstrations and tutorials."</span><span class="p">,</span>
+   <span class="s2">"environment"</span><span class="err">:</span><span class="kc">null</span><span class="p">,</span>
+   <span class="s2">"executionType"</span><span class="err">:</span><span class="s2">"CLI"</span><span class="p">,</span>
+   <span class="s2">"id"</span><span class="err">:</span><span class="s2">"docker.iplantcollaborative.org"</span><span class="p">,</span>
+   <span class="s2">"lastModified"</span><span class="err">:</span><span class="s2">"2014-07-17T10:00:24.000-05:00"</span><span class="p">,</span>
+   <span class="s2">"login"</span><span class="err">:</span><span class="p">{</span>  
+      <span class="s2">"auth"</span><span class="err">:</span><span class="p">{</span>  
+         <span class="s2">"type"</span><span class="err">:</span><span class="s2">"SSHKEYS"</span>
+      <span class="p">},</span>
+      <span class="s2">"host"</span><span class="err">:</span><span class="s2">"128.196.64.126"</span><span class="p">,</span>
+      <span class="s2">"port"</span><span class="err">:</span><span class="mi">22</span><span class="p">,</span>
+      <span class="s2">"protocol"</span><span class="err">:</span><span class="s2">"SSH"</span><span class="p">,</span>
+      <span class="s2">"proxy"</span><span class="err">:</span><span class="kc">null</span>
+   <span class="p">},</span>
+   <span class="s2">"maxSystemJobs"</span><span class="err">:</span><span class="mi">100</span><span class="p">,</span>
+   <span class="s2">"maxSystemJobsPerUser"</span><span class="err">:</span><span class="mi">5</span><span class="p">,</span>
+   <span class="s2">"name"</span><span class="err">:</span><span class="s2">"Demo Docker VM"</span><span class="p">,</span>
+   <span class="s2">"public"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
+   <span class="s2">"queues"</span><span class="err">:</span><span class="p">[</span>  
+      <span class="p">{</span>  
+         <span class="s2">"customDirectives"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+         <span class="s2">"default"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+         <span class="s2">"maxJobs"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span>
+         <span class="s2">"maxMemoryPerNode"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+         <span class="s2">"maxNodes"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+         <span class="s2">"maxProcessorsPerNode"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+         <span class="s2">"maxUserJobs"</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+         <span class="s2">"name"</span><span class="p">:</span><span class="s2">"debug"</span>
+      <span class="p">}</span>
+   <span class="p">],</span>
+   <span class="s2">"revision"</span><span class="err">:</span><span class="mi">5</span><span class="p">,</span>
+   <span class="s2">"scheduler"</span><span class="err">:</span><span class="s2">"FORK"</span><span class="p">,</span>
+   <span class="s2">"scratchDir"</span><span class="err">:</span><span class="s2">""</span><span class="p">,</span>
+   <span class="s2">"site"</span><span class="err">:</span><span class="s2">"iplantc.org"</span><span class="p">,</span>
+   <span class="s2">"startupScript"</span><span class="err">:</span><span class="s2">"./bashrc"</span><span class="p">,</span>
+   <span class="s2">"status"</span><span class="err">:</span><span class="s2">"UP"</span><span class="p">,</span>
+   <span class="s2">"storage"</span><span class="err">:</span><span class="p">{</span>  
+      <span class="s2">"auth"</span><span class="err">:</span><span class="p">{</span>  
+         <span class="s2">"type"</span><span class="err">:</span><span class="s2">"SSHKEYS"</span>
+      <span class="p">},</span>
+      <span class="s2">"homeDir"</span><span class="err">:</span><span class="s2">"/"</span><span class="p">,</span>
+      <span class="s2">"host"</span><span class="err">:</span><span class="s2">"128.196.64.126"</span><span class="p">,</span>
+      <span class="s2">"mirror"</span><span class="err">:</span><span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"port"</span><span class="err">:</span><span class="mi">22</span><span class="p">,</span>
+      <span class="s2">"protocol"</span><span class="err">:</span><span class="s2">"SFTP"</span><span class="p">,</span>
+      <span class="s2">"proxy"</span><span class="err">:</span><span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"rootDir"</span><span class="err">:</span><span class="s2">"/home/dooley/vhome"</span>
+   <span class="p">},</span>
+   <span class="s2">"type"</span><span class="err">:</span><span class="s2">"EXECUTION"</span><span class="p">,</span>
+   <span class="s2">"uuid"</span><span class="err">:</span><span class="s2">"0001402177703917-5056a550b8-0001-006"</span><span class="p">,</span>
+   <span class="s2">"_links"</span><span class="err">:</span><span class="p">{</span>  
+      <span class="s2">"credentials"</span><span class="err">:</span><span class="p">{</span>  
+         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org/credentials"</span>
+      <span class="p">},</span>
+      <span class="s2">"metadata"</span><span class="err">:</span><span class="p">{</span>  
+         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/meta/v2/data/?q={\"associationIds\":\"0001402177703917-5056a550b8-0001-006\"}"</span>
+      <span class="p">},</span>
+      <span class="s2">"roles"</span><span class="err">:</span><span class="p">{</span>  
+         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org/roles"</span>
+      <span class="p">},</span>
+      <span class="s2">"self"</span><span class="err">:</span><span class="p">{</span>  
+         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org"</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>In the next beginner&rsquo;s guide we will learn how to interact with data on our storage systems.</p>
+
+          </div>
+          <div class="dark-box">
+          </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+      document.getElementById("fouc").style.display="block";
+    </script>
+  </body>
+</html>
