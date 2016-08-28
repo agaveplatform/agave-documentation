@@ -17,10 +17,10 @@ curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "client_name=my_cli_app" -d "
 ```plaintext
 clients-create -S -v -N my_cli_app -D "Client app used for scripting up cool stuff"
 ```
-    Note: the -S option will store the new API keys for future use so you don't need to manually enter then when you authenticate later.
 
+> Note: the -S option will store the new API keys for future use so you don't need to manually enter then when you authenticate later.
 
-The response to this call for our example user looks like this:
+> The response to this call will look something like:
 
 ```json
 {  
@@ -48,17 +48,15 @@ Your API keys should be kept in a secure place and not shared with others. This 
 
 ### Listing your existing client applications  
 
-Over time you may develop several client applications. Managing several sets of API keys can become tricky. You can see which applications you have created by querying the Clients service.
-
 ```shell
 curl -sku "$API_USERNAME:$API_PASSWORD" https://public.tenants.agaveapi.co/clients/v2
 ```
 
-```plaintexti
+```plaintext
 clients-list -v
 ```
 
-The response to this call for our example user looks like this:
+> The response to this call will look something like:
 
 ```json
 [  
@@ -101,37 +99,36 @@ The response to this call for our example user looks like this:
 ]
 ```
 
+Over time you may develop several client applications. Managing several sets of API keys can become tricky. You can see which applications you have created by querying the Clients service.
+
 <aside class="notice">In the last response you will notice that the client secret was not returned as part of the response objects. If you need to recover your client secret, just recreate the client app. Your client keys will not change, but the response will include your secret key.</aside>
 
 ### Deleting client registrations  
-
-At some point you may need to delete a client. You can do this by requesting a DELETE on your client in the Clients service.
 
 ```shell
 curl -sku "$API_USERNAME:$API_PASSWORD" -X DELETE https://public.tenants.agaveapi.co/clients/v2/my_cli_app
 ```
 
-```plaintexti
+```plaintext
 clients-delete -v my_cli_app
 ```
 
+> The response to this call is simply a null result object.
 
-The response to this call is simply a null result object.
+At some point you may need to delete a client. You can do this by requesting a DELETE on your client in the Clients service.
 
-### Managing API subscriptions  
 
-When you register a new client application and get your API keys, you are given access to all the Agave APIs by default. You can see the APIs you have access to by querying the subscriptions collection of your client.
+### Listing current subscriptions
 
 ```shell
 curl -sku "$API_USERNAME:$API_PASSWORD" https://public.tenants.agaveapi.co/clients/v2/my_cli_app/subscriptions
 ```
 
-```plaintexti
+```plaintext
 clients-subscriptions-list -v my_cli_app
 ```
 
-
-The response to this call for our example client looks like this:
+> The response to this call will look something like:
 
 ```json
 [
@@ -177,25 +174,29 @@ The response to this call for our example client looks like this:
 ]
 ```
 
-Over time, new APIs will be deployed. When this happens you will need to subscribe to the new APIs. You can do this by POSTing a request to the subscription collection with the information about the new API.
+When you register a new client application and get your API keys, you are given access to all the Agave APIs by default. You can see the APIs you have access to by querying the subscriptions collection of your client.
+
+### Updating client subscriptions
 
 ```shell
 curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "name=transforms" https://public.tenants.agaveapi.co/clients/v2/my_cli_app/subscriptions
 ```
 
-```plaintexti
+```plaintext
 clients-subscriptions-update -v -N transforms my_cli_app
 ```
 
-
-The response to this call will be a JSON array identical to the one returned when listing your subscriptions. You could repeat this step for each new API, or you could use the wildcard API name, *, to resubscribe to all active APIs.
+> You can also use a wildcard to resubscribe to all active APIs.
 
 ```shell
 curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "name=*" https://public.tenants.agaveapi.co/clients/v2/my_cli_app/subscriptions
 ```
 
-```plaintexti
+```plaintext
 clients-subscriptions-update -v -N * my_cli_app
 ```
 
-Again, the response will be identical to the previous one.
+> The response to this call will be a JSON array identical to the one returned when listing your subscriptions.
+
+Over time, new APIs will be deployed. When this happens you will need to subscribe to the new APIs. You can do this by POSTing a request to the subscription collection with the information about the new API.
+

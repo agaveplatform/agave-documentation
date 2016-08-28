@@ -55,41 +55,49 @@ systems-list -v
 
 The Systems service allows you to list and search for systems you have registered and systems that have been shared with you. To get a list of all your systems, make a GET request on the Systems collection.
 
-The response will be a JSON array of summary system objects. The full system description can get rather verbose, so a summary object is returned with the most critical fields in order to reduce response size when retrieving a user's systems.
+System description can get rather verbose, so a summary object is returned when listing a resource collection. The summary object contains the most critical fields in order to reduce response size when retrieving a user's systems. You can customize this behavior using the `filter` query parameter.
 
 <aside class="notice">The above response my vary depending on who administers Agave for your organization. To customize this tutorial for your specific account, login.</aside>
 
 ### Filtering results
+
+> List all systems (up to the page limit)
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?type=storage
-
-# Only execution systems
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?type=execution
-
-#Only public systems
-```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?publicOnly=true
-
-# Only private systems
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?privateOnly=true
-
-#Only give the user's default systems
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?default=true
 ```
-
 ```plaintext
 systems-list -v -S
+```
 
-# Only execution systems
+> Only execution systems
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?type=execution
+```
+```plaintext
 systems-list -v -E
+```
 
-# Only public systems
+> Only public systems
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?publicOnly=true
+```
+```plaintext
 systems-list -v -P
+```
 
-# Only private systems
+> Only private systems
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?privateOnly=true
+```
+```plaintext
 systems-list -v -Q
+```
 
-#Only give the user's default systems
+> Only give the user's default systems
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?default=true
+```
+```plaintext
 systems-list -v -D
 ```
 
@@ -191,8 +199,25 @@ The full list of storage system attributes is described in the following table.
 
 The example above described a system accessible by SFTP. Agave supports many different data and authentication protocols for interacting with your data. Sample configurations for many protocol combinations are given below.
 
-```shell
-{
+<select id="storage-config-selector" name="storage-config-selector" onChange="$('.storage-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
+    <option value="sftp-password">SFTP</option>
+    <option value="sftp-sshkeys">SFTP w/ SSH Keys</option>
+    <option value="sftp-tunnel">SFTP w/ tunnel</option>
+    <option value="irods">IRODSv3</option>
+    <option value="irods-pam">IRODSv3 w/ PAM</option>
+    <option value="irods-myproxy">IRODSv3 w/ MyProxy</option>
+    <option value="irods4">IRODSv4</option>
+    <option value="gridftp">GridFTP</option>
+    <option value="gridftp-myproxy">GridFTP w/ MyProxy</option>
+    <option value="gridftp-mpg">GridFTP w/ MyProxy Gateway</option>
+    <option value="s3">Amazon S3</option>
+    <option value="local">Local</option>
+</select>
+
+> Sample storage system definition with each supported data protocol and authentication configuration.
+
+<pre id="sftp-password" class="json storage-config">
+<code>{
    "id":"sftp.storage.example.com",
    "name":"Example SFTP Storage System",
    "status":"UP",
@@ -211,13 +236,11 @@ The example above described a system accessible by SFTP. Agave supports many dif
          "type":"PASSWORD"
       }
    }
-}
-```
+}</code>
+</pre>
 
-
-[tab title="SFTP (SSH Keys)"]
-```json
-{
+<pre id="sftp-sshkeys" class="json storage-config hidden">
+<code>{
    "id":"sftp.storage.example.com",
    "name":"Example SFTP Storage Host",
    "status":"UP",
@@ -238,12 +261,10 @@ The example above described a system accessible by SFTP. Agave supports many dif
       }
    }
 }
-```
+</code></pre>
 
-
-[tab title="SFTP (tunnel)"]
-```json
-{
+<pre id="sftp-tunnel" class="json storage-config hidden">
+<code>{
    "id":"sftp.storage.example.com",
    "name":"Example SFTP Tunnel Storage Host",
    "status":"UP",
@@ -268,12 +289,10 @@ The example above described a system accessible by SFTP. Agave supports many dif
       }
    }
 }
-```
+</code></pre>
 
-
-[tab title="iRODS"]
-```json
-{
+<pre id="irods" class="json storage-config hidden">
+<code>{
    "id":"irods.storage.example.com",
    "name":"Example IRODS Storage Host",
    "status":"UP",
@@ -295,12 +314,10 @@ The example above described a system accessible by SFTP. Agave supports many dif
       "zone":"demoZone"
    }
 }
-```
+</code></pre>
 
-
-[tab title="iRODS (PAM)"]
-```json
-{
+<pre id="irods-pam" class="json storage-config hidden">
+<code>{
    "id":"irods.storage.example.com",
    "name":"Example IRODS Storage Host",
    "status":"UP",
@@ -322,12 +339,10 @@ The example above described a system accessible by SFTP. Agave supports many dif
       "zone":"demoZone"
    }
 }
-```
+</code></pre>
 
-
-[tab title="iRODS (MyProxy)"]
-```json
-{
+<pre id="irods-myproxy" class="json storage-config hidden">
+<code>{
    "id":"irods.storage.example.com",
    "name":"Example IRODS Storage Host",
    "status":"UP",
@@ -355,12 +370,35 @@ The example above described a system accessible by SFTP. Agave supports many dif
       "zone":"demoZone"
    }
 }
-```
+</code></pre>
 
+<pre id="irods4" class="json storage-config hidden">
+<code>{
+   "id":"irods.storage.example.com",
+   "name":"Example IRODS Storage Host",
+   "status":"UP",
+   "type":"STORAGE",
+   "description":"My example storage system using IRODS to store data for testing",
+   "site":"example.com",
+   "storage":{
+      "host":"storage.example.com",
+      "port":1247,
+      "protocol":"IRODS4",
+      "homeDir":"/systest",
+      "rootDir":"/demoZone/home",
+      "auth":{
+         "username":"systest",
+         "password":"changeit",
+         "type":"PASSWORD"
+      },
+      "resource":"demoResc",
+      "zone":"demoZone"
+   }
+}
+</code></pre>
 
-[tab title="GridFTP"]
-```json
-{
+<pre id="gridftp" class="json storage-config hidden">
+<code>{
   "id": "demo.storage.example.com",
   "name": "Demo GRIDFTP demo vm",
   "status": "UP",
@@ -379,12 +417,10 @@ The example above described a system accessible by SFTP. Agave supports many dif
     }
   }
 }
-```
+</code></pre>
 
-
-[tab title="GridFTP (MyProxy)"]
-```json
-{
+<pre id="gridftp-myproxy" class="json storage-config hidden">
+<code>{
   "id": "demo.storage.example.com",
   "name": "Demo GRIDFTP + MyProxy Storage System",
   "status": "UP",
@@ -410,12 +446,10 @@ The example above described a system accessible by SFTP. Agave supports many dif
     }
   }
 }
-```
+</code></pre>
 
-
-[tab title="GridFTP (MyProxy Gateway)"]
-```json
-{
+<pre id="gridftp-mpg" class="json storage-config hidden">
+<code>{
   "id": "demo.storage.example.com",
   "name": "Demo GRIDFTP + MyProxy Storage System",
   "status": "UP",
@@ -439,31 +473,10 @@ The example above described a system accessible by SFTP. Agave supports many dif
     }
   }
 }
-```
+</code></pre>
 
-
-[tab title="LOCAL"]
-```json
-{
-   "id":"local.storage.example.com",
-   "name":"Example LOCAL Storage Host",
-   "status":"UP",
-   "type":"STORAGE",
-   "description":"My example storage system using the local file system to store data for testing",
-   "site":"example.com",
-   "storage":{
-      "host":"localhost",
-      "protocol":"LOCAL",
-      "rootDir":"/",
-      "homeDir":"/home/systest"
-   }
-}
-```
-
-
-[tab title="Amazon S3"]
-```json
-{
+<pre id="s3" class="json storage-config hidden">
+<code>{
    "id":"demo.storage.example.com",
    "name":"Example Amazon S3 Storage System",
    "status":"UP",
@@ -484,26 +497,41 @@ The example above described a system accessible by SFTP. Agave supports many dif
       }
    }
 }
-```
+</code></pre>
+
+<pre id="local" class="json storage-config hidden">
+<code>{
+   "id":"local.storage.example.com",
+   "name":"Example LOCAL Storage Host",
+   "status":"UP",
+   "type":"STORAGE",
+   "description":"My example storage system using the local file system to store data for testing",
+   "site":"example.com",
+   "storage":{
+      "host":"localhost",
+      "protocol":"LOCAL",
+      "rootDir":"/",
+      "homeDir":"/home/systest"
+   }
+}
+</code></pre>
 
 
-[/tabgroup]
+<p>In each of the examples above, the <code class="prettyprint">storage</code> objects were slightly different, each unique to the protocol used. Descriptions of every attribute in the <code class="prettyprint">storage</code>> object and its children are given in the following tables.</p>
 
-In each of the examples above, the `storage` objects were slightly different, each unique to the protocol used. Descriptions of every attribute in the `storage` object and its children are given in the following tables.
-
-`storage` attributes give basic connectivity information describing things like how to connect to the system and on what port.
+<p><code class="prettyprint">storage</code> attributes give basic connectivity information describing things like how to connect to the system and on what port.</p>
 
 <%= partial "includes/tables/58" %>
 
-`storage.auth` attributes give authentication information describing how to authenticate to the system specified in the `storage` config above.
+<p><code class="prettyprint">storage.auth</code> attributes give authentication information describing how to authenticate to the system specified in the <code class="prettyprint">storage</code> config above.
 
 <%= partial "includes/tables/59" %>
 
-`storage.auth.server` attributes give information about how to obtain a credential that can be used in the authentication process. Currently only systems using the X509 authentication can leverage this feature to communicate with <a href="http://grid.ncsa.illinois.edu/myproxy/" title="MyProxy Server" target="_blank">MyProxy</a> and <a href="https://bitbucket.org/taccaci/myproxy-gateway" title="MyProxy Gateway" target="_blank">MyProxy Gateway</a> servers.
+<p><code class="prettyprint">storage.auth.server</code> attributes give information about how to obtain a credential that can be used in the authentication process. Currently only systems using the X509 authentication can leverage this feature to communicate with <a href="http://grid.ncsa.illinois.edu/myproxy/" title="MyProxy Server" target="_blank">MyProxy</a> and <a href="https://bitbucket.org/taccaci/myproxy-gateway" title="MyProxy Gateway" target="_blank">MyProxy Gateway</a> servers.
 
 <%= partial "includes/tables/61" %>
 
-`system.proxy` configuration attributes give information about how to connect to a remote system through a proxy server. This often happens when the target system is behind a firewall or resides on a NAT. Currently proxy servers can only reuse the authentication configuration provided by the target system.
+<p><code class="prettyprint">system.proxy</code> configuration attributes give information about how to connect to a remote system through a proxy server. This often happens when the target system is behind a firewall or resides on a NAT. Currently proxy servers can only reuse the authentication configuration provided by the target system.
 
 <%= partial "includes/tables/60" %>
 
@@ -515,14 +543,13 @@ In each of the examples above, the `storage` objects were slightly different, ea
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -F "fileToUpload=@sftp-password.json" https://public.tenants.agaveapi.co/systems/v2
 ```
 
-
 ```plaintext
 systems-addupdate -v -F sftp-password.json
 ```
 
-The response from the service will be similar to the following:
+> The response from the service will be similar to the following:
 
-[code lang="js" highlight="3,5,8-11,17-20,22" firstline="1" light="false"]
+```json
 {
     "id" : "demo.storage.example.com",
     "uuid" : "0001411321620333-b0b0b0bb0b-0001-006",
@@ -594,9 +621,17 @@ Another example where quotas can be helpful is to help you properly partitioning
 
 The following sample queue definitions illustrate some other interesting use cases.
 
-```shell
-```json
-{
+<p>
+    <select id="queue-config-selector" name="queue-config-selector" onChange="$('.queue-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
+        <option value="queue-short-job">Short Jobs</option>
+        <option value="queue-small-queues">Restrited Usage</option>
+        <option value="queue-single-node">Single Node Jobs</option>
+        <option value="queue-dedicated">Dedicated Usage</option>
+    </select>
+</p>
+
+<pre id="queue-short-job" class="json queue-config">
+<code>{
     "name":"short_job",
     "maxJobs":100,
     "maxUserJobs":10,
@@ -607,12 +642,11 @@ The following sample queue definitions illustrate some other interesting use cas
     "customDirectives":null,
     "default":true
 }
-```
+</code></pre>
 
 
-[tab title="Small queues"]
-Restrict the queue to having at most 10 total jobs in it at once. Jobs may run for no more than an hour.
-```json
+<pre id="queue-small-queues" class="json queue-config hidden">
+<code># Restrict the queue to having at most 10 total jobs in it at once. Jobs may run for no more than an hour.
 {
     "name":"small_q",
     "maxJobs":10,
@@ -624,12 +658,11 @@ Restrict the queue to having at most 10 total jobs in it at once. Jobs may run f
     "customDirectives":null,
     "default":true
 }
-```
+</code></pre>
 
 
-[tab title="Single node"]
-Restrict the queue to only running single node jobs.
-```json
+<pre id="queue-single-node" class="json queue-config hidden">
+<code># Restrict the queue to only running single node jobs.
 {
     "name":"short_job",
     "maxJobs":100,
@@ -641,12 +674,13 @@ Restrict the queue to only running single node jobs.
     "customDirectives":null,
     "default":true
 }
-```
+</code></pre>
 
 
-[tab title="Dedicated queues"]
-Create two queues. "big_mem" allows single node jobs with memory up to 1TB. "big_compute" allows jobs with up to 256 nodes, and 16GB of memory per node.
-```json
+<pre id="queue-dedicated" class="json queue-config hidden">
+<code># Create two queues.
+# - "big_mem" allows single node jobs with memory up to 1TB.
+# - "big_compute" allows jobs with up to 256 nodes, and 16GB of memory per node.
 [
   {
     "name":"big_mem",
@@ -671,17 +705,83 @@ Create two queues. "big_mem" allows single node jobs with memory up to 1TB. "big
     "default":true
   }
 ]
-```
-
-
-[/tabgroup]
+</code></pre>
 
 #### System login protocols
 
 As with storage systems, Agave supports several different protocols and mechanisms for job submission. We already covered scheduler and queue support. Here we illustrate the different login configurations possible. For brevity, only the value of the `login` JSON object is shown.
 
-```shell
+<p>
+    <select id="login-config-selector" name="login-config-selector" onChange="$('.login-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
+        <option value="login-ssh-password">SSH</option>
+        <option value="login-ssh-sshkeys">SSH w/ SSH Keys</option>
+        <option value="login-ssh-tunnel">SSH w/ tunnel</option>
+        <option value="login-gsissh">GSI OpenSSH</option>
+        <option value="login-gsissh-myproxy">GSI OpenSSH w/ MyProxy</option>
+        <option value="login-gsissh-mpg">GSI OpenSSH w/ MyProxy Gateway</option>
+        <option value="login-local">Local</option>
+    </select>
+</p>
+
+
+<pre id="login-ssh-password" class="json login-config">
+<code>{
+  "host": "execute.example.com",
+  "port": 22,
+  "protocol": "SSH",
+  "auth": {
+    "username": "systest",
+    "password": "changeit",
+    "type": "PASSWORD"
+  }
+}</code>
+</pre>
+
+<pre id="login-ssh-sshkeys" class="json login-config hidden">
+<code>{
+  "host": "execute.example.com",
+  "port": 22,
+  "protocol": "SSH",
+  "auth": {
+    "username":"nryan",
+     "publicKey": "ssh-rsa AAAAB3NzaC1yc2EBBAADAQABMQPRgQChJ6bzejqSuJdTi+VwMif8qotuSSlYwrVt0EWVduKZHpzOnS1zlknAyYXmQQFcaJ+vNAQayVMTqv+A+1lzxppTdgZ0Dn42EOYWRa6B/IEMPzDuKb7F0qNFiH9m+OZJDYdIWS1rlN1oK32jHUi0xV8kM3KOLf2TIjDBUyZRpMGyQ== Generated by Nova",
+     "privateKey": "-----BEGIN RSA PRIVATE KEY-----nMIVCXAIBAAKBgQRhJ6bzejqSuJdTi+VwMif8qoyuSSlYwrVt0EWVduKZHpzOnSManlknAyYXmQQFcaJ+vNAQayVqTqv+A+1lzxppTdgZ0Dn42EOYWRa6B/IEMPzDuKb7Fn0uNFiH9x+OZJDYdIWS1rN1oK4DjHUi0xV8kMN3OPSIU23asx1UyZRpMGyQIDAQABnAoGATrW4NAkJ3Kltt6+HQ1Ir95sxFNrE6AZJaLYllke3iwPJpCX1dDdpDcXa8AGbVnjFXJUGA+dPrJqbyGCHA7E3H342837k/twSRGkcCNpRx/MMdWnw3asea/K5L4XVeunXAn79vo/e28D4Uue62dSwIvDJKIFWMSAgUoD53ImushqlLUCQQDPkObaowzkboLCnv3Nyj16KFZ5Lp7r5q5MYfRxO7t53Z7AWoflr++KrAT3UbSKtqmC68CqbPzxSd6qHnbnkWaD0HAkEAxsJZh7xorwAtdYznMFOsO0w5HDHOB7MuAnjwUvYZVaM0wA7HkE4rnH5SFAwEMlwx82OJxv83CnkRdlXOexn95rwJBALd8cnboGCd/AZzCvX2R+5K5lZtvnhLvczkWho3qrcoG/aUw4l1K78h4VFOFKMJOwv53BXQisF9kW6+qY3/XM49UCQHqDn4AYQOALvPBZCdVtPqFGg6W8csCAE7a5ud8zbj8A+6swcEB0+YcyEkvzID8en1ekmno/ET1wwRnhH6g/tdJlcCQM55QS4Z7rR4psgFDkFvA+wmxlqTGsXJD32sw15g4A0bmzSXnbfFg8TBAjGTDW7l0P8prFrtQ8Wml14390b29l1ptAyE=n-----END RSA PRIVATE KEY-----",
+     "type": "SSHKEYS"
+  }
+}</code>
+</pre>
+
+<pre id="login-ssh-tunnel" class="json login-config hidden">
+<code>{
+  "host":"execute.example.com",
+  "port":22,
+  "protocol":"SSH",
+  "auth":{
+    "username":"systest",
+    "password":"changeit",
+    "type":"PASSWORD"
+  },
+  "proxy":{
+    "name":"My gateway proxy server",
+    "host":"proxy.example.com",
+    "port":"22"
+  }
+}</code>
+</pre>
+
+<pre id="login-local" class="json login-config hidden">
+<code>{
 {
+  "host": "localhost",
+  "protocol": "LOCAL",
+  "auth": {
+    "type": "LOCAL"
+  }
+}</code>
+</pre>
+
+<pre id="login-gsissh" class="json login-config hidden">
+<code>{
    "host":"execute.example.com",
    "port":2222,
    "protocol":"GSISSH",
@@ -689,13 +789,11 @@ As with storage systems, Agave supports several different protocols and mechanis
       "credential": "-----BEGIN CERTIFICATE-----nMIIDqjCCApKgAwIBAgIDJSFGMA0GCSqGSIb3DQEBBQUAMHsxCzAJBgNVBAYTAlVTnMTgwNgYDVQQKEy9OYXRpb25hbCBDZW50ZXIgZm9yIFN1cGVyY29tcHV0aW5nIEFwncGxpY2F0aW9uczEgMB4GA1UECxMXQ2VydGlmaWNhdGUgQXV0aG9yaXRpZXMxEDAOnBgNVBAMTB015UHJveHkwHhcNMTMxMDE0MDcyMjE4WhcNMTMxMDE0MTkyNzE4WjBnnMQswCQYDVQQGEwJVUzE4MDYGA1UEChMvTmF0aW9uYWwgQ2VudGVyIGZvciBTdXBlncmNvbXB1dGluZyBBcHBsaWNhdGlvbnMxHjAcBgNVBAMTFWlwbGFudCBDb21tdW5pndHkgVXNlcjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAwfHbmtmJ1OUVwgDdn5oA8EsqihwRAi2xhZJYG/FFmOs38+0y7wTfORhVX/79XQMD3NqRJN8xhHQpmuoRynH9l9sbA9gbKaQsrpIYyExygrJ+qaZY0PccD+VAyPDjdLD86316AzWltEdV2E9b+OnCVioz62esJWSqOho8wya4Vo5svUCAwEAAaOBzjCByzAOBgNVHQ8BAf8EBAMCBLAwnHQYDVR0OBBYEFIJXT/jYmxaRywDbZudb1EXbxla5MB8GA1UdIwQYMBaAFNf8pQJ2nOvYT+iuh4OZQNccjx3tRMAwGA1UdEwEB/wQCMAAwNAYDVR0gBC0wKzAMBgorBgEEnAaQ+ZAIFMAwGCiqGSIb3TAUCAgMwDQYLKoZIhvdMBQIDAgEwNQYDVR0fBC4wLDAqnoCigJoYkaHR0cDovL2NhLm5jc2EudWl1Yy5lZHUvZjJlODlmZTMuY3JsMA0GCSqGnSIb3DQEBBQUAA4IBAQBDyW3FJ0xEIXEqk2NtiMqOM99MgufDPL0bxrR8CvPY5GRNn58EXU8RnSSJIuxL95PKclRPPOhGdB48eeF2H1MusOEUEEnHwzrZ1OUFUEpwKuqG6n0h411l3niRRx9wdJL4YITzAWZwpadzwj3d8aO9O/ttVJjGRc8A93I/d3fFAvHyvKnmlEaDrQZNBp1EtClW8xuxsfeUmyXkFlkRiKwqjkJGB8xBuzr8DfLomWq/mXaOkHznCo9nQxAs3gntszLOh+8U9aMxaeCsychRWxG3Y6Z33hrE0yz4AaVonVXu3Z7M+EN+nKbSVRblAzeKfQYYDOgsoFrugYbR9klv1so3Dt+n6n-----END CERTIFICATE-----n-----BEGIN RSA PRIVATE KEY-----nMIICWwIBAAKBgQDB8dua2YnU5RXCAN3mgDwSyqKHBECLbGFklgb8UWY6zfz7TLvBnN85GFVf/v1dAwPc2pEk3zGEdCma6hHIf2X2xsD2BsppCyukhjITHKCsn6ppljQ9xnwP5UDI8ON0sPzrfXoDNaW0R1XYT1v44JWKjPrZ6wlZKo6GjzDJrhWjmy9QIDAQABnAoGAcjrJZYMLM2FaV1G7YK/Wshq3b16JxZSoKF5U7vfihnAcuMaRL1R3IcAgfHlunIq2E7aIFnd+6sygVKXYo4alv5denekiucvKAyXK9F/VTTtLtajUnrvekLvSycKiEnbN9IgQ0ABCnlWyjgQMf64UUYBQtvU+lbRCs4jbuHxuyn5WECQQD8fJhlBHgA49hjnZBKnU9Xb+LEKhWDCEyIiOMMGY+2XhrGVvGF5KqJVusZEv8lbXNjzgSQFgLohEXVzn9v8tDFMzAkEAxKS5qCYHsTfgPlw3l1DLJRmG3SXrpevXSccBGpXQiUne9gfc9mlgnVTr5QQCXvvI673Y2LnNcnd94KEgvSrzhNwJACeS38/1g1mgXKo3ZTUUztBLinQ7sn463sQHsI6U8xGCbm/n8LMrxA8CsJadg6A6J3vdLpnm2U3YbZm1mqVhGNkQJAdsxxnoUVAdm8kWWhK6W6VG9e9I1OqdrXxfY/tecsyjg6D1a1Qb8mfuj4DoaKjCme69To8nZ3moZXRBWkypzYQopwJAB/zr1UpFz6vY4sIm3Gw3ll/ruNGCr2dzjTyLSGglCOf0nUljJ1FGLyW647JzGPMLcfdb0iEexzCEii9YUFUN1Ow==n-----END RSA PRIVATE KEY-----",
       "type": "X509"
    }
-}
-```
+}</code>
+</pre>
 
-
-[tab title="GSISSH (MyProxy)"]
-```json
-{
+<pre id="login-gsissh-myproxy" class="json login-config hidden">
+<code>{
    "host":"execute.example.com",
    "port":2222,
    "protocol":"GSISSH",
@@ -711,13 +809,11 @@ As with storage systems, Agave supports several different protocols and mechanis
         "protocol":"MYPROXY"
       }
    }
-}
-```
+}</code>
+</pre>
 
-
-[tab title="GSISSH (MPG)"]
-```json
-{
+<pre id="login-gsissh-mpg" class="json login-config hidden">
+<code>{
    "host":"execute.example.com",
    "port":2222,
    "protocol":"GSISSH",
@@ -731,58 +827,8 @@ As with storage systems, Agave supports several different protocols and mechanis
         "protocol": "MPG"
       }
    }
-}
-```
-
-
-[tab title="SSH"]
-```json
-{
-  "host": "execute.example.com",
-  "port": 22,
-  "protocol": "SSH",
-  "auth": {
-    "username": "systest",
-    "password": "changeit",
-    "type": "PASSWORD"
-  }
-}
-```
-
-
-[tab title="SSH (tunnel)"]
-```json
-{
-  "host":"execute.example.com",
-  "port":22,
-  "protocol":"SSH",
-  "auth":{
-    "username":"systest",
-    "password":"changeit",
-    "type":"PASSWORD"
-  },
-  "proxy":{
-    "name":"My gateway proxy server",
-    "host":"proxy.example.com",
-    "port":"22"
-  }
-}
-```
-
-
-[tab title="LOCAL"]
-```json
-{
-  "host": "localhost",
-  "protocol": "LOCAL",
-  "auth": {
-    "type": "LOCAL"
-  }
-}
-```
-
-
-[/tabgroup]
+}</code>
+</pre>
 
 The full list of login configuration options is given in the following table. We omit the `login.auth` and `login.proxy` attributes as they are identical to those used in the storage config.
 
@@ -806,13 +852,11 @@ Another common error that arises from not specifying thoughtful `scratchDir` and
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -F "fileToUpload=@ssh-password.json" https://public.tenants.agaveapi.co/systems/v2
 ```
 
-
 ```plaintext
 systems-addupdate -v -F ssh-password.json
 ```
 
-
-The response from the server will be similar to the following.
+> The response from the server will be similar to the following.
 
 ```json
 {
@@ -898,9 +942,11 @@ Cloning an existing system will create a new system, with a new id, and all attr
 To clone a system, you make a PUT request on the system's url and pass it a new system id.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=clone&amp;id=systest.demo.clone" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
+     -X PUT
+     -d "action=clone&amp;id=systest.demo.clone"
+     https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
 ```
-
 
 ```plaintext
 systems-clone -v -I systest.demo.clone $SYSTEM_ID
@@ -944,28 +990,35 @@ Public execution systems do not share the same behavior as public storage system
 To publish a system and make it public, you make a PUT request on the system's url.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=publish" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
+     -X PUT
+     -d "action=publish"
+     https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
 ```
-
 
 ```plaintext
 systems-publish -v $SYSTEM_ID
 ```
 
+> The response from the service will be the same system description we saw before, this time with the public attribute set to <em>true</em>.
 
-The response from the service will be the same system description we saw before, this time with the public attribute set to <em>true</em>.
-
-To unpublish a system, make the same request with the `action` attribute set to <em>unpublish</em>.
+#### Unpublishing a system
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unpublish" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
+     -X PUT
+     -d "action=unpublish"
+     https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
 ```
-
 
 ```plaintext
 systems-unpublish -v $SYSTEM_ID
 ```
 
+> The response from the service will be the same system description we saw before, this time with the public attribute set to <em>false</em>.
+
+
+To unpublish a system, make the same request with the `action` attribute set to <em>unpublish</em>.
 
 ### Default systems
 
@@ -984,29 +1037,34 @@ Four types of default systems are possible. The following table describes them.
 To set a system as the user's default, you make a PUT request on the system's url. Only systems the user has access to may be used as their default.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=setdefault" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
+     -X PUT
+     -d "action=setdefault"
+     https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
 ```
-
 
 ```plaintext
 systems-setdefault -v $SYSTEM_ID
 ```
 
-
-The response from the service will be the same system description we saw before, this time with the `default` attribute set to <em>true</em>.
+> The response from the service will be the same system description we saw before, this time with the `default` attribute set to <em>true</em>.
 
 #### Unsetting user default system
 
-To remove a system as the user's default, make the same request with the `action` attribute set to <em>unsetDefault</em>. Keep in mind that you cannot remove the global default system from being the user's default. You can only set a different one to replace it.
-
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unsetDefault" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
+     -X PUT
+     -d "action=unsetDefault"
+     https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
 ```
-
 
 ```plaintext
 systems-unsetdefault -v $SYSTEM_ID
 ```
+
+> The response from the service will be the same system description we saw before, this time with the `default` attribute set to <em>false</em>.
+
+To remove a system as the user's default, make the same request with the `action` attribute set to <em>unsetDefault</em>. Keep in mind that you cannot remove the global default system from being the user's default. You can only set a different one to replace it.
 
 
 #### Setting global default system
@@ -1014,32 +1072,35 @@ systems-unsetdefault -v $SYSTEM_ID
 Tenant administrators may wish to set default storage and execution systems for an entire tenant. These are called global default systems. There may be at most one system of each type set as a global default. To set a global default system, first make sure that the system is public. Only public systems may be set as a global default. Next, make sure you have administrator permissions for your tenant. Only tenant admins may publish systems and manage the global defaults. Lastly, make a PUT request on the system's url with an `action` attribute in the body set to <em>unsetGlobalDefault</em>.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=setglobaldefault" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
+     -X PUT
+     -d "action=setglobaldefault"
+     https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
 ```
-
 
 ```plaintext
 systems-setdefault -v -G $SYSTEM_ID
 ```
 
-
-The response from the service will be the same system description we saw before, this time with both the `default` and `public` attributes set to <em>true</em>.
+> The response from the service will be the same system description we saw before, this time with both the `default` and `public` attributes set to <em>true</em>.
 
 <aside class="notice">Setting global default systems does not preclude users from manually setting their own default systems. Any user-defined default systems will trump the global default system setting for that user.</aside>
 
 To remove a system from being the global default, make the same request with the `action` attribute set to <em>unsetGlobalDefault</em>.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unsetGlobalDefault" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
+     -X PUT
+     -d "action=unsetGlobalDefault"
+     https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
 ```
-
 
 ```plaintext
 systems-unsetdefault -v -G $SYSTEM_ID
 ```
 
+> This time the response from the service will have `default` set to <em>false</em> and `public` set to <em>true</em>.
 
-This time the response from the service will have `default` set to <em>false</em> and `public` set to <em>true</em>.
 
 ### Deleting systems
 
@@ -1049,13 +1110,11 @@ In the event you wish to permanently delete a system, you can make a DELETE requ
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
 ```
 
-
 ```plaintext
 systems-delete $SYSTEM_ID
 ```
 
-
-The call will return an empty result.
+> The call will return an empty result.
 
 Deleting a system will disable the system and all applications published on that system from use. Any running jobs will be killed, and any data archived on that system will no longer be available. There is no way to restore a system once it is deleted, and the system id cannot be reused in the future, so use this operation with care.
 

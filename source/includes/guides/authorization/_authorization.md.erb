@@ -21,13 +21,16 @@ There are two kinds of tokens you will obtained: access and refresh. Access toke
 
 The method is suitable for long-running applications in which the user logs in once and the access token can be refreshed. Since the token exchange involves sending your secret key, this should happen on a secure location, like a backend service, not from a client like a browser or mobile apps. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>. This flow is also the authorization flow used in our REST API Tutorial.
 
-<img src="/images/2014/09/Authorization-Code-Flow.png" alt="Authorization Code Flow Diagram" style="width: 100%; height: auto;"/>
+<p>
+    <img src="/images/2014/09/Authorization-Code-Flow.png" alt="Authorization Code Flow Diagram" style="height: auto;"/>
+</p>
 
 #### 1. Your application requests authorization
 
-```nothing
-# A typical request will look something like this
-GET https://public.tenants.agaveapi.co/authorize/?client_id=gTgp...SV8a&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&amp;scope=PRODUCTION&amp;state=866
+> A typical request will look something like this
+
+```http
+https://public.tenants.agaveapi.co/authorize/?client_id=gTgp...SV8a&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&amp;scope=PRODUCTION&amp;state=866
 ```
 
 The authorization process starts with your application sending a request to the Agave authorization service. (The reason your application sends this request can vary: it may be a step in the initialization of your application or in response to some user action, like a button click.) The request is sent to the /authorize endpoint of the Authorization service:
@@ -44,15 +47,17 @@ When the user is logged in, they are asked to authorize access to the actions an
 
 #### 3. The user is redirected back to your specified URI
 
-```nothing
-# Let's assume you provided the following callback URL
+> Let's assume you provided the following callback URL.
+
+```http
 https://example.com/callback
 ```
 
 After the user accepts (or denies) your request, the Agave Authorization service redirects back to the redirect_uri. If the user has accepted your request, the response query string contains a `code` parameter with the access code you will use in the next step to retrieve an access token.
 
-```nothing
-# Sample success redirect back from the server
+> Sample success redirect back from the server
+
+```http
 https://example.com/callback?code=Pq3S..M4sY&amp;state=866
 ```
 
@@ -86,7 +91,8 @@ curl -X POST -d "grant_type= authorization_code"
     -d "code=Pq3S..M4sY"
     -d "client_id=gTgp...SV8a"
     -d "client_secret=hZ_z3f...BOD6"
-    "redirect_uri=https%3A%2F%2Fwww.foo.com%2Fauth" https://public.tenants.agaveapi.co/token
+    -d "redirect_uri=https%3A%2F%2Fwww.foo.com%2Fauth"
+    https://public.tenants.agaveapi.co/token
 ```
 
 > The response would look something like this:
@@ -107,9 +113,11 @@ On success, the response from the Agave Authorization service has the status cod
 
 #### 6. Use the access token to access the Agave REST APIs
 
+> Make a call to the API
+
 ```bash
-# Request a refresh token
-curl -H "Authorization: Bearer a742...12d2" https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true&naked=true
+curl -H "Authorization: Bearer a742...12d2"
+    https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true&naked=true
 ```
 
 > The response would look something like this:
@@ -136,7 +144,8 @@ Once you have a valid access token, you can include it in `Authorization` header
 ```bash
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=refresh_token
-    -d refresh_token=d77c...Sacf https://public.tenants.agaveapi.co/token
+    -d refresh_token=d77c...Sacf
+    https://public.tenants.agaveapi.co/token
 ```
 
 > The response would look something like this.
@@ -191,11 +200,15 @@ When the user is logged in, they are asked to authorize access to the services d
 
 #### 3. The user is redirected back to your specified URI
 
-```nohting
-# Let's assume we specified the following callback address
-https://example.com/callback
+> Let's assume we specified the following callback address.
 
-# A valid success response would be
+```http
+https://example.com/callback
+```
+
+> A valid success response would be
+
+```http
 https://example.com/callback?access_token=Vr17...amUa&amp;token_type=bearer&amp;expires_in=3600&amp;state=867
 ```
 
@@ -205,8 +218,9 @@ After the user grants (or denies) access, the Agave Authorization service redire
 
 If the user has denied access, there will be no access token and the final URL will have a query string containing the following parameters:
 
-```nothing
-# Failed response
+> A failed response would resemble something like
+
+```bash
 https://example.com/callback?error=access_denied&amp;state=867
 ```
 <%= partial "includes/tables/19" %>
@@ -249,7 +263,8 @@ curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=password
     -d username=rjohnson
     -d password=password
-    -d scope=PRODUCTION https://public.tenants.agaveapi.co/token
+    -d scope=PRODUCTION
+    https://public.tenants.agaveapi.co/token
 ```
 
 > The response would look something like this:
@@ -280,8 +295,10 @@ https://example.com/callback?error=access_denied
 If the user has not accepted your request or an error has occurred, the response query string contains an error parameter indicating the error that occurred during login. For example:
 
 #### 2. Use the access token to access the Agave REST APIs
+
 ```bash
-curl -H "Authorization: Bearer 3Dsr...pv21" https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true
+curl -H "Authorization: Bearer 3Dsr...pv21"
+    https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true
 ```
 
 > The response would look something like this:
@@ -308,7 +325,8 @@ The access token allows you to make requests to any of the Agave REST APIs on be
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=refresh_token
     -d refresh_token=dyVa...MqR0
-    -d scope=PRODUCTION https://public.tenants.agaveapi.co/token
+    -d scope=PRODUCTION
+    https://public.tenants.agaveapi.co/token
 ```
 
 > The response would look something like this:
@@ -342,7 +360,8 @@ The method is suitable for authenticating your requests to the Agave REST API. T
 ```bash
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=client_credentials
-    -d scope=PRODUCTION https://public.tenants.agaveapi.co/token
+    -d scope=PRODUCTION
+    https://public.tenants.agaveapi.co/token
 ```
 
 > The response would look something like this:
@@ -367,7 +386,8 @@ The header of this POST request must contain the following parameter:
 #### 2. Use the access token to access the Agave REST APIs
 
 ```bash
-curl -H "Authorization: Bearer 61e6...Mc96" https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true
+curl -H "Authorization: Bearer 61e6...Mc96"
+     https://public.tenants.agaveapi.co/profiles/v2/me
 ```
 
 > The response would look something like this:
