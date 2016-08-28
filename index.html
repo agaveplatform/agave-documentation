@@ -7,21 +7,25 @@
     <title>Agave Platform Developer Documentation</title>
     <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
 
-    <script type="text/javascript">
-      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
-      analytics.load("ahAKHCapavwGo8rmdDxiohHIV8W660mc");
-      analytics.page()
-      }}();
-    </script>
+
     <script src="https://use.typekit.net/squ8frf.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
-    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
     <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
 
     <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
       <script src="javascripts/all.js" type="text/javascript"></script>
+    <script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-43163231-12', 'auto');
+ga('require', 'eventTracker');
+ga('require', 'outboundLinkTracker');
+ga('require', 'urlChangeTracker');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script src="javascripts/autotrack.js" type="text/javascript" async="true"></script>
 
       <script>
         $(function() {
@@ -573,52 +577,57 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 
 <p>There are two kinds of tokens you will obtained: access and refresh. Access token lifetimes are configured by the organization operating each tenant and vary based on the flow used to obtain them. By default, access tokens are valid for 4 hours.</p>
 
-<table><thead>
-<tr>
-<th>Authorization Flow</th>
-<th>Access Token Lifetime</th>
-<th>Refresh Token Lifetime</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Authorization</td>
-<td>4 hours</td>
-<td>infinite</td>
-</tr>
-<tr>
-<td>Implicit</td>
-<td>1 hour</td>
-<td>n/a</td>
-</tr>
-<tr>
-<td>User Credential Password</td>
-<td>4 hours</td>
-<td>infinite</td>
-</tr>
-<tr>
-<td>Client Credentials</td>
-<td>4 hours</td>
-<td>n/a</td>
-</tr>
-</tbody></table>
+<table>
+  <thead>
+    <tr>
+      <th>Authorization Flow</th>
+      <th>Access Token Lifetime</th>
+      <th>Refresh Token Lifetime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Authorization</td>
+      <td>4 hours</td>
+      <td>infinite</td>
+    </tr>
+    <tr>
+      <td>Implicit</td>
+      <td>1 hour</td>
+      <td>n/a</td>
+    </tr>
+    <tr>
+      <td>User Credential Password</td>
+      <td>4 hours</td>
+      <td>infinite</td>
+    </tr>
+    <tr>
+      <td>Client Credentials</td>
+      <td>4 hours</td>
+      <td>n/a</td>
+    </tr>
+  </tbody>
+</table>
 
+<h3 id="authorization-code">Authorization Code</h3>
 
-### Authorization Code
+<p>The method is suitable for long-running applications in which the user logs in once and the access token can be refreshed. Since the token exchange involves sending your secret key, this should happen on a secure location, like a backend service, not from a client like a browser or mobile apps. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>. This flow is also the authorization flow used in our REST API Tutorial.</p>
 
-The method is suitable for long-running applications in which the user logs in once and the access token can be refreshed. Since the token exchange involves sending your secret key, this should happen on a secure location, like a backend service, not from a client like a browser or mobile apps. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>. This flow is also the authorization flow used in our REST API Tutorial.
+<p>
+    <img src="/images/2014/09/Authorization-Code-Flow.png" alt="Authorization Code Flow Diagram" style="height: auto;"/>
+</p>
 
-<img src="/images/2014/09/Authorization-Code-Flow.png" alt="Authorization Code Flow Diagram" style="width: 100%; height: auto;"/>
+<h4 id="1-your-application-requests-authorization">1. Your application requests authorization</h4>
 
-#### 1. Your application requests authorization
+<blockquote>
+<p>A typical request will look something like this</p>
+</blockquote>
+<pre class="highlight http"><code><span class="err">https://public.tenants.agaveapi.co/authorize/?client_id=gTgp...SV8a&amp;amp;response_type=code&amp;amp;redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&amp;amp;scope=PRODUCTION&amp;amp;state=866
+</span></code></pre>
 
-&ldquo;`nothing
-# A typical request will look something like this
-GET https://public.tenants.agaveapi.co/authorize/?client_id=gTgp&hellip;SV8a&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&amp;scope=PRODUCTION&amp;state=866
-&rdquo;`
+<p>The authorization process starts with your application sending a request to the Agave authorization service. (The reason your application sends this request can vary: it may be a step in the initialization of your application or in response to some user action, like a button click.) The request is sent to the /authorize endpoint of the Authorization service:</p>
 
-The authorization process starts with your application sending a request to the Agave authorization service. (The reason your application sends this request can vary: it may be a step in the initialization of your application or in response to some user action, like a button click.) The request is sent to the /authorize endpoint of the Authorization service:
-
-The request will include parameters in the query string:
+<p>The request will include parameters in the query string:</p>
 
 <table>
     <thead>
@@ -658,14 +667,20 @@ The request will include parameters in the query string:
 <p>When the user is logged in, they are asked to authorize access to the actions and services defined in the scopes.</p>
 
 <h4 id="3-the-user-is-redirected-back-to-your-specified-uri">3. The user is redirected back to your specified URI</h4>
-<pre class="highlight plaintext"><code># Let's assume you provided the following callback URL
-https://example.com/callback
-</code></pre>
+
+<blockquote>
+<p>Let&rsquo;s assume you provided the following callback URL.</p>
+</blockquote>
+<pre class="highlight http"><code><span class="err">https://example.com/callback
+</span></code></pre>
 
 <p>After the user accepts (or denies) your request, the Agave Authorization service redirects back to the redirect_uri. If the user has accepted your request, the response query string contains a <code class="prettyprint">code</code> parameter with the access code you will use in the next step to retrieve an access token.</p>
-<pre class="highlight plaintext"><code># Sample success redirect back from the server
-https://example.com/callback?code=Pq3S..M4sY&amp;amp;state=866
-</code></pre>
+
+<blockquote>
+<p>Sample success redirect back from the server</p>
+</blockquote>
+<pre class="highlight http"><code><span class="err">https://example.com/callback?code=Pq3S..M4sY&amp;amp;state=866
+</span></code></pre>
 
 <table>
     <thead>
@@ -775,7 +790,8 @@ https://example.com/callback?error=access_denied&amp;amp;state=867
     </span><span class="err">-d</span><span class="w"> </span><span class="s2">"code=Pq3S..M4sY"</span><span class="w">
     </span><span class="err">-d</span><span class="w"> </span><span class="s2">"client_id=gTgp...SV8a"</span><span class="w">
     </span><span class="err">-d</span><span class="w"> </span><span class="s2">"client_secret=hZ_z3f...BOD6"</span><span class="w">
-    </span><span class="s2">"redirect_uri=https%3A%2F%2Fwww.foo.com%2Fauth"</span><span class="w"> </span><span class="err">https://public.tenants.agaveapi.co/token</span><span class="w">
+    </span><span class="err">-d</span><span class="w"> </span><span class="s2">"redirect_uri=https%3A%2F%2Fwww.foo.com%2Fauth"</span><span class="w">
+    </span><span class="err">https://public.tenants.agaveapi.co/token</span><span class="w">
 </span></code></pre>
 
 <blockquote>
@@ -832,8 +848,12 @@ https://example.com/callback?error=access_denied&amp;amp;state=867
 </table>
 
 <h4 id="6-use-the-access-token-to-access-the-agave-rest-apis">6. Use the access token to access the Agave REST APIs</h4>
-<pre class="highlight shell"><code><span class="c"># Request a refresh token</span>
-curl -H <span class="s2">"Authorization: Bearer a742...12d2"</span> https://public.tenants.agaveapi.co/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>&amp;naked<span class="o">=</span><span class="nb">true</span>
+
+<blockquote>
+<p>Make a call to the API</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer a742...12d2"</span>
+    https://public.tenants.agaveapi.co/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>&amp;naked<span class="o">=</span><span class="nb">true</span>
 </code></pre>
 
 <blockquote>
@@ -858,7 +878,8 @@ curl -H <span class="s2">"Authorization: Bearer a742...12d2"</span> https://publ
 <h4 id="7-requesting-access-token-from-refresh-token">7. Requesting access token from refresh token</h4>
 <pre class="highlight shell"><code>curl -sku <span class="s2">"Authorization: Basic Qt3c...Rm1y="</span>
     -d <span class="nv">grant_type</span><span class="o">=</span>refresh_token
-    -d <span class="nv">refresh_token</span><span class="o">=</span>d77c...Sacf https://public.tenants.agaveapi.co/token
+    -d <span class="nv">refresh_token</span><span class="o">=</span>d77c...Sacf
+    https://public.tenants.agaveapi.co/token
 </code></pre>
 
 <blockquote>
@@ -970,12 +991,18 @@ refresh_token </td>
 <p>When the user is logged in, they are asked to authorize access to the services defined in the scopes. By default all of the Core Science APIs fall under a single scope called, <code class="prettyprint">PRODUCTION</code>.</p>
 
 <h4 id="3-the-user-is-redirected-back-to-your-specified-uri">3. The user is redirected back to your specified URI</h4>
-<pre class="highlight plaintext"><code># Let's assume we specified the following callback address
-https://example.com/callback
 
-# A valid success response would be
-https://example.com/callback?access_token=Vr17...amUa&amp;amp;token_type=bearer&amp;amp;expires_in=3600&amp;amp;state=867
-</code></pre>
+<blockquote>
+<p>Let&rsquo;s assume we specified the following callback address.</p>
+</blockquote>
+<pre class="highlight http"><code><span class="err">https://example.com/callback
+</span></code></pre>
+
+<blockquote>
+<p>A valid success response would be</p>
+</blockquote>
+<pre class="highlight http"><code><span class="err">https://example.com/callback?access_token=Vr17...amUa&amp;amp;token_type=bearer&amp;amp;expires_in=3600&amp;amp;state=867
+</span></code></pre>
 
 <p>After the user grants (or denies) access, the Agave Authorization service redirects the user to the <code class="prettyprint">redirect_uri</code>. If the user has granted access, the final URL will contain the following data parameters in the query string.</p>
 
@@ -1017,8 +1044,11 @@ https://example.com/callback?access_token=Vr17...amUa&amp;amp;token_type=bearer&
 </table>
 
 <p>If the user has denied access, there will be no access token and the final URL will have a query string containing the following parameters:</p>
-<pre class="highlight plaintext"><code># Failed response
-https://example.com/callback?error=access_denied&amp;amp;state=867
+
+<blockquote>
+<p>A failed response would resemble something like</p>
+</blockquote>
+<pre class="highlight shell"><code>https://example.com/callback?error<span class="o">=</span>access_denied&amp;amp;state<span class="o">=</span>867
 </code></pre>
 
 <table>
@@ -1078,7 +1108,8 @@ https://example.com/callback?error=access_denied&amp;amp;state=867
     -d <span class="nv">grant_type</span><span class="o">=</span>password
     -d <span class="nv">username</span><span class="o">=</span>rjohnson
     -d <span class="nv">password</span><span class="o">=</span>password
-    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION https://public.tenants.agaveapi.co/token
+    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION
+    https://public.tenants.agaveapi.co/token
 </code></pre>
 
 <blockquote>
@@ -1145,7 +1176,8 @@ https://example.com/callback?error=access_denied&amp;amp;state=867
 <p>If the user has not accepted your request or an error has occurred, the response query string contains an error parameter indicating the error that occurred during login. For example:</p>
 
 <h4 id="2-use-the-access-token-to-access-the-agave-rest-apis">2. Use the access token to access the Agave REST APIs</h4>
-<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer 3Dsr...pv21"</span> https://public.tenants.agaveapi.co/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer 3Dsr...pv21"</span>
+    https://public.tenants.agaveapi.co/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>
 </code></pre>
 
 <blockquote>
@@ -1171,7 +1203,8 @@ https://example.com/callback?error=access_denied&amp;amp;state=867
 <pre class="highlight shell"><code>curl -sku <span class="s2">"Authorization: Basic Qt3c...Rm1y="</span>
     -d <span class="nv">grant_type</span><span class="o">=</span>refresh_token
     -d <span class="nv">refresh_token</span><span class="o">=</span>dyVa...MqR0
-    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION https://public.tenants.agaveapi.co/token
+    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION
+    https://public.tenants.agaveapi.co/token
 </code></pre>
 
 <blockquote>
@@ -1238,7 +1271,8 @@ refresh_token </td>
 <h4 id="1-your-application-requests-authorization">1. Your application requests authorization</h4>
 <pre class="highlight shell"><code>curl -sku <span class="s2">"Authorization: Basic Qt3c...Rm1y="</span>
     -d <span class="nv">grant_type</span><span class="o">=</span>client_credentials
-    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION https://public.tenants.agaveapi.co/token
+    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION
+    https://public.tenants.agaveapi.co/token
 </code></pre>
 
 <blockquote>
@@ -1290,7 +1324,8 @@ refresh_token </td>
 </table>
 
 <h4 id="2-use-the-access-token-to-access-the-agave-rest-apis">2. Use the access token to access the Agave REST APIs</h4>
-<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer 61e6...Mc96"</span> https://public.tenants.agaveapi.co/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer 61e6...Mc96"</span>
+     https://public.tenants.agaveapi.co/profiles/v2/me
 </code></pre>
 
 <blockquote>
@@ -1339,9 +1374,11 @@ refresh_token </td>
 <pre class="highlight plaintext"><code>clients-create -S -v -N my_cli_app -D "Client app used for scripting up cool stuff"
 </code></pre>
 
+<blockquote>
 <p>Note: the -S option will store the new API keys for future use so you don&rsquo;t need to manually enter then when you authenticate later.</p>
 
-<p>The response to this call for our example user looks like this:</p>
+<p>The response to this call will look something like:</p>
+</blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">  
    </span><span class="nt">"callbackUrl"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
    </span><span class="nt">"key"</span><span class="p">:</span><span class="s2">"gTgp...SV8a"</span><span class="p">,</span><span class="w">
@@ -1366,14 +1403,14 @@ refresh_token </td>
 <p>Your API keys should be kept in a secure place and not shared with others. This will prevent other, unauthorized client applications from impersonating your application. If you are developing a web application, you should also provide a valid callbackUrl when creating your keys. This will reduce the risk of your keys being reused even if they are compromised. You should also create a unique set of API keys for each client application you develop. This will allow you to better monitor your usage on a client application-to-application basis and reduce the possibility of inadvertently hitting usage quotas due to cumulative usage across client applications.</p>
 
 <h3 id="listing-your-existing-client-applications">Listing your existing client applications</h3>
-
-<p>Over time you may develop several client applications. Managing several sets of API keys can become tricky. You can see which applications you have created by querying the Clients service.</p>
 <pre class="highlight shell"><code>curl -sku <span class="s2">"</span><span class="nv">$API_USERNAME</span><span class="s2">:</span><span class="nv">$API_PASSWORD</span><span class="s2">"</span> https://public.tenants.agaveapi.co/clients/v2
 </code></pre>
 <pre class="highlight plaintext"><code>clients-list -v
 </code></pre>
 
-<p>The response to this call for our example user looks like this:</p>
+<blockquote>
+<p>The response to this call will look something like:</p>
+</blockquote>
 <pre class="highlight json"><code><span class="p">[</span><span class="w">  
    </span><span class="p">{</span><span class="w">  
       </span><span class="nt">"callbackUrl"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
@@ -1414,27 +1451,31 @@ refresh_token </td>
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
+<p>Over time you may develop several client applications. Managing several sets of API keys can become tricky. You can see which applications you have created by querying the Clients service.</p>
+
 <aside class="notice">In the last response you will notice that the client secret was not returned as part of the response objects. If you need to recover your client secret, just recreate the client app. Your client keys will not change, but the response will include your secret key.</aside>
 
 <h3 id="deleting-client-registrations">Deleting client registrations</h3>
-
-<p>At some point you may need to delete a client. You can do this by requesting a DELETE on your client in the Clients service.</p>
 <pre class="highlight shell"><code>curl -sku <span class="s2">"</span><span class="nv">$API_USERNAME</span><span class="s2">:</span><span class="nv">$API_PASSWORD</span><span class="s2">"</span> -X DELETE https://public.tenants.agaveapi.co/clients/v2/my_cli_app
 </code></pre>
 <pre class="highlight plaintext"><code>clients-delete -v my_cli_app
 </code></pre>
 
+<blockquote>
 <p>The response to this call is simply a null result object.</p>
+</blockquote>
 
-<h3 id="managing-api-subscriptions">Managing API subscriptions</h3>
+<p>At some point you may need to delete a client. You can do this by requesting a DELETE on your client in the Clients service.</p>
 
-<p>When you register a new client application and get your API keys, you are given access to all the Agave APIs by default. You can see the APIs you have access to by querying the subscriptions collection of your client.</p>
+<h3 id="listing-current-subscriptions">Listing current subscriptions</h3>
 <pre class="highlight shell"><code>curl -sku <span class="s2">"</span><span class="nv">$API_USERNAME</span><span class="s2">:</span><span class="nv">$API_PASSWORD</span><span class="s2">"</span> https://public.tenants.agaveapi.co/clients/v2/my_cli_app/subscriptions
 </code></pre>
 <pre class="highlight plaintext"><code>clients-subscriptions-list -v my_cli_app
 </code></pre>
 
-<p>The response to this call for our example client looks like this:</p>
+<blockquote>
+<p>The response to this call will look something like:</p>
+</blockquote>
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
      </span><span class="nt">"context"</span><span class="p">:</span><span class="s2">"/apps"</span><span class="p">,</span><span class="w">
@@ -1478,19 +1519,27 @@ refresh_token </td>
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
-<p>Over time, new APIs will be deployed. When this happens you will need to subscribe to the new APIs. You can do this by POSTing a request to the subscription collection with the information about the new API.</p>
+<p>When you register a new client application and get your API keys, you are given access to all the Agave APIs by default. You can see the APIs you have access to by querying the subscriptions collection of your client.</p>
+
+<h3 id="updating-client-subscriptions">Updating client subscriptions</h3>
 <pre class="highlight shell"><code>curl -sku <span class="s2">"</span><span class="nv">$API_USERNAME</span><span class="s2">:</span><span class="nv">$API_PASSWORD</span><span class="s2">"</span> -X POST -d <span class="s2">"name=transforms"</span> https://public.tenants.agaveapi.co/clients/v2/my_cli_app/subscriptions
 </code></pre>
 <pre class="highlight plaintext"><code>clients-subscriptions-update -v -N transforms my_cli_app
 </code></pre>
 
-<p>The response to this call will be a JSON array identical to the one returned when listing your subscriptions. You could repeat this step for each new API, or you could use the wildcard API name, *, to resubscribe to all active APIs.</p>
+<blockquote>
+<p>You can also use a wildcard to resubscribe to all active APIs.</p>
+</blockquote>
 <pre class="highlight shell"><code>curl -sku <span class="s2">"</span><span class="nv">$API_USERNAME</span><span class="s2">:</span><span class="nv">$API_PASSWORD</span><span class="s2">"</span> -X POST -d <span class="s2">"name=*"</span> https://public.tenants.agaveapi.co/clients/v2/my_cli_app/subscriptions
 </code></pre>
 <pre class="highlight plaintext"><code>clients-subscriptions-update -v -N * my_cli_app
 </code></pre>
 
-<p>Again, the response will be identical to the previous one.</p>
+<blockquote>
+<p>The response to this call will be a JSON array identical to the one returned when listing your subscriptions.</p>
+</blockquote>
+
+<p>Over time, new APIs will be deployed. When this happens you will need to subscribe to the new APIs. You can do this by POSTing a request to the subscription collection with the information about the new API.</p>
 
               <h2 id="systems">Systems</h2>
 
@@ -1545,40 +1594,53 @@ refresh_token </td>
 
 <p>The Systems service allows you to list and search for systems you have registered and systems that have been shared with you. To get a list of all your systems, make a GET request on the Systems collection.</p>
 
-<p>The response will be a JSON array of summary system objects. The full system description can get rather verbose, so a summary object is returned with the most critical fields in order to reduce response size when retrieving a user&rsquo;s systems.</p>
+<p>System description can get rather verbose, so a summary object is returned when listing a resource collection. The summary object contains the most critical fields in order to reduce response size when retrieving a user&rsquo;s systems. You can customize this behavior using the <code class="prettyprint">filter</code> query parameter.</p>
 
 <aside class="notice">The above response my vary depending on who administers Agave for your organization. To customize this tutorial for your specific account, login.</aside>
 
 <h3 id="filtering-results">Filtering results</h3>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/systems/v2/?type<span class="o">=</span>storage
 
-<span class="c"># Only execution systems</span>
-curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/systems/v2/?type<span class="o">=</span>execution
+<blockquote>
+<p>List all systems (up to the page limit)
+<code class="prettyprint">shell
+curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; https://public.tenants.agaveapi.co/systems/v2/?type=storage
+</code>
+<code class="prettyprint">plaintext
+systems-list -v -S
+</code></p>
 
-<span class="c">#Only public systems</span>
-<span class="sb">```</span>shell
-curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/systems/v2/?publicOnly<span class="o">=</span><span class="nb">true</span>
-
-<span class="c"># Only private systems</span>
-curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/systems/v2/?privateOnly<span class="o">=</span><span class="nb">true</span>
-
-<span class="c">#Only give the user's default systems</span>
-curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/systems/v2/?default<span class="o">=</span><span class="nb">true</span>
-</code></pre>
-<pre class="highlight plaintext"><code>systems-list -v -S
-
-# Only execution systems
+<p>Only execution systems
+<code class="prettyprint">shell
+curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; https://public.tenants.agaveapi.co/systems/v2/?type=execution
+</code>
+<code class="prettyprint">plaintext
 systems-list -v -E
+</code></p>
 
-# Only public systems
+<p>Only public systems
+<code class="prettyprint">shell
+curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; https://public.tenants.agaveapi.co/systems/v2/?publicOnly=true
+</code>
+<code class="prettyprint">plaintext
 systems-list -v -P
+</code></p>
 
-# Only private systems
+<p>Only private systems
+<code class="prettyprint">shell
+curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; https://public.tenants.agaveapi.co/systems/v2/?privateOnly=true
+</code>
+<code class="prettyprint">plaintext
 systems-list -v -Q
+</code></p>
 
-#Only give the user's default systems
+<p>Only give the user&rsquo;s default systems
+<code class="prettyprint">shell
+curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; https://public.tenants.agaveapi.co/systems/v2/?default=true
+</code>
+<code class="prettyprint">plaintext
 systems-list -v -D
-</code></pre>
+</code></p>
+</blockquote>
 
 <p>You can further filter the results by type, scope, and default status. See the search section for further filtering options.</p>
 
@@ -1723,293 +1785,328 @@ systems-list -v -D
 <h3 id="supported-data-and-authentication-protocols">Supported data and authentication protocols</h3>
 
 <p>The example above described a system accessible by SFTP. Agave supports many different data and authentication protocols for interacting with your data. Sample configurations for many protocol combinations are given below.</p>
-<pre class="highlight shell"><code><span class="o">{</span>
-   <span class="s2">"id"</span>:<span class="s2">"sftp.storage.example.com"</span>,
-   <span class="s2">"name"</span>:<span class="s2">"Example SFTP Storage System"</span>,
-   <span class="s2">"status"</span>:<span class="s2">"UP"</span>,
-   <span class="s2">"type"</span>:<span class="s2">"STORAGE"</span>,
-   <span class="s2">"description"</span>:<span class="s2">"My example storage system using SFTP to store data for testing"</span>,
-   <span class="s2">"site"</span>:<span class="s2">"example.com"</span>,
-   <span class="s2">"storage"</span>:<span class="o">{</span>
-      <span class="s2">"host"</span>:<span class="s2">"storage.example.com"</span>,
-      <span class="s2">"port"</span>:22,
-      <span class="s2">"protocol"</span>:<span class="s2">"SFTP"</span>,
-      <span class="s2">"rootDir"</span>:<span class="s2">"/"</span>,
-      <span class="s2">"homeDir"</span>:<span class="s2">"/home/systest"</span>,
-      <span class="s2">"auth"</span>:<span class="o">{</span>
-         <span class="s2">"username"</span>:<span class="s2">"systest"</span>,
-         <span class="s2">"password"</span>:<span class="s2">"changeit"</span>,
-         <span class="s2">"type"</span>:<span class="s2">"PASSWORD"</span>
-      <span class="o">}</span>
-   <span class="o">}</span>
-<span class="o">}</span>
+
+<p><select id="storage-config-selector" name="storage-config-selector" onChange="$('.storage-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
+    <option value="sftp-password">SFTP</option>
+    <option value="sftp-sshkeys">SFTP w/ SSH Keys</option>
+    <option value="sftp-tunnel">SFTP w/ tunnel</option>
+    <option value="irods">IRODSv3</option>
+    <option value="irods-pam">IRODSv3 w/ PAM</option>
+    <option value="irods-myproxy">IRODSv3 w/ MyProxy</option>
+    <option value="irods4">IRODSv4</option>
+    <option value="gridftp">GridFTP</option>
+    <option value="gridftp-myproxy">GridFTP w/ MyProxy</option>
+    <option value="gridftp-mpg">GridFTP w/ MyProxy Gateway</option>
+    <option value="s3">Amazon S3</option>
+    <option value="local">Local</option>
+</select></p>
+
+<blockquote>
+<p>Sample storage system definition with each supported data protocol and authentication configuration.</p>
+</blockquote>
+
+<pre id="sftp-password" class="json storage-config">
+<code>{
+   "id":"sftp.storage.example.com",
+   "name":"Example SFTP Storage System",
+   "status":"UP",
+   "type":"STORAGE",
+   "description":"My example storage system using SFTP to store data for testing",
+   "site":"example.com",
+   "storage":{
+      "host":"storage.example.com",
+      "port":22,
+      "protocol":"SFTP",
+      "rootDir":"/",
+      "homeDir":"/home/systest",
+      "auth":{
+         "username":"systest",
+         "password":"changeit",
+         "type":"PASSWORD"
+      }
+   }
+}</code>
+</pre>
+
+<pre id="sftp-sshkeys" class="json storage-config hidden">
+<code>{
+   "id":"sftp.storage.example.com",
+   "name":"Example SFTP Storage Host",
+   "status":"UP",
+   "type":"STORAGE",
+   "description":"My example storage system using SFTP to store data for testing",
+   "site":"example.com",
+   "storage":{
+      "host":"texas.rangers.mlb.com",
+      "port":22,
+      "protocol":"SFTP",
+      "rootDir":"/",
+      "homeDir":"/home/nryan",
+      "auth":{
+         "username":"nryan",
+         "publicKey": "ssh-rsa AAAAB3NzaC1yc2EBBAADAQABMQPRgQChJ6bzejqSuJdTi+VwMif8qotuSSlYwrVt0EWVduKZHpzOnS1zlknAyYXmQQFcaJ+vNAQayVMTqv+A+1lzxppTdgZ0Dn42EOYWRa6B/IEMPzDuKb7F0qNFiH9m+OZJDYdIWS1rlN1oK32jHUi0xV8kM3KOLf2TIjDBUyZRpMGyQ== Generated by Nova",
+         "privateKey": "-----BEGIN RSA PRIVATE KEY-----nMIVCXAIBAAKBgQRhJ6bzejqSuJdTi+VwMif8qoyuSSlYwrVt0EWVduKZHpzOnSManlknAyYXmQQFcaJ+vNAQayVqTqv+A+1lzxppTdgZ0Dn42EOYWRa6B/IEMPzDuKb7Fn0uNFiH9x+OZJDYdIWS1rN1oK4DjHUi0xV8kMN3OPSIU23asx1UyZRpMGyQIDAQABnAoGATrW4NAkJ3Kltt6+HQ1Ir95sxFNrE6AZJaLYllke3iwPJpCX1dDdpDcXa8AGbVnjFXJUGA+dPrJqbyGCHA7E3H342837k/twSRGkcCNpRx/MMdWnw3asea/K5L4XVeunXAn79vo/e28D4Uue62dSwIvDJKIFWMSAgUoD53ImushqlLUCQQDPkObaowzkboLCnv3Nyj16KFZ5Lp7r5q5MYfRxO7t53Z7AWoflr++KrAT3UbSKtqmC68CqbPzxSd6qHnbnkWaD0HAkEAxsJZh7xorwAtdYznMFOsO0w5HDHOB7MuAnjwUvYZVaM0wA7HkE4rnH5SFAwEMlwx82OJxv83CnkRdlXOexn95rwJBALd8cnboGCd/AZzCvX2R+5K5lZtvnhLvczkWho3qrcoG/aUw4l1K78h4VFOFKMJOwv53BXQisF9kW6+qY3/XM49UCQHqDn4AYQOALvPBZCdVtPqFGg6W8csCAE7a5ud8zbj8A+6swcEB0+YcyEkvzID8en1ekmno/ET1wwRnhH6g/tdJlcCQM55QS4Z7rR4psgFDkFvA+wmxlqTGsXJD32sw15g4A0bmzSXnbfFg8TBAjGTDW7l0P8prFrtQ8Wml14390b29l1ptAyE=n-----END RSA PRIVATE KEY-----",
+         "type": "SSHKEYS"
+      }
+   }
+}
 </code></pre>
 
-<p>[tab title=&ldquo;SFTP (SSH Keys)&rdquo;]
-<code class="prettyprint">json
-{
-   &quot;id&quot;:&quot;sftp.storage.example.com&quot;,
-   &quot;name&quot;:&quot;Example SFTP Storage Host&quot;,
-   &quot;status&quot;:&quot;UP&quot;,
-   &quot;type&quot;:&quot;STORAGE&quot;,
-   &quot;description&quot;:&quot;My example storage system using SFTP to store data for testing&quot;,
-   &quot;site&quot;:&quot;example.com&quot;,
-   &quot;storage&quot;:{
-      &quot;host&quot;:&quot;texas.rangers.mlb.com&quot;,
-      &quot;port&quot;:22,
-      &quot;protocol&quot;:&quot;SFTP&quot;,
-      &quot;rootDir&quot;:&quot;/&quot;,
-      &quot;homeDir&quot;:&quot;/home/nryan&quot;,
-      &quot;auth&quot;:{
-         &quot;username&quot;:&quot;nryan&quot;,
-         &quot;publicKey&quot;: &quot;ssh-rsa AAAAB3NzaC1yc2EBBAADAQABMQPRgQChJ6bzejqSuJdTi+VwMif8qotuSSlYwrVt0EWVduKZHpzOnS1zlknAyYXmQQFcaJ+vNAQayVMTqv+A+1lzxppTdgZ0Dn42EOYWRa6B/IEMPzDuKb7F0qNFiH9m+OZJDYdIWS1rlN1oK32jHUi0xV8kM3KOLf2TIjDBUyZRpMGyQ== Generated by Nova&quot;,
-         &quot;privateKey&quot;: &quot;-----BEGIN RSA PRIVATE KEY-----nMIVCXAIBAAKBgQRhJ6bzejqSuJdTi+VwMif8qoyuSSlYwrVt0EWVduKZHpzOnSManlknAyYXmQQFcaJ+vNAQayVqTqv+A+1lzxppTdgZ0Dn42EOYWRa6B/IEMPzDuKb7Fn0uNFiH9x+OZJDYdIWS1rN1oK4DjHUi0xV8kMN3OPSIU23asx1UyZRpMGyQIDAQABnAoGATrW4NAkJ3Kltt6+HQ1Ir95sxFNrE6AZJaLYllke3iwPJpCX1dDdpDcXa8AGbVnjFXJUGA+dPrJqbyGCHA7E3H342837k/twSRGkcCNpRx/MMdWnw3asea/K5L4XVeunXAn79vo/e28D4Uue62dSwIvDJKIFWMSAgUoD53ImushqlLUCQQDPkObaowzkboLCnv3Nyj16KFZ5Lp7r5q5MYfRxO7t53Z7AWoflr++KrAT3UbSKtqmC68CqbPzxSd6qHnbnkWaD0HAkEAxsJZh7xorwAtdYznMFOsO0w5HDHOB7MuAnjwUvYZVaM0wA7HkE4rnH5SFAwEMlwx82OJxv83CnkRdlXOexn95rwJBALd8cnboGCd/AZzCvX2R+5K5lZtvnhLvczkWho3qrcoG/aUw4l1K78h4VFOFKMJOwv53BXQisF9kW6+qY3/XM49UCQHqDn4AYQOALvPBZCdVtPqFGg6W8csCAE7a5ud8zbj8A+6swcEB0+YcyEkvzID8en1ekmno/ET1wwRnhH6g/tdJlcCQM55QS4Z7rR4psgFDkFvA+wmxlqTGsXJD32sw15g4A0bmzSXnbfFg8TBAjGTDW7l0P8prFrtQ8Wml14390b29l1ptAyE=n-----END RSA PRIVATE KEY-----&quot;,
-         &quot;type&quot;: &quot;SSHKEYS&quot;
+<pre id="sftp-tunnel" class="json storage-config hidden">
+<code>{
+   "id":"sftp.storage.example.com",
+   "name":"Example SFTP Tunnel Storage Host",
+   "status":"UP",
+   "type":"STORAGE",
+   "description":"My example storage system using SFTP via an ssh tunnel to store data for testing",
+   "site":"example.com",
+   "storage":{
+      "host":"storage.example.com",
+      "port":22,
+      "protocol":"SFTP",
+      "rootDir":"/",
+      "homeDir":"/home/nryan",
+      "auth":{
+         "username":"systest",
+         "password":"changeit",
+         "type":"PASSWORD"
+      },
+      "proxy":{
+         "name":"My gateway proxy server",
+         "host":"proxy.example.com",
+         "port":22
       }
    }
 }
-</code></p>
+</code></pre>
 
-<p>[tab title=&ldquo;SFTP (tunnel)&rdquo;]
-<code class="prettyprint">json
-{
-   &quot;id&quot;:&quot;sftp.storage.example.com&quot;,
-   &quot;name&quot;:&quot;Example SFTP Tunnel Storage Host&quot;,
-   &quot;status&quot;:&quot;UP&quot;,
-   &quot;type&quot;:&quot;STORAGE&quot;,
-   &quot;description&quot;:&quot;My example storage system using SFTP via an ssh tunnel to store data for testing&quot;,
-   &quot;site&quot;:&quot;example.com&quot;,
-   &quot;storage&quot;:{
-      &quot;host&quot;:&quot;storage.example.com&quot;,
-      &quot;port&quot;:22,
-      &quot;protocol&quot;:&quot;SFTP&quot;,
-      &quot;rootDir&quot;:&quot;/&quot;,
-      &quot;homeDir&quot;:&quot;/home/nryan&quot;,
-      &quot;auth&quot;:{
-         &quot;username&quot;:&quot;systest&quot;,
-         &quot;password&quot;:&quot;changeit&quot;,
-         &quot;type&quot;:&quot;PASSWORD&quot;
+<pre id="irods" class="json storage-config hidden">
+<code>{
+   "id":"irods.storage.example.com",
+   "name":"Example IRODS Storage Host",
+   "status":"UP",
+   "type":"STORAGE",
+   "description":"My example storage system using IRODS to store data for testing",
+   "site":"example.com",
+   "storage":{
+      "host":"storage.example.com",
+      "port":1247,
+      "protocol":"IRODS",
+      "homeDir":"/systest",
+      "rootDir":"/demoZone/home",
+      "auth":{
+         "username":"systest",
+         "password":"changeit",
+         "type":"PASSWORD"
       },
-      &quot;proxy&quot;:{
-         &quot;name&quot;:&quot;My gateway proxy server&quot;,
-         &quot;host&quot;:&quot;proxy.example.com&quot;,
-         &quot;port&quot;:22
-      }
+      "resource":"demoResc",
+      "zone":"demoZone"
    }
 }
-</code></p>
+</code></pre>
 
-<p>[tab title=&ldquo;iRODS&rdquo;]
-<code class="prettyprint">json
-{
-   &quot;id&quot;:&quot;irods.storage.example.com&quot;,
-   &quot;name&quot;:&quot;Example IRODS Storage Host&quot;,
-   &quot;status&quot;:&quot;UP&quot;,
-   &quot;type&quot;:&quot;STORAGE&quot;,
-   &quot;description&quot;:&quot;My example storage system using IRODS to store data for testing&quot;,
-   &quot;site&quot;:&quot;example.com&quot;,
-   &quot;storage&quot;:{
-      &quot;host&quot;:&quot;storage.example.com&quot;,
-      &quot;port&quot;:1247,
-      &quot;protocol&quot;:&quot;IRODS&quot;,
-      &quot;homeDir&quot;:&quot;/systest&quot;,
-      &quot;rootDir&quot;:&quot;/demoZone/home&quot;,
-      &quot;auth&quot;:{
-         &quot;username&quot;:&quot;systest&quot;,
-         &quot;password&quot;:&quot;changeit&quot;,
-         &quot;type&quot;:&quot;PASSWORD&quot;
+<pre id="irods-pam" class="json storage-config hidden">
+<code>{
+   "id":"irods.storage.example.com",
+   "name":"Example IRODS Storage Host",
+   "status":"UP",
+   "type":"STORAGE",
+   "description":"My example storage system using IRODS with PAM authentication to store data for testing",
+   "site":"example.com",
+   "storage":{
+      "host":"storage.example.com",
+      "port":1247,
+      "protocol":"IRODS",
+      "homeDir":"/systest",
+      "rootDir":"/demoZone/home",
+      "auth":{
+         "username":"systest",
+         "password":"changeit",
+         "type":"PAM"
       },
-      &quot;resource&quot;:&quot;demoResc&quot;,
-      &quot;zone&quot;:&quot;demoZone&quot;
+      "resource":"demoResc",
+      "zone":"demoZone"
    }
 }
-</code></p>
+</code></pre>
 
-<p>[tab title=&ldquo;iRODS (PAM)&rdquo;]
-<code class="prettyprint">json
-{
-   &quot;id&quot;:&quot;irods.storage.example.com&quot;,
-   &quot;name&quot;:&quot;Example IRODS Storage Host&quot;,
-   &quot;status&quot;:&quot;UP&quot;,
-   &quot;type&quot;:&quot;STORAGE&quot;,
-   &quot;description&quot;:&quot;My example storage system using IRODS with PAM authentication to store data for testing&quot;,
-   &quot;site&quot;:&quot;example.com&quot;,
-   &quot;storage&quot;:{
-      &quot;host&quot;:&quot;storage.example.com&quot;,
-      &quot;port&quot;:1247,
-      &quot;protocol&quot;:&quot;IRODS&quot;,
-      &quot;homeDir&quot;:&quot;/systest&quot;,
-      &quot;rootDir&quot;:&quot;/demoZone/home&quot;,
-      &quot;auth&quot;:{
-         &quot;username&quot;:&quot;systest&quot;,
-         &quot;password&quot;:&quot;changeit&quot;,
-         &quot;type&quot;:&quot;PAM&quot;
-      },
-      &quot;resource&quot;:&quot;demoResc&quot;,
-      &quot;zone&quot;:&quot;demoZone&quot;
-   }
-}
-</code></p>
-
-<p>[tab title=&ldquo;iRODS (MyProxy)&rdquo;]
-<code class="prettyprint">json
-{
-   &quot;id&quot;:&quot;irods.storage.example.com&quot;,
-   &quot;name&quot;:&quot;Example IRODS Storage Host&quot;,
-   &quot;status&quot;:&quot;UP&quot;,
-   &quot;type&quot;:&quot;STORAGE&quot;,
-   &quot;description&quot;:&quot;My example storage system using IRODS to store data for testing&quot;,
-   &quot;site&quot;:&quot;example.com&quot;,
-   &quot;storage&quot;:{
-      &quot;host&quot;:&quot;storage.example.com&quot;,
-      &quot;port&quot;:1247,
-      &quot;protocol&quot;:&quot;IRODS&quot;,
-      &quot;homeDir&quot;:&quot;/systest&quot;,
-      &quot;rootDir&quot;:&quot;/demoZone/home&quot;,
-      &quot;auth&quot;:{
-         &quot;username&quot;:&quot;systest&quot;,
-         &quot;password&quot;:&quot;changeit&quot;,
-         &quot;type&quot;:&quot;X509&quot;,
-         &quot;server&quot;:{
-            &quot;name&quot;:&quot;IRODS MyProxy Server&quot;,
-            &quot;endpoint&quot;:&quot;myproxy.example.com&quot;,
-            &quot;port&quot;:7512,
-            &quot;protocol&quot;:&quot;MYPROXY&quot;
+<pre id="irods-myproxy" class="json storage-config hidden">
+<code>{
+   "id":"irods.storage.example.com",
+   "name":"Example IRODS Storage Host",
+   "status":"UP",
+   "type":"STORAGE",
+   "description":"My example storage system using IRODS to store data for testing",
+   "site":"example.com",
+   "storage":{
+      "host":"storage.example.com",
+      "port":1247,
+      "protocol":"IRODS",
+      "homeDir":"/systest",
+      "rootDir":"/demoZone/home",
+      "auth":{
+         "username":"systest",
+         "password":"changeit",
+         "type":"X509",
+         "server":{
+            "name":"IRODS MyProxy Server",
+            "endpoint":"myproxy.example.com",
+            "port":7512,
+            "protocol":"MYPROXY"
          }
       },
-      &quot;resource&quot;:&quot;demoResc&quot;,
-      &quot;zone&quot;:&quot;demoZone&quot;
+      "resource":"demoResc",
+      "zone":"demoZone"
    }
 }
-</code></p>
+</code></pre>
 
-<p>[tab title=&ldquo;GridFTP&rdquo;]
-<code class="prettyprint">json
-{
-  &quot;id&quot;: &quot;demo.storage.example.com&quot;,
-  &quot;name&quot;: &quot;Demo GRIDFTP demo vm&quot;,
-  &quot;status&quot;: &quot;UP&quot;,
-  &quot;type&quot;: &quot;STORAGE&quot;,
-  &quot;description&quot;: &quot;My example storage system using GridFTP to store data for testing&quot;,
-  &quot;site&quot;: &quot;example.com&quot;,
-  &quot;storage&quot;: {
-    &quot;host&quot;: &quot;gridftp.example.com&quot;,
-    &quot;port&quot;: 2811,
-    &quot;protocol&quot;: &quot;GRIDFTP&quot;,
-    &quot;rootDir&quot;: &quot;/&quot;,
-    &quot;homeDir&quot;: &quot;/home/systest&quot;,
-    &quot;auth&quot;: {
-      &quot;credential&quot;: &quot;-----BEGIN CERTIFICATE-----nMIIDqjCCApKgAwIBAgIDJSFGMA0GCSqGSIb3DQEBBQUAMHsxCzAJBgNVBAYTAlVTnMTgwNgYDVQQKEy9OYXRpb25hbCBDZW50ZXIgZm9yIFN1cGVyY29tcHV0aW5nIEFwncGxpY2F0aW9uczEgMB4GA1UECxMXQ2VydGlmaWNhdGUgQXV0aG9yaXRpZXMxEDAOnBgNVBAMTB015UHJveHkwHhcNMTMxMDE0MDcyMjE4WhcNMTMxMDE0MTkyNzE4WjBnnMQswCQYDVQQGEwJVUzE4MDYGA1UEChMvTmF0aW9uYWwgQ2VudGVyIGZvciBTdXBlncmNvbXB1dGluZyBBcHBsaWNhdGlvbnMxHjAcBgNVBAMTFWlwbGFudCBDb21tdW5pndHkgVXNlcjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAwfHbmtmJ1OUVwgDdn5oA8EsqihwRAi2xhZJYG/FFmOs38+0y7wTfORhVX/79XQMD3NqRJN8xhHQpmuoRynH9l9sbA9gbKaQsrpIYyExygrJ+qaZY0PccD+VAyPDjdLD86316AzWltEdV2E9b+OnCVioz62esJWSqOho8wya4Vo5svUCAwEAAaOBzjCByzAOBgNVHQ8BAf8EBAMCBLAwnHQYDVR0OBBYEFIJXT/jYmxaRywDbZudb1EXbxla5MB8GA1UdIwQYMBaAFNf8pQJ2nOvYT+iuh4OZQNccjx3tRMAwGA1UdEwEB/wQCMAAwNAYDVR0gBC0wKzAMBgorBgEEnAaQ+ZAIFMAwGCiqGSIb3TAUCAgMwDQYLKoZIhvdMBQIDAgEwNQYDVR0fBC4wLDAqnoCigJoYkaHR0cDovL2NhLm5jc2EudWl1Yy5lZHUvZjJlODlmZTMuY3JsMA0GCSqGnSIb3DQEBBQUAA4IBAQBDyW3FJ0xEIXEqk2NtiMqOM99MgufDPL0bxrR8CvPY5GRNn58EXU8RnSSJIuxL95PKclRPPOhGdB48eeF2H1MusOEUEEnHwzrZ1OUFUEpwKuqG6n0h411l3niRRx9wdJL4YITzAWZwpadzwj3d8aO9O/ttVJjGRc8A93I/d3fFAvHyvKnmlEaDrQZNBp1EtClW8xuxsfeUmyXkFlkRiKwqjkJGB8xBuzr8DfLomWq/mXaOkHznCo9nQxAs3gntszLOh+8U9aMxaeCsychRWxG3Y6Z33hrE0yz4AaVonVXu3Z7M+EN+nKbSVRblAzeKfQYYDOgsoFrugYbR9klv1so3Dt+n6n-----END CERTIFICATE-----n-----BEGIN RSA PRIVATE KEY-----nMIICWwIBAAKBgQDB8dua2YnU5RXCAN3mgDwSyqKHBECLbGFklgb8UWY6zfz7TLvBnN85GFVf/v1dAwPc2pEk3zGEdCma6hHIf2X2xsD2BsppCyukhjITHKCsn6ppljQ9xnwP5UDI8ON0sPzrfXoDNaW0R1XYT1v44JWKjPrZ6wlZKo6GjzDJrhWjmy9QIDAQABnAoGAcjrJZYMLM2FaV1G7YK/Wshq3b16JxZSoKF5U7vfihnAcuMaRL1R3IcAgfHlunIq2E7aIFnd+6sygVKXYo4alv5denekiucvKAyXK9F/VTTtLtajUnrvekLvSycKiEnbN9IgQ0ABCnlWyjgQMf64UUYBQtvU+lbRCs4jbuHxuyn5WECQQD8fJhlBHgA49hjnZBKnU9Xb+LEKhWDCEyIiOMMGY+2XhrGVvGF5KqJVusZEv8lbXNjzgSQFgLohEXVzn9v8tDFMzAkEAxKS5qCYHsTfgPlw3l1DLJRmG3SXrpevXSccBGpXQiUne9gfc9mlgnVTr5QQCXvvI673Y2LnNcnd94KEgvSrzhNwJACeS38/1g1mgXKo3ZTUUztBLinQ7sn463sQHsI6U8xGCbm/n8LMrxA8CsJadg6A6J3vdLpnm2U3YbZm1mqVhGNkQJAdsxxnoUVAdm8kWWhK6W6VG9e9I1OqdrXxfY/tecsyjg6D1a1Qb8mfuj4DoaKjCme69To8nZ3moZXRBWkypzYQopwJAB/zr1UpFz6vY4sIm3Gw3ll/ruNGCr2dzjTyLSGglCOf0nUljJ1FGLyW647JzGPMLcfdb0iEexzCEii9YUFUN1Ow==n-----END RSA PRIVATE KEY-----&quot;,
-      &quot;type&quot;: &quot;X509&quot;
+<pre id="irods4" class="json storage-config hidden">
+<code>{
+   "id":"irods.storage.example.com",
+   "name":"Example IRODS Storage Host",
+   "status":"UP",
+   "type":"STORAGE",
+   "description":"My example storage system using IRODS to store data for testing",
+   "site":"example.com",
+   "storage":{
+      "host":"storage.example.com",
+      "port":1247,
+      "protocol":"IRODS4",
+      "homeDir":"/systest",
+      "rootDir":"/demoZone/home",
+      "auth":{
+         "username":"systest",
+         "password":"changeit",
+         "type":"PASSWORD"
+      },
+      "resource":"demoResc",
+      "zone":"demoZone"
+   }
+}
+</code></pre>
+
+<pre id="gridftp" class="json storage-config hidden">
+<code>{
+  "id": "demo.storage.example.com",
+  "name": "Demo GRIDFTP demo vm",
+  "status": "UP",
+  "type": "STORAGE",
+  "description": "My example storage system using GridFTP to store data for testing",
+  "site": "example.com",
+  "storage": {
+    "host": "gridftp.example.com",
+    "port": 2811,
+    "protocol": "GRIDFTP",
+    "rootDir": "/",
+    "homeDir": "/home/systest",
+    "auth": {
+      "credential": "-----BEGIN CERTIFICATE-----nMIIDqjCCApKgAwIBAgIDJSFGMA0GCSqGSIb3DQEBBQUAMHsxCzAJBgNVBAYTAlVTnMTgwNgYDVQQKEy9OYXRpb25hbCBDZW50ZXIgZm9yIFN1cGVyY29tcHV0aW5nIEFwncGxpY2F0aW9uczEgMB4GA1UECxMXQ2VydGlmaWNhdGUgQXV0aG9yaXRpZXMxEDAOnBgNVBAMTB015UHJveHkwHhcNMTMxMDE0MDcyMjE4WhcNMTMxMDE0MTkyNzE4WjBnnMQswCQYDVQQGEwJVUzE4MDYGA1UEChMvTmF0aW9uYWwgQ2VudGVyIGZvciBTdXBlncmNvbXB1dGluZyBBcHBsaWNhdGlvbnMxHjAcBgNVBAMTFWlwbGFudCBDb21tdW5pndHkgVXNlcjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAwfHbmtmJ1OUVwgDdn5oA8EsqihwRAi2xhZJYG/FFmOs38+0y7wTfORhVX/79XQMD3NqRJN8xhHQpmuoRynH9l9sbA9gbKaQsrpIYyExygrJ+qaZY0PccD+VAyPDjdLD86316AzWltEdV2E9b+OnCVioz62esJWSqOho8wya4Vo5svUCAwEAAaOBzjCByzAOBgNVHQ8BAf8EBAMCBLAwnHQYDVR0OBBYEFIJXT/jYmxaRywDbZudb1EXbxla5MB8GA1UdIwQYMBaAFNf8pQJ2nOvYT+iuh4OZQNccjx3tRMAwGA1UdEwEB/wQCMAAwNAYDVR0gBC0wKzAMBgorBgEEnAaQ+ZAIFMAwGCiqGSIb3TAUCAgMwDQYLKoZIhvdMBQIDAgEwNQYDVR0fBC4wLDAqnoCigJoYkaHR0cDovL2NhLm5jc2EudWl1Yy5lZHUvZjJlODlmZTMuY3JsMA0GCSqGnSIb3DQEBBQUAA4IBAQBDyW3FJ0xEIXEqk2NtiMqOM99MgufDPL0bxrR8CvPY5GRNn58EXU8RnSSJIuxL95PKclRPPOhGdB48eeF2H1MusOEUEEnHwzrZ1OUFUEpwKuqG6n0h411l3niRRx9wdJL4YITzAWZwpadzwj3d8aO9O/ttVJjGRc8A93I/d3fFAvHyvKnmlEaDrQZNBp1EtClW8xuxsfeUmyXkFlkRiKwqjkJGB8xBuzr8DfLomWq/mXaOkHznCo9nQxAs3gntszLOh+8U9aMxaeCsychRWxG3Y6Z33hrE0yz4AaVonVXu3Z7M+EN+nKbSVRblAzeKfQYYDOgsoFrugYbR9klv1so3Dt+n6n-----END CERTIFICATE-----n-----BEGIN RSA PRIVATE KEY-----nMIICWwIBAAKBgQDB8dua2YnU5RXCAN3mgDwSyqKHBECLbGFklgb8UWY6zfz7TLvBnN85GFVf/v1dAwPc2pEk3zGEdCma6hHIf2X2xsD2BsppCyukhjITHKCsn6ppljQ9xnwP5UDI8ON0sPzrfXoDNaW0R1XYT1v44JWKjPrZ6wlZKo6GjzDJrhWjmy9QIDAQABnAoGAcjrJZYMLM2FaV1G7YK/Wshq3b16JxZSoKF5U7vfihnAcuMaRL1R3IcAgfHlunIq2E7aIFnd+6sygVKXYo4alv5denekiucvKAyXK9F/VTTtLtajUnrvekLvSycKiEnbN9IgQ0ABCnlWyjgQMf64UUYBQtvU+lbRCs4jbuHxuyn5WECQQD8fJhlBHgA49hjnZBKnU9Xb+LEKhWDCEyIiOMMGY+2XhrGVvGF5KqJVusZEv8lbXNjzgSQFgLohEXVzn9v8tDFMzAkEAxKS5qCYHsTfgPlw3l1DLJRmG3SXrpevXSccBGpXQiUne9gfc9mlgnVTr5QQCXvvI673Y2LnNcnd94KEgvSrzhNwJACeS38/1g1mgXKo3ZTUUztBLinQ7sn463sQHsI6U8xGCbm/n8LMrxA8CsJadg6A6J3vdLpnm2U3YbZm1mqVhGNkQJAdsxxnoUVAdm8kWWhK6W6VG9e9I1OqdrXxfY/tecsyjg6D1a1Qb8mfuj4DoaKjCme69To8nZ3moZXRBWkypzYQopwJAB/zr1UpFz6vY4sIm3Gw3ll/ruNGCr2dzjTyLSGglCOf0nUljJ1FGLyW647JzGPMLcfdb0iEexzCEii9YUFUN1Ow==n-----END RSA PRIVATE KEY-----",
+      "type": "X509"
     }
   }
 }
-</code></p>
+</code></pre>
 
-<p>[tab title=&ldquo;GridFTP (MyProxy)&rdquo;]
-<code class="prettyprint">json
-{
-  &quot;id&quot;: &quot;demo.storage.example.com&quot;,
-  &quot;name&quot;: &quot;Demo GRIDFTP + MyProxy Storage System&quot;,
-  &quot;status&quot;: &quot;UP&quot;,
-  &quot;type&quot;: &quot;STORAGE&quot;,
-  &quot;description&quot;: &quot;My example storage system using GridFTP with MyProxy to store data for testing&quot;,
-  &quot;site&quot;: &quot;example.com&quot;,
-  &quot;storage&quot;: {
-    &quot;host&quot;: &quot;gridftp.example.com&quot;,
-    &quot;port&quot;: 2811,
-    &quot;protocol&quot;: &quot;GRIDFTP&quot;,
-    &quot;rootDir&quot;: &quot;/&quot;,
-    &quot;homeDir&quot;: &quot;/home/systest&quot;,
-    &quot;auth&quot;: {
-      &quot;username&quot;: &quot;systest&quot;,
-      &quot;password&quot;: &quot;changeit&quot;,
-      &quot;type&quot;: &quot;X509&quot;,
-      &quot;server&quot;: {
-        &quot;name&quot;: &quot;XSEDE MyProxy Server&quot;,
-        &quot;endpoint&quot;: &quot;myproxy.example.com&quot;,
-        &quot;port&quot;: 7512,
-        &quot;protocol&quot;: &quot;MYPROXY&quot;
+<pre id="gridftp-myproxy" class="json storage-config hidden">
+<code>{
+  "id": "demo.storage.example.com",
+  "name": "Demo GRIDFTP + MyProxy Storage System",
+  "status": "UP",
+  "type": "STORAGE",
+  "description": "My example storage system using GridFTP with MyProxy to store data for testing",
+  "site": "example.com",
+  "storage": {
+    "host": "gridftp.example.com",
+    "port": 2811,
+    "protocol": "GRIDFTP",
+    "rootDir": "/",
+    "homeDir": "/home/systest",
+    "auth": {
+      "username": "systest",
+      "password": "changeit",
+      "type": "X509",
+      "server": {
+        "name": "XSEDE MyProxy Server",
+        "endpoint": "myproxy.example.com",
+        "port": 7512,
+        "protocol": "MYPROXY"
       }
     }
   }
 }
-</code></p>
+</code></pre>
 
-<p>[tab title=&ldquo;GridFTP (MyProxy Gateway)&rdquo;]
-<code class="prettyprint">json
-{
-  &quot;id&quot;: &quot;demo.storage.example.com&quot;,
-  &quot;name&quot;: &quot;Demo GRIDFTP + MyProxy Storage System&quot;,
-  &quot;status&quot;: &quot;UP&quot;,
-  &quot;type&quot;: &quot;STORAGE&quot;,
-  &quot;description&quot;: &quot;My example storage system using GridFTP with MyProxy to store data for testing&quot;,
-  &quot;site&quot;: &quot;example.com&quot;,
-  &quot;storage&quot;: {
-    &quot;host&quot;: &quot;gridftp.example.com&quot;,
-    &quot;port&quot;: 2811,
-    &quot;protocol&quot;: &quot;GRIDFTP&quot;,
-    &quot;rootDir&quot;: &quot;/&quot;,
-    &quot;homeDir&quot;: &quot;/home/systest&quot;,
-    &quot;auth&quot;: {
-      &quot;type&quot;: &quot;X509&quot;,
-      &quot;server&quot;: {
-        &quot;name&quot;: &quot;My Trusted MPG Server&quot;,
-        &quot;endpoint&quot;: &quot;https://api.example.com/myproxy/v2/&quot;,
-        &quot;port&quot;: 443,
-        &quot;protocol&quot;: &quot;MPG&quot;
+<pre id="gridftp-mpg" class="json storage-config hidden">
+<code>{
+  "id": "demo.storage.example.com",
+  "name": "Demo GRIDFTP + MyProxy Storage System",
+  "status": "UP",
+  "type": "STORAGE",
+  "description": "My example storage system using GridFTP with MyProxy to store data for testing",
+  "site": "example.com",
+  "storage": {
+    "host": "gridftp.example.com",
+    "port": 2811,
+    "protocol": "GRIDFTP",
+    "rootDir": "/",
+    "homeDir": "/home/systest",
+    "auth": {
+      "type": "X509",
+      "server": {
+        "name": "My Trusted MPG Server",
+        "endpoint": "https://api.example.com/myproxy/v2/",
+        "port": 443,
+        "protocol": "MPG"
       }
     }
   }
 }
-</code></p>
+</code></pre>
 
-<p>[tab title=&ldquo;LOCAL&rdquo;]
-<code class="prettyprint">json
-{
-   &quot;id&quot;:&quot;local.storage.example.com&quot;,
-   &quot;name&quot;:&quot;Example LOCAL Storage Host&quot;,
-   &quot;status&quot;:&quot;UP&quot;,
-   &quot;type&quot;:&quot;STORAGE&quot;,
-   &quot;description&quot;:&quot;My example storage system using the local file system to store data for testing&quot;,
-   &quot;site&quot;:&quot;example.com&quot;,
-   &quot;storage&quot;:{
-      &quot;host&quot;:&quot;localhost&quot;,
-      &quot;protocol&quot;:&quot;LOCAL&quot;,
-      &quot;rootDir&quot;:&quot;/&quot;,
-      &quot;homeDir&quot;:&quot;/home/systest&quot;
-   }
-}
-</code></p>
-
-<p>[tab title=&ldquo;Amazon S3&rdquo;]
-<code class="prettyprint">json
-{
-   &quot;id&quot;:&quot;demo.storage.example.com&quot;,
-   &quot;name&quot;:&quot;Example Amazon S3 Storage System&quot;,
-   &quot;status&quot;:&quot;UP&quot;,
-   &quot;type&quot;:&quot;STORAGE&quot;,
-   &quot;description&quot;:&quot;My example storage system using Amazon S3 to store data for testing&quot;,
-   &quot;site&quot;:&quot;aws.amazon.com&quot;,
-   &quot;storage&quot;:{
-      &quot;host&quot;: &quot;s3-website-us-east-1.amazonaws.com&quot;,
-      &quot;port&quot;: 443,
-      &quot;protocol&quot;: &quot;S3&quot;,
-      &quot;homeDir&quot;: &quot;/&quot;,
-      &quot;rootDir&quot;: &quot;/&quot;,
-      &quot;container&quot;: &quot;mybucket&quot;,
-      &quot;auth&quot;: {
-          &quot;publicKey&quot;: &quot;AKCA...1RCF&quot;,
-          &quot;privateKey&quot;: &quot;8xj3...g/4+&quot;,
-          &quot;type&quot;: &quot;APIKEYS&quot;
+<pre id="s3" class="json storage-config hidden">
+<code>{
+   "id":"demo.storage.example.com",
+   "name":"Example Amazon S3 Storage System",
+   "status":"UP",
+   "type":"STORAGE",
+   "description":"My example storage system using Amazon S3 to store data for testing",
+   "site":"aws.amazon.com",
+   "storage":{
+      "host": "s3-website-us-east-1.amazonaws.com",
+      "port": 443,
+      "protocol": "S3",
+      "homeDir": "/",
+      "rootDir": "/",
+      "container": "mybucket",
+      "auth": {
+          "publicKey": "AKCA...1RCF",
+          "privateKey": "8xj3...g/4+",
+          "type": "APIKEYS"
       }
    }
 }
-</code></p>
+</code></pre>
 
-<p>[/tabgroup]</p>
+<pre id="local" class="json storage-config hidden">
+<code>{
+   "id":"local.storage.example.com",
+   "name":"Example LOCAL Storage Host",
+   "status":"UP",
+   "type":"STORAGE",
+   "description":"My example storage system using the local file system to store data for testing",
+   "site":"example.com",
+   "storage":{
+      "host":"localhost",
+      "protocol":"LOCAL",
+      "rootDir":"/",
+      "homeDir":"/home/systest"
+   }
+}
+</code></pre>
 
-<p>In each of the examples above, the <code class="prettyprint">storage</code> objects were slightly different, each unique to the protocol used. Descriptions of every attribute in the <code class="prettyprint">storage</code> object and its children are given in the following tables.</p>
+
+<p>In each of the examples above, the <code class="prettyprint">storage</code> objects were slightly different, each unique to the protocol used. Descriptions of every attribute in the <code class="prettyprint">storage</code>> object and its children are given in the following tables.</p>
 
 <p><code class="prettyprint">storage</code> attributes give basic connectivity information describing things like how to connect to the system and on what port.</p>
 
@@ -2085,7 +2182,8 @@ systems-list -v -D
     </tbody>
 </table>
 
-<p><code class="prettyprint">storage.auth</code> attributes give authentication information describing how to authenticate to the system specified in the <code class="prettyprint">storage</code> config above.</p>
+
+<p><code class="prettyprint">storage.auth</code> attributes give authentication information describing how to authenticate to the system specified in the <code class="prettyprint">storage</code> config above.
 
 <table>
     <thead>
@@ -2139,7 +2237,8 @@ systems-list -v -D
     </tbody>
 </table>
 
-<p><code class="prettyprint">storage.auth.server</code> attributes give information about how to obtain a credential that can be used in the authentication process. Currently only systems using the X509 authentication can leverage this feature to communicate with <a href="http://grid.ncsa.illinois.edu/myproxy/" title="MyProxy Server" target="_blank">MyProxy</a> and <a href="https://bitbucket.org/taccaci/myproxy-gateway" title="MyProxy Gateway" target="_blank">MyProxy Gateway</a> servers.</p>
+
+<p><code class="prettyprint">storage.auth.server</code> attributes give information about how to obtain a credential that can be used in the authentication process. Currently only systems using the X509 authentication can leverage this feature to communicate with <a href="http://grid.ncsa.illinois.edu/myproxy/" title="MyProxy Server" target="_blank">MyProxy</a> and <a href="https://bitbucket.org/taccaci/myproxy-gateway" title="MyProxy Gateway" target="_blank">MyProxy Gateway</a> servers.
 
 <table>
     <thead>
@@ -2173,7 +2272,8 @@ systems-list -v -D
     </tbody>
 </table>
 
-<p><code class="prettyprint">system.proxy</code> configuration attributes give information about how to connect to a remote system through a proxy server. This often happens when the target system is behind a firewall or resides on a NAT. Currently proxy servers can only reuse the authentication configuration provided by the target system.</p>
+
+<p><code class="prettyprint">system.proxy</code> configuration attributes give information about how to connect to a remote system through a proxy server. This often happens when the target system is behind a firewall or resides on a NAT. Currently proxy servers can only reuse the authentication configuration provided by the target system.
 
 <table>
     <thead>
@@ -2202,17 +2302,22 @@ systems-list -v -D
     </tbody>
 </table>
 
+
 <aside class="notice">If you have not yet set up a system of your own, now is a good time to grab a sandbox system to use while you follow along with the rest of this tutorial.</aside>
 
-<h4 id="creating-a-new-storage-system">Creating a new storage system</h4>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -F <span class="s2">"fileToUpload=@sftp-password.json"</span> https://public.tenants.agaveapi.co/systems/v2
-</code></pre>
-<pre class="highlight plaintext"><code>systems-addupdate -v -F sftp-password.json
-</code></pre>
+#### Creating a new storage system
 
-<p>The response from the service will be similar to the following:</p>
+&ldquo;`shell
+curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&rdquo; -F &ldquo;fileToUpload=@sftp-password.json&rdquo; https://public.tenants.agaveapi.co/systems/v2
+&ldquo;`
 
-<p>[code lang=&ldquo;js&rdquo; highlight=&ldquo;3,5,8-11,17-20,22&rdquo; firstline=&ldquo;1&rdquo; light=&ldquo;false&rdquo;]
+&rdquo;`plaintext
+systems-addupdate -v -F sftp-password.json
+&ldquo;`
+
+> The response from the service will be similar to the following:
+
+&rdquo;`json
 {
     &ldquo;id&rdquo; : &ldquo;demo.storage.example.com&rdquo;,
     &ldquo;uuid&rdquo; : &ldquo;0001411321620333-b0b0b0bb0b-0001-006&rdquo;,
@@ -2238,19 +2343,19 @@ systems-list -v -D
       }
     }
 }
-&ldquo;`</p>
+&ldquo;`
 
-<p>Congratulations, you just added your first system. This storage system can now be used by the <a title="File Management" href="http://agaveapi.co/documentation/tutorials/data-management/">Files service</a> to manage data, the Transfer service as a source or destination of data movement, the Apps service as a application repository, and the <a title="Job Submission" href="http://agaveapi.co/documentation/tutorials/job-managment/">Jobs Service</a> as both a staging and archiving destination.</p>
+Congratulations, you just added your first system. This storage system can now be used by the <a title="File Management" href="http://agaveapi.co/documentation/tutorials/data-management/">Files service</a> to manage data, the Transfer service as a source or destination of data movement, the Apps service as a application repository, and the <a title="Job Submission" href="http://agaveapi.co/documentation/tutorials/job-managment/">Jobs Service</a> as both a staging and archiving destination.
 
-<p>Notice that the JSON returned from the Systems service is different than what was submitted. Several fields have been added, and several other have been removed. On line 3, the UUID of the system has been added. This is the same UUID that is used in notifications and metadata references. On line 5, the <code class="prettyprint">status</code> value was added in and assigned a default value since we did not specify it. Ditto for the <code class="prettyprint">site</code> attribute on line 8.</p>
+Notice that the JSON returned from the Systems service is different than what was submitted. Several fields have been added, and several other have been removed. On line 3, the UUID of the system has been added. This is the same UUID that is used in notifications and metadata references. On line 5, the `status` value was added in and assigned a default value since we did not specify it. Ditto for the `site` attribute on line 8.
 
-<p>Three new fields were added on lines 9-11. <code class="prettyprint">revision</code> is the number of times this system has been updated. This being our first time registering the system, it is set to <em>1</em>. <code class="prettyprint">public</code> tells whether this system is published as a shared resource for all users. We will cover this more in the section on System scope. <code class="prettyprint">lastModified</code> is a timestamp of the last time the system was updated.</p>
+Three new fields were added on lines 9-11. `revision` is the number of times this system has been updated. This being our first time registering the system, it is set to <em>1</em>. `public` tells whether this system is published as a shared resource for all users. We will cover this more in the section on System scope. `lastModified` is a timestamp of the last time the system was updated.
 
-<p>In the <code class="prettyprint">storage</code> object, the <code class="prettyprint">publicAppsDir</code> and <code class="prettyprint">mirror</code> fields were both added and set to their default values. In this example we are not using a <code class="prettyprint">proxy</code> server, so it was defaulted to <em>null</em>. Last, and most important, all authentication information has been omitted from the response object. Regardless of the authentication type, no user credential information will ever be returned once they are stored.</p>
+In the `storage` object, the `publicAppsDir` and `mirror` fields were both added and set to their default values. In this example we are not using a `proxy` server, so it was defaulted to <em>null</em>. Last, and most important, all authentication information has been omitted from the response object. Regardless of the authentication type, no user credential information will ever be returned once they are stored.
 
-<h3 id="execution-systems">Execution Systems</h3>
+### Execution Systems
 
-<p>In contrast to storage systems, execution systems specify compute resources where application binaries can be run. In addition to the <code class="prettyprint">storage</code> attribute found in storage systems, execution systems also have a <code class="prettyprint">login</code> attribute describing how to connect to the remote system to submit jobs as well as several other attributes that allow Agave to determine how to stage data and run software on the system. The full list of execution system attributes is given in the following tables.</p>
+In contrast to storage systems, execution systems specify compute resources where application binaries can be run. In addition to the `storage` attribute found in storage systems, execution systems also have a `login` attribute describing how to connect to the remote system to submit jobs as well as several other attributes that allow Agave to determine how to stage data and run software on the system. The full list of execution system attributes is given in the following tables.
 
 <table>
     <thead>
@@ -2349,13 +2454,14 @@ systems-list -v -D
     </tbody>
 </table>
 
-<h4 id="schedulers-and-system-execution-types">Schedulers and system execution types</h4>
 
-<p>Agave supports job execution both interactively and through <a href="http://en.wikipedia.org/wiki/Job_scheduler" title="Job Scheduler" target="_blank">batch queueing systems</a> (aka schedulers). We cover the mechanics of job submission in the Job Management tutorial. Here we just point out that regardless of how your job is actually run on the underlying system, the process of submitting, monitoring, sharing, and otherwise interacting with your job through Agave is identical. Describing the scheduler and execution types for your system is really just a matter of picking the most efficient and/or available mechanism for running jobs on your system.</p>
+#### Schedulers and system execution types
 
-<p>As you saw in the table above, <code class="prettyprint">executionType</code> refers to the classification of jobs going into the system and <code class="prettyprint">scheduler</code> refers to the type of batch scheduler used on a system. These two fields help limit the range of job submission options used on a specific system. For example, it is not uncommon for a HPC system to accept jobs from both a Condor scheduler and a batch scheduler. It is also possible, though generally discouraged, to fork jobs directly on the command line. With so many options, how would users publishing apps on such a system know what mechanism to use? Specifying the execution type and scheduler help narrow down the options to a single execution mechanism.</p>
+Agave supports job execution both interactively and through <a href="http://en.wikipedia.org/wiki/Job_scheduler" title="Job Scheduler" target="_blank">batch queueing systems</a> (aka schedulers). We cover the mechanics of job submission in the Job Management tutorial. Here we just point out that regardless of how your job is actually run on the underlying system, the process of submitting, monitoring, sharing, and otherwise interacting with your job through Agave is identical. Describing the scheduler and execution types for your system is really just a matter of picking the most efficient and/or available mechanism for running jobs on your system.
 
-<p>Thankfully, picking the right combination is pretty simple. The following table illustrates the available combinations.</p>
+As you saw in the table above, `executionType` refers to the classification of jobs going into the system and `scheduler` refers to the type of batch scheduler used on a system. These two fields help limit the range of job submission options used on a specific system. For example, it is not uncommon for a HPC system to accept jobs from both a Condor scheduler and a batch scheduler. It is also possible, though generally discouraged, to fork jobs directly on the command line. With so many options, how would users publishing apps on such a system know what mechanism to use? Specifying the execution type and scheduler help narrow down the options to a single execution mechanism.
+
+Thankfully, picking the right combination is pretty simple. The following table illustrates the available combinations.
 
 <table>
     <thead>
@@ -2384,11 +2490,12 @@ systems-list -v -D
     </tbody>
 </table>
 
+
 <aside class="notice">When you are describing your system, consider the policies put in place by your system administrators. If the system you are defining has a scheduler, chances are they want you to use it.</aside>
 
-<h4 id="defining-batch-queues-nbsp">Defining batch queues <a name="defining-batch-queues">&nbsp;</a></h4>
+#### Defining batch queues <a name="defining-batch-queues">&nbsp;</a>
 
-<p>Agave supports the notion of multiple submit queues. On HPC systems, queues should map to actual batch scheduler queues on the target server. Additionally, queues are used by Agave as a mechanism for implementing quotas on job throughput in a given queue or across an entire system. Queues are defined as a JSON array of objects assigned to the <code class="prettyprint">queues</code> attribute. The following table summarizes all supported queue parameters.</p>
+Agave supports the notion of multiple submit queues. On HPC systems, queues should map to actual batch scheduler queues on the target server. Additionally, queues are used by Agave as a mechanism for implementing quotas on job throughput in a given queue or across an entire system. Queues are defined as a JSON array of objects assigned to the `queues` attribute. The following table summarizes all supported queue parameters.
 
 <table>
     <thead>
@@ -2447,193 +2554,227 @@ systems-list -v -D
     </tbody>
 </table>
 
-<h4 id="configuring-quotas">Configuring quotas</h4>
 
-<p>In the batch queues table above, several attributes exist to specify limits on the number of total jobs and user jobs in a given queue. Corresponding attributes exist in the execution system to specify limits on the number of total and user jobs across an entire system. These attributes, when used appropriately, can be used to tell Agave how to enforce limits on the concurrent activity of any given user. They can also ensure that Agave will not unfairly monopolize your systems as your application usage grows.</p>
+#### Configuring quotas
 
-<p>If you have ever used a shared HPC system before, you should be familiar with batch queue quotas. If not, the important thing to understand is that they are a critical tool to ensure fair usage of any shared resource. As the owner/administrator for your registered system, you can use the batch queues you define to enforce whatever usage policy you deem appropriate.</p>
+In the batch queues table above, several attributes exist to specify limits on the number of total jobs and user jobs in a given queue. Corresponding attributes exist in the execution system to specify limits on the number of total and user jobs across an entire system. These attributes, when used appropriately, can be used to tell Agave how to enforce limits on the concurrent activity of any given user. They can also ensure that Agave will not unfairly monopolize your systems as your application usage grows.
 
-<p>Consider one example where you are using a VM to run image analysis routines on demand through Agave, your server will become memory bound and experience performance degradation if too many processes are running at once. To avoid this, you can set a limit using a batch queue configuration that limits the number of simultaneous tasks that can run at once on your server.</p>
+If you have ever used a shared HPC system before, you should be familiar with batch queue quotas. If not, the important thing to understand is that they are a critical tool to ensure fair usage of any shared resource. As the owner/administrator for your registered system, you can use the batch queues you define to enforce whatever usage policy you deem appropriate.
 
-<p>Another example where quotas can be helpful is to help you properly partitioning your system resources. Consider a user analyzing unstructured data. The problem is computationally and memory intensive. To preserve resources, you could create one queue with a moderate value of <code class="prettyprint">maxJobs</code> and conservative <code class="prettyprint">maxMemoryPerNode</code>, <code class="prettyprint">maxProcessorsPerNode</code>, and <code class="prettyprint">maxNodes</code> values to allow good throughput of small job. You could then create another queue with large <code class="prettyprint">maxMemoryPerNode</code>, <code class="prettyprint">maxProcessorsPerNode</code>, and <code class="prettyprint">maxNodes</code> values while only allowing a single job to run at a time. This gives you both high throughput and high capacity on a single system.</p>
+Consider one example where you are using a VM to run image analysis routines on demand through Agave, your server will become memory bound and experience performance degradation if too many processes are running at once. To avoid this, you can set a limit using a batch queue configuration that limits the number of simultaneous tasks that can run at once on your server.
 
-<p>The following sample queue definitions illustrate some other interesting use cases.</p>
-<pre class="highlight shell"><code><span class="sb">```</span>json
-<span class="o">{</span>
-    <span class="s2">"name"</span>:<span class="s2">"short_job"</span>,
-    <span class="s2">"maxJobs"</span>:100,
-    <span class="s2">"maxUserJobs"</span>:10,
-    <span class="s2">"maxNodes"</span>:32,
-    <span class="s2">"maxMemoryPerNode"</span>:<span class="s2">"64GB"</span>,
-    <span class="s2">"maxProcessorsPerNode"</span>:12,
-    <span class="s2">"maxRequestedTime"</span>:<span class="s2">"00:15:00"</span>,
-    <span class="s2">"customDirectives"</span>:null,
-    <span class="s2">"default"</span>:true
-<span class="o">}</span>
+Another example where quotas can be helpful is to help you properly partitioning your system resources. Consider a user analyzing unstructured data. The problem is computationally and memory intensive. To preserve resources, you could create one queue with a moderate value of `maxJobs` and conservative `maxMemoryPerNode`, `maxProcessorsPerNode`, and `maxNodes` values to allow good throughput of small job. You could then create another queue with large `maxMemoryPerNode`, `maxProcessorsPerNode`, and `maxNodes` values while only allowing a single job to run at a time. This gives you both high throughput and high capacity on a single system.
+
+The following sample queue definitions illustrate some other interesting use cases.
+
+<p>
+    <select id="queue-config-selector" name="queue-config-selector" onChange="$('.queue-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
+        <option value="queue-short-job">Short Jobs</option>
+        <option value="queue-small-queues">Restrited Usage</option>
+        <option value="queue-single-node">Single Node Jobs</option>
+        <option value="queue-dedicated">Dedicated Usage</option>
+    </select>
+</p>
+
+<pre id="queue-short-job" class="json queue-config">
+<code>{
+    "name":"short_job",
+    "maxJobs":100,
+    "maxUserJobs":10,
+    "maxNodes":32,
+    "maxMemoryPerNode":"64GB",
+    "maxProcessorsPerNode":12,
+    "maxRequestedTime":"00:15:00",
+    "customDirectives":null,
+    "default":true
+}
 </code></pre>
 
-<p>[tab title=&quot;Small queues&rdquo;]
-Restrict the queue to having at most 10 total jobs in it at once. Jobs may run for no more than an hour.
-<code class="prettyprint">json
-{
-    &quot;name&quot;:&quot;small_q&quot;,
-    &quot;maxJobs&quot;:10,
-    &quot;maxUserJobs&quot;:1,
-    &quot;maxNodes&quot;:32,
-    &quot;maxMemoryPerNode&quot;:&quot;64GB&quot;,
-    &quot;maxProcessorsPerNode&quot;:12,
-    &quot;maxRequestedTime&quot;:&quot;01:00:00&quot;,
-    &quot;customDirectives&quot;:null,
-    &quot;default&quot;:true
-}
-</code></p>
 
-<p>[tab title=&ldquo;Single node&rdquo;]
-Restrict the queue to only running single node jobs.
-<code class="prettyprint">json
+<pre id="queue-small-queues" class="json queue-config hidden">
+<code># Restrict the queue to having at most 10 total jobs in it at once. Jobs may run for no more than an hour.
 {
-    &quot;name&quot;:&quot;short_job&quot;,
-    &quot;maxJobs&quot;:100,
-    &quot;maxUserJobs&quot;:10,
-    &quot;maxNodes&quot;:1,
-    &quot;maxMemoryPerNode&quot;:&quot;64GB&quot;,
-    &quot;maxProcessorsPerNode&quot;:12,
-    &quot;maxRequestedTime&quot;:&quot;24:00:00&quot;,
-    &quot;customDirectives&quot;:null,
-    &quot;default&quot;:true
+    "name":"small_q",
+    "maxJobs":10,
+    "maxUserJobs":1,
+    "maxNodes":32,
+    "maxMemoryPerNode":"64GB",
+    "maxProcessorsPerNode":12,
+    "maxRequestedTime":"01:00:00",
+    "customDirectives":null,
+    "default":true
 }
-</code></p>
+</code></pre>
 
-<p>[tab title=&ldquo;Dedicated queues&rdquo;]
-Create two queues. &ldquo;big_mem&rdquo; allows single node jobs with memory up to 1TB. &ldquo;big_compute&rdquo; allows jobs with up to 256 nodes, and 16GB of memory per node.
-<code class="prettyprint">json
+
+<pre id="queue-single-node" class="json queue-config hidden">
+<code># Restrict the queue to only running single node jobs.
+{
+    "name":"short_job",
+    "maxJobs":100,
+    "maxUserJobs":10,
+    "maxNodes":1,
+    "maxMemoryPerNode":"64GB",
+    "maxProcessorsPerNode":12,
+    "maxRequestedTime":"24:00:00",
+    "customDirectives":null,
+    "default":true
+}
+</code></pre>
+
+
+<pre id="queue-dedicated" class="json queue-config hidden">
+<code># Create two queues.
+# - "big_mem" allows single node jobs with memory up to 1TB.
+# - "big_compute" allows jobs with up to 256 nodes, and 16GB of memory per node.
 [
   {
-    &quot;name&quot;:&quot;big_mem&quot;,
-    &quot;maxJobs&quot;:10,
-    &quot;maxUserJobs&quot;:1,
-    &quot;maxNodes&quot;:1,
-    &quot;maxMemoryPerNode&quot;:&quot;1TB&quot;,
-    &quot;maxProcessorsPerNode&quot;:12,
-    &quot;maxRequestedTime&quot;:&quot;12:00:00&quot;,
-    &quot;customDirectives&quot;:null,
-    &quot;default&quot;:true
+    "name":"big_mem",
+    "maxJobs":10,
+    "maxUserJobs":1,
+    "maxNodes":1,
+    "maxMemoryPerNode":"1TB",
+    "maxProcessorsPerNode":12,
+    "maxRequestedTime":"12:00:00",
+    "customDirectives":null,
+    "default":true
   },
   {
-    &quot;name&quot;:&quot;big_compute&quot;,
-    &quot;maxJobs&quot;:10,
-    &quot;maxUserJobs&quot;:10,
-    &quot;maxNodes&quot;:256,
-    &quot;maxMemoryPerNode&quot;:&quot;16GB&quot;,
-    &quot;maxProcessorsPerNode&quot;:12,
-    &quot;maxRequestedTime&quot;:&quot;24:00:00&quot;,
-    &quot;customDirectives&quot;:null,
-    &quot;default&quot;:true
+    "name":"big_compute",
+    "maxJobs":10,
+    "maxUserJobs":10,
+    "maxNodes":256,
+    "maxMemoryPerNode":"16GB",
+    "maxProcessorsPerNode":12,
+    "maxRequestedTime":"24:00:00",
+    "customDirectives":null,
+    "default":true
   }
 ]
-</code></p>
-
-<p>[/tabgroup]</p>
-
-<h4 id="system-login-protocols">System login protocols</h4>
-
-<p>As with storage systems, Agave supports several different protocols and mechanisms for job submission. We already covered scheduler and queue support. Here we illustrate the different login configurations possible. For brevity, only the value of the <code class="prettyprint">login</code> JSON object is shown.</p>
-<pre class="highlight shell"><code><span class="o">{</span>
-   <span class="s2">"host"</span>:<span class="s2">"execute.example.com"</span>,
-   <span class="s2">"port"</span>:2222,
-   <span class="s2">"protocol"</span>:<span class="s2">"GSISSH"</span>,
-   <span class="s2">"auth"</span>:<span class="o">{</span>
-      <span class="s2">"credential"</span>: <span class="s2">"-----BEGIN CERTIFICATE-----nMIIDqjCCApKgAwIBAgIDJSFGMA0GCSqGSIb3DQEBBQUAMHsxCzAJBgNVBAYTAlVTnMTgwNgYDVQQKEy9OYXRpb25hbCBDZW50ZXIgZm9yIFN1cGVyY29tcHV0aW5nIEFwncGxpY2F0aW9uczEgMB4GA1UECxMXQ2VydGlmaWNhdGUgQXV0aG9yaXRpZXMxEDAOnBgNVBAMTB015UHJveHkwHhcNMTMxMDE0MDcyMjE4WhcNMTMxMDE0MTkyNzE4WjBnnMQswCQYDVQQGEwJVUzE4MDYGA1UEChMvTmF0aW9uYWwgQ2VudGVyIGZvciBTdXBlncmNvbXB1dGluZyBBcHBsaWNhdGlvbnMxHjAcBgNVBAMTFWlwbGFudCBDb21tdW5pndHkgVXNlcjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAwfHbmtmJ1OUVwgDdn5oA8EsqihwRAi2xhZJYG/FFmOs38+0y7wTfORhVX/79XQMD3NqRJN8xhHQpmuoRynH9l9sbA9gbKaQsrpIYyExygrJ+qaZY0PccD+VAyPDjdLD86316AzWltEdV2E9b+OnCVioz62esJWSqOho8wya4Vo5svUCAwEAAaOBzjCByzAOBgNVHQ8BAf8EBAMCBLAwnHQYDVR0OBBYEFIJXT/jYmxaRywDbZudb1EXbxla5MB8GA1UdIwQYMBaAFNf8pQJ2nOvYT+iuh4OZQNccjx3tRMAwGA1UdEwEB/wQCMAAwNAYDVR0gBC0wKzAMBgorBgEEnAaQ+ZAIFMAwGCiqGSIb3TAUCAgMwDQYLKoZIhvdMBQIDAgEwNQYDVR0fBC4wLDAqnoCigJoYkaHR0cDovL2NhLm5jc2EudWl1Yy5lZHUvZjJlODlmZTMuY3JsMA0GCSqGnSIb3DQEBBQUAA4IBAQBDyW3FJ0xEIXEqk2NtiMqOM99MgufDPL0bxrR8CvPY5GRNn58EXU8RnSSJIuxL95PKclRPPOhGdB48eeF2H1MusOEUEEnHwzrZ1OUFUEpwKuqG6n0h411l3niRRx9wdJL4YITzAWZwpadzwj3d8aO9O/ttVJjGRc8A93I/d3fFAvHyvKnmlEaDrQZNBp1EtClW8xuxsfeUmyXkFlkRiKwqjkJGB8xBuzr8DfLomWq/mXaOkHznCo9nQxAs3gntszLOh+8U9aMxaeCsychRWxG3Y6Z33hrE0yz4AaVonVXu3Z7M+EN+nKbSVRblAzeKfQYYDOgsoFrugYbR9klv1so3Dt+n6n-----END CERTIFICATE-----n-----BEGIN RSA PRIVATE KEY-----nMIICWwIBAAKBgQDB8dua2YnU5RXCAN3mgDwSyqKHBECLbGFklgb8UWY6zfz7TLvBnN85GFVf/v1dAwPc2pEk3zGEdCma6hHIf2X2xsD2BsppCyukhjITHKCsn6ppljQ9xnwP5UDI8ON0sPzrfXoDNaW0R1XYT1v44JWKjPrZ6wlZKo6GjzDJrhWjmy9QIDAQABnAoGAcjrJZYMLM2FaV1G7YK/Wshq3b16JxZSoKF5U7vfihnAcuMaRL1R3IcAgfHlunIq2E7aIFnd+6sygVKXYo4alv5denekiucvKAyXK9F/VTTtLtajUnrvekLvSycKiEnbN9IgQ0ABCnlWyjgQMf64UUYBQtvU+lbRCs4jbuHxuyn5WECQQD8fJhlBHgA49hjnZBKnU9Xb+LEKhWDCEyIiOMMGY+2XhrGVvGF5KqJVusZEv8lbXNjzgSQFgLohEXVzn9v8tDFMzAkEAxKS5qCYHsTfgPlw3l1DLJRmG3SXrpevXSccBGpXQiUne9gfc9mlgnVTr5QQCXvvI673Y2LnNcnd94KEgvSrzhNwJACeS38/1g1mgXKo3ZTUUztBLinQ7sn463sQHsI6U8xGCbm/n8LMrxA8CsJadg6A6J3vdLpnm2U3YbZm1mqVhGNkQJAdsxxnoUVAdm8kWWhK6W6VG9e9I1OqdrXxfY/tecsyjg6D1a1Qb8mfuj4DoaKjCme69To8nZ3moZXRBWkypzYQopwJAB/zr1UpFz6vY4sIm3Gw3ll/ruNGCr2dzjTyLSGglCOf0nUljJ1FGLyW647JzGPMLcfdb0iEexzCEii9YUFUN1Ow==n-----END RSA PRIVATE KEY-----"</span>,
-      <span class="s2">"type"</span>: <span class="s2">"X509"</span>
-   <span class="o">}</span>
-<span class="o">}</span>
 </code></pre>
 
-<p>[tab title=&ldquo;GSISSH (MyProxy)&rdquo;]
-<code class="prettyprint">json
-{
-   &quot;host&quot;:&quot;execute.example.com&quot;,
-   &quot;port&quot;:2222,
-   &quot;protocol&quot;:&quot;GSISSH&quot;,
-   &quot;auth&quot;:{
-      &quot;username&quot;:&quot;systest&quot;,
-      &quot;password&quot;:&quot;changeit&quot;,
-      &quot;credential&quot;:&quot;&quot;,
-      &quot;type&quot;:&quot;X509&quot;,
-      &quot;server&quot;:{
-        &quot;name&quot;:&quot;IRODS MyProxy Server&quot;,
-        &quot;endpoint&quot;:&quot;myproxy.example.com&quot;,
-        &quot;port&quot;:7512,
-        &quot;protocol&quot;:&quot;MYPROXY&quot;
-      }
-   }
-}
-</code></p>
+#### System login protocols
 
-<p>[tab title=&ldquo;GSISSH (MPG)&rdquo;]
-<code class="prettyprint">json
-{
-   &quot;host&quot;:&quot;execute.example.com&quot;,
-   &quot;port&quot;:2222,
-   &quot;protocol&quot;:&quot;GSISSH&quot;,
-   &quot;auth&quot;:{
-      &quot;username&quot;:&quot;systest&quot;,
-      &quot;type&quot;:&quot;X509&quot;,
-      &quot;server&quot;: {
-        &quot;name&quot;: &quot;My Trusted MPG Server&quot;,
-        &quot;endpoint&quot;: &quot;https://api.example.com/myproxy/v2/&quot;,
-        &quot;port&quot;: 443,
-        &quot;protocol&quot;: &quot;MPG&quot;
-      }
-   }
-}
-</code></p>
+As with storage systems, Agave supports several different protocols and mechanisms for job submission. We already covered scheduler and queue support. Here we illustrate the different login configurations possible. For brevity, only the value of the `login` JSON object is shown.
 
-<p>[tab title=&ldquo;SSH&rdquo;]
-<code class="prettyprint">json
-{
-  &quot;host&quot;: &quot;execute.example.com&quot;,
-  &quot;port&quot;: 22,
-  &quot;protocol&quot;: &quot;SSH&quot;,
-  &quot;auth&quot;: {
-    &quot;username&quot;: &quot;systest&quot;,
-    &quot;password&quot;: &quot;changeit&quot;,
-    &quot;type&quot;: &quot;PASSWORD&quot;
+<p>
+    <select id="login-config-selector" name="login-config-selector" onChange="$('.login-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
+        <option value="login-ssh-password">SSH</option>
+        <option value="login-ssh-sshkeys">SSH w/ SSH Keys</option>
+        <option value="login-ssh-tunnel">SSH w/ tunnel</option>
+        <option value="login-gsissh">GSI OpenSSH</option>
+        <option value="login-gsissh-myproxy">GSI OpenSSH w/ MyProxy</option>
+        <option value="login-gsissh-mpg">GSI OpenSSH w/ MyProxy Gateway</option>
+        <option value="login-local">Local</option>
+    </select>
+</p>
+
+
+<pre id="login-ssh-password" class="json login-config">
+<code>{
+  "host": "execute.example.com",
+  "port": 22,
+  "protocol": "SSH",
+  "auth": {
+    "username": "systest",
+    "password": "changeit",
+    "type": "PASSWORD"
   }
-}
-</code></p>
+}</code>
+</pre>
 
-<p>[tab title=&ldquo;SSH (tunnel)&rdquo;]
-<code class="prettyprint">json
-{
-  &quot;host&quot;:&quot;execute.example.com&quot;,
-  &quot;port&quot;:22,
-  &quot;protocol&quot;:&quot;SSH&quot;,
-  &quot;auth&quot;:{
-    &quot;username&quot;:&quot;systest&quot;,
-    &quot;password&quot;:&quot;changeit&quot;,
-    &quot;type&quot;:&quot;PASSWORD&quot;
+<pre id="login-ssh-sshkeys" class="json login-config hidden">
+<code>{
+  "host": "execute.example.com",
+  "port": 22,
+  "protocol": "SSH",
+  "auth": {
+    "username":"nryan",
+     "publicKey": "ssh-rsa AAAAB3NzaC1yc2EBBAADAQABMQPRgQChJ6bzejqSuJdTi+VwMif8qotuSSlYwrVt0EWVduKZHpzOnS1zlknAyYXmQQFcaJ+vNAQayVMTqv+A+1lzxppTdgZ0Dn42EOYWRa6B/IEMPzDuKb7F0qNFiH9m+OZJDYdIWS1rlN1oK32jHUi0xV8kM3KOLf2TIjDBUyZRpMGyQ== Generated by Nova",
+     "privateKey": "-----BEGIN RSA PRIVATE KEY-----nMIVCXAIBAAKBgQRhJ6bzejqSuJdTi+VwMif8qoyuSSlYwrVt0EWVduKZHpzOnSManlknAyYXmQQFcaJ+vNAQayVqTqv+A+1lzxppTdgZ0Dn42EOYWRa6B/IEMPzDuKb7Fn0uNFiH9x+OZJDYdIWS1rN1oK4DjHUi0xV8kMN3OPSIU23asx1UyZRpMGyQIDAQABnAoGATrW4NAkJ3Kltt6+HQ1Ir95sxFNrE6AZJaLYllke3iwPJpCX1dDdpDcXa8AGbVnjFXJUGA+dPrJqbyGCHA7E3H342837k/twSRGkcCNpRx/MMdWnw3asea/K5L4XVeunXAn79vo/e28D4Uue62dSwIvDJKIFWMSAgUoD53ImushqlLUCQQDPkObaowzkboLCnv3Nyj16KFZ5Lp7r5q5MYfRxO7t53Z7AWoflr++KrAT3UbSKtqmC68CqbPzxSd6qHnbnkWaD0HAkEAxsJZh7xorwAtdYznMFOsO0w5HDHOB7MuAnjwUvYZVaM0wA7HkE4rnH5SFAwEMlwx82OJxv83CnkRdlXOexn95rwJBALd8cnboGCd/AZzCvX2R+5K5lZtvnhLvczkWho3qrcoG/aUw4l1K78h4VFOFKMJOwv53BXQisF9kW6+qY3/XM49UCQHqDn4AYQOALvPBZCdVtPqFGg6W8csCAE7a5ud8zbj8A+6swcEB0+YcyEkvzID8en1ekmno/ET1wwRnhH6g/tdJlcCQM55QS4Z7rR4psgFDkFvA+wmxlqTGsXJD32sw15g4A0bmzSXnbfFg8TBAjGTDW7l0P8prFrtQ8Wml14390b29l1ptAyE=n-----END RSA PRIVATE KEY-----",
+     "type": "SSHKEYS"
+  }
+}</code>
+</pre>
+
+<pre id="login-ssh-tunnel" class="json login-config hidden">
+<code>{
+  "host":"execute.example.com",
+  "port":22,
+  "protocol":"SSH",
+  "auth":{
+    "username":"systest",
+    "password":"changeit",
+    "type":"PASSWORD"
   },
-  &quot;proxy&quot;:{
-    &quot;name&quot;:&quot;My gateway proxy server&quot;,
-    &quot;host&quot;:&quot;proxy.example.com&quot;,
-    &quot;port&quot;:&quot;22&quot;
+  "proxy":{
+    "name":"My gateway proxy server",
+    "host":"proxy.example.com",
+    "port":"22"
   }
-}
-</code></p>
+}</code>
+</pre>
 
-<p>[tab title=&ldquo;LOCAL&rdquo;]
-<code class="prettyprint">json
+<pre id="login-local" class="json login-config hidden">
+<code>{
 {
-  &quot;host&quot;: &quot;localhost&quot;,
-  &quot;protocol&quot;: &quot;LOCAL&quot;,
-  &quot;auth&quot;: {
-    &quot;type&quot;: &quot;LOCAL&quot;
+  "host": "localhost",
+  "protocol": "LOCAL",
+  "auth": {
+    "type": "LOCAL"
   }
-}
-</code></p>
+}</code>
+</pre>
 
-<p>[/tabgroup]</p>
+<pre id="login-gsissh" class="json login-config hidden">
+<code>{
+   "host":"execute.example.com",
+   "port":2222,
+   "protocol":"GSISSH",
+   "auth":{
+      "credential": "-----BEGIN CERTIFICATE-----nMIIDqjCCApKgAwIBAgIDJSFGMA0GCSqGSIb3DQEBBQUAMHsxCzAJBgNVBAYTAlVTnMTgwNgYDVQQKEy9OYXRpb25hbCBDZW50ZXIgZm9yIFN1cGVyY29tcHV0aW5nIEFwncGxpY2F0aW9uczEgMB4GA1UECxMXQ2VydGlmaWNhdGUgQXV0aG9yaXRpZXMxEDAOnBgNVBAMTB015UHJveHkwHhcNMTMxMDE0MDcyMjE4WhcNMTMxMDE0MTkyNzE4WjBnnMQswCQYDVQQGEwJVUzE4MDYGA1UEChMvTmF0aW9uYWwgQ2VudGVyIGZvciBTdXBlncmNvbXB1dGluZyBBcHBsaWNhdGlvbnMxHjAcBgNVBAMTFWlwbGFudCBDb21tdW5pndHkgVXNlcjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAwfHbmtmJ1OUVwgDdn5oA8EsqihwRAi2xhZJYG/FFmOs38+0y7wTfORhVX/79XQMD3NqRJN8xhHQpmuoRynH9l9sbA9gbKaQsrpIYyExygrJ+qaZY0PccD+VAyPDjdLD86316AzWltEdV2E9b+OnCVioz62esJWSqOho8wya4Vo5svUCAwEAAaOBzjCByzAOBgNVHQ8BAf8EBAMCBLAwnHQYDVR0OBBYEFIJXT/jYmxaRywDbZudb1EXbxla5MB8GA1UdIwQYMBaAFNf8pQJ2nOvYT+iuh4OZQNccjx3tRMAwGA1UdEwEB/wQCMAAwNAYDVR0gBC0wKzAMBgorBgEEnAaQ+ZAIFMAwGCiqGSIb3TAUCAgMwDQYLKoZIhvdMBQIDAgEwNQYDVR0fBC4wLDAqnoCigJoYkaHR0cDovL2NhLm5jc2EudWl1Yy5lZHUvZjJlODlmZTMuY3JsMA0GCSqGnSIb3DQEBBQUAA4IBAQBDyW3FJ0xEIXEqk2NtiMqOM99MgufDPL0bxrR8CvPY5GRNn58EXU8RnSSJIuxL95PKclRPPOhGdB48eeF2H1MusOEUEEnHwzrZ1OUFUEpwKuqG6n0h411l3niRRx9wdJL4YITzAWZwpadzwj3d8aO9O/ttVJjGRc8A93I/d3fFAvHyvKnmlEaDrQZNBp1EtClW8xuxsfeUmyXkFlkRiKwqjkJGB8xBuzr8DfLomWq/mXaOkHznCo9nQxAs3gntszLOh+8U9aMxaeCsychRWxG3Y6Z33hrE0yz4AaVonVXu3Z7M+EN+nKbSVRblAzeKfQYYDOgsoFrugYbR9klv1so3Dt+n6n-----END CERTIFICATE-----n-----BEGIN RSA PRIVATE KEY-----nMIICWwIBAAKBgQDB8dua2YnU5RXCAN3mgDwSyqKHBECLbGFklgb8UWY6zfz7TLvBnN85GFVf/v1dAwPc2pEk3zGEdCma6hHIf2X2xsD2BsppCyukhjITHKCsn6ppljQ9xnwP5UDI8ON0sPzrfXoDNaW0R1XYT1v44JWKjPrZ6wlZKo6GjzDJrhWjmy9QIDAQABnAoGAcjrJZYMLM2FaV1G7YK/Wshq3b16JxZSoKF5U7vfihnAcuMaRL1R3IcAgfHlunIq2E7aIFnd+6sygVKXYo4alv5denekiucvKAyXK9F/VTTtLtajUnrvekLvSycKiEnbN9IgQ0ABCnlWyjgQMf64UUYBQtvU+lbRCs4jbuHxuyn5WECQQD8fJhlBHgA49hjnZBKnU9Xb+LEKhWDCEyIiOMMGY+2XhrGVvGF5KqJVusZEv8lbXNjzgSQFgLohEXVzn9v8tDFMzAkEAxKS5qCYHsTfgPlw3l1DLJRmG3SXrpevXSccBGpXQiUne9gfc9mlgnVTr5QQCXvvI673Y2LnNcnd94KEgvSrzhNwJACeS38/1g1mgXKo3ZTUUztBLinQ7sn463sQHsI6U8xGCbm/n8LMrxA8CsJadg6A6J3vdLpnm2U3YbZm1mqVhGNkQJAdsxxnoUVAdm8kWWhK6W6VG9e9I1OqdrXxfY/tecsyjg6D1a1Qb8mfuj4DoaKjCme69To8nZ3moZXRBWkypzYQopwJAB/zr1UpFz6vY4sIm3Gw3ll/ruNGCr2dzjTyLSGglCOf0nUljJ1FGLyW647JzGPMLcfdb0iEexzCEii9YUFUN1Ow==n-----END RSA PRIVATE KEY-----",
+      "type": "X509"
+   }
+}</code>
+</pre>
+
+<pre id="login-gsissh-myproxy" class="json login-config hidden">
+<code>{
+   "host":"execute.example.com",
+   "port":2222,
+   "protocol":"GSISSH",
+   "auth":{
+      "username":"systest",
+      "password":"changeit",
+      "credential":"",
+      "type":"X509",
+      "server":{
+        "name":"IRODS MyProxy Server",
+        "endpoint":"myproxy.example.com",
+        "port":7512,
+        "protocol":"MYPROXY"
+      }
+   }
+}</code>
+</pre>
+
+<pre id="login-gsissh-mpg" class="json login-config hidden">
+<code>{
+   "host":"execute.example.com",
+   "port":2222,
+   "protocol":"GSISSH",
+   "auth":{
+      "username":"systest",
+      "type":"X509",
+      "server": {
+        "name": "My Trusted MPG Server",
+        "endpoint": "https://api.example.com/myproxy/v2/",
+        "port": 443,
+        "protocol": "MPG"
+      }
+   }
+}</code>
+</pre>
 
 <p>The full list of login configuration options is given in the following table. We omit the <code class="prettyprint">login.auth</code> and <code class="prettyprint">login.proxy</code> attributes as they are identical to those used in the storage config.</p>
 
@@ -2765,7 +2906,7 @@ Create two queues. &ldquo;big_mem&rdquo; allows single node jobs with memory up 
 
 <p>While it is not required, it is a best practice to always specify <code class="prettyprint">scratchDir</code> and <code class="prettyprint">workDir</code> values for your execution systems and, whenever possible, place them outside of the system <code class="prettyprint">homeDir</code> to ensure data privacy. The reason for this is that the file system available on many servers is actually made up of a combination of physically attached storage, mounted volumes, and network mounts. Often times, your home directory will have a very conservative quota while the mounted storage will essentially be quota free. As the above table shows, when you do not specify a <code class="prettyprint">scratchDir</code> or <code class="prettyprint">workDir</code>, Agave will attempt to create your job work directories in your system <code class="prettyprint">homeDir</code>. It is very likely that, in the course of running simulations, you will reach the quota on your home directory, thereby causing that job and all future jobs to fail on the system until you clear up more space. To avoid this, we recommend specifying a location with sufficient available space to handle the work you want to do.</p>
 
-<p>Another common error that arises from not specifying thoughtful <code class="prettyprint">scratchDir</code> and <code class="prettyprint">workDir</code> values for your execution systems is jobs failing due to &ldquo;permission denied&rdquo; errors. This often happens when your <code class="prettyprint">scratchDir</code> and/or <code class="prettyprint">workDir</code> resolve to the actual system root. Usually the account you are using to access the system will not have permission to write to <code class="prettyprint">/</code>, so all attempts to create a job working directory fail, accurately, due to a &ldquo;permission denied&rdquo; error.</p>
+<p>Another common error that arises from not specifying thoughtful <code class="prettyprint">scratchDir</code> and <code class="prettyprint">workDir</code> values for your execution systems is jobs failing due to &quot;permission denied&rdquo; errors. This often happens when your <code class="prettyprint">scratchDir</code> and/or <code class="prettyprint">workDir</code> resolve to the actual system root. Usually the account you are using to access the system will not have permission to write to <code class="prettyprint">/</code>, so all attempts to create a job working directory fail, accurately, due to a &ldquo;permission denied&rdquo; error.</p>
 
 <aside class="notice">While it is not required, it is a best practice to always specify `scratchDir` and `workDir` values for your execution systems and, whenever possible, place them outside of the system `homeDir` to ensure data privacy.</aside>
 
@@ -2775,7 +2916,9 @@ Create two queues. &ldquo;big_mem&rdquo; allows single node jobs with memory up 
 <pre class="highlight plaintext"><code>systems-addupdate -v -F ssh-password.json
 </code></pre>
 
+<blockquote>
 <p>The response from the server will be similar to the following.</p>
+</blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
    </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"demo.execute.example.com"</span><span class="p">,</span><span class="w">
    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="s2">"0001323106792914-5056a550b8-0001-006"</span><span class="p">,</span><span class="w">
@@ -2886,7 +3029,10 @@ Create two queues. &ldquo;big_mem&rdquo; allows single node jobs with memory up 
 <p>Cloning an existing system will create a new system, with a new id, and all attributes copied over with the exception of the original system&rsquo;s authentication information and roles. You will be assigned owner of the system clone, but will still need to add your own credentials in order to do anything useful.</p>
 
 <p>To clone a system, you make a PUT request on the system&rsquo;s url and pass it a new system id.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X PUT -d <span class="s2">"action=clone&amp;amp;id=systest.demo.clone"</span> https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -X PUT
+     -d <span class="s2">"action=clone&amp;amp;id=systest.demo.clone"</span>
+     https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>systems-clone -v -I systest.demo.clone $SYSTEM_ID
 </code></pre>
@@ -2998,18 +3144,32 @@ Create two queues. &ldquo;big_mem&rdquo; allows single node jobs with memory up 
 <h4 id="publishing-a-system">Publishing a system</h4>
 
 <p>To publish a system and make it public, you make a PUT request on the system&rsquo;s url.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X PUT -d <span class="s2">"action=publish"</span> https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -X PUT
+     -d <span class="s2">"action=publish"</span>
+     https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>systems-publish -v $SYSTEM_ID
 </code></pre>
 
+<blockquote>
 <p>The response from the service will be the same system description we saw before, this time with the public attribute set to <em>true</em>.</p>
+</blockquote>
 
-<p>To unpublish a system, make the same request with the <code class="prettyprint">action</code> attribute set to <em>unpublish</em>.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X PUT -d <span class="s2">"action=unpublish"</span> https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
+<h4 id="unpublishing-a-system">Unpublishing a system</h4>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -X PUT
+     -d <span class="s2">"action=unpublish"</span>
+     https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>systems-unpublish -v $SYSTEM_ID
 </code></pre>
+
+<blockquote>
+<p>The response from the service will be the same system description we saw before, this time with the public attribute set to <em>false</em>.</p>
+</blockquote>
+
+<p>To unpublish a system, make the same request with the <code class="prettyprint">action</code> attribute set to <em>unpublish</em>.</p>
 
 <h3 id="default-systems">Default systems</h3>
 
@@ -3061,40 +3221,62 @@ Create two queues. &ldquo;big_mem&rdquo; allows single node jobs with memory up 
 <h4 id="setting-user-default-system">Setting user default system</h4>
 
 <p>To set a system as the user&rsquo;s default, you make a PUT request on the system&rsquo;s url. Only systems the user has access to may be used as their default.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X PUT -d <span class="s2">"action=setdefault"</span> https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -X PUT
+     -d <span class="s2">"action=setdefault"</span>
+     https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>systems-setdefault -v $SYSTEM_ID
 </code></pre>
 
+<blockquote>
 <p>The response from the service will be the same system description we saw before, this time with the <code class="prettyprint">default</code> attribute set to <em>true</em>.</p>
+</blockquote>
 
 <h4 id="unsetting-user-default-system">Unsetting user default system</h4>
-
-<p>To remove a system as the user&rsquo;s default, make the same request with the <code class="prettyprint">action</code> attribute set to <em>unsetDefault</em>. Keep in mind that you cannot remove the global default system from being the user&rsquo;s default. You can only set a different one to replace it.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X PUT -d <span class="s2">"action=unsetDefault"</span> https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -X PUT
+     -d <span class="s2">"action=unsetDefault"</span>
+     https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>systems-unsetdefault -v $SYSTEM_ID
 </code></pre>
 
+<blockquote>
+<p>The response from the service will be the same system description we saw before, this time with the <code class="prettyprint">default</code> attribute set to <em>false</em>.</p>
+</blockquote>
+
+<p>To remove a system as the user&rsquo;s default, make the same request with the <code class="prettyprint">action</code> attribute set to <em>unsetDefault</em>. Keep in mind that you cannot remove the global default system from being the user&rsquo;s default. You can only set a different one to replace it.</p>
+
 <h4 id="setting-global-default-system">Setting global default system</h4>
 
 <p>Tenant administrators may wish to set default storage and execution systems for an entire tenant. These are called global default systems. There may be at most one system of each type set as a global default. To set a global default system, first make sure that the system is public. Only public systems may be set as a global default. Next, make sure you have administrator permissions for your tenant. Only tenant admins may publish systems and manage the global defaults. Lastly, make a PUT request on the system&rsquo;s url with an <code class="prettyprint">action</code> attribute in the body set to <em>unsetGlobalDefault</em>.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X PUT -d <span class="s2">"action=setglobaldefault"</span> https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -X PUT
+     -d <span class="s2">"action=setglobaldefault"</span>
+     https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>systems-setdefault -v -G $SYSTEM_ID
 </code></pre>
 
+<blockquote>
 <p>The response from the service will be the same system description we saw before, this time with both the <code class="prettyprint">default</code> and <code class="prettyprint">public</code> attributes set to <em>true</em>.</p>
+</blockquote>
 
 <aside class="notice">Setting global default systems does not preclude users from manually setting their own default systems. Any user-defined default systems will trump the global default system setting for that user.</aside>
 
 <p>To remove a system from being the global default, make the same request with the <code class="prettyprint">action</code> attribute set to <em>unsetGlobalDefault</em>.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X PUT -d <span class="s2">"action=unsetGlobalDefault"</span> https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -X PUT
+     -d <span class="s2">"action=unsetGlobalDefault"</span>
+     https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>systems-unsetdefault -v -G $SYSTEM_ID
 </code></pre>
 
+<blockquote>
 <p>This time the response from the service will have <code class="prettyprint">default</code> set to <em>false</em> and <code class="prettyprint">public</code> set to <em>true</em>.</p>
+</blockquote>
 
 <h3 id="deleting-systems">Deleting systems</h3>
 
@@ -3104,7 +3286,9 @@ Create two queues. &ldquo;big_mem&rdquo; allows single node jobs with memory up 
 <pre class="highlight plaintext"><code>systems-delete $SYSTEM_ID
 </code></pre>
 
+<blockquote>
 <p>The call will return an empty result.</p>
+</blockquote>
 
 <p>Deleting a system will disable the system and all applications published on that system from use. Any running jobs will be killed, and any data archived on that system will no longer be available. There is no way to restore a system once it is deleted, and the system id cannot be reused in the future, so use this operation with care.</p>
 
