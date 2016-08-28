@@ -1,0 +1,274 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Agave Live Docs</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+
+    <script type="text/javascript">
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+      analytics.load("ahAKHCapavwGo8rmdDxiohHIV8W660mc");
+      analytics.page()
+      }}();
+    </script>
+    <script src="https://use.typekit.net/squ8frf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+
+    <link href="../../../../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../../../../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="../../../../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+    <style>
+    .js #fouc { display: none; }
+    </style>
+    <script type="text/javascript">
+        document.documentElement.className = 'js';
+    </script>
+  </head>
+
+  <body class="migrated_docs migrated_docs_documentation migrated_docs_documentation_tutorials migrated_docs_documentation_tutorials_job-management-tutorial migrated_docs_documentation_tutorials_job-management-tutorial_the-job-lifecycle">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../../../../images/navbar.png" />
+      </span>
+    </a>
+    <div id="fouc">
+        <div class="tocify-wrapper">
+          <img class="menu-logo" src="../../../../images/agave-docs-logo.png" />
+          
+          <div id="toc">
+          </div>
+        </div>
+        <div class="page-wrapper">
+          <div class="dark-box"></div>
+          <div class="content">
+            <h2 id="introduction">Introduction</h2>
+
+<p>Agave handles all of the end-to-end details involved with managing a job lifecycle for you. This can seem like black magic at times, so here we detail the overall lifecycle process every job goes through.</p>
+
+<ol>
+<li>Job request is made, validated, and saved.</li>
+<li>Job is queued up for execution. Job stays in a pending state until there are resources to run the job. This means that the target execution system is online, the storage system with the app assets is online, and neither the user nor the system are over quota.
+a. Resource do not become available with 7 days, the job is killed.
+b. Resources are available, the job moves on.</li>
+<li>When resources are available to run the job on the execution system, a work directory is created on the execution system. The job work directory is created based on the following logic:
+
+[code lang=plain]
+if (executionSystem.scratchDir exists) 
+then
+    $jobDir = executionSystem.scratchDir
+else if (executionSystem.workDir exists)
+then
+    $jobDir = system.workDir  
+else 
+    $jobDir = system.storage.homeDir
+endif
+
+$jobDir = $jobDir + &ldquo;/&rdquo; + job.owner + &ldquo;/job-&rdquo; + job.uuid
+&ldquo;`</li>
+<li>The job inputs are staged to the job work directory, job status is updated to &quot;INPUTS_STAGING&rdquo;
+a. All inputs succeed and the job is updated to &ldquo;STAGED&rdquo;
+b. One or more inputs fail to transfer. Job status is set back to &ldquo;PENDING&rdquo; and staging will be attempted up to 2 more times.
+c. User does not have permission to access one or more inputs. The job is set to &ldquo;FAILED&rdquo; and exists.</p></li>
+<li>The job again waits until the resources are available to run the job. Usually this is immediately after the inputs finish staging.
+a. Resource do not become available with 7 days, the job is killed.
+b. Resources are available, the job moves on.</li>
+<li>The app deploymentPath is copied from the app.deploymentSystem to a temp dir on the API server. The jobs API then processes the app.deploymentDir + &ldquo;/&rdquo; + app.templatePath file to create the .ipcexe file. The process goes as follows:
+
+<ol>
+<li>Script headers are written. This includes scheduler directives if a batch system, shbang if a forked app. </li>
+<li>Additional executionSystem[job.batchQueue].customDirectives are written</li>
+<li>&ldquo;RUNNING&rdquo; callback written</li>
+<li>Module commands are written</li>
+<li>executionSystem.environment is written</li>
+<li>wrapper script is filtered
+
+<ol>
+<li>blacklisted commands are removed</li>
+<li>app parameter template variables are resolved against job parameter values.</li>
+<li>app input template variables are resolved against job input values</li>
+<li>blacklisted commands are removed again</li>
+</ol></li>
+<li>&ldquo;CLEANING_UP&rdquo; callback written</li>
+<li>All template macros are resolved.</li>
+<li>job.name.slugify + &ldquo;.ipcexe&rdquo; file written to temp directory</li>
+</ol></li>
+<li>App assets with wrapper template are copied to remote job work directory.</li>
+<li>Directory listing of job work directory is written to a .agave.archive manifest file in the remote job work directory.</li>
+<li>Command line is generated to invoke the *.ipcexe file by the appropriate method for the execution system.</li>
+<li>Command line is run on the remote system.
+a. The command succeeds and the scheduler/process/job id is captured and stored with the job record.
+b. The command fails, return the job to &ldquo;STAGED&rdquo; status and try up to 2 more times.</li>
+<li>Job is updated to &ldquo;QUEUED&rdquo;</li>
+<li>Job waits for a &ldquo;RUNNING&rdquo; callback and adds a background process to monitor the job in case the callback never comes. </li>
+<li><p>Callback checks the job status  according the the following schedule
+
+[code lang=plain]
+* every 30 seconds for the first 5 minutes
+* every minute for the next 30 minutes
+* every 5 minutes for the next hour
+* every 15 minutes for the next 12 hours
+* every 30 minutes for the next 24 hours
+* every hour for the next 14 days 
+&ldquo;`</li>
+<li><p>Job either calls back with a &quot;CLEANING_UP&rdquo; status update or the monitoring process discovers the job no longer exists on the remote system.</p></li>
+<li>If job.archive is true, send job to archiving queue to stage outputs to job.archiveSystem
+
+<ol>
+<li>Resource do not become available with 7 days, the job is killed.</li>
+<li>Resources are available, the job moves on.
+
+<ol>
+<li>Read the .agave.archive manifest file from the job work directory</li>
+<li>Begin a breadth first directory traversal of the job work directory</li>
+<li>If a file/folder is not in the .agave.archive manifest, copy it to the job.archivePath on the job.archiveSystem</li>
+<li>Delete the job work directory</li>
+</ol></li>
+</ol></li>
+<li>Update job status to &ldquo;FINISHED&rdquo;</li>
+</ol>
+
+<!-- 
+### Introduction 
+
+### Submission
+
+#### Validation
+#### Permissions
+#### Availability
+#### Common failures
+#### Handling uncertainty
+#### Drop dead dates
+
+### Queues, queues, and queues
+
+#### Quotas
+#### Capacity
+#### Scheduling
+#### Common failures
+#### Handling uncertainty
+#### Drop dead dates
+
+
+### Data staging
+
+#### Remote working directory
+#### Scheduling
+#### Validation
+#### Availability
+#### Permissions
+#### Retry policy
+#### Common failures
+#### Handling uncertainty
+#### Drop dead dates
+
+### App staging
+
+#### App asset staging 
+#### Wrapper template creation 
+##### Runtime variables 
+##### Input values 
+##### Parameter values 
+#### Shell portability 
+#### Environment setup 
+#### Input data 
+#### .agave.archive manifest 
+#### Common failures
+
+### App submission
+
+#### Remote job ownership
+#### Remote working directory
+#### Runtime security considerations
+#### Remote system quotas
+
+#### Batch scheduler submission
+##### Batch submit script
+##### Custom directives
+##### Remote job ids
+##### Batch queue selection
+##### Batch queue policy
+
+#### Condor scheduler submission
+##### Condor submit script
+##### Job working directory vs condor working directory
+##### Unpacking the app bundle
+##### Local execution vs. gliding
+##### Secondary data stage in
+##### Monitoring condord
+##### Condor log files
+##### Secondary data stage out
+##### Network performance
+
+#### Fork submission
+##### Submit script
+##### Modules and environment
+##### Remote process ids
+##### Redirecting output
+##### Job logs
+##### Ghost processes
+
+#### Handling uncertainty
+#### Drop dead dates
+
+### Monitoring status
+
+#### Heartbeat callbacks
+#### Job callbacks
+#### Background checks
+##### Exponential backoff
+##### Batch scheduler queries
+##### condor_q queries
+##### Process checks
+#### Common failures
+#### Handling uncertainty
+#### Drop dead dates
+
+### Post-execution
+
+#### Finishing housekeeping tasks
+#### Data preservation
+#### Common failures
+#### Handling uncertainty
+#### Drop dead dates
+
+### Archiving outputs
+
+#### Raw transfer
+#### Filetype detection
+#### Metadata creation
+#### Data permissions
+#### Determining archive path
+#### Performance considerations
+#### Common failures
+#### Handling uncertainty
+#### Drop dead dates
+
+### Job completion
+
+#### Canonical job output references
+#### Data preservation
+#### Data sharing
+#### Log files
+#### Resubmission
+#### Common failures
+#### Handling uncertainty
+#### Drop dead dates
+-->
+
+          </div>
+          <div class="dark-box">
+          </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+      document.getElementById("fouc").style.display="block";
+    </script>
+  </body>
+</html>

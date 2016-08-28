@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Agave Live Docs</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+
+    <script type="text/javascript">
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+      analytics.load("ahAKHCapavwGo8rmdDxiohHIV8W660mc");
+      analytics.page()
+      }}();
+    </script>
+    <script src="https://use.typekit.net/squ8frf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+
+    <link href="../../../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../../../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="../../../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+    <style>
+    .js #fouc { display: none; }
+    </style>
+    <script type="text/javascript">
+        document.documentElement.className = 'js';
+    </script>
+  </head>
+
+  <body class="migrated_docs migrated_docs_documentation migrated_docs_documentation_beginners-guides migrated_docs_documentation_beginners-guides_user-discovery">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../../../images/navbar.png" />
+      </span>
+    </a>
+    <div id="fouc">
+        <div class="tocify-wrapper">
+          <img class="menu-logo" src="../../../images/agave-docs-logo.png" />
+          
+          <div id="toc">
+          </div>
+        </div>
+        <div class="page-wrapper">
+          <div class="dark-box"></div>
+          <div class="content">
+            <p>Nothing great is ever accomplished alone. In the course of conducting your research, you will want to share your systems, results, data, etc with other people if for no other reason than to verify that Agave works as advertised. You can use the Profiles service to lookup other users by name, username, or email address.</p>
+
+<h2 id="finding-others">Finding others</h2>
+
+<p>To search for other users, make a GET request to the Profiles service with the search type and value in the URL query.</p>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/profiles/<span class="nv">$API_VERSION</span>/?email<span class="o">=</span>dooley
+</code></pre>
+<pre class="highlight plaintext"><code>profiles-list -v -E dooley
+</code></pre>
+
+<p>The response to this call is a JSON array of users who email addresses match the search term <code>dooley</code> in some way.</p>
+<pre class="highlight javascript"><code><span class="p">[</span> 
+  <span class="p">{</span>
+    <span class="s2">"username"</span> <span class="p">:</span> <span class="s2">"tilefish2"</span><span class="p">,</span>
+    <span class="s2">"email"</span> <span class="p">:</span> <span class="s2">"dooley@adelphi.edu"</span><span class="p">,</span>
+    <span class="s2">"firstName"</span> <span class="p">:</span> <span class="s2">"james"</span><span class="p">,</span>
+    <span class="s2">"lastName"</span> <span class="p">:</span> <span class="s2">"dooley"</span><span class="p">,</span>
+    <span class="s2">"position"</span> <span class="p">:</span> <span class="s2">"null"</span><span class="p">,</span>
+    <span class="s2">"institution"</span> <span class="p">:</span> <span class="s2">"null"</span><span class="p">,</span>
+    <span class="s2">"phone"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"fax"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"researchArea"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"department"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"city"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"state"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"country"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"gender"</span> <span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"_links"</span> <span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"self"</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/tilefish2"</span>
+      <span class="p">},</span>
+      <span class="s2">"users"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/tilefish2/users"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span> 
+  <span class="p">{</span>
+    <span class="s2">"username"</span> <span class="p">:</span> <span class="s2">"dooley"</span><span class="p">,</span>
+    <span class="s2">"email"</span> <span class="p">:</span> <span class="s2">"dooley@tacc.utexas.edu"</span><span class="p">,</span>
+    <span class="s2">"firstName"</span> <span class="p">:</span> <span class="s2">"Rion"</span><span class="p">,</span>
+    <span class="s2">"lastName"</span> <span class="p">:</span> <span class="s2">"Dooley"</span><span class="p">,</span>
+    <span class="s2">"position"</span> <span class="p">:</span> <span class="s2">"null"</span><span class="p">,</span>
+    <span class="s2">"institution"</span> <span class="p">:</span> <span class="s2">"University of Texas Austin"</span><span class="p">,</span>
+    <span class="s2">"phone"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"fax"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"researchArea"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"department"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"city"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"state"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"country"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"gender"</span> <span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"_links"</span> <span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"self"</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/dooley"</span>
+      <span class="p">},</span>
+      <span class="s2">"users"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/dooley/users"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span> 
+  <span class="p">{</span>
+    <span class="s2">"username"</span> <span class="p">:</span> <span class="s2">"systest"</span><span class="p">,</span>
+    <span class="s2">"email"</span> <span class="p">:</span> <span class="s2">"dooley@iplantcollaborative.org"</span><span class="p">,</span>
+    <span class="s2">"firstName"</span> <span class="p">:</span> <span class="s2">"Systest"</span><span class="p">,</span>
+    <span class="s2">"lastName"</span> <span class="p">:</span> <span class="s2">"Account"</span><span class="p">,</span>
+    <span class="s2">"position"</span> <span class="p">:</span> <span class="s2">"null"</span><span class="p">,</span>
+    <span class="s2">"institution"</span> <span class="p">:</span> <span class="s2">"null"</span><span class="p">,</span>
+    <span class="s2">"phone"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"fax"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"researchArea"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"department"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"city"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"state"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"country"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"gender"</span> <span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"_links"</span> <span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"self"</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/systest"</span>
+      <span class="p">},</span>
+      <span class="s2">"users"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/systest/users"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span> 
+<span class="p">]</span>
+</code></pre>
+
+<h2 id="finding-yourself">Finding yourself</h2>
+
+<p>You can also lookup your own profile using the special &lsquo;me&rsquo; username.</p>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/profiles/<span class="nv">$API_VERSION</span>/me
+</code></pre>
+<pre class="highlight plaintext"><code>profiles-list -v me
+</code></pre>
+
+<p>The response to this call for our example user looks like this:</p>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"username"</span> <span class="err">:</span> <span class="s2">"systest"</span><span class="p">,</span>
+    <span class="s2">"email"</span> <span class="err">:</span> <span class="s2">"$API_USERNAME@iplantcollaborative.org"</span><span class="p">,</span>
+    <span class="s2">"firstName"</span> <span class="err">:</span> <span class="s2">"Systest"</span><span class="p">,</span>
+    <span class="s2">"lastName"</span> <span class="err">:</span> <span class="s2">"Account"</span><span class="p">,</span>
+    <span class="s2">"position"</span> <span class="err">:</span> <span class="s2">"null"</span><span class="p">,</span>
+    <span class="s2">"institution"</span> <span class="err">:</span> <span class="s2">"null"</span><span class="p">,</span>
+    <span class="s2">"phone"</span> <span class="err">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"fax"</span> <span class="err">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"researchArea"</span> <span class="err">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"department"</span> <span class="err">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"city"</span> <span class="err">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"state"</span> <span class="err">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"country"</span> <span class="err">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"gender"</span> <span class="err">:</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"_links"</span> <span class="err">:</span> <span class="p">{</span>
+      <span class="s2">"self"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/systest"</span>
+      <span class="p">},</span>
+      <span class="s2">"users"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/systest/users"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+          </div>
+          <div class="dark-box">
+          </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+      document.getElementById("fouc").style.display="block";
+    </script>
+  </body>
+</html>

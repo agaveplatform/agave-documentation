@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Agave Live Docs</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+
+    <script type="text/javascript">
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+      analytics.load("ahAKHCapavwGo8rmdDxiohHIV8W660mc");
+      analytics.page()
+      }}();
+    </script>
+    <script src="https://use.typekit.net/squ8frf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+
+    <link href="../../../../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../../../../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="../../../../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+    <style>
+    .js #fouc { display: none; }
+    </style>
+    <script type="text/javascript">
+        document.documentElement.className = 'js';
+    </script>
+  </head>
+
+  <body class="migrated_docs migrated_docs_documentation migrated_docs_documentation_tutorials migrated_docs_documentation_tutorials_app-management-tutorial migrated_docs_documentation_tutorials_app-management-tutorial_basic-app-example">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../../../../images/navbar.png" />
+      </span>
+    </a>
+    <div id="fouc">
+        <div class="tocify-wrapper">
+          <img class="menu-logo" src="../../../../images/agave-docs-logo.png" />
+          
+          <div id="toc">
+          </div>
+        </div>
+        <div class="page-wrapper">
+          <div class="dark-box"></div>
+          <div class="content">
+            <p>This is the first of three app examples demonstrating how a real work code can be registered and used in Agave. The app is a Python code that takes a csv file and creates a graph of the data. We detail how to create a JSON description of the code we want to run, how to create the wrapper template that Agave uses to run the code, and how to test and run the app with Agave.</p>
+
+<aside class="notice">You can download the full source code for this example app and client application in the <a href="https://bitbucket.org/taccaci/agave-samples" title="Agave Samples">Agave Samples</a> repository in the <span class="code">apps/pyplot-demo/basic/pyplot-demo-basic-0.1.0</span> directory. If you would like to run this app in a live environment, you can register your own compute and storage systems, or use one of our developer sandbox environments.</aside>
+
+<h2 id="basic-app-overview">Basic app overview</h2>
+
+<p>The app we&rsquo;re going to be using in this example is a native Python app that creates plots and charts of CSV data. The app itself is loosely based on example programs from the matplotlib cookbook with a healthy dose of parameterization, exception handling, and logging added for usability. The app&rsquo;s help output is listed below.</p>
+
+<p>[code lang=text]
+python main.py -h
+usage: pyplot-demo [-h] [&ndash;chart-type {bar,line}] [&ndash;x-label [XLABEL]]
+                   [&ndash;show-x-label] [&ndash;y-label [YLABEL]] [&ndash;show-y-label]
+                   [&ndash;show-legend] [&ndash;width WIDTH] [&ndash;height HEIGHT]
+                   [&ndash;background-color BACKGROUND] [&ndash;output-location OUTDIR]
+                   [&ndash;file-per-series] [&ndash;format {png,jpg,gif}] [-v]
+                   infile</p>
+
+<p>A program to plot the contents of a csv file.</p>
+
+<p>positional arguments:
+  infile                The dataset to plot.</p>
+
+<p>optional arguments:
+  -h, &ndash;help            show this help message and exit
+  &ndash;chart-type {bar,line}
+                        The type of chart to show.
+  &ndash;x-label [XLABEL]    The x-axis label.
+  &ndash;show-x-label        If specified, the x-axis label will be shown
+  &ndash;y-label [YLABEL]    The y-axis label.
+  &ndash;show-y-label        If specified, the y-axis label will be shown
+  &ndash;show-legend         If specified, a legend will be generated for each
+                        chart.
+  &ndash;width WIDTH         The chart width.
+  &ndash;height HEIGHT       The chart height.
+  &ndash;background-color BACKGROUND
+                        The css hex color of the chart background.
+  &ndash;output-location OUTDIR
+                        The output directory of the plotted dataset.
+  &ndash;file-per-series     If specified, each chart will be saved in a separate
+                        file.
+  &ndash;format {png,jpg,gif}
+                        The image format of the plotted dataset.
+  -v, &ndash;verbose         Enable verbose output.
+&ldquo;`</p>
+
+<p>While the app itself provides quite a few options, in this basic example, we will work under the assumption that end users don&rsquo;t need or use the majority of the options available from the pyplot code. The app we create will focus on two options: the kind of chart they want to create, <code>chart-type</code>, and the input file they want to plot, <code>infile</code>.</p>
+
+<p>As you will see, these two options will allow us to build a basic app description and highlight the major concepts of app registration. In the intermediate and advanced examples we will build on this example by exposing more of the pyplot options and demonstrating how Agave can help you with data scheduling, parameter validation, and batch processing.</p>
+
+<h3 id="runtime-requirements">Runtime requirements</h3>
+
+<p>In order to run this app, the target execution system must have the following installed.</p>
+
+<ul>
+<li>Python 2.7</li>
+<li>Matplotlib</li>
+</ul>
+
+<p>If you are following along on your local system, you will need to have these installed in order to run the wrapper script and invoke the pyplot Python code.</p>
+
+<h3 id="creating-the-app-json-description">Creating the app JSON description</h3>
+
+<p>In order to register our example app, we need to create a JSON description of it so Agave knows where it should run and how to run it. The JSON for our basic app is below.</p>
+<pre class="highlight javascript"><code><span class="p">{</span>
+  <span class="s2">"name"</span><span class="err">:</span> <span class="s2">"demo-pyplot-demo-basic"</span><span class="p">,</span>
+  <span class="s2">"parallelism"</span><span class="err">:</span> <span class="s2">"SERIAL"</span><span class="p">,</span>
+  <span class="s2">"version"</span><span class="err">:</span> <span class="s2">"0.1.0"</span><span class="p">,</span>
+  <span class="s2">"label"</span><span class="err">:</span> <span class="s2">"PyPlot Demo Basic"</span><span class="p">,</span>
+  <span class="s2">"shortDescription"</span><span class="err">:</span> <span class="s2">"Basic demo plotting app"</span><span class="p">,</span>
+  <span class="s2">"longDescription"</span><span class="err">:</span> <span class="s2">"Basic demo app to create a graph using Python"</span><span class="p">,</span>
+  <span class="s2">"deploymentPath"</span><span class="err">:</span> <span class="s2">"apps/pyplot-demo-basic-0.1.0"</span><span class="p">,</span>
+  <span class="s2">"deploymentSystem"</span><span class="err">:</span> <span class="s2">"demo.storage.example.com"</span><span class="p">,</span>
+  <span class="s2">"executionSystem"</span><span class="err">:</span> <span class="s2">"demo.execute.example.com"</span><span class="p">,</span>
+  <span class="s2">"executionType"</span><span class="err">:</span> <span class="s2">"CLI"</span><span class="p">,</span>
+  <span class="s2">"templatePath"</span><span class="err">:</span> <span class="s2">"wrapper.sh"</span><span class="p">,</span>
+  <span class="s2">"testPath"</span><span class="err">:</span> <span class="s2">"test/test.sh"</span><span class="p">,</span>
+  <span class="s2">"tags"</span><span class="err">:</span> <span class="p">[</span>
+    <span class="s2">"demo"</span><span class="p">,</span>
+    <span class="s2">"python"</span><span class="p">,</span>
+    <span class="s2">"tutorial"</span><span class="p">,</span>
+    <span class="s2">"plotting"</span>
+  <span class="p">],</span>
+  <span class="s2">"ontology"</span><span class="err">:</span> <span class="p">[],</span>
+  <span class="s2">"inputs"</span><span class="err">:</span> <span class="p">[{</span>
+    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"dataset"</span><span class="p">,</span>
+    <span class="s2">"value"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"default"</span><span class="p">:</span> <span class="s2">"agave://demo.storage.example.com/inputs/pyplot/dataset.csv"</span><span class="p">,</span>
+      <span class="s2">"required"</span><span class="p">:</span> <span class="kc">true</span> 
+    <span class="p">},</span>
+    <span class="s2">"details"</span><span class="err">:</span> <span class="p">{</span>
+      <span class="s2">"label"</span><span class="err">:</span> <span class="s2">"Dataset"</span><span class="p">,</span>
+      <span class="s2">"description"</span><span class="err">:</span> <span class="s2">"The dataset to plot"</span>
+    <span class="p">}</span>
+  <span class="p">}],</span>
+  <span class="s2">"parameters"</span><span class="err">:</span> <span class="p">[{</span>
+    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"chartType"</span><span class="p">,</span>
+    <span class="s2">"value"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"default"</span><span class="p">:</span> <span class="s2">"bar"</span><span class="p">,</span>
+      <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"enumeration"</span><span class="p">,</span>
+      <span class="s2">"enum_values"</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="s2">"bar"</span><span class="p">:</span> <span class="s2">"Bar Chart"</span>
+      <span class="p">},</span> <span class="p">{</span>
+        <span class="s2">"line"</span><span class="p">:</span> <span class="s2">"Line Chart"</span>
+      <span class="p">}],</span>
+      <span class="s2">"required"</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="s2">"details"</span><span class="err">:</span> <span class="p">{</span>
+      <span class="s2">"label"</span><span class="err">:</span> <span class="s2">"Chart types"</span><span class="p">,</span>
+      <span class="s2">"description"</span><span class="err">:</span> <span class="s2">"Select the chart type to generate for the dataset"</span>
+    <span class="p">}</span>
+  <span class="p">}]</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>It&rsquo;s easiest to think of the JSON description as having 3 basic components: metadata, inputs, and parameters. The metadata includes information about the app name and version,  where it should run, where the application assets (such as the pyplot code itself) are stored, etc. Inputs are the user-supplied input data that the app needs to run. In this example, pyplot will take a single input file as an input. We call the input file <code>dataset</code> for lack of a better term. We also specify that this is a required field any time someone runs our app. Finally, parameters are the user-supplied options passed to the pyplot app at runtime. We will talk more about how this is done when we create our wrapper template. For now we point out that we are defining a single input of type enumeration with possible values <em>bar</em> and <em>line</em>. Like our input, this parameter is required.</p>
+
+<p>There are many, many other attributes and options that we could include in our app description. We will get to some of them in the intermediate and advanced examples. For a full description of all the app description attributes and options, see the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/app-inputs-and-parameters-tutorial/" title="App Inputs and Parameters Tutorial">App Inputs and Parameters Tutorial</a>.</p>
+
+<h3 id="creating-a-wrapper-script">Creating a wrapper script</h3>
+
+<p>Now that we have our app defined, we need to create a wrapper template that Agave can use to run our pyplot code. A wrapper template is a shell script that Agave calls to invoke your app. A simple wrapper template for our app is shown below.</p>
+
+<p>[code lang=text]
+WRAPPERDIR=$( cd &rdquo;$( dirname &ldquo;$0&rdquo; )&ldquo; &amp;&amp; pwd )</p>
+
+<h1 id="the-input-file-will-be-staged-in-for-you-as-part-of-the-job-request">The input file will be staged in for you as part of the job request.</h1>
+
+<h1 id="here-we-just-sanity-check-that-it-exists">Here we just sanity check that it exists.</h1>
+
+<p>if [[ ! -e &rdquo;${dataset}&ldquo; ]]; then
+    echo &quot;Input file &#039;${dataset}&#039; was not found in the job directory&rdquo; &gt;&amp;2
+    exit 1
+fi</p>
+
+<h1 id="we-will-drop-the-output-graphs-into-a-standard-place">We will drop the output graphs into a standard place</h1>
+
+<p>outdir=&ldquo;$WRAPPERDIR/output&rdquo;
+mkdir -p &ldquo;$outdir&rdquo;</p>
+
+<h1 id="now-run-the-pyplot-app-with-the-injected-chart-type-and-directory-as-commandline-options">Now run the pyplot app with the injected chart type and directory as commandline options</h1>
+
+<p>python $WRAPPERDIR/lib/main.py -v &ndash;output-location=$outdir &ndash;chart-type=${chartType} ${dataset}
+&ldquo;`</p>
+
+<p>You may notice that the wrapper template contains references to the <code>dataset</code> and <code>chartType</code> properties we defined in our app description. These are what we call <strong>template variables</strong>. Template variables are placeholders in the wrapper template that will be replaced with runtime values during job submission.</p>
+
+<p>When a user runs this example app, they will specify a <code>dataset</code> and <code>chartType</code> in their job request. During job submission, Agave will stage the <code>dataset</code> to the execution system, demo.execute.example.com, and place it in the job&rsquo;s work directory. It will then copy the contents of the app&rsquo;s <code>deploymentPath</code>, apps/pyplot-demo-basic-0.1.0, from the <code>deploymentSystem</code>, demo.storage.example.com, to the job work directory on demo.execute.example.com and process the contents of the wrapper template, wrapper.sh, into an executable file.</p>
+
+<p>During processing, Agave will replace all occurrences of <code>${dataset}</code> and <code>${chartType}</code> with the name of the input file that it staged to the job work directory (not the full path, just the file name) and the user-supplied <code>chartType</code> value. Depending on whether the execution system registered with Agave uses a batch scheduler, specifies a custom environment, or requires other custom environment variables set, Agave will prepend these values to the top of the file, resolve any other <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">predefined template variables</a> in the wrapper, and save the file in the job work folder and executed.</p>
+
+<h3 id="things-you-don-39-t-worry-about">Things you don&rsquo;t worry about</h3>
+
+<h4 id="data-staging">Data staging</h4>
+
+<p>Data will already be there before the app is run. If the data isn&rsquo;t available or the user didn&rsquo;t provide any, the job will fail before the wrapper template is processed.</p>
+
+<h4 id="logging">Logging</h4>
+
+<p>Logging is handled for you by Agave. Both stderr and stdout will be captured for CLI apps. On batch systems, the job log files are saved in the job work directory. All will be present in the job work directory or archive directory when the job completes.</p>
+
+<h4 id="app-installation">App installation</h4>
+
+<p>This is a bit of a moot point since pyplot is Python, but Agave handles the app staging for you by copying the <code>deploymentPath</code> from the <code>deploymentSystem</code> given in your app description to the job work folder on the <code>executionSystem</code>. As long as you can package up your app&rsquo;s assets into the <code>deploymentPath</code>, or ensure that they are already present on the system, you can run your app without dealing with pulling in dependencies, etc.</p>
+
+<p>Of course, you still have the option of including a build or compilation in your wrapper script. For throughput reasons, however, that may not be the best approach. For another option with much better portability and performance, see the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/docker-app-containers-tutorial/" title="Docker App Containers Tutorial">Docker App Containers Tutorial</a>.</p>
+
+<h3 id="testing-the-wrapper-template">Testing the wrapper template</h3>
+
+<p>To test our wrapper template, we will create a new script in our test folder. The script will define the template variables Agave would replace in the wrapper template at runtime. One perk of the wrapper templates being shell scripts is we can simply define our inputs and parameters as environment variables and bash will do the replacement for us.</p>
+
+<p>[code lang=text]</p>
+
+<h1 id="bin-bash">!/bin/bash</h1>
+
+<p>DIR=$( cd &rdquo;$( dirname &ldquo;$0&rdquo; )&ldquo; &amp;&amp; pwd )</p>
+
+<h1 id="set-test-variables">set test variables</h1>
+
+<p>export dataset=&rdquo;$DIR/lib/testdata.csv&quot;
+export chartType=&ldquo;bar&rdquo;</p>
+
+<h1 id="call-wrapper-script-as-if-the-values-had-been-injected-by-the-api">call wrapper script as if the values had been injected by the API</h1>
+
+<p>sh -c ../wrapper.sh
+&ldquo;`</p>
+
+<p>That&rsquo;s it. We can run the script and verify that the correct bar chart appears in the output directory.</p>
+
+<h3 id="registering-your-app">Registering your app</h3>
+
+<p>Now that we have our wrapper script and app description, and we have tested it works, we will register it to Agave. Let&rsquo;s copy our wrapper script and test directory up to the <code>deploymentSystem</code> we specified in the app description and then send our app description to Agave.</p>
+<pre class="highlight shell"><code>files-mkdir -N apps/pyplot-demo-basic-0.1.0 -S demo.storage.example.com 
+files-upload -F wrapper.sh -S demo.storage.example.com apps/pyplot-demo-basic-0.1.0
+files-upload -F <span class="nb">test</span> -S demo.storage.example.com apps/pyplot-demo-basic-0.1.0
+
+apps-addupdate -F app.json
+</code></pre>
+
+<p>That&rsquo;s it. Now we have our app ready to run with Agave.</p>
+
+<h3 id="running-your-app">Running your app</h3>
+
+<p>To run your app, we will post a JSON job request object to the jobs service. We can get an sample job description from the Agave CLI&rsquo;s <code>jobs-template</code> script.</p>
+<pre class="highlight shell"><code><span class="nb">jobs</span>-template -A demo-pyplot-demo-basic-0.1.0 &amp;gt; submit.json
+</code></pre>
+
+<p>That will produce JSON similar to the following in the <code>submit.json</code> file.</p>
+<pre class="highlight javascript"><code><span class="p">{</span>
+  <span class="s2">"name"</span><span class="err">:</span> <span class="s2">"demo-pyplot-demo-basic test-1415742730"</span><span class="p">,</span>
+  <span class="s2">"appId"</span><span class="err">:</span> <span class="s2">"demo-pyplot-demo-basic-0.1.0"</span><span class="p">,</span>
+  <span class="s2">"archive"</span><span class="err">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="s2">"inputs"</span><span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"dataset"</span><span class="err">:</span> <span class="s2">"agave://demo.storage.example.com/apps/pyplot-demo-advanced-0.1.0/test/testdata.csv"</span>
+  <span class="p">},</span>
+  <span class="s2">"parameters"</span><span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"chartType"</span><span class="err">:</span> <span class="s2">"bar"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>We can now submit this JSON to the jobs service to run our pyplot on the execution system.</p>
+<pre class="highlight shell"><code><span class="nb">jobs</span>-submit -W -F submit.json
+</code></pre>
+
+<p>When the job ends, you can use the <code>jobs-output</code> CLI script to retrieve the output. Here <code>$JOB_ID</code> is the id returned from the previous job submission.</p>
+
+<h3 id="accessing-job-output">Accessing job output</h3>
+<pre class="highlight shell"><code><span class="nb">jobs</span>-output -P output/bar.png -D <span class="nv">$JOB_ID</span>
+</code></pre>
+
+          </div>
+          <div class="dark-box">
+          </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+      document.getElementById("fouc").style.display="block";
+    </script>
+  </body>
+</html>

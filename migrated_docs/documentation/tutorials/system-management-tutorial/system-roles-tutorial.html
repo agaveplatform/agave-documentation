@@ -1,0 +1,250 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Agave Live Docs</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+
+    <script type="text/javascript">
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+      analytics.load("ahAKHCapavwGo8rmdDxiohHIV8W660mc");
+      analytics.page()
+      }}();
+    </script>
+    <script src="https://use.typekit.net/squ8frf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+
+    <link href="../../../../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../../../../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="../../../../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+    <style>
+    .js #fouc { display: none; }
+    </style>
+    <script type="text/javascript">
+        document.documentElement.className = 'js';
+    </script>
+  </head>
+
+  <body class="migrated_docs migrated_docs_documentation migrated_docs_documentation_tutorials migrated_docs_documentation_tutorials_system-management-tutorial migrated_docs_documentation_tutorials_system-management-tutorial_system-roles-tutorial">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../../../../images/navbar.png" />
+      </span>
+    </a>
+    <div id="fouc">
+        <div class="tocify-wrapper">
+          <img class="menu-logo" src="../../../../images/agave-docs-logo.png" />
+          
+          <div id="toc">
+          </div>
+        </div>
+        <div class="page-wrapper">
+          <div class="dark-box"></div>
+          <div class="content">
+            <h2 id="system-roles">System roles</h2>
+
+<p>Systems you register are private to you and you alone. You can, however, allow other users to utilize the system you define by granting them a role on the system. The available roles are given in the table below.</p>
+
+<p>&lt;%= partial &ldquo;includes/tables/51&rdquo; %&gt;</p>
+
+<h3 id="guest-role">GUEST role</h3>
+
+<p>Users granted the <code>GUEST</code> role are given readonly access to the system. This means that users with a <code>GUEST</code> role on an execution system cannot run jobs on that system. In the hierarchy of permission calculation, the <code>GUEST</code> role is at the bottom of the stack, so giving someone a <code>GUEST</code> role on a public system will not restrict their ability to manipulate their virtual home directory, but it will allow them to view data outside of their home directory. The exception to this is when you grant the <code>GUEST</code> role to the <code>world</code> user and make the system publicly available. In this situation, you have defined a readonly system and no user will be able to alter any data unless you give them explicit permission.</p>
+
+<h3 id="user-role">USER role</h3>
+
+<p>The <code>USER</code> role allows users to interact with data and run jobs (if the system is an execution system). Granting someone a <code>USER</code> role allows them to view all parts of the system and interact with it as if it were their own. They will not, however, be able to make any changes to the system definition, assign roles, or register new apps to run on it. They will essentially be using the shared system, &ldquo;as is.&rdquo;</p>
+
+<h3 id="publisher-role">PUBLISHER role</h3>
+
+<p>The <code>PUBLISHER</code> role is identical to the <code>USER</code> role, however it only exists for execution systems. Users with the <code>PUBLISHER</code> role on an execution system are able to register apps to run on that system. The apps they register are their own and they can, in turn, share them with whoever they choose. However, in order for another user to run an app a <code>PUBLISHER</code> has registered, they must have at least a <code>USER</code> role on the execution system. This check ensures that sovereignty of the shared system stays with the owner.</p>
+
+<h3 id="admin-role">ADMIN role</h3>
+
+<p>The <code>ADMIN</code> role gives the user full reign to change the system definition, assign roles, and register new apps to run on it. When calculating data permissions, users with and <code>ADMIN</code> role on the system always have <code>ALL</code> permissions over any data on that system. This is true even when the system is readonly.</p>
+
+<p>The only exception to the power of the <code>ADMIN</code> user is when the system is published and publicly available. At that point, the administration of the system becomes the responsibility of the tenant admins and cannot change without their involvement. In practice, this is not a problem since any public systems tend to use special accounts on the underlying systems that are specifically allocated for shared use. If the system is ever removed from the public space, they will once again be able to administer its use.</p>
+
+<h3 id="owner-role">OWNER role</h3>
+
+<p>The <code>OWNER</code> role is reserved for the user who originally registered the system and is functionally equivalent  Unlike every other system role, the <code>OWNER</code> role cannot be granted or revoked. Once a user creates a system, they own it for life. As with the <code>ADMIN</code> role, the system owner has total control over the system up to the point it is published as a public system. If the system is ever removed from the public space, they will once again be able to administer its use.</p>
+
+<h3 id="listing-system-roles">Listing system roles</h3>
+
+<aside class="notice">If you have not yet set up a system of your own, now is a good time to grab a sandbox system to use while you follow along with the rest of this tutorial.</aside>
+
+<p>Performing a GET request on the <code>/systems/$API_VERSION/$SYSTEM_ID/roles</code> collection will return a JSON array of all the roles on the <code>$SYSTEM_ID</code> system.</p>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/systems/<span class="nv">$API_VERSION</span>/<span class="nv">$SYSTEM_ID</span>/roles
+</code></pre>
+<pre class="highlight plaintext"><code>systems-roles-list -v $SYSTEM_ID
+</code></pre>
+
+<p>[/tabgroup]</p>
+
+<p>The response below has a single role representing the owner of the system. By default, any systems you register will automatically assign you a persistent <code>OWNER</code> permission.</p>
+<pre class="highlight javascript"><code><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">"username"</span> <span class="p">:</span> <span class="s2">"systest"</span><span class="p">,</span>
+    <span class="s2">"role"</span> <span class="p">:</span> <span class="s2">"OWNER"</span><span class="p">,</span>
+    <span class="s2">"_links"</span> <span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"self"</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/systest-rodeo-docker/roles/systest"</span>
+      <span class="p">},</span>
+      <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/systest-rodeo-docker"</span>
+      <span class="p">},</span>
+      <span class="s2">"profile"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/systest"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre>
+
+<p>Now let&rsquo;s look at the permissions for a public system.</p>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/systems/<span class="nv">$API_VERSION</span>/data.iplantcollaborative.org/roles
+</code></pre>
+<pre class="highlight plaintext"><code>systems-roles-list -v data.iplantcollaborative.org
+</code></pre>
+
+<p>[/tabgroup]</p>
+
+<p>Rather than returning a list of all API users, the response contains just your user role. In this case a <code>USER</code> permission. This same behavior occurs on any system on which you have a role other than <code>ADMIN</code>.</p>
+<pre class="highlight javascript"><code><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">"username"</span> <span class="p">:</span> <span class="s2">"systest"</span><span class="p">,</span>
+    <span class="s2">"role"</span> <span class="p">:</span> <span class="s2">"USER"</span><span class="p">,</span>
+    <span class="s2">"_links"</span> <span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"self"</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org/roles/systest"</span>
+      <span class="p">},</span>
+      <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+      <span class="p">},</span>
+      <span class="s2">"profile"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/systest"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre>
+
+<h3 id="creating-system-roles">Creating system roles</h3>
+
+<p>Adding a system role is done by sending a POST with the role and user information.</p>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -XPOST 
+    --data &amp;#039;<span class="o">{</span><span class="s2">"username"</span>:<span class="s2">"rjohnson"</span>, <span class="s2">"role"</span>:<span class="s2">"USER"</span><span class="o">}</span>&amp;#039; 
+    https://<span class="nv">$API_BASE_URL</span>/systems/<span class="nv">$API_VERSION</span>/systest-rodeo-docker/roles
+</code></pre>
+<pre class="highlight plaintext"><code>systems-roles-addupdate -v -u rjohnson -r USER systest-rodeo-docker
+</code></pre>
+
+<p>[/tabgroup]</p>
+
+<p>The response from the service will be a JSON object representing the role we just granted.</p>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"username"</span> <span class="err">:</span> <span class="s2">"rjohnson"</span><span class="p">,</span>
+    <span class="s2">"role"</span> <span class="err">:</span> <span class="s2">"USER"</span><span class="p">,</span>
+    <span class="s2">"_links"</span> <span class="err">:</span> <span class="p">{</span>
+      <span class="s2">"self"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/systest-rodeo-docker/roles/rjohnson"</span>
+      <span class="p">},</span>
+      <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/systest-rodeo-docker"</span>
+      <span class="p">},</span>
+      <span class="s2">"profile"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/rjohnson"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<h3 id="updating-system-roles">Updating system roles</h3>
+
+<p>Updating a system role is done identically to adding adding a role, you just specify a different role for the user. Any role you add will replace the previous one. Remember that you cannot remove, add to, or set the <code>OWNER</code> role.</p>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -XPOST 
+    --data &amp;#039;<span class="o">{</span><span class="s2">"username"</span>:<span class="s2">"rjohnson"</span>, <span class="s2">"role"</span>:<span class="s2">"ADMIN"</span><span class="o">}</span>&amp;#039; 
+    https://<span class="nv">$API_BASE_URL</span>/systems/<span class="nv">$API_VERSION</span>/systest-rodeo-docker/roles
+</code></pre>
+<pre class="highlight plaintext"><code>systems-roles-addupdate -v -u rjohnson -r ADMIN systest-rodeo-docker
+</code></pre>
+
+<p>[/tabgroup]</p>
+
+<p>The response from the service will be a JSON object representing the updated role.</p>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"username"</span> <span class="err">:</span> <span class="s2">"rjohnson"</span><span class="p">,</span>
+    <span class="s2">"role"</span> <span class="err">:</span> <span class="s2">"ADMIN"</span><span class="p">,</span>
+    <span class="s2">"_links"</span> <span class="err">:</span> <span class="p">{</span>
+      <span class="s2">"self"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/systest-rodeo-docker/roles/rjohnson"</span>
+      <span class="p">},</span>
+      <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/systest-rodeo-docker"</span>
+      <span class="p">},</span>
+      <span class="s2">"profile"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/rjohnson"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<aside class="notice">Attempting to edit user roles on a public system is not supported and will return a <span class="code">501 Not Implemented</span> response. Attempting to edit user roles on a system you do not have the <span class="code">ADMIN</span> role on will result in a <span class="code">403 Forbidden</span> response.</aside>
+
+<h3 id="removing-system-roles">Removing system roles</h3>
+
+<p>Removing a system role can be done two ways. The first is by assigning the user a role of <code>NONE</code>.</p>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -XPOST 
+    --data &amp;#039;<span class="o">{</span><span class="s2">"username"</span>:<span class="s2">"rjohnson"</span>, <span class="s2">"role"</span>:<span class="s2">"NONE"</span><span class="o">}</span>&amp;#039; 
+    https://<span class="nv">$API_BASE_URL</span>/systems/<span class="nv">$API_VERSION</span>/systest-rodeo-docker/roles
+</code></pre>
+<pre class="highlight plaintext"><code>systems-roles-addupdate -v -u rjohnson -r NONE systest-rodeo-docker
+</code></pre>
+
+<p>[/tabgroup]</p>
+
+<p>The second is by performing a delete on actual URL of the user role</p>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X DELETE https://<span class="nv">$API_BASE_URL</span>/systems/<span class="nv">$API_VERSION</span>/systest-rodeo-docker/roles/rjohnson
+</code></pre>
+<pre class="highlight plaintext"><code>systems-roles-delete -v -u rjohnson systest-rodeo-docker
+</code></pre>
+
+<p>[/tabgroup]</p>
+
+<p>The response from the service in both cases will be an empty result object.</p>
+<pre class="highlight javascript"><code><span class="p">{}</span>
+</code></pre>
+
+<h3 id="clearing-system-roles">Clearing system roles</h3>
+
+<p>Occasionally you may want to remove all user roles from a system. To do this, perform a delete on the system roles collection.</p>
+<pre class="highlight shell"><code><span class="sb">```</span>bash
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X DELETE https://<span class="nv">$API_BASE_URL</span>/systems/<span class="nv">$API_VERSION</span>/<span class="nv">$SYSTEM_ID</span>/roles
+</code></pre>
+<pre class="highlight plaintext"><code>```bash
+systems-roles-delete -v $SYSTEM_ID
+</code></pre>
+
+<p>[/tabgroup]</p>
+
+<p>The response from the service in both cases will be an empty result object.</p>
+<pre class="highlight javascript"><code><span class="p">{}</span>
+</code></pre>
+
+          </div>
+          <div class="dark-box">
+          </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+      document.getElementById("fouc").style.display="block";
+    </script>
+  </body>
+</html>
