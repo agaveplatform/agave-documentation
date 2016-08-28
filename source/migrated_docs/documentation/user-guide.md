@@ -8,7 +8,7 @@ Several endpoints are open and you do not need any special permissions to access
 
 Throughout the documentation you will regularly encounter the following variables. These represent user-specific values that should be replaced when attempting any of the calls using your account. Once you log into this site, these values will be replaced with values appropriate for you to use when copying and pasting the examples on your own.
 
-[table id=4 /]
+<%= partial "includes/tables/4" %>
 
 When describing the JSON objects passed back and forth with the APIs, Javascript dot notation will be used to refer to individual properties. For example, consider the following JSON object.
 
@@ -43,19 +43,19 @@ When describing the JSON objects passed back and forth with the APIs, Javascript
     "updateSystemStatus": false,
     "_links": {
         "checks": {
-            "href": "https://agave.iplantc.org/monitor/v2/0001409867973952-5056a550b8-0001-014/checks"
+            "href": "https://public.agaveapi.co/monitor/v2/0001409867973952-5056a550b8-0001-014/checks"
         },
         "notifications": {
-            "href": "https://agave.iplantc.org/notifications/v2/?associatedUuid=0001409867973952-5056a550b8-0001-014"
+            "href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=0001409867973952-5056a550b8-0001-014"
         },
         "owner": {
-            "href": "https://agave.iplantc.org/profiles/v2/systest"
+            "href": "https://public.agaveapi.co/profiles/v2/systest"
         },
         "self": {
-            "href": "https://agave.iplantc.org/monitor/v2/0001409867973952-5056a550b8-0001-014"
+            "href": "https://public.agaveapi.co/monitor/v2/0001409867973952-5056a550b8-0001-014"
         },
         "system": {
-            "href": "https://agave.iplantc.org/systems/v2/demo.storage.example.com"
+            "href": "https://public.agaveapi.co/systems/v2/demo.storage.example.com"
         }
     }
 }
@@ -70,7 +70,7 @@ When describing the JSON objects passed back and forth with the APIs, Javascript
 
 ### Versioning  
 
-The current major version of Agave is given in the URI immediately following the API resource name. For example, if the endpoint is <code>https://agave.iplantc.org/jobs/v2/</code>, the API version would be <code>v2</code>. The current major version of agave is v2.
+The current major version of Agave is given in the URI immediately following the API resource name. For example, if the endpoint is <code>https://public.agaveapi.co/jobs/v2/</code>, the API version would be <code>v2</code>. The current major version of agave is v2.
 
 ### Slugs  
 
@@ -90,12 +90,12 @@ To make the API fast for everybody, rate limits apply. Unsigned requests are pro
 ## Requests  
 
 The Agave API is based on <a title="REST" href="http://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">REST</a> principles: data resources are accessed via standard HTTPS requests in UTF-8 format to an API endpoint. Where possible, the API strives to use appropriate HTTP verbs for each action:
-[table id=3 /]
+<%= partial "includes/tables/3" %>
 
 ### Standard query parameters  
 
 Several URL query parameters are common across all services. The following table lists them for reference:
-[table id=77 /]
+<%= partial "includes/tables/77" %>
 
 ## Responses  
 
@@ -104,7 +104,7 @@ All data is received and returned as a JSON object. The <a title="Live Documenta
 ### Response Details  
 
 Apart from the response code, all responses from Agave are in the form of a json object. The object takes the following form:
-[table id=2 /]
+<%= partial "includes/tables/2" %>
 Here, for example, is the response that occurs when trying to fetch information for system to which you do not have access:
 
 ```javascript
@@ -141,7 +141,7 @@ Timestamps are returned in <a href="http://en.wikipedia.org/wiki/ISO_8601" targ
 ### Status Codes  
 
 The API uses the following response status codes, as defined in the <a href="https://www.ietf.org/rfc/rfc2616.txt" target="_blank">RFC 2616</a>:
-[table id=1 /]
+<%= partial "includes/tables/1" %>
 
 ### CORS  
 
@@ -163,10 +163,10 @@ Agave strives to be a fully descriptive hypermedia API. Given any endpoint, you 
     "value": "red",
     "_links": {
         "self": {
-            "href": "https://agave.iplantc.org/meta/v2/data/0001384622738900-5056a550b8-0001-012"
+            "href": "https://public.agaveapi.co/meta/v2/data/0001384622738900-5056a550b8-0001-012"
         },
         "owner": {
-            "href": "https://agave.iplantc.org/profiles/v2/dooley"
+            "href": "https://public.agaveapi.co/profiles/v2/dooley"
         }
     }
 }

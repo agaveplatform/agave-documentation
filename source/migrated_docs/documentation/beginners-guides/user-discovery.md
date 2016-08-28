@@ -35,10 +35,10 @@ The response to this call is a JSON array of users who email addresses match the
     "gender" : "",
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/tilefish2"
+        "href" : "https://public.agaveapi.co/profiles/v2/tilefish2"
       },
       "users" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/tilefish2/users"
+        "href" : "https://public.agaveapi.co/profiles/v2/tilefish2/users"
       }
     }
   }, 
@@ -59,10 +59,10 @@ The response to this call is a JSON array of users who email addresses match the
     "gender" : "",
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/dooley"
+        "href" : "https://public.agaveapi.co/profiles/v2/dooley"
       },
       "users" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/dooley/users"
+        "href" : "https://public.agaveapi.co/profiles/v2/dooley/users"
       }
     }
   }, 
@@ -83,10 +83,10 @@ The response to this call is a JSON array of users who email addresses match the
     "gender" : "",
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/systest"
+        "href" : "https://public.agaveapi.co/profiles/v2/systest"
       },
       "users" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/systest/users"
+        "href" : "https://public.agaveapi.co/profiles/v2/systest/users"
       }
     }
   } 
@@ -127,10 +127,10 @@ The response to this call for our example user looks like this:
     "gender" : "",
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/systest"
+        "href" : "https://public.agaveapi.co/profiles/v2/systest"
       },
       "users" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/systest/users"
+        "href" : "https://public.agaveapi.co/profiles/v2/systest/users"
       }
     }
 }

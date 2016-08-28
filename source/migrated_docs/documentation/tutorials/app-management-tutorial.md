@@ -236,7 +236,7 @@ done
 
 In addition to the inputs and parameters you define when registering your app, the keyword variables shown in the following table are available to optionally include job-specific information in your script and embed callbacks to communicate with Agave.
 
-[table id=64 /]
+<%= partial "includes/tables/64" %>
 
 ### Describing your app  
 
@@ -244,7 +244,7 @@ In addition to the inputs and parameters you define when registering your app, t
 
 Now that you have your app bundled up and ready to go, it is time to register it with the Apps service. App registration is done by POSTing a JSON description of your app to the service. This section describes the structure of an app description and walks you through authoring an app description for the pyplot app used in the rest of the tutorials.
 
-[table id=75 /]
+<%= partial "includes/tables/75" %>
 
 <p class="table-caption">Table 1. Attributes of a JSON app description.</p>
 
@@ -264,7 +264,7 @@ In the following sections we cover each argument type in detail.
 
 App inputs describe data inputs supported by your app. Each input can represent one or more files or folders. Inptus can be optional or required and may physically reside anywhere accessible using any of the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/" title="Data Management Tutorial">data protocols</a> supported by Agave. Table 2 lists the attributes of a JSON app input description.
 
-[table id=66 /]
+<%= partial "includes/tables/66" %>
 
 <p class="table-caption">Table 2. Attributes of a JSON app input description.</p>
 
@@ -280,7 +280,7 @@ The value section contains fields to specify the default value for this input, w
 
 App parameters define the command-line arguments (flags, arguments, etc.) needed by your wrapper script in order to properly run your application code. Table 3 shows the attributes of a JSON app parameter description.
 
-[table id=67 /]
+<%= partial "includes/tables/67" %>
 
 <p class="table-caption">Table 3. Attributes of a JSON app parameter description.</p>
 
@@ -298,7 +298,7 @@ In addition to describing the inputs and parameters that your wrapper script req
 
 The structure of a JSON app output description is identical to a JSON app input description as shown in Table 4.
 
-[table id=76 /]
+<%= partial "includes/tables/76" %>
 
 <p class="table-caption">Table 4. Attributes of a JSON app output description.</p>
 
@@ -1082,7 +1082,7 @@ curl -sk -H "Authorization: Bearer ACCESS_TOKEN" -X DELETE https://$API_BASE_URL
 
 The available permission values are listed in the following table:
 
-[table id=65 /]
+<%= partial "includes/tables/65" %>
 
 <p class="table-caption">Table 5. Supported app permission values.</p>
 

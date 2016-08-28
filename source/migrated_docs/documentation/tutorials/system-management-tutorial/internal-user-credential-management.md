@@ -182,10 +182,10 @@ The response from the service will be a JSON array of credential objects. Notice
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/systems/v2/demo.execute.example.com/credentials/default/storage"
+        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/storage"
       },
       "parent" : {
-        "href" : "https://agave.iplantc.org/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
       }
     }
   }, 
@@ -200,10 +200,10 @@ The response from the service will be a JSON array of credential objects. Notice
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/systems/v2/demo.execute.example.com/credentials/default/login"
+        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/login"
       },
       "parent" : {
-        "href" : "https://agave.iplantc.org/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
       }
     }
   }
@@ -294,13 +294,13 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/systems/v2/demo.execute.example.com/credentials/cdavis/storage"
+        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis/storage"
       },
       "parent" : {
-        "href" : "https://agave.iplantc.org/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
       },
       "internalUser" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/systest/users/cdavis"
+        "href" : "https://public.agaveapi.co/profiles/v2/systest/users/cdavis"
       }
     }
   }
@@ -367,10 +367,10 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/systems/v2/demo.execute.example.com/credentials/default/storage"
+        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/storage"
       },
       "parent" : {
-        "href" : "https://agave.iplantc.org/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
       }
     }
   }
@@ -414,10 +414,10 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/systems/v2/demo.execute.example.com/credentials/default/storage"
+        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/storage"
       },
       "parent" : {
-        "href" : "https://agave.iplantc.org/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
       }
     }
   },
@@ -432,10 +432,10 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/systems/v2/demo.execute.example.com/credentials/default/login"
+        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/login"
       },
       "parent" : {
-        "href" : "https://agave.iplantc.org/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
       }
     }
   }

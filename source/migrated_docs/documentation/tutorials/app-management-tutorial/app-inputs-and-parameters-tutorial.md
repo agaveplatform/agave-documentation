@@ -28,7 +28,7 @@ A minimal input object contains a single <code>inputs.[].id</code> attribute tha
 
 Most of the time, such a minimal definition is not helpful. At the very least, you would want some descriptive information, a restriction on the cardinality, and potentially a default value. This can be achieved with the <code>details</code>, <code>semantics</code>, and <code>value</code> objects. The full list of input attributes is shown in the following table. We cover each attribute in the corresponding section below.
 
-[table id=66 /]
+<%= partial "includes/tables/66" %>
 
 ### Input details section  
 
@@ -38,7 +38,7 @@ Often times you will need to translate your input value into actual command line
 
 The <code>inputs.[].details.argument</code> value describes the command line argument that corresponds to this input, and the <code>inputs.[].details.showArgument</code> attribute specifies whether the <code>inputs.[].details.argument</code> value should be injected into the wrapper template in front of the actual runtime value. The following table illustrates the result of these attributes in different scenarios.
 
-[table id=68 /]
+<%= partial "includes/tables/68" %>
 
 ### Input semantics section  
 
@@ -89,7 +89,7 @@ A minimal parameter object contains a single <code>id</code> attribute that uniq
 
 In most situations you will want some descriptive information and validation of the user-supplied values for this parameter. As with your app inputs, app parameters have <code>details</code>, <code>semantics</code>, and <code>value</code> objects that allow you to do just that. The full list of parameter attributes is shown in the following table. We cover each attribute in the corresponding section below.
 
-[table id=67 /]
+<%= partial "includes/tables/67" %>
 
 ### Parameter details section  
 

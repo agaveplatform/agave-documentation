@@ -11,13 +11,13 @@ By default, search is enabled on each collection endpoint allowing you to trim t
 To search for a specific attribute, you simply append a search expression into the URL query of your request. For example:
 
 [code lang=text]
-http://agave.iplantc.org/jobs/v2?name=test%20job  
+http://public.agaveapi.co/jobs/v2?name=test%20job  
 ```
 
 You can include as multiple search expressions to build a more restrictive query.
 
 [code lang=text]
-http://agave.iplantc.org/jobs/v2?name=test%20job&amp;executionSystem=aws-demo&amp;status=FAILED  
+http://public.agaveapi.co/jobs/v2?name=test%20job&amp;executionSystem=aws-demo&amp;status=FAILED  
 ```
 
 [alert]**Note that the values in your search expression must be URL encoded.**[/alert]
@@ -68,9 +68,9 @@ monitors/v2/0001409867973952-5056a550b8-0001-014/checks?result.eq=FAILED&amp;typ
 ```
 
 The full list of search operators is given in the following table.
-[table id=78 /]
+<%= partial "includes/tables/78" %>
 
 ### Date support  
 
 Dates returned from the Agave core science API are always formatted as ISO 8601 dates. When searching, however, a much more flexible date syntax is supported. The following table lists supported expressions by example.
-[table id=78 /]
+<%= partial "includes/tables/78" %>

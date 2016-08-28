@@ -46,16 +46,16 @@ The response to this request will be a JSON object describing the metadata item 
    "created":"2014-09-03T20:08:44.652-05:00",
    "_links":{  
       "self":{  
-         "href":"https://agave.iplantc.org/meta/v2/data/0001409792924730-5056a550b8-0001-012"
+         "href":"https://public.agaveapi.co/meta/v2/data/0001409792924730-5056a550b8-0001-012"
       },
       "job":{  
-         "href":"https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
+         "href":"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
       },
       "app":{  
-         "href":"https://agave.iplantc.org/apps/v2/wc-osg-1.00u1"
+         "href":"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1"
       },
       "file":{  
-         "href":"https://agave.iplantc.org/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt"
+         "href":"https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt"
       }
    }
 }
@@ -102,10 +102,10 @@ This time the response will be a JSON object describing the metadata item, but o
    "created":"2014-09-03T20:12:11.587-05:00",
    "_links":{  
       "self":{  
-         "href":"https://agave.iplantc.org/meta/v2/data/0001409793131588-5056a550b8-0001-012"
+         "href":"https://public.agaveapi.co/meta/v2/data/0001409793131588-5056a550b8-0001-012"
       },
       "metadata":{  
-         "href":"https://agave.iplantc.org/meta/v2//data/0001409792924730-5056a550b8-0001-012"
+         "href":"https://public.agaveapi.co/meta/v2//data/0001409792924730-5056a550b8-0001-012"
       }
    }
 }

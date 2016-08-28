@@ -1,43 +1,43 @@
 ## Apps  
 
-[table id=47 /]
+<%= partial "includes/tables/47" %>
 
 ## Files  
 
-[table id=46 /]
+<%= partial "includes/tables/46" %>
 
 ## Internal Users  
 
-[table id=45 /]
+<%= partial "includes/tables/45" %>
 
 ## Jobs  
 
-[table id=44 /]
+<%= partial "includes/tables/44" %>
 
 ## Metadata  
 
-[table id=43 /]
+<%= partial "includes/tables/43" %>
 
 ## Monitors  
 
-[table id=37 /]
+<%= partial "includes/tables/37" %>
 
 ## Schema  
 
-[table id=42 /]
+<%= partial "includes/tables/42" %>
 
 ## PostIts  
 
-[table id=41 /]
+<%= partial "includes/tables/41" %>
 
 ## Profiles  
 
-[table id=40 /]
+<%= partial "includes/tables/40" %>
 
 ## Systems  
 
-[table id=39 /]
+<%= partial "includes/tables/39" %>
 
 ## Transfers  
 
-[table id=38 /]
+<%= partial "includes/tables/38" %>

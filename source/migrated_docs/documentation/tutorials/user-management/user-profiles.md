@@ -210,4 +210,4 @@ The response from the service will be an empty result object.
 
 Agave supports three user roles: user, tenant admin, and super admin. Each role is described in the following table. User roles are currently assigned and managed by Agave staff. If you need help configuring user roles for your tenant, please contact your tenant admin at $TENANT_ADMIN_EMAIL.
 
-[table id=56 /]
+<%= partial "includes/tables/56" %>

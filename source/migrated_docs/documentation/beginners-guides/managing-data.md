@@ -30,10 +30,10 @@ The response to this contains a summary listing of the contents of our home dire
         "type": "dir",
         "_links": {
             "self": {
-                "href": "https://agave.iplantc.org/files/v2/media/system/data.iplantcollaborative.org/systest"
+                "href": "https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest"
             },
             "system": {
-                "href": "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+                "href": "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
             }
         }
     }
@@ -60,13 +60,13 @@ You will see a progress bar while the file uploads, followed by a response from 
 {
     "_links": {
         "history": {
-            "href": "https://agave.iplantc.org/files/v2/history/system/data.iplantcollaborative.org/systest/picksumipsum.txt"
+            "href": "https://public.agaveapi.co/files/v2/history/system/data.iplantcollaborative.org/systest/picksumipsum.txt"
         },
         "self": {
-            "href": "https://agave.iplantc.org/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt"
+            "href": "https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt"
         },
         "system": {
-            "href": "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+            "href": "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
         }
     },
     "internalUsername": null,
@@ -174,12 +174,12 @@ The response will be a JSON array with the events on this file thus far.
 [
     {
         "created": "2014-09-03T13:13:37.000-05:00",
-        "description": "File item copied from https://agave.iplantc.org/files/v2/media/system/data.iplantcollaborative.org/systest/foo/picksumipsum.txt",
+        "description": "File item copied from https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/foo/picksumipsum.txt",
         "status": "CREATED"
     },
     {
         "created": "2014-09-03T13:14:30.000-05:00",
-        "description": "Moved from https://agave.iplantc.org/files/v2/media/system/data.iplantcollaborative.org/systest/foo/picksumipsum.txt to https://agave.iplantc.org/files/v2/media/system/data.iplantcollaborative.org/systest/foo/picksumipsum2.txt",
+        "description": "Moved from https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/foo/picksumipsum.txt to https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/foo/picksumipsum2.txt",
         "status": "MOVED"
     },
     {

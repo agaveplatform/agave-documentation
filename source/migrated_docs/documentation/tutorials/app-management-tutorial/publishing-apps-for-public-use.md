@@ -362,22 +362,22 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
     "outputs" : [ ],
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/apps/v2/demo-pyplot-demo-advanced-0.1.0u1"
+        "href" : "https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0u1"
       },
       "executionSystem" : {
-        "href" : "https://agave.iplantc.org/systems/v2/docker.iplantcollaborative.org"
+        "href" : "https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org"
       },
       "storageSystem" : {
-        "href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+        "href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
       },
       "owner" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/api_sample_user"
+        "href" : "https://public.agaveapi.co/profiles/v2/api_sample_user"
       },
       "permissions" : {
-        "href" : "https://agave.iplantc.org/apps/v2/demo-pyplot-demo-advanced-0.1.0u1/pems"
+        "href" : "https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0u1/pems"
       },
       "metadata" : {
-        "href" : "https://agave.iplantc.org/meta/v2/data/?q={\\"associationIds\\":\\"0001414144637043-5056a550b8-0001-005\\"}"
+        "href" : "https://public.agaveapi.co/meta/v2/data/?q={\\"associationIds\\":\\"0001414144637043-5056a550b8-0001-005\\"}"
       }
     }
   }
@@ -729,22 +729,22 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
     "outputs" : [ ],
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/apps/v2/demo-pyplot-demo-advanced-0.1.0u2"
+        "href" : "https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0u2"
       },
       "executionSystem" : {
-        "href" : "https://agave.iplantc.org/systems/v2/docker.iplantcollaborative.org"
+        "href" : "https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org"
       },
       "storageSystem" : {
-        "href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+        "href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
       },
       "owner" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/api_sample_user"
+        "href" : "https://public.agaveapi.co/profiles/v2/api_sample_user"
       },
       "permissions" : {
-        "href" : "https://agave.iplantc.org/apps/v2/demo-pyplot-demo-advanced-0.1.0u2/pems"
+        "href" : "https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0u2/pems"
       },
       "metadata" : {
-        "href" : "https://agave.iplantc.org/meta/v2/data/?q={"associationIds":"0001414144632114-5056a550b8-0001-005"}"
+        "href" : "https://public.agaveapi.co/meta/v2/data/?q={"associationIds":"0001414144632114-5056a550b8-0001-005"}"
       }
     }
   }

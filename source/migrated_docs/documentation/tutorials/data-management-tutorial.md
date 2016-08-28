@@ -12,7 +12,7 @@ https://$API_BASE_URL/files/$API_VERSION/media/system/$SYSTEM_ID/$PATH
 
 The following table defines each component:
 
-[table id=22 /]
+<%= partial "includes/tables/22" %>
 
 Agave also supports the concept of default systems. Excluding the <code>/system/$SYSTEM_ID</code> tokens from the above URL, the Files service will automatically assume you are referencing your default storage system. Thus, if your default system was <code>data.iplantcollaborative.org</code>,
 
@@ -34,11 +34,11 @@ This comes in especially handy when referencing your default system paths in oth
 
 One potentially confusing feature of Agave is its support for virtualizing systems paths. Every registered system specifies both a root directory, <code>rootDir</code>, and a home directory, <code>homeDir</code> attribute in its storage configuration. <code>rootDir</code> tells Agave the absolute path on the remote system that it should treat as <code>/</code>. Similar to the Linux <code>chroot</code> command; no requests made to Agave will ever be resolved to locations outside of <code>rootDir</code>.
 
-[table id=21 /]
+<%= partial "includes/tables/21" %>
 
 <code>homeDir</code> specifies the path, relative to <code>rootDir</code>, that Agave should use for relative paths. Since Agave is stateless, there is no concept of a current working directory. Thus, when you specify a path to Agave that does not begin with a <code>/</code>, Agave will always prefix the path with the value of <code>homeDir</code>. The following table gives several examples of how different combinations of <code>rootDir</code>, <code>homeDir</code>, and URL paths will be resolved by Agave. For a deeper dive into this subject, please see the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/understanding-agave-file-paths/" title="Understanding Agave File Paths">Understanding Agave File Paths</a> tutorial.
 
-[table id=20 /]
+<%= partial "includes/tables/20" %>
 
 ## Moving data  
 
@@ -77,13 +77,13 @@ You will see a progress bar while the file uploads, followed by a response from 
     "uuid": "0001409758089943-5056a550b8-0001-002",
     "_links": {
         "history": {
-            "href": "https://agave.iplantc.org/files/v2/history/system/data.iplantcollaborative.org/systest/picksumipsum.txt"
+            "href": "https://public.agaveapi.co/files/v2/history/system/data.iplantcollaborative.org/systest/picksumipsum.txt"
         },
         "self": {
-            "href": "https://agave.iplantc.org/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt"
+            "href": "https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt"
         },
         "system": {
-            "href": "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+            "href": "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
         }
     }
 }
@@ -93,7 +93,7 @@ You will see a progress bar while the file uploads, followed by a response from 
 
 You can also import data from an external URL. Rather than making a multipart file upload request, you can pass in a JSON object with the URL and an optional target file name, file type, and array of notifications which should be made when the import completes. Agave supports several protocols for ingestion listed in the next table.
 
-[table id=23 /]
+<%= partial "includes/tables/23" %>
 
 To demonstrate how this works, will import a the README.md file from the <a href="https://bitbucket.org/taccaci/agave-samples" title="Agave Samples" target="_blank">Agave Samples</a> git repository in Bitbucket.
 
@@ -126,13 +126,13 @@ Importing data from a third party is done offline as an asynchronous activity, s
     "nativeFormat" : "raw",
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/files/v2/media/system/data.iplantcollaborative.org/systest/README.md"
+        "href" : "https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/README.md"
       },
       "system" : {
-        "href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+        "href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
       },
       "history" : {
-        "href" : "https://agave.iplantc.org/files/v2/history/system/data.iplantcollaborative.org/systest/README.md"
+        "href" : "https://public.agaveapi.co/files/v2/history/system/data.iplantcollaborative.org/systest/README.md"
       }
     }
 }
@@ -217,10 +217,10 @@ The response to this contains a summary listing of the contents of your home dir
         "type": "dir",
         "_links": {
             "self": {
-                "href": "https://agave.iplantc.org/files/v2/media/system/data.iplantcollaborative.org/systest"
+                "href": "https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest"
             },
             "system": {
-                "href": "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+                "href": "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
             }
         }
     },
@@ -236,10 +236,10 @@ The response to this contains a summary listing of the contents of your home dir
     "type": "file",
     "_links": {
             "self": {
-                "href": "https://agave.iplantc.org/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt"
+                "href": "https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt"
         },
         "system": {
-            "href": "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+            "href": "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
         }
     }
     }
@@ -250,7 +250,7 @@ The response to this contains a summary listing of the contents of your home dir
 
 Basic file operations are available by sending a POST request the the <code>/files/$API_VERSION/media/</code> collection with the following parameters.
 
-[table id=24 /]
+<%= partial "includes/tables/24" %>
 
 #### Copying files and directories  
 

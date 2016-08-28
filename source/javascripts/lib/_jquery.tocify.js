@@ -30,13 +30,12 @@
         tocHoverClassName = "tocify-hover",
         hideTocClassName = "tocify-hide",
         hideTocClass = "." + hideTocClassName,
-        headerClassName = "sidebar-nav-heading",
+        headerClassName = "tocify-header",
         headerClass = "." + headerClassName,
-        subheaderClassName = "sidebar-nav-items",
+        subheaderClassName = "tocify-subheader",
         subheaderClass = "." + subheaderClassName,
         itemClassName = "tocify-item",
         itemClass = "." + itemClassName,
-        itemLinkClassName = "sidebar-nav-item",
         extendPageClassName = "tocify-extend-page",
         extendPageClass = "." + extendPageClassName;
 
@@ -60,6 +59,17 @@
             // **selectors**: Accepts an Array of Strings: Any jQuery selectors
             // The element's used to generate the table of contents.  The order is very important since it will determine the table of content's nesting structure
             selectors: "h1, h2, h3",
+
+            // **headerLevels**: Accepts an Object: 
+            // This determines the hierarchy of headers necessary for determining nesting properties.
+            headerLevels: {
+                'h1' : 1,
+                'h2' : 2,
+                'h3' : 3,
+                'h4' : 4,
+                'h5' : 5,
+                'h6' : 6
+            },
 
             // **showAndHide**: Accepts a boolean: true or false
             // Used to determine if elements should be shown and hidden
@@ -362,14 +372,17 @@
         //      Helps create the table of contents list by appending nested list items
         _nestElements: function(self, index) {
 
-            var arr, item, hashValue;
+            var arr, item, hashValue, currentHeader, currentTagNum;
 
+            currentHeader = self.eq(0);
+            currentTagNum = +currentHeader.prop("tagName").charAt(1);
+        
             arr = $.grep(this.items, function (item) {
 
                 return item === self.text();
 
             });
-
+            
             // If there is already a duplicate TOC item
             if(arr.length) {
 
@@ -392,21 +405,40 @@
             // actually add the hash value to the element's id
             // self.attr("id", "link-" + hashValue);
 
-            // Appends a list item HTML element to the last unordered list HTML element found within the HTML element calling the plugin
-            item = $("<li/>", {
+            // Adds span element to anchors in TOC list in order to add CSS styling            
+            function addSpan(anchorText) {
+              return anchorText
+                .replace(/GET/, '<span class="http-get">GET</span>')
+                .replace(/POST/, '<span class="http-post">POST</span>')
+                .replace(/PUT/, '<span class="http-put">PUT</span>')
+                .replace(/DELETE/, '<span class="http-delete">DELETE</span>');
+            }
 
-                // Sets a common class name to the list item
-                "class": itemClassName,
+            // add span element via addSpan function
+            var newAnchorWithSpanAdded = '<a>' + addSpan(self.text()) + '</a>';
 
-                "data-unique": hashValue
+            // if currentTagNum is 1 then it is derived from an h1 header
+            if(currentTagNum === 1){
+                // Appends a list item HTML element to the last unordered list HTML element found within the HTML element calling the plugin
+                    item = $("<li/>", {
 
-            }).append($("<a/>", {
+                        // Sets a common class name to the list item
+                        "class": itemClassName + " main-header",
 
-                "class": itemLinkClassName,
+                        "data-unique": hashValue
+                    }).append(newAnchorWithSpanAdded);
+            }
+            
+            else{
+                // Appends a list item HTML element to the last unordered list HTML element found within the HTML element calling the plugin
+                    item = $("<li/>", {
 
-                "text": self.text()
+                        // Sets a common class name to the list item
+                        "class": itemClassName,
 
-            }));
+                        "data-unique": hashValue
+                    }).append(newAnchorWithSpanAdded);
+            }
 
             // Adds an HTML anchor tag before the currently traversed HTML element
             self.before($("<div/>", {
@@ -482,28 +514,39 @@
 
                 // Finds the previous header DOM element
                 previousHeader = $(self.options.selectors).eq(index - 1),
+                previousTagName = previousHeader.prop("tagName").toLowerCase(),
+                previousTagNum = +previousTagName.charAt(1),
 
-                currentTagName = +$(this).prop("tagName").charAt(1),
+                currentTagName = $(this).prop("tagName").toLowerCase(),
+                currentTagNum = +currentTagName.charAt(1),
 
-                previousTagName = +previousHeader.prop("tagName").charAt(1),
+                headers = self.options.headerLevels,
+                sameLevelHeader = headers[currentTagName] === headers[previousTagName],
+
+                largerHeader = currentTagNum < previousTagNum,
 
                 lastSubheader;
 
-            // If the current header DOM element is smaller than the previous header DOM element or the first subheader
-            if(currentTagName < previousTagName) {
-
+             /**
+             * If the currentTagNum is smaller than the previousTagNum, 
+             * then current header is greater. Append it to previous header. 
+             * Jumps out of nesting. Example, h2 > h3 so 2 < 3.
+             */
+            if(largerHeader) {
                 // Selects the last unordered list HTML found within the HTML element calling the plugin
-                self.element.find(subheaderClass + "[data-tag=" + currentTagName + "]").last().append(self._nestElements($(this), index));
-
+                self.element.find(headerClass).last().append(self._nestElements($(this), index));
             }
-
-            // If the current header DOM element is the same type of header(eg. h4) as the previous header DOM element
-            else if(currentTagName === previousTagName) {
-
+           /**
+             * If the current header DOM element is the same type of header(eg. h4) as the previous header DOM element
+             * or if the headers are on the same level in headerLevels
+             * then apend the current directly after the previous. No nesting occurs.
+             */
+            else if(sameLevelHeader) {
                 ul.find(itemClass).last().after(self._nestElements($(this), index));
-
             }
-
+            /**
+             * Else, nest lower order header into its respective higher order header parent
+             */
             else {
 
                 // Selects the last unordered list HTML found within the HTML element calling the plugin
@@ -514,14 +557,13 @@
 
                     "class": subheaderClassName,
 
-                    "data-tag": currentTagName
+                    "data-tag": currentTagNum
 
                 })).next(subheaderClass).
 
                 // Appends a list item HTML element to the last unordered list HTML element found within the HTML element calling the plugin
                 append(self._nestElements($(this), index));
             }
-
         },
 
        // _setEventHandlers
@@ -967,14 +1009,6 @@
             else if(this.options.theme === "bootstrap") {
 
                 this.element.find(headerClass + "," + subheaderClass).addClass("nav nav-list");
-
-                this.focusClass = "active";
-
-            }
-
-            else if(this.options.theme === "agave") {
-
-                this.element.find(headerClass + "," + subheaderClass).addClass("sidebar-nav-item expandable");
 
                 this.focusClass = "active";
 

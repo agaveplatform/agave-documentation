@@ -1,0 +1,20 @@
+### Cloning an app
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"\
+     -X POST -d "action=clone" \
+     -d "name=my-pyplot-demo" \
+     -d "version=0.1.0" \
+     -d "executionSystem=sftp.storage.example.com" \
+     -d "deploymentSystem=2.2" \
+     -d "deploymentPath=/apps/" \
+     https://public.tenants.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0?pretty=true
+```
+
+```plaintext
+apps-clone -N my-pyplot-demo -V 2.2 demo-pyplot-demo-advanced-0.1.0
+```
+
+Often times you will want to copy an existing app for use on another system, or simply to obtain a private copy of the app for your own use. This can be done using the clone functionality in the Apps service. The following tabs show how to do this using the unix `curl` command as well as with the Agave CLI.
+
+<aside class="notice">When cloning public apps, the entire app bundle will be recreated on the `deploymentSystem` you specify or your default storage system. The same is not true for private apps. Cloning a private app will copy the job description, but not the app bundle. This is to honor the original ownership of the assets and prevent them from leaking out to the public space without the owner's permission. If you need direct access to the app's assets, request that the owner give you read access to the folder listed as the deploymentPath in the app description.</aside>

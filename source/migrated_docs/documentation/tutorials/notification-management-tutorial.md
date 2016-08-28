@@ -33,23 +33,23 @@ The following table shows a list of all Agave's resource-level grouped by resour
 
 ```shell
 
-[tab title="Internal Users"][table id=45 /]
+[tab title="Internal Users"]<%= partial "includes/tables/45" %>
 
-[tab title="Jobs"][table id=44 /]
+[tab title="Jobs"]<%= partial "includes/tables/44" %>
 
-[tab title="Metadata"][table id=43 /]
+[tab title="Metadata"]<%= partial "includes/tables/43" %>
 
-[tab title="Schema"][table id=42 /]
+[tab title="Schema"]<%= partial "includes/tables/42" %>
 
-[tab title="PostIts"][table id=41 /]
+[tab title="PostIts"]<%= partial "includes/tables/41" %>
 
-[tab title="Profiles"][table id=40 /]
+[tab title="Profiles"]<%= partial "includes/tables/40" %>
 
-[tab title="Systems"][table id=39 /]
+[tab title="Systems"]<%= partial "includes/tables/39" %>
 
-[tab title="Transfers"][table id=38 /]
+[tab title="Transfers"]<%= partial "includes/tables/38" %>
 
-[tab title="Monitors"][table id=37 /]
+[tab title="Monitors"]<%= partial "includes/tables/37" %>
 
 [/tabgroup]
 
@@ -59,23 +59,23 @@ In the context of Agave, a webhook is a URL to which Agave will send a POST requ
 
 ```shell
 
-[tab title="Internal Users"][table id=34 /]
+[tab title="Internal Users"]<%= partial "includes/tables/34" %>
 
-[tab title="Jobs"][table id=33 /]
+[tab title="Jobs"]<%= partial "includes/tables/33" %>
 
-[tab title="Metadata"][table id=32 /]
+[tab title="Metadata"]<%= partial "includes/tables/32" %>
 
-[tab title="Schema"][table id=31 /]
+[tab title="Schema"]<%= partial "includes/tables/31" %>
 
-[tab title="PostIts"][table id=30 /]
+[tab title="PostIts"]<%= partial "includes/tables/30" %>
 
-[tab title="Profiles"][table id=29 /]
+[tab title="Profiles"]<%= partial "includes/tables/29" %>
 
-[tab title="Systems"][table id=28 /]
+[tab title="Systems"]<%= partial "includes/tables/28" %>
 
-[tab title="Transfers"][table id=27 /]
+[tab title="Transfers"]<%= partial "includes/tables/27" %>
 
-[tab title="Monitors"][table id=26 /]
+[tab title="Monitors"]<%= partial "includes/tables/26" %>
 
 [/tabgroup]
 

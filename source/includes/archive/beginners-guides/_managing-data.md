@@ -125,7 +125,7 @@ Standard data management tasks are supported as well. Agave gives you a common i
 ### Creating directories
  
 ```shell
-curl -sk -H "Authorization: Bearer 35ed548df42cb551e7a5dbbc28a37d32" -X PUT -d "action=mkdir&path=foo/biz" https://agave.iplantc.org/files/v2/media/dooley?pretty=true&naked=true
+curl -sk -H "Authorization: Bearer 35ed548df42cb551e7a5dbbc28a37d32" -X PUT -d "action=mkdir&path=foo/biz" https://public.agaveapi.co/files/v2/media/dooley?pretty=true&naked=true
 ```
 ```plaintext
 files-mkdir -N foo/biz -V dooley
@@ -144,13 +144,13 @@ files-mkdir -N foo/biz -V dooley
     "nativeFormat" : "dir",
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/files/v2/media/system/data.iplantcollaborative.org/dooley/foo/biz"
+        "href" : "https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/dooley/foo/biz"
       },
       "system" : {
-        "href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+        "href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
       },
       "history" : {
-        "href" : "https://agave.iplantc.org/files/v2/history/system/data.iplantcollaborative.org/dooley/foo/biz"
+        "href" : "https://public.agaveapi.co/files/v2/history/system/data.iplantcollaborative.org/dooley/foo/biz"
       }
     }
 }

@@ -15,7 +15,7 @@ The Agave REST APIs currently supports four authorization flows:
 <li><p>The <a href="#client_credentials_flow">Client Credentials</a> flow enables users to interact with their own protected resources directly without requiring browser interaction. This is a critical addition for use at the command line, in scripts, and in offline programs. This flow assumes the person registering the client application and the user on whose behalf requests are made be the same person.</p></li>
 </ol>
 
-<p>[table id=6 /]
+<p><%= partial "includes/tables/6" %>
 
 <aside class="notice">**Additional Help:** You can read our <a href="/tools/web-application-tutorial" title="Agave Web Application Tutorial">step-by-step tutorial</a> where we explain how to run an example application using these flows. In addition, we have a list of <a href="/tools/" title="Tools">handy wrappers and tools</a> for your language of choice.</aside>
 
@@ -30,17 +30,17 @@ The method is suitable for long-running applications in which the user logs in o
 The authorization process starts with your application sending a request to the Agave authorization service. (The reason your application sends this request can vary: it may be a step in the initialization of your application or in response to some user action, like a button click.) The request is sent to the /authorize endpoint of the Authorization service:
 
 ```shell
-GET https://agave.iplantc.org/authorize
+GET https://public.agaveapi.co/authorize
 ```
 
 The request will include parameters in the query string:
 
-[table id=17 /]
+<%= partial "includes/tables/17" %>
 
 A typical request looks like this:
 
 ```shell
-GET https://agave.iplantc.org/authorize/?client_id=gTgp...SV8a&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&amp;scope=PRODUCTION&amp;state=866
+GET https://public.agaveapi.co/authorize/?client_id=gTgp...SV8a&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&amp;scope=PRODUCTION&amp;state=866
 ```
 
 ### 2. The user is asked to authorize access within the scopes  
@@ -59,7 +59,7 @@ https://example.com/callback
 
 If the user has accepted your request, the response query string contains a <code>code</code> parameter with the access code you will use in the next step to retrieve an access token. For example:
 
-[table id=18 /]
+<%= partial "includes/tables/18" %>
 
 For example:
 
@@ -69,7 +69,7 @@ https://example.com/callback?code=Pq3S..M4sY&amp;state=866
 
 If the user has denied access, there will be no access token and the final URL will have a query string containing the following parameters:
 
-[table id=19 /]
+<%= partial "includes/tables/19" %>
 
 For example:
 
@@ -82,18 +82,18 @@ https://example.com/callback?error=access_denied&amp;state=867
 When the authorization code has been received, you will need to exchange it with an access token by making a POST request to the Agave Authorization service, this time to its <code>/token</code> endpoint:
 
 ```shell
-POST https://agave.iplantc.org/token
+POST https://public.agaveapi.co/token
 ```
 
 The body of this POST request must contain the following parameters:
 
-[table id=9 /]
+<%= partial "includes/tables/9" %>
 
 ### 5. The tokens are returned to your application  
 
 On success, the response from the Agave Authorization service has the status code 200 OK in the response header, and the following JSON data in the response body:
 
-[table id=10 /]
+<%= partial "includes/tables/10" %>
 
 An example cURL request and response from the token endpoint will look something like this:
 
@@ -102,7 +102,7 @@ curl -X POST -d "grant_type= authorization_code"
     -d "code=Pq3S..M4sY"
     -d "client_id=gTgp...SV8a"
     -d "client_secret=hZ_z3f...BOD6"
-    "redirect_uri=https%3A%2F%2Fwww.foo.com%2Fauth" https://agave.iplantc.org/token
+    "redirect_uri=https%3A%2F%2Fwww.foo.com%2Fauth" https://public.agaveapi.co/token
 ```
 
 ```javascript
@@ -119,7 +119,7 @@ curl -X POST -d "grant_type= authorization_code"
 The access token allows you to make requests to the Agave REST APIs on a behalf of a user, for example:
 
 ```shell
-curl -H "Authorization: Bearer a742...12d2" https://agave.iplantc.org/profiles/v2/me?pretty=true
+curl -H "Authorization: Bearer a742...12d2" https://public.agaveapi.co/profiles/v2/me?pretty=true
 ```
 
 ```javascript
@@ -144,23 +144,23 @@ Access tokens are deliberately set to expire after a short time, usually 4 hours
 The request is sent to the token endpoint of the Agave Authorization service:
 
 ```shell
-POST https://agave.iplantc.org/token
+POST https://public.agaveapi.co/token
 ```
 
 The body of this POST request must contain the following parameters:
 
-[table id=11 /]
+<%= partial "includes/tables/11" %>
 
 The header of this POST request must contain the following parameter:
 
-[table id=12 /]
+<%= partial "includes/tables/12" %>
 
 For example:
 
 ```shell
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=refresh_token
-    -d refresh_token=d77c...Sacf https://agave.iplantc.org/token
+    -d refresh_token=d77c...Sacf https://public.agaveapi.co/token
 ```
 
 ```javascript
@@ -182,17 +182,17 @@ Implicit grant flow is for clients that are implemented entirely using JavaScrip
 Redirect the user to the /authorize endpoint of the Accounts service:
 
 ```shell
-GET https://agave.iplantc.org/authorize
+GET https://public.agaveapi.co/authorize
 ```
 
 The request will include parameters in the query string:
 
-[table id=16 /]
+<%= partial "includes/tables/16" %>
 
 For example you would redirect the user to
 
 ```shell
-https://agave.iplantc.org/authorize?client_id=gTgp...SV8a&amp;redirect_uri=http:%2F%2Fexample.com%2Fcallback&amp;scope=PRODUCTION&amp;response_type=token&amp;state=867
+https://public.agaveapi.co/authorize?client_id=gTgp...SV8a&amp;redirect_uri=http:%2F%2Fexample.com%2Fcallback&amp;scope=PRODUCTION&amp;response_type=token&amp;state=867
 ```
 
 ### 2. The user is asked to authorize access within the scopes  
@@ -211,7 +211,7 @@ https://example.com/callback
 
 If the user has granted access, the final URL will contain the following data parameters in the query string:
 
-[table id=18 /]
+<%= partial "includes/tables/18" %>
 
 For example:
 
@@ -221,7 +221,7 @@ https://example.com/callback?access_token=Vr17...amUa&amp;token_type=bearer&amp;
 
 If the user has denied access, there will be no access token and the final URL will have a query string containing the following parameters:
 
-[table id=19 /]
+<%= partial "includes/tables/19" %>
 
 For example:
 
@@ -240,16 +240,16 @@ The method is suitable for scenarios where there is a high degree of trust betwe
 The request is sent to the <code>/token</code> endpoint of the Agave Authentication service.
 
 ```shell
-POST https://agave.iplantc.org/token
+POST https://public.agaveapi.co/token
 ```
 
 The request will include the following parameters in the request body:
 
-[table id=14 /]
+<%= partial "includes/tables/14" %>
 
 The header of this POST request must contain the following parameter:
 
-[table id=12 /]
+<%= partial "includes/tables/12" %>
 
 For example:
 
@@ -258,7 +258,7 @@ curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=password
     -d username=rjohnson
     -d password=password
-    -d scope=PRODUCTION https://agave.iplantc.org/token
+    -d scope=PRODUCTION https://public.agaveapi.co/token
 ```
 
 ```javascript
@@ -283,7 +283,7 @@ https://example.com/callback?error=access_denied
 The access token allows you to make requests to any of the Agave REST APIs on behalf of the authenticated user.
 
 ```shell
-curl -H "Authorization: Bearer 3Dsr...pv21" https://agave.iplantc.org/profiles/v2/me?pretty=true
+curl -H "Authorization: Bearer 3Dsr...pv21" https://public.agaveapi.co/profiles/v2/me?pretty=true
 ```
 
 ```javascript
@@ -308,16 +308,16 @@ Access tokens are deliberately set to expire after a short time, usually 4 hours
 The request is sent to the token endpoint of the Agave Authorization service:
 
 ```shell
-POST https://agave.iplantc.org/token
+POST https://public.agaveapi.co/token
 ```
 
 The body of this POST request must contain the following parameters:
 
-[table id=15 /]
+<%= partial "includes/tables/15" %>
 
 The header of this POST request must contain the following parameter:
 
-[table id=12 /]
+<%= partial "includes/tables/12" %>
 
 For example:
 
@@ -325,7 +325,7 @@ For example:
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=refresh_token
     -d refresh_token=dyVa...MqR0
-    -d scope=PRODUCTION https://agave.iplantc.org/token
+    -d scope=PRODUCTION https://public.agaveapi.co/token
 ```
 
 ```javascript
@@ -347,23 +347,23 @@ The method is suitable for authenticating your requests to the Agave REST API. T
 The request is sent to the <code>/token</code> endpoint of the Agave Authentication service:
 
 ```shell
-POST https://agave.iplantc.org/token
+POST https://public.agaveapi.co/token
 ```
 
 The request will include parameters in the request body:
 
-[table id=13 /]
+<%= partial "includes/tables/13" %>
 
 The header of this POST request must contain the following parameter:
 
-[table id=12 /]
+<%= partial "includes/tables/12" %>
 
 For example:
 
 ```shell
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=client_credentials
-    -d scope=PRODUCTION https://agave.iplantc.org/token
+    -d scope=PRODUCTION https://public.agaveapi.co/token
 ```
 
 ```javascript
@@ -379,7 +379,7 @@ curl -sku "Authorization: Basic Qt3c...Rm1y="
 Agave REST APIs that do not require user authorization or which are owned by user who registered the client application:
 
 ```shell
-curl -H "Authorization: Bearer 61e6...Mc96" https://agave.iplantc.org/profiles/v2/me?pretty=true
+curl -H "Authorization: Bearer 61e6...Mc96" https://public.agaveapi.co/profiles/v2/me?pretty=true
 ```
 
 ```javascript

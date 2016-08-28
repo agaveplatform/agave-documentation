@@ -33,12 +33,12 @@ body {
 }
 
 .tocify-wrapper>img {
-  margin: 0 auto;
+
   display: block;
 }
 
 .content {
-  font-size: 12px;
+    @extend %default-font;
 
   pre, code {
     @extend %code-font;
@@ -58,6 +58,7 @@ body {
 
   table {
     border: 1px solid $print-color;
+    
     tr {
       border-bottom: 1px solid $print-color;
     }

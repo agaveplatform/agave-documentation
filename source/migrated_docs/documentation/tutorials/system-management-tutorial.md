@@ -36,7 +36,7 @@ The response will be a JSON array of summary system objects. The full system des
     "default" : true,
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+        "href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
       }
     }
   },
@@ -50,7 +50,7 @@ The response will be a JSON array of summary system objects. The full system des
     "default" : false,
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/systems/v2/docker.iplantcollaborative.org"
+        "href" : "https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org"
       }
     }
   }
@@ -149,16 +149,16 @@ This time, the response will be a JSON object with a full system description. Th
    "uuid":"0001384260598633-5056a550b8-0001-006",
    "_links":{  
       "credentials":{  
-         "href":"https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org/credentials"
+         "href":"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org/credentials"
       },
       "metadata":{  
-         "href":"https://agave.iplantc.org/meta/v2/data/?q={"associationIds":"0001384260598633-5056a550b8-0001-006"}"
+         "href":"https://public.agaveapi.co/meta/v2/data/?q={"associationIds":"0001384260598633-5056a550b8-0001-006"}"
       },
       "roles":{  
-         "href":"https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org/roles"
+         "href":"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org/roles"
       },
       "self":{  
-         "href":"https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+         "href":"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
       }
    }
 }
@@ -195,7 +195,7 @@ The first four attribute are common to both storage and execution systems. The <
 
 The full list of storage system attributes is described in the following table.
 
-[table id=57 /]
+<%= partial "includes/tables/57" %>
 
 ### Supported data and authentication protocols  
 
@@ -503,19 +503,19 @@ In each of the examples above, the <code>storage</code> objects were slightly di
 
 <code>storage</code> attributes give basic connectivity information describing things like how to connect to the system and on what port.
 
-[table id=58 /]
+<%= partial "includes/tables/58" %>
 
 <code>storage.auth</code> attributes give authentication information describing how to authenticate to the system specified in the <code>storage</code> config above.
 
-[table id=59 /]
+<%= partial "includes/tables/59" %>
 
 <code>storage.auth.server</code> attributes give information about how to obtain a credential that can be used in the authentication process. Currently only systems using the X509 authentication can leverage this feature to communicate with <a href="http://grid.ncsa.illinois.edu/myproxy/" title="MyProxy Server" target="_blank">MyProxy</a> and <a href="https://bitbucket.org/taccaci/myproxy-gateway" title="MyProxy Gateway" target="_blank">MyProxy Gateway</a> servers.
 
-[table id=61 /]
+<%= partial "includes/tables/61" %>
 
 <code>system.proxy</code> configuration attributes give information about how to connect to a remote system through a proxy server. This often happens when the target system is behind a firewall or resides on a NAT. Currently proxy servers can only reuse the authentication configuration provided by the target system.
 
-[table id=60 /]
+<%= partial "includes/tables/60" %>
 
 <aside class="notice">If you have not yet set up a system of your own, now is a good time to grab a sandbox system to use while you follow along with the rest of this tutorial.</aside>
 
@@ -573,7 +573,7 @@ In the <code>storage</code> object, the <code>publicAppsDir</code> and <code>mir
 
 In contrast to storage systems, execution systems specify compute resources where application binaries can be run. In addition to the <code>storage</code> attribute found in storage systems, execution systems also have a <code>login</code> attribute describing how to connect to the remote system to submit jobs as well as several other attributes that allow Agave to determine how to stage data and run software on the system. The full list of execution system attributes is given in the following tables.
 
-[table id=49 /]
+<%= partial "includes/tables/49" %>
 
 ### Schedulers and system execution types  
 
@@ -583,7 +583,7 @@ As you saw in the table above, <code>executionType</code> refers to the classifi
 
 Thankfully, picking the right combination is pretty simple. The following table illustrates the available combinations.
 
-[table id=63 /]
+<%= partial "includes/tables/63" %>
 
 <aside class="notice">When you are describing your system, consider the policies put in place by your system administrators. If the system you are defining has a scheduler, chances are they want you to use it.</aside>
 
@@ -591,7 +591,7 @@ Thankfully, picking the right combination is pretty simple. The following table 
 
 Agave supports the notion of multiple submit queues. On HPC systems, queues should map to actual batch scheduler queues on the target server. Additionally, queues are used by Agave as a mechanism for implementing quotas on job throughput in a given queue or across an entire system. Queues are defined as a JSON array of objects assigned to the <code>queues</code> attribute. The following table summarizes all supported queue parameters.
 
-[table id=48 /]
+<%= partial "includes/tables/48" %>
 
 ### Configuring quotas  
 
@@ -797,13 +797,13 @@ As with storage systems, Agave supports several different protocols and mechanis
 
 The full list of login configuration options is given in the following table. We omit the <code>login.auth</code> and <code>login.proxy</code> attributes as they are identical to those used in the storage config.
 
-[table id=62 /]
+<%= partial "includes/tables/62" %>
 
 ### Scratch and work directories  
 
 In the Job Management tutorial we will dive into how Agave manages the end-to-end lifecycle of running a job. Here we point out two relevant attributes that control where data is staged and where your job will physically run. The <code>scratchDir</code> and <code>workDir</code> attributes control where the working directories for each job will be created on an execution system. The following table summarizes the decision making process Agave uses to determine where the working directories should be created.
 
-[table id=52 /]
+<%= partial "includes/tables/52" %>
 
 While it is not required, it is a best practice to always specify <code>scratchDir</code> and <code>workDir</code> values for your execution systems and, whenever possible, place them outside of the system <code>homeDir</code> to ensure data privacy. The reason for this is that the file system available on many servers is actually made up of a combination of physically attached storage, mounted volumes, and network mounts. Often times, your home directory will have a very conservative quota while the mounted storage will essentially be quota free. As the above table shows, when you do not specify a <code>scratchDir</code> or <code>workDir</code>, Agave will attempt to create your job work directories in your system <code>homeDir</code>. It is very likely that, in the course of running simulations, you will reach the quota on your home directory, thereby causing that job and all future jobs to fail on the system until you clear up more space. To avoid this, we recommend specifying a location with sufficient available space to handle the work you want to do.
 
@@ -896,7 +896,7 @@ The response from the server will be similar to the following.
 
 Systems you register are private to you and you alone. You can, however, allow other Agave clients to utilize the system you define by granting them a role on the system using the systems roles services. The available roles are given in the table below.
 
-[table id=51 /]
+<%= partial "includes/tables/51" %>
 
 <aside class="notice">Please see the Systems Roles tutorial for a deep discussion of system roles and how they are used.</aside>
 
@@ -922,7 +922,7 @@ systems-clone -v -I systest.demo.clone $SYSTEM_ID
 
 Throughout these tutorials and <a href="http://agaveapi.co/documentation/beginners-guides/" title="Beginner’s Guides">Beginner's Guides</a>, we have referred to both public and private systems. In addition to roles, systems have a concept of scope associated with them. Not to be confused with OAuth scope mentioned in the <a href="http://agaveapi.co/documentation/authorization/" title="Authorization Guide">Authentication Guide</a>, system scope refers to the availability of a system to the general user community. The following table lists the available scopes and their meanings.
 
-[table id=53 /]
+<%= partial "includes/tables/53" %>
 
 ### Private systems  
 
@@ -940,7 +940,7 @@ Public systems are available for use by every API user within your tenant. Once 
 
 Public storage systems enforce a virtual user home directory with implied user permissions. The following table gives a brief summary of the permission implications. You can read more about data permissions in the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/data-permissions-tutorial/" title="Data Permissions Tutorial">Data Permissions</a> tutorial.
 
-[table id=54 /]
+<%= partial "includes/tables/54" %>
 
 Notice in the above example that on public systems, users will have implied ownership of a folder matching their username in the system's <code>homeDir</code>. In the table, this means that user "systest" will have ownership of the physical home directory <code>/home/systest</code> on the system after it's public. It is important that, before publishing a system, you make sure that the account used to access the system can actually write to these folders. Otherwise, users will not be able to access their data on the system you make public.
 
@@ -986,7 +986,7 @@ Default systems are the systems that are used when the user does not specify a s
 
 Four types of default systems are possible. The following table describes them.
 
-[table id=55 /]
+<%= partial "includes/tables/55" %>
 
 <aside class="notice">As a best practice, it is recommended to always specify the system you intend to use when interacting with Agave. This will eliminate ambiguity in each request and make your actions more repeatable over time as the availability and configuration of the global and user default systems may change.</aside>
 

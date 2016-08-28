@@ -51,7 +51,7 @@ The response to this call for our example user looks like this:
 ```
 
 The complete list of available fields and their descriptions is provided in the table below.
-[table id=72 /]
+<%= partial "includes/tables/72" %>
 
 Note that the service does not do any password strength enforcement or other password management policies. We leave it to each organization to implement the policies best suited for their use case.
 
@@ -85,7 +85,7 @@ Here is a possible JSON document that could be used to store a metadata record r
 
 And here's a call to the Metadata service:
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@profile_ex" https://agave.iplantc.org/meta/v2/data/?pretty=true
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@profile_ex" https://public.agaveapi.co/meta/v2/data/?pretty=true
 ```
 
 
@@ -124,7 +124,7 @@ and the response:
     "created" : "2015-04-22T12:34:03.698-05:00",
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/meta/v2/data/0001429724043699-5056a550b8-0001-012"
+        "href" : "https://public.agaveapi.co/meta/v2/data/0001429724043699-5056a550b8-0001-012"
       }
     }
   }

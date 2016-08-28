@@ -142,13 +142,13 @@ The response to this call for our example client looks like this:
      "tier":"Unlimited",
      "_links":{
         "api":{
-           "href":"https://agave.iplantc.org/apps/v2/"
+           "href":"https://public.agaveapi.co/apps/v2/"
         },
         "client":{
-           "href":"https://agave.iplantc.org/clients/v2/systest_test_client"
+           "href":"https://public.agaveapi.co/clients/v2/systest_test_client"
         },
         "self":{
-           "href":"https://agave.iplantc.org/clients/v2/systest_test_client/subscriptions/"
+           "href":"https://public.agaveapi.co/clients/v2/systest_test_client/subscriptions/"
         }
      }   
   },
@@ -161,13 +161,13 @@ The response to this call for our example client looks like this:
      "tier":"Unlimited"
      "_links":{
         "api":{
-           "href":"https://agave.iplantc.org/files/v2/"
+           "href":"https://public.agaveapi.co/files/v2/"
         },
         "client":{
-           "href":"https://agave.iplantc.org/clients/v2/systest_test_client"
+           "href":"https://public.agaveapi.co/clients/v2/systest_test_client"
         },
         "self":{
-           "href":"https://agave.iplantc.org/clients/v2/systest_test_client/subscriptions/"
+           "href":"https://public.agaveapi.co/clients/v2/systest_test_client/subscriptions/"
         }
      }
   },

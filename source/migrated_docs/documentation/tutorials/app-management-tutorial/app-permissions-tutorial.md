@@ -2,7 +2,7 @@
 
 Apps have fine grained permissions similar to those found in the <a title="Job Management" href="/documentation/tutorials/job-management-tutorial/">Jobs</a> and <a title="File Management" href="/documentation/tutorials/data-management-tutorial/">Files</a> services. Using these, you can share your app other Agave users. App permissions are private by default, so when you first POST your app to the Apps service, you are the only one who can see it. You may share your app with other users by granting them varying degrees of permissions. The full list of app permission values are listed in the following table.
 
-[table id=65 /]
+<%= partial "includes/tables/65" %>
 
 App permissions are distinct from all other roles and permissions and do not have implications outside the Apps service. This means that if you want to allow someone to run a job using your app, it is not sufficient to grant them READ_EXECUTE permissions on your app. They must also have an appropriate user role on the execution system on which the app will run. Similarly, if you do not have the right to publish on the <code>executionSystem</code> or access the <code>deploymentPath</code> on the <code>deploymentSystem</code> in your app description, you will not be able to publish your app.
 

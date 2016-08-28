@@ -34,7 +34,7 @@ The response is a JSON array of summary app descriptions.
       "version":"1.00",
       "_links":{  
          "self":{  
-            "href":"https://agave.iplantc.org/apps/v2/wc-osg-1.00u1"
+            "href":"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1"
          }
       }
    },
@@ -49,7 +49,7 @@ The response is a JSON array of summary app descriptions.
       "version":"0.1.0",
       "_links":{  
          "self":{  
-            "href":"https://agave.iplantc.org/apps/v2/docker-python-demo-0.1.0u2"
+            "href":"https://public.agaveapi.co/apps/v2/docker-python-demo-0.1.0u2"
          }
       }
    },
@@ -64,7 +64,7 @@ The response is a JSON array of summary app descriptions.
       "version":"0.1.0",
       "_links":{  
          "self":{  
-            "href":"https://agave.iplantc.org/apps/v2/docker-python-demo-0.1.0u1"
+            "href":"https://public.agaveapi.co/apps/v2/docker-python-demo-0.1.0u1"
          }
       }
    },
@@ -79,7 +79,7 @@ The response is a JSON array of summary app descriptions.
       "version":"0.1.0",
       "_links":{  
          "self":{  
-            "href":"https://agave.iplantc.org/apps/v2/docker-python-demo-0.1.0u3"
+            "href":"https://public.agaveapi.co/apps/v2/docker-python-demo-0.1.0u3"
          }
       }
    },
@@ -94,7 +94,7 @@ The response is a JSON array of summary app descriptions.
       "version":"0.1.0",
       "_links":{  
          "self":{  
-            "href":"https://agave.iplantc.org/apps/v2/docker-r-demo-0.1.0u1"
+            "href":"https://public.agaveapi.co/apps/v2/docker-r-demo-0.1.0u1"
          }
       }
    },
@@ -109,7 +109,7 @@ The response is a JSON array of summary app descriptions.
       "version":"0.1.0",
       "_links":{  
          "self":{  
-            "href":"https://agave.iplantc.org/apps/v2/docker-r-demo-0.1.0u2"
+            "href":"https://public.agaveapi.co/apps/v2/docker-r-demo-0.1.0u2"
          }
       }
    }
@@ -228,22 +228,22 @@ The response is a JSON object with a lot of information that we elaborate more o
    "version":"1.00",
    "_links":{  
       "executionSystem":{  
-         "href":"https://agave.iplantc.org/systems/v2/condor.opensciencegrid.org"
+         "href":"https://public.agaveapi.co/systems/v2/condor.opensciencegrid.org"
       },
       "metadata":{  
-         "href":"https://agave.iplantc.org/meta/v2/data/?q={\\"associationIds\\":\\"0001402162152914-5056a550b8-0001-005\\"}"
+         "href":"https://public.agaveapi.co/meta/v2/data/?q={\\"associationIds\\":\\"0001402162152914-5056a550b8-0001-005\\"}"
       },
       "owner":{  
-         "href":"https://agave.iplantc.org/profiles/v2/dooley"
+         "href":"https://public.agaveapi.co/profiles/v2/dooley"
       },
       "permissions":{  
-         "href":"https://agave.iplantc.org/apps/v2/wc-osg-1.00u1/pems"
+         "href":"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1/pems"
       },
       "self":{  
-         "href":"https://agave.iplantc.org/apps/v2/wc-osg-1.00u1"
+         "href":"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1"
       },
       "storageSystem":{  
-         "href":"https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+         "href":"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
       }
    }
 }

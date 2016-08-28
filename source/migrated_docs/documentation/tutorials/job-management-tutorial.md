@@ -20,7 +20,7 @@ Because Agave takes an app-centric view of science, execution does not require k
 
 As mentioned previously, jobs are submitted by making a HTTP POST request either a HTML form or a JSON object to the Jobs service. All job submissions must include a few mandatory values that are used to define a basic unit of work. Table 1 lists the optional and required attributes of all job submissions.
 
-[table id=69 /]
+<%= partial "includes/tables/69" %>
 
 <p class="table-caption">Table 1. The optional and required attributes common to all job submissions. Optional fields are marked with an astericks.</p>
 
@@ -77,7 +77,7 @@ The following snippet shows a sample JSON job request that could be submitted to
 
 Notice that this example specifies a single input attribute, <code>dataset</code>. The <code>pyplot-0.1.0</code> app definition specified that the <code>dataset</code> input attribute could accept more than one value (maxCardinality = 2). In the job request object, that translates to an array of string values. Each string represents a piece of data that Agave will transfer into the job work directory prior to job execution. Any value accepted by the Files service when <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/#importing-data">importing data</a> is accepted here. Some examples of valid values are given in the following table.
 
-[table id=73 /]
+<%= partial "includes/tables/73" %>
 
 <p class="table-caption">Table 2. Examples of different syntaxes that input values can be specified in the job request object. Here we assume that the validator for the input field is such that these would pass.</p>
 
@@ -211,7 +211,7 @@ Sample response snippet
 
 The list of all possible job statuses is given in table 2.
 
-[table id=71 /]
+<%= partial "includes/tables/71" %>
 
 <p class="table-caption">Table 2. Job statuses listed in progressive order from job submission to completion.</p>
 
@@ -323,7 +323,7 @@ http://example.com/webhooks/?nonce=sdfkajerouiwe234289fahlkqr&amp;id=${JOB_ID}&a
 
 The full list of template variables are listed in Table 3.
 
-[table id=33 /]
+<%= partial "includes/tables/33" %>
 
 <p class="table-caption">Table 3. Template variables available for use when defining webhooks for your job.</p>
 
@@ -538,7 +538,7 @@ curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" -X DELETE https://$API_BASE_U
 
 The available permission values are listed in Table 2.
 
-[table id=70 /]
+<%= partial "includes/tables/70" %>
 
 <p class="table-caption">Table 2. Supported job permission values.</p>
 

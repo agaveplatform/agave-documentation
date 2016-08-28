@@ -2,7 +2,7 @@
 
 Systems you register are private to you and you alone. You can, however, allow other users to utilize the system you define by granting them a role on the system. The available roles are given in the table below.
 
-[table id=51 /]
+<%= partial "includes/tables/51" %>
 
 ### GUEST role  
 
@@ -53,13 +53,13 @@ The response below has a single role representing the owner of the system. By de
     "role" : "OWNER",
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/systems/v2/systest-rodeo-docker/roles/systest"
+        "href" : "https://public.agaveapi.co/systems/v2/systest-rodeo-docker/roles/systest"
       },
       "parent" : {
-        "href" : "https://agave.iplantc.org/systems/v2/systest-rodeo-docker"
+        "href" : "https://public.agaveapi.co/systems/v2/systest-rodeo-docker"
       },
       "profile" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/systest"
+        "href" : "https://public.agaveapi.co/profiles/v2/systest"
       }
     }
   }
@@ -89,13 +89,13 @@ Rather than returning a list of all API users, the response contains just your u
     "role" : "USER",
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org/roles/systest"
+        "href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org/roles/systest"
       },
       "parent" : {
-        "href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+        "href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
       },
       "profile" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/systest"
+        "href" : "https://public.agaveapi.co/profiles/v2/systest"
       }
     }
   }
@@ -128,13 +128,13 @@ The response from the service will be a JSON object representing the role we jus
     "role" : "USER",
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/systems/v2/systest-rodeo-docker/roles/rjohnson"
+        "href" : "https://public.agaveapi.co/systems/v2/systest-rodeo-docker/roles/rjohnson"
       },
       "parent" : {
-        "href" : "https://agave.iplantc.org/systems/v2/systest-rodeo-docker"
+        "href" : "https://public.agaveapi.co/systems/v2/systest-rodeo-docker"
       },
       "profile" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/rjohnson"
+        "href" : "https://public.agaveapi.co/profiles/v2/rjohnson"
       }
     }
 }
@@ -166,13 +166,13 @@ The response from the service will be a JSON object representing the updated rol
     "role" : "ADMIN",
     "_links" : {
       "self" : {
-        "href" : "https://agave.iplantc.org/systems/v2/systest-rodeo-docker/roles/rjohnson"
+        "href" : "https://public.agaveapi.co/systems/v2/systest-rodeo-docker/roles/rjohnson"
       },
       "parent" : {
-        "href" : "https://agave.iplantc.org/systems/v2/systest-rodeo-docker"
+        "href" : "https://public.agaveapi.co/systems/v2/systest-rodeo-docker"
       },
       "profile" : {
-        "href" : "https://agave.iplantc.org/profiles/v2/rjohnson"
+        "href" : "https://public.agaveapi.co/profiles/v2/rjohnson"
       }
     }
 }

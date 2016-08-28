@@ -63,34 +63,34 @@ Submitting this job description will return a JSON object with a full descriptio
 "submitTime": "2014-09-03T17:49:48.568-05:00",
 "_links": {
 "app": {
-"href": "https://agave.iplantc.org/apps/v2/wc-osg-1.00u1"
+"href": "https://public.agaveapi.co/apps/v2/wc-osg-1.00u1"
 },
 "archiveData": {
-"href": "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/listings"
+"href": "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/listings"
 },
 "archiveSystem": {
-"href": "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+"href": "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
 },
 "executionSystem": {
-"href": "https://agave.iplantc.org/systems/v2/condor.opensciencegrid.org"
+"href": "https://public.agaveapi.co/systems/v2/condor.opensciencegrid.org"
 },
 "history": {
-"href": "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007/history"
+"href": "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/history"
 },
 "metadata": {
-"href": "https://agave.iplantc.org/meta/v2/data/?q={"associationIds":"0001409784588509-5056a550b8-0001-007"}"
+"href": "https://public.agaveapi.co/meta/v2/data/?q={"associationIds":"0001409784588509-5056a550b8-0001-007"}"
 },
 "notifications": {
-"href": "https://agave.iplantc.org/notifications/v2/?associatedUuid=0001409784588509-5056a550b8-0001-007"
+"href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=0001409784588509-5056a550b8-0001-007"
 },
 "owner": {
-"href": "https://agave.iplantc.org/profiles/v2/systest"
+"href": "https://public.agaveapi.co/profiles/v2/systest"
 },
 "permissions": {
-"href": "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007/pems"
+"href": "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/pems"
 },
 "self": {
-"href": "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href": "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }
@@ -118,7 +118,7 @@ The response will be an abbreviated JSON object containing just the status of th
 "status": "FINISHED",
 "_links": {
 "self": {
-"href": "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href": "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }
@@ -291,13 +291,13 @@ The response will be a JSON array of file objects identical to that returned fro
 "type" : "file",
 "_links" : {
 "self" : {
-"href" : "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/condorSubmit"
+"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/condorSubmit"
 },
 "system" : {
-"href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+"href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
 },
 "parent" : {
-"href" : "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }, {
@@ -311,13 +311,13 @@ The response will be a JSON array of file objects identical to that returned fro
 "type" : "file",
 "_links" : {
 "self" : {
-"href" : "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.err"
+"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.err"
 },
 "system" : {
-"href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+"href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
 },
 "parent" : {
-"href" : "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }, {
@@ -331,13 +331,13 @@ The response will be a JSON array of file objects identical to that returned fro
 "type" : "file",
 "_links" : {
 "self" : {
-"href" : "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.out"
+"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.out"
 },
 "system" : {
-"href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+"href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
 },
 "parent" : {
-"href" : "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }, {
@@ -351,13 +351,13 @@ The response will be a JSON array of file objects identical to that returned fro
 "type" : "file",
 "_links" : {
 "self" : {
-"href" : "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/output.txt"
+"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/output.txt"
 },
 "system" : {
-"href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+"href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
 },
 "parent" : {
-"href" : "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }, {
@@ -371,13 +371,13 @@ The response will be a JSON array of file objects identical to that returned fro
 "type" : "file",
 "_links" : {
 "self" : {
-"href" : "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/picksumipsum.txt"
+"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/picksumipsum.txt"
 },
 "system" : {
-"href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+"href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
 },
 "parent" : {
-"href" : "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }, {
@@ -391,13 +391,13 @@ The response will be a JSON array of file objects identical to that returned fro
 "type" : "file",
 "_links" : {
 "self" : {
-"href" : "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/runtime.log"
+"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/runtime.log"
 },
 "system" : {
-"href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+"href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
 },
 "parent" : {
-"href" : "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }, {
@@ -411,13 +411,13 @@ The response will be a JSON array of file objects identical to that returned fro
 "type" : "file",
 "_links" : {
 "self" : {
-"href" : "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/transfer.tar.gz"
+"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/transfer.tar.gz"
 },
 "system" : {
-"href" : "https://agave.iplantc.org/systems/v2/data.iplantcollaborative.org"
+"href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
 },
 "parent" : {
-"href" : "https://agave.iplantc.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }

@@ -4,7 +4,6 @@
 @import 'variables';
 @import 'syntax';
 @import 'icon-font';
-@import 'agave-font';
 
 /*
 Copyright 2008-2013 Concur Technologies, Inc.
@@ -38,13 +37,27 @@ html, body {
   -webkit-text-size-adjust: none; /* Never autoresize text */
 }
 
+input, select {
+  width: 100%;
+  height: 42px;
+  padding: 10px 0;
+  line-height: 1.5em;
+  color: $main-text;
+  border: 1px solid $main-text;
+  border-radius: 0;
+}
+
+.hidden {
+  display: none!important;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // TABLE OF CONTENTS
 ////////////////////////////////////////////////////////////////////////////////
 
 #toc > ul > li > a > span {
   float: right;
-  background-color: #2484FF;
+  background-color: #293953;
   border-radius: 40px;
   width: 20px;
 }
@@ -54,13 +67,11 @@ html, body {
     linear-gradient(to bottom, rgba(#000, 0.2), rgba(#000, 0) 8px),
     linear-gradient(to top, rgba(#000, 0.2), rgba(#000, 0) 8px),
     linear-gradient(to bottom, rgba($nav-embossed-border-top, 1), rgba($nav-embossed-border-top, 0) 1.5px),
-    linear-gradient(to top, rgba($nav-embossed-border-bottom, 1), rgba($nav-embossed-border-bottom, 0) 1.5px),
-    $nav-subitem-bg;
+    linear-gradient(to top, rgba($nav-embossed-border-bottom, 1), rgba($nav-embossed-border-bottom, 0) 1.5px);
 }
 
 .tocify-wrapper {
   transition: left 0.3s ease-in-out;
-
   overflow-y: auto;
   overflow-x: hidden;
   position: fixed;
@@ -70,8 +81,13 @@ html, body {
   bottom: 0;
   width: $nav-width;
   background-color: $nav-bg;
-  font-size: 13px;
-  font-weight: bold;
+  font-size: $nav-item-text;
+
+// This sections bolds the main topics in the nav bar
+.main-header {
+    font-weight: bold;
+    padding-top: 15px;
+}
 
   // language selector for mobile devices
   .lang-selector {
@@ -85,6 +101,10 @@ html, body {
   // This is the logo at the top of the ToC
   &>img {
     display: block;
+    padding: 30px 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
   }
 
   &>.search {
@@ -142,7 +162,7 @@ html, body {
       text-decoration: none;
 
       &:hover {
-        text-decoration: underline;
+        color: $nav-active-text;
       }
     }
   }
@@ -155,6 +175,24 @@ html, body {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+
+  // HTTP tags in TOC
+      .http-post {
+          @extend %code-font;
+          color:$post;
+        }
+      .http-put {
+         @extend %code-font;
+          color:$put;
+      }
+      .http-get {
+          @extend %code-font;
+          color:$get;
+      }
+      .http-delete {
+          @extend %code-font;
+          color:$delete;
+      }
 
   // The Table of Contents is composed of multiple nested
   // unordered lists.  These styles remove the default
@@ -175,8 +213,6 @@ html, body {
 
   // This is the currently selected ToC entry
   .tocify-focus {
-    box-shadow: 0px 1px 0px $nav-active-shadow;
-    background-color: $nav-active-bg;
     color: $nav-active-text;
   }
 
@@ -184,18 +220,18 @@ html, body {
   // in the table of contents.
   .tocify-subheader {
     display: none; // tocify will override this when needed
-    background-color: $nav-subitem-bg;
     font-weight: 500;
     .tocify-item>a {
       padding-left: $nav-padding + $nav-indent;
-      font-size: 12px;
+      font-size: $nav-subitem-text;
     }
 
     // for embossed look:
-    @include embossed-bg;
+    //@include embossed-bg;
     &>li:last-child {
       box-shadow: none; // otherwise it'll overflow out of the subheader
     }
+
   }
 
   .toc-footer {
@@ -285,7 +321,7 @@ html, body {
   .lang-selector {
     position: fixed;
     z-index: 50;
-    border-bottom: 5px solid $lang-select-active-bg;
+    // border-bottom: 5px solid $lang-select-active-bg;
   }
 }
 
@@ -299,15 +335,21 @@ html, body {
     color: $lang-select-text;
     text-decoration: none;
     padding: 0 10px;
+    margin: 10px;
     line-height: 30px;
     outline: 0;
 
+    &:hover {
+    background-color:rgba(239,242,247,0.2);
+	border-radius:5px;
+    }
+
     &:active, &:focus {
-      background-color: $lang-select-pressed-bg;
-      color: $lang-select-pressed-text;
+      border-radius:5px;
     }
 
     &.active {
+      border-radius:5px;
       background-color: $lang-select-active-bg;
       color: $lang-select-active-text;
     }
@@ -329,6 +371,7 @@ html, body {
   // to place content above the dark box
   position: relative;
   z-index: 30;
+  @extend %default-font;
 
   &:after {
     content: '';
@@ -341,7 +384,6 @@ html, body {
     padding: 0 $main-padding;
     box-sizing: border-box;
     display: block;
-    @include text-shadow($main-embossed-text-shadow);
 
     @extend %left-col;
   }
@@ -355,16 +397,14 @@ html, body {
     clear:both;
   }
 
-  h1 {
+  h1, h2 {
     @extend %header-font;
-    font-size: 30px;
+    font-size: 32px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    border-bottom: 1px solid #ccc;
     margin-bottom: $h1-margin-bottom;
     margin-top: 2em;
     border-top: 1px solid #ddd;
-    background-image: linear-gradient(to bottom, #fff, #f9f9f9);
   }
 
   h1:first-child, div:first-child + h1 {
@@ -372,33 +412,57 @@ html, body {
     margin-top: 0;
   }
 
-  h2 {
+  h3 {
     @extend %header-font;
-    font-size: 20px;
+    font-size: 22px;
     margin-top: 4em;
     margin-bottom: 0;
     border-top: 1px solid #ccc;
     padding-top: 1.2em;
     padding-bottom: 1.2em;
-    background-image: linear-gradient(to bottom, rgba(#fff, 0.4), rgba(#fff, 0));
+  }
+
+  // HTTP tags in front of headers
+  .post {
+      @extend %code-font;
+      font-size: 24px;
+      color:$post;
+  }
+  .put {
+     @extend %code-font;
+      font-size: 24px;
+      color:$put;
+  }
+  .get {
+      @extend %code-font;
+      font-size: 24px;
+      color:$get;
+  }
+  .delete {
+      @extend %code-font;
+      font-size: 24px;
+      color:$delete;
   }
 
   // h2s right after h1s should bump right up
   // against the h1s.
-  h1 + h2, h1 + div + h2 {
+  h2 + h3, h2 + div + h3 {
     margin-top: $h1-margin-bottom * -1;
     border-top: none;
   }
 
-  h3, h4, h5, h6 {
+  h4 {
     @extend %header-font;
-    font-size: 15px;
+    font-size: 18px;
     margin-top: 2.5em;
     margin-bottom: 0.8em;
   }
 
-  h4, h5, h6 {
-    font-size: 10px;
+  h5, h6 {
+    @extend %header-font;
+    font-size: 14px;
+    margin-top: 2.5em;
+    margin-bottom: 0.8em;
   }
 
   hr {
@@ -410,6 +474,8 @@ html, body {
   table {
     margin-bottom: 1em;
     overflow: auto;
+    font-size:$notice-table-text;
+
     th,td {
       text-align: left;
       vertical-align: top;
@@ -472,27 +538,27 @@ html, body {
   aside {
     padding-top: 1em;
     padding-bottom: 1em;
-    @include text-shadow(0 1px 0 lighten($aside-notice-bg, 15%));
     margin-top: 1.5em;
     margin-bottom: 1.5em;
     background: $aside-notice-bg;
     line-height: 1.6;
+    color: $aside-notice-text;
 
     &.warning {
       background-color: $aside-warning-bg;
-      @include text-shadow(0 1px 0 lighten($aside-warning-bg, 15%));
     }
 
     &.success {
       background-color: $aside-success-bg;
-      @include text-shadow(0 1px 0 lighten($aside-success-bg, 15%));
     }
+  }
+  aside>a {
+      color: #FFF;
   }
 
   aside:before {
     vertical-align: middle;
     padding-right: 0.5em;
-    font-size: 14px;
   }
 
   aside.notice:before {
@@ -511,9 +577,8 @@ html, body {
     padding: 2px;
     margin: -2px;
     border-radius: 4px;
-    border: 1px solid #F7E633;
-    @include text-shadow(1px 1px 0 #666);
-    background: linear-gradient(to top left, #F7E633 0%, #F1D32F 100%);
+    background: linear-gradient(to top left, #1E70DD 0%, #1E70DD 100%);
+    color: #fff;
   }
 }
 
@@ -523,11 +588,11 @@ html, body {
 // This is all the stuff that appears in the right half of the page
 
 .content {
-  pre, blockquote {
-    background-color: $code-bg;
+  blockquote {
+    background-color: $examples-bg;
     color: #fff;
 
-    padding: 2em $main-padding;
+    padding: 0px $main-padding;
     margin: 0;
     width: $examples-width;
 
@@ -535,7 +600,6 @@ html, body {
     clear:right;
 
     box-sizing: border-box;
-    @include text-shadow(0px 1px 2px rgba(0,0,0,0.4));
 
     @extend %right-col;
 
@@ -550,16 +614,35 @@ html, body {
 
   pre {
     @extend %code-font;
+
+    background-color: $code-bg;
+    color:#fff;
+
+	padding: 10px;
+    margin: 0 3%;
+    width: $code-width;
+
+    float:right;
+    clear:right;
+
+    box-sizing: border-box;
+    //border-radius: 3px;
+    //box-shadow: 0px 1px 2px #555 inset;
+
+    /* Removes scrolling from code blocks */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+
+    @extend %right-col;
+
+    &>code { margin: 0; }
   }
 
   blockquote {
     &>p {
-      background-color: $code-annotation-bg;
-      border-radius: 5px;
+      background-color: $examples-bg;
       padding: $code-annotation-padding;
-      color: #ccc;
-      border-top: 1px solid #000;
-      border-bottom: 1px solid #404040;
+      color: #fff;
     }
   }
 }
@@ -617,5 +700,40 @@ html, body {
 
   %right-col + %left-col {
     margin-top: $main-padding;
+  }
+
+  .content blockquote, .content pre {
+    width: 100%;
+    float: none;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  // for ipad mini
+  @media only screen
+    and (min-device-width : 768px)
+    and (max-device-width : 1024px)
+    and (-webkit-min-device-pixel-ratio: 1)  {
+
+    .tocify-wrapper {
+    left: -$nav-width;
+
+    &.open {
+      left: 0;
+    }
+   }
+
+  .page-wrapper {
+    margin-left: 0;
+  }
+
+  #nav-button {
+    display: block;
+  }
+
+  .tocify-wrapper .tocify-item > a {
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+  }
   }
 }
