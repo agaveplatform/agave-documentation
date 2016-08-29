@@ -7578,153 +7578,6 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 
 <aside class="notice"> Deleting a monitor will permanently delete the monitor and all its history, permissions, etc.</aside>
 
-              <h2 id="metadata-schemata">Metadata Schemata</h2>
-
-<p>Schemata can be provided in JSON Schema form. The service will validate that the schema is valid JSON and store it. To validate Metadata against it, the schema UUID should be given as a parameter, SchemaId, when uploading Metadata. If no SchemaId is provided, the Metadata service will accept any JSON Object or plain text string and store it accordingly. This flexible approach enabled Agave to handle different levels of structure of Metadata from completely unstructured, to highly structured with complex JSON schemata.</p>
-
-<p>For more on JSON Schema please see <a title="JSON Schema" href="http://json-schema.org/">http://json-schema.org/</a></p>
-
-<p>To add a metadata schema to the repository:</p>
-
-<h3 id="creating-schemata">Creating schemata</h3>
-
-<blockquote>
-<p>Example JSON Schema document, schema.json</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example Schema"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"species"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"species"</span><span class="w">
-  </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>Creating a new metadata schema</p>
-</blockquote>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
-    -X POST -H <span class="s2">"Content-Type: application/json"</span>
-    --data-binary <span class="s1">'{ "title": "Example Schema", "type": "object", "properties": { "species": { "type": "string" } },"required": ["species"] }'</span>
-    https://public.tenants.agaveapi.co/meta/v2/schemas/
-</code></pre>
-<pre class="highlight plaintext"><code>metadata-schema-addupdate -v -F schema.json
-</code></pre>
-
-<blockquote>
-<p>The response will look something like the following:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4736020169528054246-242ac11f-0001-013"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"internalUsername"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-29T04:52:11.474-05:00"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example Schema"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"species"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"species"</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-29T04:52:11.474-05:00"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013/pems"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>To create a new metadata schema that can be used to validate metadata items upon addition or updating, POST a JSON Schema document to the service.</p>
-
-<p>More JSON Schema examples can be found in the <a href="https://bitbucket.org/agaveapi/science-api-samples">Agave Samples</a> project.</p>
-
-<h3 id="updating-schema">Updating schema</h3>
-
-<blockquote>
-<p>Update a metadata schema</p>
-</blockquote>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST
-    -H <span class="s1">'Content-Type: application/json'</span>
-    --data-binary <span class="s1">'{ "title": "Example Schema", "type": "object", "properties": { "species": { "type": "string" }, "description": {"type":"string"} },"required": ["species"] }'</span>
-    https://public.tenants.agaveapi.co/meta/v2/data/4736020169528054246-242ac11f-0001-013
-</code></pre>
-<pre class="highlight plaintext"><code>metadata-addupdate -v -F - 4736020169528054246-242ac11f-0001-013 &lt;&lt;&lt; '{ "title": "Example Schema", "type": "object", "properties": { "species": { "type": "string" }, "description": {"type":"string"} },"required": ["species"] }'
-</code></pre>
-
-<blockquote>
-<p>The response will look something like the following:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4736020169528054246-242ac11f-0001-013"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"internalUsername"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-29T04:52:11.474-05:00"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example Schema"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"species"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"species"</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-29T04:52:11.474-05:00"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013/pems"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>Updating metadata schema is done by POSTing an updated schema object to the existing resource. When updating, it is important to note that it is not possible to change the schema <code class="prettyprint">uuid</code>, <code class="prettyprint">owner</code>, <code class="prettyprint">lastUpdated</code> or <code class="prettyprint">created</code> fields. Those fields are managed by the service.</p>
-
-<h3 id="deleting-schema">Deleting schema</h3>
-
-<blockquote>
-<p>Delete a metadata schema</p>
-</blockquote>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
-    -X DELETE
-    https://public.tenants.agaveapi.co/meta/v2/data/4736020169528054246-242ac11f-0001-013
-</code></pre>
-<pre class="highlight plaintext"><code>metadata-schema-delete 4736020169528054246-242ac11f-0001-013
-</code></pre>
-
-<blockquote>
-<p>An empty response will be returned from the service.</p>
-</blockquote>
-
-<p>To delete a metadata schema, simply make a DELETE request on the metadata schema resource.</p>
-
-<aside class="alert"> Deleting a metadata schema will permanently delete the schema and all its history, permissions, etc. Once the schema is deleted, the remaining metadata items will not be automatically updated, thus it is important to know that updates to metadata items that still reference the schema will fail.</aside>
-
               <h3 id="validating-metadata">Validating metadata</h3>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST
     -H <span class="s1">'Content-Type: application/json'</span>
@@ -7913,7 +7766,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 
 <p>To list all permissions for a metadata item, make a GET request on the metadata item&rsquo;s permission collection</p>
 
-<h3 id="list-permissions-for-a-specific-user">List permissions for a specific user</h3>
+<h4 id="list-permissions-for-a-specific-user">List permissions for a specific user</h4>
 
 <blockquote>
 <p>List the permissions on Metadata for a given user</p>
@@ -8036,6 +7889,153 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 </blockquote>
 
 <p>Permissions may be deleted for a single user by making a DELETE request on the metadata resource permission collection. Please note that the above will delete all permissions for Metadata, such that only the owner will be able to access it.</p>
+
+              <h2 id="metadata-schemata">Metadata Schemata</h2>
+
+<p>Schemata can be provided in JSON Schema form. The service will validate that the schema is valid JSON and store it. To validate Metadata against it, the schema UUID should be given as a parameter, SchemaId, when uploading Metadata. If no SchemaId is provided, the Metadata service will accept any JSON Object or plain text string and store it accordingly. This flexible approach enabled Agave to handle different levels of structure of Metadata from completely unstructured, to highly structured with complex JSON schemata.</p>
+
+<p>For more on JSON Schema please see <a title="JSON Schema" href="http://json-schema.org/">http://json-schema.org/</a></p>
+
+<p>To add a metadata schema to the repository:</p>
+
+<h3 id="creating-schemata">Creating schemata</h3>
+
+<blockquote>
+<p>Example JSON Schema document, schema.json</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example Schema"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"species"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"species"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Creating a new metadata schema</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    -X POST -H <span class="s2">"Content-Type: application/json"</span>
+    --data-binary <span class="s1">'{ "title": "Example Schema", "type": "object", "properties": { "species": { "type": "string" } },"required": ["species"] }'</span>
+    https://public.tenants.agaveapi.co/meta/v2/schemas/
+</code></pre>
+<pre class="highlight plaintext"><code>metadata-schema-addupdate -v -F schema.json
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4736020169528054246-242ac11f-0001-013"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"internalUsername"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-29T04:52:11.474-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example Schema"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"species"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"species"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-29T04:52:11.474-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013/pems"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>To create a new metadata schema that can be used to validate metadata items upon addition or updating, POST a JSON Schema document to the service.</p>
+
+<p>More JSON Schema examples can be found in the <a href="https://bitbucket.org/agaveapi/science-api-samples">Agave Samples</a> project.</p>
+
+<h3 id="updating-schema">Updating schema</h3>
+
+<blockquote>
+<p>Update a metadata schema</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST
+    -H <span class="s1">'Content-Type: application/json'</span>
+    --data-binary <span class="s1">'{ "title": "Example Schema", "type": "object", "properties": { "species": { "type": "string" }, "description": {"type":"string"} },"required": ["species"] }'</span>
+    https://public.tenants.agaveapi.co/meta/v2/data/4736020169528054246-242ac11f-0001-013
+</code></pre>
+<pre class="highlight plaintext"><code>metadata-addupdate -v -F - 4736020169528054246-242ac11f-0001-013 &lt;&lt;&lt; '{ "title": "Example Schema", "type": "object", "properties": { "species": { "type": "string" }, "description": {"type":"string"} },"required": ["species"] }'
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4736020169528054246-242ac11f-0001-013"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"internalUsername"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-29T04:52:11.474-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example Schema"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"species"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"species"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-29T04:52:11.474-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013/pems"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Updating metadata schema is done by POSTing an updated schema object to the existing resource. When updating, it is important to note that it is not possible to change the schema <code class="prettyprint">uuid</code>, <code class="prettyprint">owner</code>, <code class="prettyprint">lastUpdated</code> or <code class="prettyprint">created</code> fields. Those fields are managed by the service.</p>
+
+<h3 id="deleting-schema">Deleting schema</h3>
+
+<blockquote>
+<p>Delete a metadata schema</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    -X DELETE
+    https://public.tenants.agaveapi.co/meta/v2/data/4736020169528054246-242ac11f-0001-013
+</code></pre>
+<pre class="highlight plaintext"><code>metadata-schema-delete 4736020169528054246-242ac11f-0001-013
+</code></pre>
+
+<blockquote>
+<p>An empty response will be returned from the service.</p>
+</blockquote>
+
+<p>To delete a metadata schema, simply make a DELETE request on the metadata schema resource.</p>
+
+<aside class="alert"> Deleting a metadata schema will permanently delete the schema and all its history, permissions, etc. Once the schema is deleted, the remaining metadata items will not be automatically updated, thus it is important to know that updates to metadata items that still reference the schema will fail.</aside>
 
               <h2 id="monitors">Monitors</h2>
 
