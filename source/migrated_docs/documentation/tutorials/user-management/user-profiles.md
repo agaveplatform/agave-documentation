@@ -9,7 +9,7 @@ Agave provides a service for searching and viewing profile information about use
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/profiles/$API_VERSION/me
 ```  
 
-```cli
+```plaintext
 profiles-list -v me
 ```  
 
@@ -65,7 +65,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" http://$API_BASE_URL/profiles/
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" http://$API_BASE_URL/profiles/$API_VERSION/search/username/$USERNAME
 ```  
 
-```cli
+```plaintext
 # Search by name
 profiles-list -v -N $NAME
 
@@ -96,7 +96,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
    "https://$API_BASE_URL/profiles/$API_VERSION/
 ```  
 
-```cli
+```plaintext
 profiles-addupdate -v -F rclemens.json
 ```  
 
@@ -149,7 +149,7 @@ curl -sk -X PUT -H "Authorization: Bearer $ACCESS_TOKEN"
    "https://$API_BASE_URL/profiles/$API_VERSION/rclemens
 ```  
 
-```cli
+```plaintext
 profiles-addupdate -v -F profile.json
 ```  
 
@@ -195,7 +195,7 @@ curl -sk -X DELETE -H "Authorization: Bearer $ACCESS_TOKEN"
    "https://$API_BASE_URL/profiles/$API_VERSION/rclemens
 ```  
 
-```cli
+```plaintext
 profiles-users-delete -v rclemens
 ```  
 

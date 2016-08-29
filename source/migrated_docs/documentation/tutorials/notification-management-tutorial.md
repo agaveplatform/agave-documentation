@@ -132,7 +132,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST
     https://$API_BASE_URL/notifications/$API_VERSION?pretty=true
 ```
 
-```cli
+```plaintext
 notifications-addupdate -V -F notification.json
 ```
 
@@ -178,7 +178,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST
 ```
 
 
-```cli
+```plaintext
 notifications-addupdate -V -F notification.json 0989079870809-b0b0b0-012
 ```
 
@@ -272,7 +272,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
 ```
 
 
-```cli
+```plaintext
 notifications-list -V
 ```
 
@@ -356,7 +356,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://$API_BASE_UR
 ```
 
 
-```cli
+```plaintext
 notifications-delete -V
 ```
 

@@ -17,7 +17,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST --data &#039;{"internal
 ```
 
 
-```cli
+```plaintext
 systems-credentials-addupdate -v -u cdavis -F credential-password.json demo.execute.example.com
 ```
 
@@ -78,7 +78,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST --data &#039;{"internal
 ```
 
 
-```cli
+```plaintext
 systems-credentials-addupdate -v -u cdavis -s -F credential-password.json demo.execute.example.com
 ```
 
@@ -120,7 +120,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
 ```
 
 
-```cli
+```plaintext
  systems-credentials-list -v
 ```
 
@@ -217,7 +217,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
 ```
 
 
-```cli
+```plaintext
  systems-credentials-list -v -u cdavis
 ```
 
@@ -276,7 +276,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
 ```
 
 
-```cli
+```plaintext
  systems-credentials-list -v -u cdavis -s
 ```
 
@@ -316,7 +316,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://$API_BASE_UR
 ```
 
 
-```cli
+```plaintext
  systems-credentials-delete -v -u cdavis -s
 ```
 
@@ -328,7 +328,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
 ```
 
 
-```cli
+```plaintext
  systems-credentials-delete -v -u cdavis -S
 ```
 
@@ -384,7 +384,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://$API_BASE_UR
 ```
 
 
-```cli
+```plaintext
  systems-credentials-delete -v -u cdavis
 ```
 
@@ -396,7 +396,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
 ```
 
 
-```cli
+```plaintext
  systems-credentials-delete -v -u cdavis -S
 ```
 
@@ -449,7 +449,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
 ```
 
 
-```cli
+```plaintext
  systems-credentials-delete -v -u cdavis -S
 ```
 

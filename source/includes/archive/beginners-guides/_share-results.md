@@ -53,7 +53,7 @@ Let's also create a PostIt of our output data that we can email to our colleague
 
 ```javascript
 {
-  "url": "https://public.tenants.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt",
+  "url": "https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt",
   "maxUses": 2,
   "method": "GET"
 }
@@ -65,7 +65,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@outp
 
 
 ```plaintext
-postits-create -v -m 2 https://public.tenants.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt
+postits-create -v -m 2 https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt
 ```
 
 
@@ -80,7 +80,7 @@ postits-create -v -m 2 https://public.tenants.agaveapi.co/files/v2/media/system/
     "noauth": false,
     "postit": "14e86bb1a039a03a2463e6e0f0a4421f",
     "remainingUses": 2,
-    "url": "https://public.tenants.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt",
+    "url": "https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt",
     "_links": {
         "profile": {
             "href": "https://public.tenants.agaveapi.co/profiles/v2/systest"

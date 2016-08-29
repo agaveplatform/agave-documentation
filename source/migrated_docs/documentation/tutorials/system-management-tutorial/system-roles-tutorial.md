@@ -37,7 +37,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
 ```
 
 
-```cli
+```plaintext
 systems-roles-list -v $SYSTEM_ID
 ```
 
@@ -69,12 +69,12 @@ The response below has a single role representing the owner of the system. By de
 Now let's look at the permissions for a public system.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/$API_VERSION/data.iplantcollaborative.org/roles
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/$API_VERSION/data.agaveapi.co/roles
 ```
 
 
-```cli
-systems-roles-list -v data.iplantcollaborative.org
+```plaintext
+systems-roles-list -v data.agaveapi.co
 ```
 
 
@@ -89,10 +89,10 @@ Rather than returning a list of all API users, the response contains just your u
     "role" : "USER",
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org/roles/systest"
+        "href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co/roles/systest"
       },
       "parent" : {
-        "href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+        "href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
       },
       "profile" : {
         "href" : "https://public.agaveapi.co/profiles/v2/systest"
@@ -113,7 +113,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST
 ```
 
 
-```cli
+```plaintext
 systems-roles-addupdate -v -u rjohnson -r USER systest-rodeo-docker
 ```
 
@@ -151,7 +151,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST
 ```
 
 
-```cli
+```plaintext
 systems-roles-addupdate -v -u rjohnson -r ADMIN systest-rodeo-docker
 ```
 
@@ -191,7 +191,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST
 ```
 
 
-```cli
+```plaintext
 systems-roles-addupdate -v -u rjohnson -r NONE systest-rodeo-docker
 ```
 
@@ -205,7 +205,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://$API_BASE_UR
 ```
 
 
-```cli
+```plaintext
 systems-roles-delete -v -u rjohnson systest-rodeo-docker
 ```
 
@@ -228,7 +228,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://$API_BASE_UR
 ```
 
 
-```cli
+```plaintext
 ```bash
 systems-roles-delete -v $SYSTEM_ID
 ```

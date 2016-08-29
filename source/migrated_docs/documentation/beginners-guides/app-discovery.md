@@ -14,7 +14,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://$API_BASE_UR
 ```
 
 
-```cli
+```plaintext
 apps-list -v
 ```
 
@@ -126,7 +126,7 @@ Appending an app's id to the above commands will give the full app description. 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://$API_BASE_URL/apps/$API_VERSION/wc-osg-1.00u1
 ```
 ]
-```cli
+```plaintext
 apps-list -v wc-osg-1.00u1
 ```
 
@@ -143,7 +143,7 @@ The response is a JSON object with a lot of information that we elaborate more o
    "defaultProcessorsPerNode":null,
    "defaultQueue":null,
    "deploymentPath":"/api/v2/apps/wc-osg-1.00u1.zip",
-   "deploymentSystem":"data.iplantcollaborative.org",
+   "deploymentSystem":"data.agaveapi.co",
    "executionSystem":"condor.opensciencegrid.org",
    "executionType":"CONDOR",
    "helpURI":"http://www.gnu.org/s/coreutils/manual/html_node/wc-invocation.html",
@@ -243,7 +243,7 @@ The response is a JSON object with a lot of information that we elaborate more o
          "href":"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1"
       },
       "storageSystem":{  
-         "href":"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+         "href":"https://public.agaveapi.co/systems/v2/data.agaveapi.co"
       }
    }
 }

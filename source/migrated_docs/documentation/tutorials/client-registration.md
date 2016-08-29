@@ -12,7 +12,7 @@ In order to interact with any of the Agave APIs, you will need to first get a se
 curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "client_name=my_cli_app" -d "description=Client app used for scripting up cool stuff" https://$API_BASE_URL/clients/$API_VERSION
 ```
 
-```cli
+```plaintext
 clients-create -S -v -N my_cli_app -D "Client app used for scripting up cool stuff"
 ```
     Note: the -S option will store the new API keys for future use so you don't need to manually enter then when you authenticate later.
@@ -52,7 +52,7 @@ Over time you may develop several client applications. Managing several sets of 
 curl -sku "$API_USERNAME:$API_PASSWORD" https://$API_BASE_URL/clients/$API_VERSION
 ```
 
-```clii
+```plaintexti
 clients-list -v
 ```
 
@@ -109,7 +109,7 @@ At some point you may need to delete a client. You can do this by requesting a D
 curl -sku "$API_USERNAME:$API_PASSWORD" -X DELETE https://$API_BASE_URL/clients/$API_VERSION/my_cli_app
 ```
 
-```clii
+```plaintexti
 clients-delete -v my_cli_app
 ```
 
@@ -124,7 +124,7 @@ When you register a new client application and get your API keys, you are given 
 curl -sku "$API_USERNAME:$API_PASSWORD" https://$API_BASE_URL/clients/$API_VERSION/my_cli_app/subscriptions
 ```
 
-```clii
+```plaintexti
 clients-subscriptions-list -v my_cli_app
 ```
 
@@ -181,7 +181,7 @@ Over time, new APIs will be deployed. When this happens you will need to subscri
 curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "name=transforms" https://$API_BASE_URL/clients/$API_VERSION/my_cli_app/subscriptions
 ```
 
-```clii
+```plaintexti
 clients-subscriptions-update -v -N transforms my_cli_app
 ```
 
@@ -192,7 +192,7 @@ The response to this call will be a JSON array identical to the one returned whe
 curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "name=*" https://$API_BASE_URL/clients/$API_VERSION/my_cli_app/subscriptions
 ```
 
-```clii
+```plaintexti
 clients-subscriptions-update -v -N * my_cli_app
 ```
 

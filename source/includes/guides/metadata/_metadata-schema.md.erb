@@ -1,0 +1,150 @@
+## Metadata Schemata
+
+Schemata can be provided in JSON Schema form. The service will validate that the schema is valid JSON and store it. To validate Metadata against it, the schema UUID should be given as a parameter, SchemaId, when uploading Metadata. If no SchemaId is provided, the Metadata service will accept any JSON Object or plain text string and store it accordingly. This flexible approach enabled Agave to handle different levels of structure of Metadata from completely unstructured, to highly structured with complex JSON schemata.
+
+For more on JSON Schema please see <a title="JSON Schema" href="http://json-schema.org/">http://json-schema.org/</a>
+
+To add a metadata schema to the repository:
+
+### Creating schemata
+
+> Example JSON Schema document, schema.json
+
+```json
+{
+  "title": "Example Schema",
+  "type": "object",
+  "properties": {
+    "species": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "species"
+  ]
+}
+```
+
+> Creating a new metadata schema
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
+    -X POST -H "Content-Type: application/json"
+    --data-binary '{ "title": "Example Schema", "type": "object", "properties": { "species": { "type": "string" } },"required": ["species"] }'
+    https://public.tenants.agaveapi.co/meta/v2/schemas/
+```
+
+```plaintext
+metadata-schema-addupdate -v -F schema.json
+```
+
+> The response will look something like the following:
+
+```json
+{
+  "uuid": "4736020169528054246-242ac11f-0001-013",
+  "internalUsername": null,
+  "lastUpdated": "2016-08-29T04:52:11.474-05:00",
+  "schema": {
+    "title": "Example Schema",
+    "type": "object",
+    "properties": {
+      "species": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "species"
+    ]
+  },
+  "created": "2016-08-29T04:52:11.474-05:00",
+  "owner": "nryan",
+  "_links": {
+    "self": {
+      "href": "https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013"
+    },
+    "permissions": {
+      "href": "https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013/pems"
+    },
+    "owner": {
+      "href": "https://public.agaveapi.co/profiles/v2/nryan"
+    }
+  }
+}
+```
+
+To create a new metadata schema that can be used to validate metadata items upon addition or updating, POST a JSON Schema document to the service.
+
+More JSON Schema examples can be found in the [Agave Samples](https://bitbucket.org/agaveapi/science-api-samples) project.
+
+### Updating schema
+
+> Update a metadata schema
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST
+    -H 'Content-Type: application/json'
+    --data-binary '{ "title": "Example Schema", "type": "object", "properties": { "species": { "type": "string" }, "description": {"type":"string"} },"required": ["species"] }'
+    https://public.tenants.agaveapi.co/meta/v2/data/4736020169528054246-242ac11f-0001-013
+```
+
+```plaintext
+metadata-addupdate -v -F - 4736020169528054246-242ac11f-0001-013 <<< '{ "title": "Example Schema", "type": "object", "properties": { "species": { "type": "string" }, "description": {"type":"string"} },"required": ["species"] }'
+```
+
+> The response will look something like the following:
+
+```json
+{
+  "uuid": "4736020169528054246-242ac11f-0001-013",
+  "internalUsername": null,
+  "lastUpdated": "2016-08-29T04:52:11.474-05:00",
+  "schema": {
+    "title": "Example Schema",
+    "type": "object",
+    "properties": {
+      "species": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "species"
+    ]
+  },
+  "created": "2016-08-29T04:52:11.474-05:00",
+  "owner": "nryan",
+  "_links": {
+    "self": {
+      "href": "https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013"
+    },
+    "permissions": {
+      "href": "https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013/pems"
+    },
+    "owner": {
+      "href": "https://public.agaveapi.co/profiles/v2/nryan"
+    }
+  }
+}
+```
+
+Updating metadata schema is done by POSTing an updated schema object to the existing resource. When updating, it is important to note that it is not possible to change the schema `uuid`, `owner`, `lastUpdated` or `created` fields. Those fields are managed by the service.
+
+### Deleting schema
+
+> Delete a metadata schema
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
+    -X DELETE
+    https://public.tenants.agaveapi.co/meta/v2/data/4736020169528054246-242ac11f-0001-013
+```
+
+```plaintext
+metadata-schema-delete 4736020169528054246-242ac11f-0001-013
+```
+
+> An empty response will be returned from the service.
+
+To delete a metadata schema, simply make a DELETE request on the metadata schema resource.
+
+<aside class="alert"> Deleting a metadata schema will permanently delete the schema and all its history, permissions, etc. Once the schema is deleted, the remaining metadata items will not be automatically updated, thus it is important to know that updates to metadata items that still reference the schema will fail.</aside>

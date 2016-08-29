@@ -9,7 +9,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/profiles
 ```
 
 
-```cli
+```plaintext
 profiles-list -v -E dooley
 ``` 
 
@@ -102,7 +102,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/profiles
 ```
 
 
-```cli
+```plaintext
 profiles-list -v me
 ``` 
 

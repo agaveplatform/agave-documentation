@@ -10,7 +10,7 @@ The Apps service is the central registry for all Agave apps. The Apps service pr
 
 Registering an app with the Apps service is conceptually simple. Just describe your app as a JSON document and POST it to the Apps service. Historically, this has actually been the hardest part for new users to figure out. So, to ease the process, we've created a couple tools that you can use to define your apps. The first is the <a href="http://togo.agaveapi.co/app/" title="App Builder">App Builder</a> page. On this page you will find a form-driven wizard that you can fill out generate the JSON description for your app. Once created, you can POST the JSON directly to the Apps service. If you are new to app registration, this is a great place to start because it shrinks the learning curve involved in defining your app.
 
-The second tool is the <a href="https://bitbucket.org/taccaci/agave-samples/" title="Agave Samples Repository" target="_blank">Agave Samples</a> project. The Agave Samples project is a set of sample data used throughout these tutorials. The project contains several app definitions ranging in complexity from a trivial no-parameter, no-argument hello world, to a complex multi-input application with multiple parameter types. The Agave Samples project is a great place to start when building your app by hand because it draws on the experiences of many successful application publishers. You can check out the Agave Samples project from Bitbucket by cloning the Git repository:
+The second tool is the <a href="https://bitbucket.org/agaveapi/science-api-samples/" title="Agave Samples Repository" target="_blank">Agave Samples</a> project. The Agave Samples project is a set of sample data used throughout these tutorials. The project contains several app definitions ranging in complexity from a trivial no-parameter, no-argument hello world, to a complex multi-input application with multiple parameter types. The Agave Samples project is a great place to start when building your app by hand because it draws on the experiences of many successful application publishers. You can check out the Agave Samples project from Bitbucket by cloning the Git repository:
 
 ```shell
 git clone https://bitbucket.org/taccaci/agave-apps-boilerplate
@@ -56,7 +56,7 @@ The resulting minimal app bundle would look something like the following:
 |- wrapper.sh
 </code></pre>
 
-For other examples of more complicated app bundles, consult the <a title="Agave Samples project" href="https://bitbucket.org/taccaci/agave-samples">Agave Samples</a> repository.
+For other examples of more complicated app bundles, consult the <a title="Agave Samples project" href="https://bitbucket.org/agaveapi/science-api-samples">Agave Samples</a> repository.
 
 ### Creating a wrapper template <a name="creating-a-wrapper-template">&nbsp;</a>  
 
@@ -313,7 +313,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "fileToUpload=@app.
 ```
 
 
-```cli
+```plaintext
 apps-addupdate -v -F app.json
 ```
 
@@ -1109,7 +1109,7 @@ Often times you will want to copy an existing app for use on another system, or 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "action=clone&amp;name=my-pyplot-demo&amp;version=0.1.0&amp;executionSystem=sftp.storage.example.com&amp;deploymentSystem=2.2&amp;deploymentPath=/apps/" https://$API_BASE_URL/apps/$API_VERSION/demo-pyplot-demo-advanced-0.1.0?pretty=true
 ```
 
-```cli
+```plaintext
 apps-clone -N my-pyplot-demo -V 2.2 demo-pyplot-demo-advanced-0.1.0
 ```
 

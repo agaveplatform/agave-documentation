@@ -52,7 +52,7 @@ Over time you may develop several client applications. Managing several sets of 
 curl -sku "$API_USERNAME:$API_PASSWORD" https://public.tenants.agaveapi.co/clients/v2
 ```
 
-```plaintexti
+```plaintext
 clients-list -v
 ```
 
@@ -109,7 +109,7 @@ At some point you may need to delete a client. You can do this by requesting a D
 curl -sku "$API_USERNAME:$API_PASSWORD" -X DELETE https://public.tenants.agaveapi.co/clients/v2/my_cli_app
 ```
 
-```plaintexti
+```plaintext
 clients-delete -v my_cli_app
 ```
 
@@ -124,7 +124,7 @@ When you register a new client application and get your API keys, you are given 
 curl -sku "$API_USERNAME:$API_PASSWORD" https://public.tenants.agaveapi.co/clients/v2/my_cli_app/subscriptions
 ```
 
-```plaintexti
+```plaintext
 clients-subscriptions-list -v my_cli_app
 ```
 
@@ -181,7 +181,7 @@ Over time, new APIs will be deployed. When this happens you will need to subscri
 curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "name=transforms" https://public.tenants.agaveapi.co/clients/v2/my_cli_app/subscriptions
 ```
 
-```plaintexti
+```plaintext
 clients-subscriptions-update -v -N transforms my_cli_app
 ```
 
@@ -192,7 +192,7 @@ The response to this call will be a JSON array identical to the one returned whe
 curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "name=*" https://public.tenants.agaveapi.co/clients/v2/my_cli_app/subscriptions
 ```
 
-```plaintexti
+```plaintext
 clients-subscriptions-update -v -N * my_cli_app
 ```
 

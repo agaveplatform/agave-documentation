@@ -37,7 +37,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=publish" htt
 ```
 
 
-```cli
+```plaintext
 apps-publish -v demo-pyplot-demo-advanced-0.1.0
 ```
 
@@ -70,7 +70,7 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
     "executionType" : "CLI",
     "executionSystem" : "docker.iplantcollaborative.org",
     "deploymentPath" : "/api/v2/apps/demo-pyplot-demo-advanced-0.1.0u1.zip",
-    "deploymentSystem" : "data.iplantcollaborative.org",
+    "deploymentSystem" : "data.agaveapi.co",
     "templatePath" : "wrapper.sh",
     "testPath" : "test/test.sh",
     "checkpointable" : false,
@@ -368,7 +368,7 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
         "href" : "https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org"
       },
       "storageSystem" : {
-        "href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+        "href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
       },
       "owner" : {
         "href" : "https://public.agaveapi.co/profiles/v2/api_sample_user"
@@ -404,7 +404,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=publish" htt
 ```
 
 
-```cli
+```plaintext
 apps-publish -v demo-pyplot-demo-advanced-0.1.0
 ```
 
@@ -437,7 +437,7 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
     "executionType" : "CLI",
     "executionSystem" : "docker.iplantcollaborative.org",
     "deploymentPath" : "/api/v2/apps/demo-pyplot-demo-advanced-0.1.0u2.zip",
-    "deploymentSystem" : "data.iplantcollaborative.org",
+    "deploymentSystem" : "data.agaveapi.co",
     "templatePath" : "wrapper.sh",
     "testPath" : "test/test.sh",
     "checkpointable" : false,
@@ -452,7 +452,7 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
         "required" : true,
         "order" : 0,
         "enquote" : false,
-        "default" : [ "agave://data.iplantcollaborative.org/datasets/tutorials/apps/demo-pyplot-demo-advanced-0.1.0/testdata.csv" ]
+        "default" : [ "agave://data.agaveapi.co/datasets/tutorials/apps/demo-pyplot-demo-advanced-0.1.0/testdata.csv" ]
       },
       "details" : {
         "label" : "Dataset",
@@ -735,7 +735,7 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
         "href" : "https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org"
       },
       "storageSystem" : {
-        "href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+        "href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
       },
       "owner" : {
         "href" : "https://public.agaveapi.co/profiles/v2/api_sample_user"
@@ -769,7 +769,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://$API_BASE_UR
 ``` 
 
 
-```cli
+```plaintext
 apps-delete demo-pyplot-demo-advanced-0.1.0u1
 ```
 

@@ -8,7 +8,7 @@ Agave enables you to group together one or more compute and storage systems to a
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/$API_VERSION
 ```
 
-```cli
+```plaintext
 systems-list -v
 ```
 
@@ -33,12 +33,12 @@ The response to this call for our example user looks like this:
    {  
       "_links":{  
          "self":{  
-            "href":"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+            "href":"https://public.agaveapi.co/systems/v2/data.agaveapi.co"
          }
       },
       "default":true,
       "description":"The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&#039;s technologies.",
-      "id":"data.iplantcollaborative.org",
+      "id":"data.agaveapi.co",
       "name":"iPlant Data Store",
       "public":true,
       "status":"UP",
@@ -100,7 +100,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
 ```
 
 
-```cli
+```plaintext
 systems-list -v docker.iplantcollaborative.org
 ```
 

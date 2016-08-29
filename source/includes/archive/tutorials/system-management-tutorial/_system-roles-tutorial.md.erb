@@ -69,12 +69,12 @@ The response below has a single role representing the owner of the system. By de
 Now let's look at the permissions for a public system.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/data.iplantcollaborative.org/roles
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co/roles
 ```
 
 
 ```plaintext
-systems-roles-list -v data.iplantcollaborative.org
+systems-roles-list -v data.agaveapi.co
 ```
 
 
@@ -89,10 +89,10 @@ Rather than returning a list of all API users, the response contains just your u
     "role" : "USER",
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/data.iplantcollaborative.org/roles/systest"
+        "href" : "https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co/roles/systest"
       },
       "parent" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+        "href" : "https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"
       },
       "profile" : {
         "href" : "https://public.tenants.agaveapi.co/profiles/v2/systest"

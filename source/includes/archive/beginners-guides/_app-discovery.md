@@ -65,10 +65,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenan
 apps-list -v wc-osg-1.00u1
 ``` 
 
-Appending an app's id to the above commands will give the full app description. Let's look at the `wc-osg-1.00u1` app as an example.
-
-
-The response is a JSON object with a lot of information that we elaborate more on in the App Service tutorial.
+> The response is a JSON object with a lot of information that we elaborate more on in the App Service tutorial.
 
 ```json 
 {  
@@ -80,7 +77,7 @@ The response is a JSON object with a lot of information that we elaborate more o
   "defaultProcessorsPerNode":null,
   "defaultQueue":null,
   "deploymentPath":"/api/v2/apps/wc-osg-1.00u1.zip",
-  "deploymentSystem":"data.iplantcollaborative.org",
+  "deploymentSystem":"data.agaveapi.co",
   "executionSystem":"condor.opensciencegrid.org",
   "executionType":"CONDOR",
   "helpURI":"http://www.gnu.org/s/coreutils/manual/html_node/wc-invocation.html",
@@ -134,9 +131,7 @@ The response is a JSON object with a lot of information that we elaborate more o
       },
       "id":"outputWC",
       "semantics":{  
-        "fileTypes":[  
-
-        ],
+        "fileTypes":[],
         "maxCardinality":1,
         "minCardinality":1,
         "ontology":[  
@@ -180,13 +175,15 @@ The response is a JSON object with a lot of information that we elaborate more o
       "href":"https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00u1"
     },
     "storageSystem":{  
-      "href":"https://public.tenants.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+      "href":"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"
     }
   }
 }
 ```
 
-In the above response, the important fields to notice are `id`, `inputs`, `parameters`, and `executionSystem`.
+Appending an app's id to the above commands will give the full app description. Let's look at the `wc-osg-1.00u1` app as an example.
+
+The the important fields to notice in the repsonse are `id`, `inputs`, `parameters`, and `executionSystem`.
 
 * `id`: The unique id of the app. App ids are made up of a name separated by a version number. Public apps also have the revision number appended to the id to distinguish their changes over time.
 * `inputs`: a JSON array of objects describing the input files needed to run this app. 

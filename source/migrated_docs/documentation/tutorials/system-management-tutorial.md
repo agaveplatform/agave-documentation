@@ -17,7 +17,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
 ```
 
 
-```cli
+```plaintext
 systems-list -v
 ```
 
@@ -27,7 +27,7 @@ The response will be a JSON array of summary system objects. The full system des
 ```javascript
 [
   {
-    "id" : "data.iplantcollaborative.org",
+    "id" : "data.agaveapi.co",
     "name" : "iPlant Data Store",
     "type" : "STORAGE",
     "description" : "The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&#039;s technologies.",
@@ -36,7 +36,7 @@ The response will be a JSON array of summary system objects. The full system des
     "default" : true,
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+        "href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
       }
     }
   },
@@ -83,7 +83,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
 ```
 
 
-```cli
+```plaintext
 ```bash
 systems-list -v -S
 ```
@@ -112,7 +112,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
 ```
 
 
-```cli
+```plaintext
 systems-list -v $SYSTEM_ID
 ```
 
@@ -123,7 +123,7 @@ This time, the response will be a JSON object with a full system description. Th
 {  
    "default":true,
    "description":"The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&#039;s technologies.",
-   "id":"data.iplantcollaborative.org",
+   "id":"data.agaveapi.co",
    "lastModified":"2013-11-12T07:08:30.000-06:00",
    "name":"iPlant Data Store",
    "public":true,
@@ -135,7 +135,7 @@ This time, the response will be a JSON object with a full system description. Th
          "type":"PASSWORD"
       },
       "homeDir":"/",
-      "host":"data.iplantcollaborative.org",
+      "host":"data.agaveapi.co",
       "mirror":true,
       "port":1247,
       "protocol":"IRODS",
@@ -149,16 +149,16 @@ This time, the response will be a JSON object with a full system description. Th
    "uuid":"0001384260598633-5056a550b8-0001-006",
    "_links":{  
       "credentials":{  
-         "href":"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org/credentials"
+         "href":"https://public.agaveapi.co/systems/v2/data.agaveapi.co/credentials"
       },
       "metadata":{  
          "href":"https://public.agaveapi.co/meta/v2/data/?q={"associationIds":"0001384260598633-5056a550b8-0001-006"}"
       },
       "roles":{  
-         "href":"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org/roles"
+         "href":"https://public.agaveapi.co/systems/v2/data.agaveapi.co/roles"
       },
       "self":{  
-         "href":"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+         "href":"https://public.agaveapi.co/systems/v2/data.agaveapi.co"
       }
    }
 }
@@ -526,7 +526,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -F "fileToUpload=@sftp-passwor
 ```
 
 
-```cli
+```plaintext
 systems-addupdate -v -F sftp-password.json
 ```
 
@@ -818,7 +818,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -F "fileToUpload=@ssh-password
 ```
 
 
-```cli
+```plaintext
 systems-addupdate -v -F ssh-password.json
 ```
 
@@ -913,7 +913,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=clone&amp;id
 ```
 
 
-```cli
+```plaintext
 systems-clone -v -I systest.demo.clone $SYSTEM_ID
 ```
 
@@ -959,7 +959,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=publish" htt
 ```
 
 
-```cli
+```plaintext
 systems-publish -v $SYSTEM_ID
 ```
 
@@ -973,7 +973,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unpublish" h
 ```
 
 
-```cli
+```plaintext
 systems-unpublish -v $SYSTEM_ID
 ```
 
@@ -999,7 +999,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=setdefault" 
 ```
 
 
-```cli
+```plaintext
 systems-setdefault -v $SYSTEM_ID
 ```
 
@@ -1015,7 +1015,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unsetDefault
 ```
 
 
-```cli
+```plaintext
 systems-unsetdefault -v $SYSTEM_ID
 ```
 
@@ -1029,7 +1029,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=setglobaldef
 ```
 
 
-```cli
+```plaintext
 systems-setdefault -v -G $SYSTEM_ID
 ```
 
@@ -1045,7 +1045,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unsetGlobalD
 ```
 
 
-```cli
+```plaintext
 systems-unsetdefault -v -G $SYSTEM_ID
 ```
 
@@ -1061,7 +1061,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://$API_BASE_UR
 ```
 
 
-```cli
+```plaintext
 systems-delete $SYSTEM_ID
 ```
 

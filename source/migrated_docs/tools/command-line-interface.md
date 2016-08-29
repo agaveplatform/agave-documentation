@@ -4,4 +4,4 @@ The Agave command-line interface (CLI) is an complete interface to the Agave RES
 git clone https://bitbucket.org/taccaci/foundation-cli
 ```
 
-For more information on using the Agave CLI in common tasks, please consult the <a href="http://agaveapi.co/documentation/beginners-guides/" title="Beginner’s Guides">Beginner's Guides</a> which reference it in all their examples or check out the <a href="https://bitbucket.org/taccaci/agave-samples" title="Agave Tutorials Samples" target="_blank">Agave Samples project</a> for sample data and examples of how to use it to populate and interact with your tenant.
+For more information on using the Agave CLI in common tasks, please consult the <a href="http://agaveapi.co/documentation/beginners-guides/" title="Beginner’s Guides">Beginner's Guides</a> which reference it in all their examples or check out the <a href="https://bitbucket.org/agaveapi/science-api-samples" title="Agave Tutorials Samples" target="_blank">Agave Samples project</a> for sample data and examples of how to use it to populate and interact with your tenant.

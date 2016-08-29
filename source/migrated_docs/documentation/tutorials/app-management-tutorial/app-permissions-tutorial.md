@@ -15,7 +15,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/apps/$AP
 ```
 
 
-```cli
+```plaintext
 apps-pems-list -v -u $USERNAME $APP_ID
 ```
 
@@ -51,7 +51,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/apps/$AP
 ```
 
 
-```cli
+```plaintext
 apps-pems-list -v $APP_ID
 ```
 
@@ -96,7 +96,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "permission=READ" h
 ```
 
 
-```cli
+```plaintext
 apps-pems-update -v -u bgibson -p READ $APP_ID
 ```
 
@@ -137,7 +137,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://$API_BASE_UR
 ```
 
 
-```cli
+```plaintext
 apps-pems-delete -u bgibson $APP_ID
 ```
 
@@ -158,7 +158,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "permission=" https
 ```
 
 
-```cli
+```plaintext
 apps-pems-update -v -u bgibson $APP_ID
 ```
 
@@ -194,7 +194,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://$API_BASE_UR
 ```
 
 
-```cli
+```plaintext
 apps-pems-delete $APP_ID
 ```
 

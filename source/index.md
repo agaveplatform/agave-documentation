@@ -45,6 +45,10 @@ includes:
 - guides/notifications/_notification-managing.md.erb
 - guides/notifications/_notification-policy.md.erb
 - guides/metadata/_introduction.md.erb
+- guides/metadata/_metadata-schema.md.erb
+- guides/metadata/_metadata-validation.md.erb
+- guides/metadata/_metadata-search.md.erb
+- guides/metadata/_metadata-permissions.md.erb
 - guides/monitors/_introduction.md.erb
 - guides/profiles/_introduction.md.erb
 - guides/events/_introduction

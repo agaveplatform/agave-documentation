@@ -1,6 +1,6 @@
 This is the first of three app examples demonstrating how a real work code can be registered and used in Agave. The app is a Python code that takes a csv file and creates a graph of the data. We detail how to create a JSON description of the code we want to run, how to create the wrapper template that Agave uses to run the code, and how to test and run the app with Agave.
 
-<aside class="notice">You can download the full source code for this example app and client application in the <a href="https://bitbucket.org/taccaci/agave-samples" title="Agave Samples">Agave Samples</a> repository in the <span class="code">apps/pyplot-demo/basic/pyplot-demo-basic-0.1.0</span> directory. If you would like to run this app in a live environment, you can register your own compute and storage systems, or use one of our developer sandbox environments.</aside>
+<aside class="notice">You can download the full source code for this example app and client application in the <a href="https://bitbucket.org/agaveapi/science-api-samples" title="Agave Samples">Agave Samples</a> repository in the <span class="code">apps/pyplot-demo/basic/pyplot-demo-basic-0.1.0</span> directory. If you would like to run this app in a live environment, you can register your own compute and storage systems, or use one of our developer sandbox environments.</aside>
 
 ## Basic app overview  
 

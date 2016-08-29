@@ -151,7 +151,7 @@ Your first objective is to create a script that you know will run to completion 
 First, you will need some test data in your current directory (i.e., $WORK/iPlant/samtools-0.1.19/stampede/ ). You can use this test file
 
 ```shell
-files-get -S data.iplantcollaborative.org /shared/iplantcollaborative/example_data/Samtools_mpileup/ex1.bam
+files-get -S data.agaveapi.co /shared/iplantcollaborative/example_data/Samtools_mpileup/ex1.bam
 ```
 
 or you can any other BAM file for your testing purposes. Make sure if you use another file to change the filename in your test script accordingly!
@@ -550,7 +550,7 @@ Here's a walkthrough of what these fields mean:
 </tbody>
 </table>
 
-*A note on paths*: In this iPlant-oriented tutorial, we assume you will stage data to and from "data.iplantcollaborative.org", the default storage system for iPlant users. In this case, you can use relative paths relative to homeDir on that system (i.e. vaughn/analyses/foobar). To add portability, marshal data from other storageSystems, or import from public servers, you can also specify fully qualified URIs as follows:
+*A note on paths*: In this iPlant-oriented tutorial, we assume you will stage data to and from "data.agaveapi.co", the default storage system for iPlant users. In this case, you can use relative paths relative to homeDir on that system (i.e. vaughn/analyses/foobar). To add portability, marshal data from other storageSystems, or import from public servers, you can also specify fully qualified URIs as follows:
 * storageSystem namespace: agave://storage-system-name/path/to/file
 * public URI namespace: https://www.cnn.com/index.html
 

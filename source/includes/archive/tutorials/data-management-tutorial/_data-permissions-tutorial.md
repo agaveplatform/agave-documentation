@@ -37,12 +37,12 @@ You can list, add, update, and remove data permissions by making requests on the
 Let's start by listing the permissions on our sample file from the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/" title="Data Management Tutorial">Data Management tutorial</a>.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/files/v2/pems/data.iplantcollaborative.org/$API_USERNAME/picksumipsum.txt
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/files/v2/pems/data.agaveapi.co/$API_USERNAME/picksumipsum.txt
 ```
 
 
 ```plaintext
-files-list -v -S data.iplantcollaborative.org $API_USERNAME
+files-list -v -S data.agaveapi.co $API_USERNAME
 ``` 
 
 

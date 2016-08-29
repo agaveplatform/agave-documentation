@@ -40,7 +40,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST
 ```
 
 
-```cli
+```plaintext
 metadata-addupdate -v -d &#039;{"value": {"title": "Example Metadata", "properties": {"species": "arabidopsis", "description": "A model organism..."}}, "name": "some metadata"}&#039;
 ```
 
@@ -91,7 +91,7 @@ https://$API_BASE_URL/meta/$API_VERSION/schemas/
 ```
 
 
-```cli
+```plaintext
 metadata-schema-addupdate -v -d &#039;{ "title": "Example Schema", "type": "object", "properties": { "species": { "type": "string" } }, "required": ["species"] }&#039;
 ```
 
@@ -207,7 +207,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/meta/$AP
 ```
 
 
-```cli
+```plaintext
 metadata-list -i -v -Q &#039;%7B%22name%22%3A%22mustard+plant%22%7D&#039;
 ```
 

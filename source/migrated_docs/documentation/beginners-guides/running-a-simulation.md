@@ -5,7 +5,7 @@ In the previous lesson on <a title="App Discovery" href="http://agaveapi.co/docu
 "name":"wordcount demo",
 "appId":"wc-osg-1.00u1",
 "inputs":{
-"query1":"agave://data.iplantcollaborative.org/systest/picksumipsum.txt"
+"query1":"agave://data.agaveapi.co/systest/picksumipsum.txt"
 },
 "parameters": {},
 "notifications":[
@@ -28,7 +28,7 @@ Running a job is simply a matter of sending a POST request to the Jobs service w
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST --data &#039;&#039; https://$API_BASE_URL/jobs/$API_VERSION
 ```
 
-```cli
+```plaintext
 jobs-submit -v -F submit.json
 ```
 
@@ -40,13 +40,13 @@ Submitting this job description will return a JSON object with a full descriptio
 "appId": "wc-osg-1.00u1",
 "archive": true,
 "archivePath": "systest/archive/jobs/job-0001409784588509-5056a550b8-0001-007",
-"archiveSystem": "data.iplantcollaborative.org",
+"archiveSystem": "data.agaveapi.co",
 "batchQueue": "condorqueue",
 "endTime": null,
 "executionSystem": "condor.opensciencegrid.org",
 "id": "0001409784588509-5056a550b8-0001-007",
 "inputs": {
-"query1": "agave://data.iplantcollaborative.org/systest/picksumipsum.txt"
+"query1": "agave://data.agaveapi.co/systest/picksumipsum.txt"
 },
 "localId": null,
 "maxRunTime": "999:59:59",
@@ -69,7 +69,7 @@ Submitting this job description will return a JSON object with a full descriptio
 "href": "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/listings"
 },
 "archiveSystem": {
-"href": "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+"href": "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
 },
 "executionSystem": {
 "href": "https://public.agaveapi.co/systems/v2/condor.opensciencegrid.org"
@@ -105,7 +105,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/jobs/$AP
 ```
 ```
 
-```cli
+```plaintext
 jobs-status -v 0001409784588509-5056a550b8-0001-007
 ```
 
@@ -147,7 +147,7 @@ As with the Files service, Agave keeps a complete history of all activity relate
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/jobs/$API_VERSION/0001409784588509-5056a550b8-0001-007/history```
 
-```cli
+```plaintext
 jobs-history -v 0001409784588509-5056a550b8-0001-007
 ```
 
@@ -173,7 +173,7 @@ The response will be a JSON array of events related to the job. At this point we
 },
 {
 "created": "2014-09-03T17:49:51.000-05:00",
-"description": "Staging agave://data.iplantcollaborative.org/systest/picksumipsum.txt to remote job directory",
+"description": "Staging agave://data.agaveapi.co/systest/picksumipsum.txt to remote job directory",
 "status": "STAGING_INPUTS"
 },
 {
@@ -181,7 +181,7 @@ The response will be a JSON array of events related to the job. At this point we
 "description": "Copy in progress",
 "progress": {
 "averageRate": 3235,
-"source": "agave://data.iplantcollaborative.org/systest/picksumipsum.txt",
+"source": "agave://data.agaveapi.co/systest/picksumipsum.txt",
 "totalActiveTransfers": 0,
 "totalBytes": 3235,
 "totalBytesTransferred": 3235,
@@ -236,7 +236,7 @@ The response will be a JSON array of events related to the job. At this point we
 },
 {
 "created": "2014-09-03T17:51:03.000-05:00",
-"description": "Archiving agave://condor.opensciencegrid.org//condor/scratch/systest/job-0001409784588509-5056a550b8-0001-007-wordcount-demo to agave://data.iplantcollaborative.org/systest/archive/jobs/job-0001409784588509-5056a550b8-0001-007",
+"description": "Archiving agave://condor.opensciencegrid.org//condor/scratch/systest/job-0001409784588509-5056a550b8-0001-007-wordcount-demo to agave://data.agaveapi.co/systest/archive/jobs/job-0001409784588509-5056a550b8-0001-007",
 "progress": {
 "averageRate": 0,
 "source": "agave://condor.opensciencegrid.org//condor/scratch/systest/job-0001409784588509-5056a550b8-0001-007-wordcount-demo",
@@ -271,7 +271,7 @@ Now that your job has completed, you will probably want to retrieve the output. 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/jobs/$API_VERSION/0001409784588509-5056a550b8-0001-007/outputs/listing```
 
-```cli
+```plaintext
 jobs-output -v 0001409784588509-5056a550b8-0001-007
 ```
 
@@ -294,7 +294,7 @@ The response will be a JSON array of file objects identical to that returned fro
 "href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/condorSubmit"
 },
 "system" : {
-"href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+"href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
 },
 "parent" : {
 "href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
@@ -314,7 +314,7 @@ The response will be a JSON array of file objects identical to that returned fro
 "href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.err"
 },
 "system" : {
-"href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+"href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
 },
 "parent" : {
 "href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
@@ -334,7 +334,7 @@ The response will be a JSON array of file objects identical to that returned fro
 "href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.out"
 },
 "system" : {
-"href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+"href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
 },
 "parent" : {
 "href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
@@ -354,7 +354,7 @@ The response will be a JSON array of file objects identical to that returned fro
 "href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/output.txt"
 },
 "system" : {
-"href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+"href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
 },
 "parent" : {
 "href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
@@ -374,7 +374,7 @@ The response will be a JSON array of file objects identical to that returned fro
 "href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/picksumipsum.txt"
 },
 "system" : {
-"href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+"href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
 },
 "parent" : {
 "href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
@@ -394,7 +394,7 @@ The response will be a JSON array of file objects identical to that returned fro
 "href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/runtime.log"
 },
 "system" : {
-"href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+"href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
 },
 "parent" : {
 "href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
@@ -414,7 +414,7 @@ The response will be a JSON array of file objects identical to that returned fro
 "href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/transfer.tar.gz"
 },
 "system" : {
-"href" : "https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+"href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
 },
 "parent" : {
 "href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
@@ -429,7 +429,7 @@ Downloading job data is just as easy and uses the same conventions from the File
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/jobs/$API_VERSION/0001409784588509-5056a550b8-0001-007/outputs/media/output.txt```
 
-```cli
+```plaintext
 jobs-output -D -P output.txt 0001409784588509-5056a550b8-0001-007
 ```
 

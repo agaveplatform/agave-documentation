@@ -55,7 +55,7 @@ The response to this request will be a JSON object describing the metadata item 
          "href":"https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00u1"
       },
       "file":{  
-         "href":"https://public.tenants.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt"
+         "href":"https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt"
       }
    }
 }

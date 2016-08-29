@@ -33,12 +33,12 @@ The response to this call for our example user looks like this:
    {  
       "_links":{  
          "self":{  
-            "href":"https://public.tenants.agaveapi.co/systems/v2/data.iplantcollaborative.org"
+            "href":"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"
          }
       },
       "default":true,
       "description":"The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&#039;s technologies.",
-      "id":"data.iplantcollaborative.org",
+      "id":"data.agaveapi.co",
       "name":"iPlant Data Store",
       "public":true,
       "status":"UP",

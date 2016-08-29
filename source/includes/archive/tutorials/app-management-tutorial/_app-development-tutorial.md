@@ -98,7 +98,7 @@ Your first objective is to create a script that you know will run to completion 
 First, you will need some test data in your current directory (i.e., $WORK/iPlant/samtools-0.1.19/stampede/ ). You can use this test file
 
 ```shell
-files-get -S data.iplantcollaborative.org /shared/iplantcollaborative/example_data/Samtools_mpileup/ex1.bam
+files-get -S data.agaveapi.co /shared/iplantcollaborative/example_data/Samtools_mpileup/ex1.bam
 ```
 
 or you can any other BAM file for your testing purposes. Make sure if you use another file to change the filename in your test script accordingly!
@@ -247,21 +247,21 @@ Each time you (or another user) requests an instance of samtools sort, Agave cop
 
 ```shell
 # Check to see if you have an applications directory
-curl -sk -H "Authorization: Bearer api-access-token" https://api.example.com/files/v2/listings/data.iplantcollaborative.org/$API_USERNAME/applications
+curl -sk -H "Authorization: Bearer api-access-token" https://api.example.com/files/v2/listings/data.agaveapi.co/$API_USERNAME/applications
 
 # If you see: File/folder does not exist
 # then you need to create an applications directory
-curl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c" -X POST -d "action=mkdir&amp;path=applications" https://api.example.com/files/v2/listings/data.iplantcollaborative.org/$API_USERNAME
+curl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c" -X POST -d "action=mkdir&amp;path=applications" https://api.example.com/files/v2/listings/data.agaveapi.co/$API_USERNAME
 ```
 
 
 [oldy]
 ```shell
 # Check to see if you have an applications directory
-files-list -S data.iplantcollaborative.org $IPLANTUSERNAME/applications
+files-list -S data.agaveapi.co $IPLANTUSERNAME/applications
 # If you see: File/folder does not exist
 # then you need to create an applications directory
-files-mkdir -S data.iplantcollaborative.org -N "applications" $IPLANTUSERNAME/
+files-mkdir -S data.agaveapi.co -N "applications" $IPLANTUSERNAME/
 ```
 
 
@@ -273,7 +273,7 @@ Now, go ahead with the upload:
 # cd out of the bundle
 cd $WORK/iPlant
 # Upload using files-upload
-files-upload -S data.iplantcollaborative.org -F samtools-0.1.19 $IPLANTUSERNAME/applications
+files-upload -S data.agaveapi.co -F samtools-0.1.19 $IPLANTUSERNAME/applications
 ```
 
 ## Post the app description to Agave  
