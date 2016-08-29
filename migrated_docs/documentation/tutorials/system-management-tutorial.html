@@ -73,7 +73,7 @@ ga('send', 'pageview');
 <p>The response will be a JSON array of summary system objects. The full system description can get rather verbose, so a summary object is returned with the most critical fields in order to reduce response size when retrieving a user&rsquo;s systems.</p>
 <pre class="highlight javascript"><code><span class="p">[</span>
   <span class="p">{</span>
-    <span class="s2">"id"</span> <span class="p">:</span> <span class="s2">"data.iplantcollaborative.org"</span><span class="p">,</span>
+    <span class="s2">"id"</span> <span class="p">:</span> <span class="s2">"data.agaveapi.co"</span><span class="p">,</span>
     <span class="s2">"name"</span> <span class="p">:</span> <span class="s2">"iPlant Data Store"</span><span class="p">,</span>
     <span class="s2">"type"</span> <span class="p">:</span> <span class="s2">"STORAGE"</span><span class="p">,</span>
     <span class="s2">"description"</span> <span class="p">:</span> <span class="s2">"The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&amp;#039;s technologies."</span><span class="p">,</span>
@@ -82,7 +82,7 @@ ga('send', 'pageview');
     <span class="s2">"default"</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
     <span class="s2">"_links"</span> <span class="p">:</span> <span class="p">{</span>
       <span class="s2">"self"</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+        <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">},</span>
@@ -157,7 +157,7 @@ systems-list -v -D
 <pre class="highlight javascript"><code><span class="p">{</span>  
    <span class="s2">"default"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
    <span class="s2">"description"</span><span class="err">:</span><span class="s2">"The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&amp;#039;s technologies."</span><span class="p">,</span>
-   <span class="s2">"id"</span><span class="err">:</span><span class="s2">"data.iplantcollaborative.org"</span><span class="p">,</span>
+   <span class="s2">"id"</span><span class="err">:</span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span>
    <span class="s2">"lastModified"</span><span class="err">:</span><span class="s2">"2013-11-12T07:08:30.000-06:00"</span><span class="p">,</span>
    <span class="s2">"name"</span><span class="err">:</span><span class="s2">"iPlant Data Store"</span><span class="p">,</span>
    <span class="s2">"public"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
@@ -169,7 +169,7 @@ systems-list -v -D
          <span class="s2">"type"</span><span class="err">:</span><span class="s2">"PASSWORD"</span>
       <span class="p">},</span>
       <span class="s2">"homeDir"</span><span class="err">:</span><span class="s2">"/"</span><span class="p">,</span>
-      <span class="s2">"host"</span><span class="err">:</span><span class="s2">"data.iplantcollaborative.org"</span><span class="p">,</span>
+      <span class="s2">"host"</span><span class="err">:</span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span>
       <span class="s2">"mirror"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
       <span class="s2">"port"</span><span class="err">:</span><span class="mi">1247</span><span class="p">,</span>
       <span class="s2">"protocol"</span><span class="err">:</span><span class="s2">"IRODS"</span><span class="p">,</span>
@@ -183,16 +183,16 @@ systems-list -v -D
    <span class="s2">"uuid"</span><span class="err">:</span><span class="s2">"0001384260598633-5056a550b8-0001-006"</span><span class="p">,</span>
    <span class="s2">"_links"</span><span class="err">:</span><span class="p">{</span>  
       <span class="s2">"credentials"</span><span class="err">:</span><span class="p">{</span>  
-         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org/credentials"</span>
+         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co/credentials"</span>
       <span class="p">},</span>
       <span class="s2">"metadata"</span><span class="err">:</span><span class="p">{</span>  
          <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/meta/v2/data/?q={"</span><span class="nx">associationIds</span><span class="s2">":"</span><span class="mi">0001384260598633</span><span class="o">-</span><span class="mi">5056</span><span class="nx">a550b8</span><span class="o">-</span><span class="mi">0001</span><span class="o">-</span><span class="mi">006</span><span class="s2">"}"</span>
       <span class="p">},</span>
       <span class="s2">"roles"</span><span class="err">:</span><span class="p">{</span>  
-         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org/roles"</span>
+         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co/roles"</span>
       <span class="p">},</span>
       <span class="s2">"self"</span><span class="err">:</span><span class="p">{</span>  
-         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
       <span class="p">}</span>
    <span class="p">}</span>
 <span class="p">}</span>

@@ -57,7 +57,7 @@ ga('send', 'pageview');
 <span class="s2">"name"</span><span class="err">:</span><span class="s2">"wordcount demo"</span><span class="p">,</span>
 <span class="s2">"appId"</span><span class="err">:</span><span class="s2">"wc-osg-1.00u1"</span><span class="p">,</span>
 <span class="s2">"inputs"</span><span class="err">:</span><span class="p">{</span>
-<span class="s2">"query1"</span><span class="err">:</span><span class="s2">"agave://data.iplantcollaborative.org/systest/picksumipsum.txt"</span>
+<span class="s2">"query1"</span><span class="err">:</span><span class="s2">"agave://data.agaveapi.co/systest/picksumipsum.txt"</span>
 <span class="p">},</span>
 <span class="s2">"parameters"</span><span class="err">:</span> <span class="p">{},</span>
 <span class="s2">"notifications"</span><span class="err">:</span><span class="p">[</span>
@@ -85,13 +85,13 @@ ga('send', 'pageview');
 <span class="s2">"appId"</span><span class="err">:</span> <span class="s2">"wc-osg-1.00u1"</span><span class="p">,</span>
 <span class="s2">"archive"</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
 <span class="s2">"archivePath"</span><span class="err">:</span> <span class="s2">"systest/archive/jobs/job-0001409784588509-5056a550b8-0001-007"</span><span class="p">,</span>
-<span class="s2">"archiveSystem"</span><span class="err">:</span> <span class="s2">"data.iplantcollaborative.org"</span><span class="p">,</span>
+<span class="s2">"archiveSystem"</span><span class="err">:</span> <span class="s2">"data.agaveapi.co"</span><span class="p">,</span>
 <span class="s2">"batchQueue"</span><span class="err">:</span> <span class="s2">"condorqueue"</span><span class="p">,</span>
 <span class="s2">"endTime"</span><span class="err">:</span> <span class="kc">null</span><span class="p">,</span>
 <span class="s2">"executionSystem"</span><span class="err">:</span> <span class="s2">"condor.opensciencegrid.org"</span><span class="p">,</span>
 <span class="s2">"id"</span><span class="err">:</span> <span class="s2">"0001409784588509-5056a550b8-0001-007"</span><span class="p">,</span>
 <span class="s2">"inputs"</span><span class="err">:</span> <span class="p">{</span>
-<span class="s2">"query1"</span><span class="err">:</span> <span class="s2">"agave://data.iplantcollaborative.org/systest/picksumipsum.txt"</span>
+<span class="s2">"query1"</span><span class="err">:</span> <span class="s2">"agave://data.agaveapi.co/systest/picksumipsum.txt"</span>
 <span class="p">},</span>
 <span class="s2">"localId"</span><span class="err">:</span> <span class="kc">null</span><span class="p">,</span>
 <span class="s2">"maxRunTime"</span><span class="err">:</span> <span class="s2">"999:59:59"</span><span class="p">,</span>
@@ -114,7 +114,7 @@ ga('send', 'pageview');
 <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/listings"</span>
 <span class="p">},</span>
 <span class="s2">"archiveSystem"</span><span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
 <span class="p">},</span>
 <span class="s2">"executionSystem"</span><span class="err">:</span> <span class="p">{</span>
 <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/condor.opensciencegrid.org"</span>
@@ -147,7 +147,7 @@ ga('send', 'pageview');
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/jobs/<span class="nv">$API_VERSION</span>/0001409784588509-5056a550b8-0001-007/status
 </code></pre>
 <pre class="highlight plaintext"><code>
-```cli
+```plaintext
 jobs-status -v 0001409784588509-5056a550b8-0001-007
 </code></pre>
 
@@ -182,7 +182,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <p>As with the Files service, Agave keeps a complete history of all activity related to your jobs. You can access this provenance trail through the job history.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/jobs/<span class="nv">$API_VERSION</span>/0001409784588509-5056a550b8-0001-007/history<span class="sb">```</span>
 
-<span class="sb">```</span>cli
+<span class="sb">```</span>plaintext
 <span class="nb">jobs</span>-history -v 0001409784588509-5056a550b8-0001-007
 </code></pre>
 
@@ -205,7 +205,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="p">},</span>
 <span class="p">{</span>
 <span class="s2">"created"</span><span class="p">:</span> <span class="s2">"2014-09-03T17:49:51.000-05:00"</span><span class="p">,</span>
-<span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Staging agave://data.iplantcollaborative.org/systest/picksumipsum.txt to remote job directory"</span><span class="p">,</span>
+<span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Staging agave://data.agaveapi.co/systest/picksumipsum.txt to remote job directory"</span><span class="p">,</span>
 <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"STAGING_INPUTS"</span>
 <span class="p">},</span>
 <span class="p">{</span>
@@ -213,7 +213,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Copy in progress"</span><span class="p">,</span>
 <span class="s2">"progress"</span><span class="p">:</span> <span class="p">{</span>
 <span class="s2">"averageRate"</span><span class="p">:</span> <span class="mi">3235</span><span class="p">,</span>
-<span class="s2">"source"</span><span class="p">:</span> <span class="s2">"agave://data.iplantcollaborative.org/systest/picksumipsum.txt"</span><span class="p">,</span>
+<span class="s2">"source"</span><span class="p">:</span> <span class="s2">"agave://data.agaveapi.co/systest/picksumipsum.txt"</span><span class="p">,</span>
 <span class="s2">"totalActiveTransfers"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 <span class="s2">"totalBytes"</span><span class="p">:</span> <span class="mi">3235</span><span class="p">,</span>
 <span class="s2">"totalBytesTransferred"</span><span class="p">:</span> <span class="mi">3235</span><span class="p">,</span>
@@ -268,7 +268,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="p">},</span>
 <span class="p">{</span>
 <span class="s2">"created"</span><span class="p">:</span> <span class="s2">"2014-09-03T17:51:03.000-05:00"</span><span class="p">,</span>
-<span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Archiving agave://condor.opensciencegrid.org//condor/scratch/systest/job-0001409784588509-5056a550b8-0001-007-wordcount-demo to agave://data.iplantcollaborative.org/systest/archive/jobs/job-0001409784588509-5056a550b8-0001-007"</span><span class="p">,</span>
+<span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Archiving agave://condor.opensciencegrid.org//condor/scratch/systest/job-0001409784588509-5056a550b8-0001-007-wordcount-demo to agave://data.agaveapi.co/systest/archive/jobs/job-0001409784588509-5056a550b8-0001-007"</span><span class="p">,</span>
 <span class="s2">"progress"</span><span class="p">:</span> <span class="p">{</span>
 <span class="s2">"averageRate"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"agave://condor.opensciencegrid.org//condor/scratch/systest/job-0001409784588509-5056a550b8-0001-007-wordcount-demo"</span><span class="p">,</span>
@@ -301,7 +301,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <p>Now that your job has completed, you will probably want to retrieve the output. We could use the Files service for this, but let&rsquo;s look at how to interact with job data through the job output API.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/jobs/<span class="nv">$API_VERSION</span>/0001409784588509-5056a550b8-0001-007/outputs/listing<span class="sb">```</span>
 
-<span class="sb">```</span>cli
+<span class="sb">```</span>plaintext
 <span class="nb">jobs</span>-output -v 0001409784588509-5056a550b8-0001-007
 </code></pre>
 
@@ -321,7 +321,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/condorSubmit"</span>
 <span class="p">},</span>
 <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
 <span class="p">},</span>
 <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
 <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
@@ -341,7 +341,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.err"</span>
 <span class="p">},</span>
 <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
 <span class="p">},</span>
 <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
 <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
@@ -361,7 +361,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.out"</span>
 <span class="p">},</span>
 <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
 <span class="p">},</span>
 <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
 <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
@@ -381,7 +381,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/output.txt"</span>
 <span class="p">},</span>
 <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
 <span class="p">},</span>
 <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
 <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
@@ -401,7 +401,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/picksumipsum.txt"</span>
 <span class="p">},</span>
 <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
 <span class="p">},</span>
 <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
 <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
@@ -421,7 +421,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/runtime.log"</span>
 <span class="p">},</span>
 <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
 <span class="p">},</span>
 <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
 <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
@@ -441,7 +441,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/transfer.tar.gz"</span>
 <span class="p">},</span>
 <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
 <span class="p">},</span>
 <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
 <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
@@ -454,7 +454,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <p>Downloading job data is just as easy and uses the same conventions from the Files service.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/jobs/<span class="nv">$API_VERSION</span>/0001409784588509-5056a550b8-0001-007/outputs/media/output.txt<span class="sb">```</span>
 
-<span class="sb">```</span>cli
+<span class="sb">```</span>plaintext
 <span class="nb">jobs</span>-output -D -P output.txt 0001409784588509-5056a550b8-0001-007
 </code></pre>
 

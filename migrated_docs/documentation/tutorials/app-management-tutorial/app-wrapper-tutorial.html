@@ -219,7 +219,7 @@ cd ../../samtools-0.1.19/stampede</p>
 <p>First, you will need some test data in your current directory (i.e., $WORK/iPlant/samtools-0.1.19/stampede/ ). You can use this test file</p>
 
 <p>[code lang=text]
-files-get -S data.iplantcollaborative.org /shared/iplantcollaborative/example_data/Samtools_mpileup/ex1.bam
+files-get -S data.agaveapi.co /shared/iplantcollaborative/example_data/Samtools_mpileup/ex1.bam
 &rdquo;`</p>
 
 <p>or you can any other BAM file for your testing purposes. Make sure if you use another file to change the filename in your test script accordingly!</p>
@@ -655,7 +655,7 @@ cp $IPLANT_SDK_HOME/examples/samtools-0.1.19/stampede/samtools-sort.json .
 </tbody>
 </table>
 
-<p><em>A note on paths</em>: In this iPlant-oriented tutorial, we assume you will stage data to and from &ldquo;data.iplantcollaborative.org&rdquo;, the default storage system for iPlant users. In this case, you can use relative paths relative to homeDir on that system (i.e. vaughn/analyses/foobar). To add portability, marshal data from other storageSystems, or import from public servers, you can also specify fully qualified URIs as follows:
+<p><em>A note on paths</em>: In this iPlant-oriented tutorial, we assume you will stage data to and from &ldquo;data.agaveapi.co&rdquo;, the default storage system for iPlant users. In this case, you can use relative paths relative to homeDir on that system (i.e. vaughn/analyses/foobar). To add portability, marshal data from other storageSystems, or import from public servers, you can also specify fully qualified URIs as follows:
 * storageSystem namespace: agave://storage-system-name/path/to/file
 * public URI namespace: https://www.cnn.com/index.html</p>
 

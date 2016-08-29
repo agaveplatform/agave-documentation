@@ -101,7 +101,7 @@ ga('send', 'pageview');
          <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1"</span>
       <span class="p">},</span>
       <span class="s2">"file"</span><span class="err">:</span><span class="p">{</span>  
-         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt"</span>
+         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt"</span>
       <span class="p">}</span>
    <span class="p">}</span>
 <span class="p">}</span>
@@ -155,7 +155,7 @@ ga('send', 'pageview');
 <h4 id="list-all-metadata-with-name-quot-project-quot">List all metadata with name &ldquo;project&rdquo;</h4>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST -F <span class="s2">"fileToUpload=@project_note.json"</span> https://<span class="nv">$API_BASE_URL</span>/meta/<span class="nv">$API_VERSION</span>/data?q<span class="o">=</span>%7b%6e%61%6d%65%3a%22%70%72%6f%6a%65%63%74%22%7d<span class="sb">```</span>
 
-<span class="sb">```</span>cli
+<span class="sb">```</span>plaintext
 metadata-list -v -Q &amp;#039;<span class="o">{</span>name:<span class="s2">"project"</span><span class="o">}</span>&amp;#039;
 </code></pre>
 
@@ -172,7 +172,7 @@ metadata-list -v -Q &amp;#039;<span class="o">{</span>name:<span class="s2">"pro
 <h4 id="list-all-metadata-for-job-quot-0001409784588509-5056a550b8-0001-007-quot">List all metadata for job &ldquo;0001409784588509-5056a550b8-0001-007&rdquo;</h4>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST -F <span class="s2">"fileToUpload=@project_note.json"</span> https://<span class="nv">$API_BASE_URL</span>/meta/<span class="nv">$API_VERSION</span>/data?q<span class="o">=</span>%7b%61%73%73%6f%63%69%61%74%69%6f%6e%49%64%73%3a%22%30%30%30%31%34%30%39%37%38%34%35%38%38%35%30%39%2d%35%30%35%36%61%35%35%30%62%38%2d%30%30%30%31%2d%30%30%37%22%7d<span class="sb">```</span>
 
-<span class="sb">```</span>cli
+<span class="sb">```</span>plaintext
 metadata-list -v -Q &amp;#039;<span class="o">{</span>associationIds:<span class="s2">"0001409784588509-5056a550b8-0001-007"</span><span class="o">}</span>&amp;#039;
 </code></pre>
 

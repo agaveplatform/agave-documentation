@@ -148,7 +148,7 @@ tar -czf bin.tgz bin &amp;amp;&amp;amp; rm -rf bin
 </ul>
 
 <p>First, you will need some test data in your current directory (i.e., $WORK/iPlant/samtools-0.1.19/stampede/ ). You can use this test file</p>
-<pre class="highlight shell"><code>files-get -S data.iplantcollaborative.org /shared/iplantcollaborative/example_data/Samtools_mpileup/ex1.bam
+<pre class="highlight shell"><code>files-get -S data.agaveapi.co /shared/iplantcollaborative/example_data/Samtools_mpileup/ex1.bam
 </code></pre>
 
 <p>or you can any other BAM file for your testing purposes. Make sure if you use another file to change the filename in your test script accordingly!</p>
@@ -283,11 +283,11 @@ rm -rf bin
 
 <aside class="notice">If you&rsquo;ve never deployed an Agave-based app, you may not have an applications directory in your home folder. Since this is where we recommend you store the apps, create one.</aside>
 <pre class="highlight shell"><code><span class="c"># Check to see if you have an applications directory</span>
-curl -sk -H <span class="s2">"Authorization: Bearer api-access-token"</span> https://api.example.com/files/v2/listings/data.iplantcollaborative.org/<span class="nv">$API_USERNAME</span>/applications
+curl -sk -H <span class="s2">"Authorization: Bearer api-access-token"</span> https://api.example.com/files/v2/listings/data.agaveapi.co/<span class="nv">$API_USERNAME</span>/applications
 
 <span class="c"># If you see: File/folder does not exist</span>
 <span class="c"># then you need to create an applications directory</span>
-curl -sk -H <span class="s2">"Authorization: Bearer de32225c235cf47b9965997270a1496c"</span> -X POST -d <span class="s2">"action=mkdir&amp;amp;path=applications"</span> https://api.example.com/files/v2/listings/data.iplantcollaborative.org/<span class="nv">$API_USERNAME</span>
+curl -sk -H <span class="s2">"Authorization: Bearer de32225c235cf47b9965997270a1496c"</span> -X POST -d <span class="s2">"action=mkdir&amp;amp;path=applications"</span> https://api.example.com/files/v2/listings/data.agaveapi.co/<span class="nv">$API_USERNAME</span>
 </code></pre>
 
 <p>[oldy]
@@ -295,13 +295,13 @@ curl -sk -H <span class="s2">"Authorization: Bearer de32225c235cf47b9965997270a1
 
 <h1 id="check-to-see-if-you-have-an-applications-directory">Check to see if you have an applications directory</h1>
 
-<p>files-list -S data.iplantcollaborative.org $IPLANTUSERNAME/applications</p>
+<p>files-list -S data.agaveapi.co $IPLANTUSERNAME/applications</p>
 
 <h1 id="if-you-see-file-folder-does-not-exist">If you see: File/folder does not exist</h1>
 
 <h1 id="then-you-need-to-create-an-applications-directory">then you need to create an applications directory</h1>
 
-<p>files-mkdir -S data.iplantcollaborative.org -N &quot;applications&rdquo; $IPLANTUSERNAME/
+<p>files-mkdir -S data.agaveapi.co -N &quot;applications&rdquo; $IPLANTUSERNAME/
 &ldquo;`</p>
 
 <p>[/tabgroup]</p>
@@ -310,7 +310,7 @@ curl -sk -H <span class="s2">"Authorization: Bearer de32225c235cf47b9965997270a1
 <pre class="highlight shell"><code><span class="c"># cd out of the bundle</span>
 <span class="nb">cd</span> <span class="nv">$WORK</span>/iPlant
 <span class="c"># Upload using files-upload</span>
-files-upload -S data.iplantcollaborative.org -F samtools-0.1.19 <span class="nv">$IPLANTUSERNAME</span>/applications
+files-upload -S data.agaveapi.co -F samtools-0.1.19 <span class="nv">$IPLANTUSERNAME</span>/applications
 </code></pre>
 
 <h2 id="post-the-app-description-to-agave">Post the app description to Agave</h2>

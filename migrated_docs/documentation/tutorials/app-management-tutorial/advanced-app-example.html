@@ -54,7 +54,7 @@ ga('send', 'pageview');
           <div class="content">
             <p>This is the second of three app examples demonstrating how a real world code can be registered and used in Agave. The app is a Python code that takes a csv file and creates a graph of the data. We detail how to create a JSON description of the code we want to run, how to create the wrapper template that Agave uses to run the code, and how to test and run the app with Agave.</p>
 
-<aside class="notice">You can download the full source code for this example app and client application in the <a href="https://bitbucket.org/taccaci/agave-samples" title="Agave Samples">Agave Samples</a> repository in the <span class="code">apps/pyplot-demo/advanced/pyplot-demo-advanced-0.1.0</span> directory. The webapp source code is provided in the <span class="code">apps/pyplot-demo/intermediate/webapp</span>directory. If you would like to run this app in a live environment, you can register your own compute and storage systems, or use one of our developer sandbox environments.</aside>
+<aside class="notice">You can download the full source code for this example app and client application in the <a href="https://bitbucket.org/agaveapi/science-api-samples" title="Agave Samples">Agave Samples</a> repository in the <span class="code">apps/pyplot-demo/advanced/pyplot-demo-advanced-0.1.0</span> directory. The webapp source code is provided in the <span class="code">apps/pyplot-demo/intermediate/webapp</span>directory. If you would like to run this app in a live environment, you can register your own compute and storage systems, or use one of our developer sandbox environments.</aside>
 
 <h2 id="basic-app-overview">Basic app overview</h2>
 
@@ -150,7 +150,7 @@ usage: pyplot-demo [-h] [&ndash;chart-type {bar,line}] [&ndash;x-label [XLABEL]]
     <span class="p">{</span>
       <span class="s2">"id"</span><span class="p">:</span><span class="s2">"dataset"</span><span class="p">,</span>
       <span class="s2">"value"</span><span class="p">:{</span>
-        <span class="s2">"default"</span><span class="p">:</span><span class="s2">"agave://data.iplantcollaborative.org/dooley/inputs/pyplot/testdata.csv"</span><span class="p">,</span>
+        <span class="s2">"default"</span><span class="p">:</span><span class="s2">"agave://data.agaveapi.co/dooley/inputs/pyplot/testdata.csv"</span><span class="p">,</span>
         <span class="s2">"type"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span>
         <span class="s2">"validator"</span><span class="p">:</span><span class="s2">"([^s]+(.(?i)(zip|gz|tgz|tar.gz|bz2|rar|csv))$)"</span><span class="p">,</span>
         <span class="s2">"visible"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
@@ -612,8 +612,8 @@ apps-addupdate -F app.json
   <span class="s2">"appId"</span><span class="err">:</span> <span class="s2">"demo-pyplot-demo-advanced-0.1.0"</span><span class="p">,</span>
   <span class="s2">"inputs"</span><span class="err">:</span> <span class="p">{</span>
     <span class="s2">"dataset"</span><span class="err">:</span> <span class="p">[</span>
-      <span class="s2">"agave://data.iplantcollaborative.org/dooley/inputs/pyplot/testdata.csv"</span><span class="p">,</span>
-      <span class="s2">"agave://data.iplantcollaborative.org/dooley/inputs/pyplot/testdata2.csv"</span>
+      <span class="s2">"agave://data.agaveapi.co/dooley/inputs/pyplot/testdata.csv"</span><span class="p">,</span>
+      <span class="s2">"agave://data.agaveapi.co/dooley/inputs/pyplot/testdata2.csv"</span>
     <span class="p">]</span>
   <span class="p">},</span>
   <span class="s2">"archive"</span><span class="err">:</span> <span class="kc">false</span><span class="p">,</span>
