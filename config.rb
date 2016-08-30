@@ -24,6 +24,9 @@ activate :autoprefixer do |config|
   config.inline   = true
 end
 
+# Add livereload support for the server
+activate :livereload, host: '0.0.0.0', port: '35729'
+
 # Github pages require relative links
 activate :relative_assets
 set :relative_links, true

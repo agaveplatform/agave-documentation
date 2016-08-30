@@ -81,23 +81,23 @@ Agave uses SSL to secure communication with the clients. If HTTPS is not specifi
 
 To make the API fast for everybody, rate limits apply. Unsigned requests are processed at the lowest rate limit. Signed requests with a valid access token benefit from higher rate limits — this is true even if endpoint doesn’t require an access token to be passed in the call.
 
-## Requests
+### Requests
 
 The Agave API is based on <a title="REST" href="http://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">REST</a> principles: data resources are accessed via standard HTTPS requests in UTF-8 format to an API endpoint. Where possible, the API strives to use appropriate HTTP verbs for each action
 
 <%= partial "includes/tables/3" %>
 
-### Standard query parameters
+#### Standard query parameters
 
 Several URL query parameters are common across all services. The following table lists them for reference
 
 <%= partial "includes/tables/77" %>
 
-## Responses
+### Responses
 
 All data is received and returned as a JSON object. The <a title="Live Documentation" href="/live-docs/">Live Docs</a> provide a description of all the retrievable objects.
 
-### Response Details
+#### Response Details
 
 ```json
 {
@@ -114,7 +114,7 @@ Apart from the response code, all responses from Agave are in the form of a json
 
 Here, for example, is the response that occurs when trying to fetch information for system to which you do not have access:
 
-### Naked Responses
+#### Naked Responses
 
 In situations where you do not care to parse the wrapper for the raw response data, you may request a *naked* response from the API by adding `naked=true` in to the request URL. This will return just the value of the `result` attribute in the response wrapper.
 
@@ -126,8 +126,10 @@ By default, all responses are serialized JSON. To receive pre-formatted JSON, ad
 
 All resource collections support a way of paging the dataset, taking an `offset` and `limit` as query parameters:
 
-```shell
-$ curl -sk -H "Authorization: Bearer ${API_KEY}" "https://public.tenants.agaveapi.co/jobs/v2/?offset=50&amp;limit=25"
+> Pagination using `limit` and `offset` query parameters.
+
+```html
+curl -sk -H "Authorization: Bearer ${API_KEY}" "https://public.tenants.agaveapi.co/jobs/v2/?offset=50&amp;limit=25"
 ```
 
 Note that offset numbering is zero-based and that omitting the offset parameter will return the first X elements. Unless specified, all result sets are paginated in groups of 100. Check the documentation for the specific endpoint to see specific information.
