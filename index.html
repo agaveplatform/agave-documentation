@@ -215,7 +215,7 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 
 <p>To make the API fast for everybody, rate limits apply. Unsigned requests are processed at the lowest rate limit. Signed requests with a valid access token benefit from higher rate limits — this is true even if endpoint doesn’t require an access token to be passed in the call.</p>
 
-<h2 id="requests">Requests</h2>
+<h3 id="requests">Requests</h3>
 
 <p>The Agave API is based on <a title="REST" href="http://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">REST</a> principles: data resources are accessed via standard HTTPS requests in UTF-8 format to an API endpoint. Where possible, the API strives to use appropriate HTTP verbs for each action</p>
 
@@ -246,7 +246,7 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
     </tbody>
 </table>
 
-<h3 id="standard-query-parameters">Standard query parameters</h3>
+<h4 id="standard-query-parameters">Standard query parameters</h4>
 
 <p>Several URL query parameters are common across all services. The following table lists them for reference</p>
 
@@ -282,11 +282,11 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
     </tbody>
 </table>
 
-<h2 id="responses">Responses</h2>
+<h3 id="responses">Responses</h3>
 
 <p>All data is received and returned as a JSON object. The <a title="Live Documentation" href="/live-docs/">Live Docs</a> provide a description of all the retrievable objects.</p>
 
-<h3 id="response-details">Response Details</h3>
+<h4 id="response-details">Response Details</h4>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Permission denied. You do not have permission to view this system"</span><span class="p">,</span><span class="w">
@@ -331,7 +331,7 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 
 <p>Here, for example, is the response that occurs when trying to fetch information for system to which you do not have access:</p>
 
-<h3 id="naked-responses">Naked Responses</h3>
+<h4 id="naked-responses">Naked Responses</h4>
 
 <p>In situations where you do not care to parse the wrapper for the raw response data, you may request a <em>naked</em> response from the API by adding <code class="prettyprint">naked=true</code> in to the request URL. This will return just the value of the <code class="prettyprint">result</code> attribute in the response wrapper.</p>
 
@@ -342,7 +342,11 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 <h3 id="pagination">Pagination</h3>
 
 <p>All resource collections support a way of paging the dataset, taking an <code class="prettyprint">offset</code> and <code class="prettyprint">limit</code> as query parameters:</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="k">${</span><span class="nv">API_KEY</span><span class="k">}</span><span class="s2">"</span> <span class="s2">"https://public.tenants.agaveapi.co/jobs/v2/?offset=50&amp;amp;limit=25"</span>
+
+<blockquote>
+<p>Pagination using <code class="prettyprint">limit</code> and <code class="prettyprint">offset</code> query parameters.</p>
+</blockquote>
+<pre class="highlight html"><code>curl -sk -H "Authorization: Bearer ${API_KEY}" "https://public.tenants.agaveapi.co/jobs/v2/?offset=50<span class="ni">&amp;amp;</span>limit=25"
 </code></pre>
 
 <p>Note that offset numbering is zero-based and that omitting the offset parameter will return the first X elements. Unless specified, all result sets are paginated in groups of 100. Check the documentation for the specific endpoint to see specific information.</p>
@@ -7312,7 +7316,42 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 
 <p>In some situations, Agave may be unable to publish a specific notification. When this happens, Agave will immediately retry the notification 5 times in an attempt to deliver it successfully. When delivery fails for a 5th time, the notification is abandoned. If your application requires a more tenacious or methodical approach to retry delivery, you may provide a notification policy.</p>
 
-<p>&lt;%= partial &ldquo;inludes/tables/83-notification-policy&rdquo; /]</p>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>retryStrategy</td>
+            <td>NONE, IMMEDIATE, DELAYED, EXPONENTIAL</td>
+            <td>The retry strategy to employ. Default is IMMEDIATE</td>
+        </tr>
+        <tr>
+            <td>retryRate</td>
+            <td>int; 0:86400</td>
+            <td>The frequency with which attempts should be made to deliver the message.</td>
+        </tr>
+        <tr>
+            <td>retryLimit</td>
+            <td>int; 0:1440</td>
+            <td>The maximum attempts that should be made to delivery the message. </td>
+        </tr>
+        <tr>
+            <td>retryDelay</td>
+            <td>int; 0:86400</td>
+            <td>The initial delay between the initial delivery attempt and the first retry.</td>
+        </tr>
+        <tr>
+            <td>saveOnFailure</td>
+            <td>boolean</td>
+            <td>Whether the failed message should be persisted if unable to be delivered within the retryLimit</td>
+        </tr>
+    </tbody>
+</table>
 
 <p>Notification retry policies describe the strategy, frequency, delay, limit, and persistency you want to applied when publishing an individual event for a given notification. The following is our previous example with a notification policy included.</p>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
@@ -7330,13 +7369,17 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 </span></code></pre>
 
 <h3 id="failed-deliveries">Failed deliveries</h3>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
-     https://<span class="nv">$API_BASE_URL</span>/notifications/<span class="nv">$API_VERSION</span>/229681451607921126-8e1831906a8e-0001-042<span class="s2">"/attempts
-</span></code></pre>
-<pre class="highlight plaintext"><code>notifications-list-failures 229681451607921126-8e1831906a8e-0001-042"
-</code></pre>
 
 <blockquote>
+<p>Query failed attempts for a specific notification
+<code class="prettyprint">shell
+curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; \
+     https://$API_BASE_URL/notifications/$API_VERSION/229681451607921126-8e1831906a8e-0001-042&quot;/attempts
+</code>
+<code class="prettyprint">plaintext
+notifications-list-failures 229681451607921126-8e1831906a8e-0001-042&quot;
+</code></p>
+
 <p>A list of notification attempts will be returned.</p>
 </blockquote>
 <pre class="highlight javascript"><code><span class="p">[</span>
@@ -7368,7 +7411,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 
 <p>By providing a retry policy where <code class="prettyprint">saveOnFailure</code> is true, failed messages will be persisted and made available for querying at a later time. This is a great way to handled missed work due to a server failure, maintenance downtime, etc. To query for for failed messages</p>
 
-<div class="alert">Note: There is no way to save successful notification deliveries.</div>
+<div class="warning">Note: There is no way to save successful notification deliveries.</div>
 
               <h2 id="metadata">Metadata</h2>
 
