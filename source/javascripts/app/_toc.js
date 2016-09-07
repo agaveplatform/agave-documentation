@@ -55,6 +55,10 @@
     $('.content').imagesLoaded( function() {
       global.toc.calculateHeights();
     });
+
+    // $('#tocify-header2 li:first-child a')
+    //     .attr('href', 'https://agaveapi.co/live-docs/')
+    //     .addClass('live-docs');
   });
 })(window);
 

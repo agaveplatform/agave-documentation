@@ -1,5 +1,16 @@
 ## User Profiles
 
+```json
+ /$$$$$$$                   /$$$$$$ /$$/$$
+| $$__  $$                 /$$__  $|__| $$
+| $$  \ $$/$$$$$$  /$$$$$$| $$  \__//$| $$ /$$$$$$  /$$$$$$$
+| $$$$$$$/$$__  $$/$$__  $| $$$$   | $| $$/$$__  $$/$$_____/
+| $$____| $$  \__| $$  \ $| $$_/   | $| $| $$$$$$$|  $$$$$$
+| $$    | $$     | $$  | $| $$     | $| $| $$_____/\____  $$
+| $$    | $$     |  $$$$$$| $$     | $| $|  $$$$$$$/$$$$$$$/
+|__/    |__/      \______/|__/     |__|__/\_______|_______/
+```
+
 The Agave hosted identity service (profiles service) is a RESTful web service that gives organizations a way to create and manage the user accounts within their Agave tenant. The service is backed by a redundant LDAP instance hosted in multiple datacenters making it highly available. Additionally, passwords are stored using the openldap md5crypt algorithm.
 
 Tenant administrators can manage only a basic set of fields on each user account within LDAP itself. For more complex profiles, we recommend combing the profiles service with the metadata service. See the section on Extending the Basic Profile with the Metadata Service below.
@@ -185,7 +196,7 @@ The response to this call looks like this:
 
 The account creation web app provides a simple form to enable user self-sign. Here is a screenshot of the sign up form:
 
-<img src="http://agaveapi.co/wp-content/uploads/2015/04/self-signup-screenshot.png" alt="Account creation web app form" />
+<img src="/images/2015/04/self-signup-screenshot.png" alt="Account creation web app form" />
 
 The web application also provides an email loop for verification of new accounts. The code is open source and freely available from bitbucket: <a href="https://bitbucket.org/jstubbs/agave_id">Account Creation Web Application</a>
 

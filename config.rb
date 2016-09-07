@@ -15,6 +15,8 @@ set :js_dir, 'javascripts'
 set :images_dir, 'images'
 set :fonts_dir, 'fonts'
 
+#proxy "/live-docs/index.html", "documentation/live-docs.html", :locals => { :apidoc => "/swagger/openapi.json" }, :ignore => true
+
 # Activate the syntax highlighter
 activate :syntax
 
@@ -25,11 +27,23 @@ activate :autoprefixer do |config|
 end
 
 # Add livereload support for the server
-activate :livereload, host: '0.0.0.0', port: '35729'
+#activate :livereload, host: '0.0.0.0', port: '35729', ignore: [/.idea\//]
+#config[:file_watcher_ignore] += [
+#    /.idea\//,
+#    /build\//,
+#    /source\/images\//,
+#    /source\/migrated_docs\//
+#    ]
 
 # Github pages require relative links
 activate :relative_assets
 set :relative_links, true
+
+# Ignore unused migrated docs
+ignore "/migrated_docs/"
+
+# JQuery cdn
+set :jqcdn, false
 
 # Build Configuration
 configure :build do

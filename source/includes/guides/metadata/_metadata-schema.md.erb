@@ -1,6 +1,16 @@
 ## Metadata Schemata
 
-Schemata can be provided in JSON Schema form. The service will validate that the schema is valid JSON and store it. To validate Metadata against it, the schema UUID should be given as a parameter, SchemaId, when uploading Metadata. If no SchemaId is provided, the Metadata service will accept any JSON Object or plain text string and store it accordingly. This flexible approach enabled Agave to handle different levels of structure of Metadata from completely unstructured, to highly structured with complex JSON schemata.
+```json
+  /$$$$$$          /$$
+ /$$__  $$        | $$
+| $$  \__/ /$$$$$$| $$$$$$$  /$$$$$$ /$$$$$$/$$$$  /$$$$$$
+|  $$$$$$ /$$_____| $$__  $$/$$__  $| $$_  $$_  $$|____  $$
+ \____  $| $$     | $$  \ $| $$$$$$$| $$ \ $$ \ $$ /$$$$$$$
+ /$$  \ $| $$     | $$  | $| $$_____| $$ | $$ | $$/$$__  $$
+|  $$$$$$|  $$$$$$| $$  | $|  $$$$$$| $$ | $$ | $|  $$$$$$$
+ \______/ \_______|__/  |__/\_______|__/ |__/ |__/\_______/
+```
+Schema can be provided in JSON Schema form. The service will validate that the schema is valid JSON and store it. To validate Metadata against it, the schema UUID should be given as a parameter, SchemaId, when uploading Metadata. If no SchemaId is provided, the Metadata service will accept any JSON Object or plain text string and store it accordingly. This flexible approach enabled Agave to handle different levels of structure of Metadata from completely unstructured, to highly structured with complex JSON schemata.
 
 For more on JSON Schema please see <a title="JSON Schema" href="http://json-schema.org/">http://json-schema.org/</a>
 

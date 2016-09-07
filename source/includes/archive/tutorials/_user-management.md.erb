@@ -141,7 +141,6 @@ Updates to existing users can be made by sending a PUT request to https://public
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "password=abcd123&amp;email=testuser@test.com&amp;first_name=Test&amp;last_name=User" https://public.tenants.agaveapi.co/profiles/v2/testuser
 ```
 
-
 ```plaintext
 profiles-update -v -p abcd123 -e "testuser@test.com" -f Test -l User testuser
 ```
@@ -202,7 +201,7 @@ The response to this call looks like this:
 
 The account creation web app provides a simple form to enable user self-sign. Here is a screenshot of the sign up form:
 
-<img src="http://agaveapi.co/wp-content/uploads/2015/04/self-signup-screenshot.png" alt="Account creation web app form" />
+<img src="/images/2015/04/self-signup-screenshot.png" alt="Account creation web app form" />
 
 The web application also provides an email loop for verification of new accounts. The code is open source and freely available from bitbucket: <a href="https://bitbucket.org/jstubbs/agave_id">Account Creation Web Application</a>
 

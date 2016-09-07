@@ -1,5 +1,16 @@
 ## Monitors
 
+```json
+ /$$      /$$                  /$$  /$$
+| $$$    /$$$                 |__/ | $$
+| $$$$  /$$$$ /$$$$$$ /$$$$$$$ /$$/$$$$$$   /$$$$$$  /$$$$$$
+| $$ $$/$$ $$/$$__  $| $$__  $| $|_  $$_/  /$$__  $$/$$__  $$
+| $$  $$$| $| $$  \ $| $$  \ $| $$ | $$   | $$  \ $| $$  \__/
+| $$\  $ | $| $$  | $| $$  | $| $$ | $$ /$| $$  | $| $$
+| $$ \/  | $|  $$$$$$| $$  | $| $$ |  $$$$|  $$$$$$| $$
+|__/     |__/\______/|__/  |__|__/  \___/  \______/|__/
+```
+
 The Agave Monitors API provides a familiar paradigm for monitoring the use ability and accessibility of storage and execution systems you registered with Agave. Similar to services like Pingdom, Pagerduty, and WebCron, the Monitors API allows you to to create regular health checks on a registered system. Unlike standard uptime services, Agave will check that your system is responsive and accessible by performing proactive tests on availability (ping), accessibility (authentication), and functionality (listing or echo). Each check result is persisted and the check history of a given monitor is queryable through the API. As with all resources in the Agave Platform, a full event model is available so you can subscribe to event you care about such as failed checks, restored system availability, and system disablement. 
 
 ### Creating Monitors
@@ -55,7 +66,7 @@ monitors-addupdate -S storage.example.com
 
 The only piece of information needed to monitor a system is the system ID. Sending a POST request to the Monitors API with a monitor definition containing just the `systemId` field with a valid system ID or UUID will create a monitor that will run hourly health checks starting an hour from when you sent the request.  
 
-<aside class="notice">You cannot create monitors on systems for which you do not have at least GUEST permission.</aside>
+<aside class="notice">You cannot create monitors on systems for which you do not have a role.</aside>
 
 ### Custom frequency and start time
 

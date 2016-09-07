@@ -20,8 +20,8 @@ under the License.
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title><%= current_page.data.title || "Agave Live Docs" %></title>
-    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+    <title><%= current_page.data.title || "Agave Developer Docs" %></title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 
 
     <script src="https://use.typekit.net/squ8frf.js"></script>
@@ -30,7 +30,9 @@ under the License.
 
     <%= stylesheet_link_tag :screen, media: :screen %>
     <%= stylesheet_link_tag :print, media: :print %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+    <%= javascript_include_tag  "jquery.min.js" %>
+
     <% if current_page.data.search %>
       <%= javascript_include_tag  "all" %>
     <% else %>
