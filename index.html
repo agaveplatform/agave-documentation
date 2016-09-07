@@ -5,7 +5,7 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Agave Platform Developer Documentation</title>
-    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 
 
     <script src="https://use.typekit.net/squ8frf.js"></script>
@@ -14,7 +14,9 @@
 
     <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+    <script src="javascripts/jquery.min.js" type="text/javascript"></script>
+
       <script src="javascripts/all.js" type="text/javascript"></script>
     <script>
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -74,6 +76,18 @@ ga('send', 'pageview');
           <div class="content">
             
               <h1 id="introduction">Introduction</h1>
+<pre class="highlight json"><code><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">                                         
+ </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">                                        
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">   </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$</span><span class="w">    </span><span class="err">/$$</span><span class="w"> </span><span class="err">/$$$$$$</span><span class="w"> 
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$$$$$$$</span><span class="w"> </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$</span><span class="w"> </span><span class="err">|____</span><span class="w">  </span><span class="err">$$|</span><span class="w">  </span><span class="err">$$</span><span class="w">  </span><span class="err">/$$//$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">/$$$$$$$</span><span class="w"> </span><span class="err">\</span><span class="w">  </span><span class="err">$$/$$/|</span><span class="w"> </span><span class="err">$$$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w">  </span><span class="err">$$$/</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$_____/</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w">  </span><span class="err">$$$$$$$|</span><span class="w">  </span><span class="err">$$$$$$$</span><span class="w">   </span><span class="err">\</span><span class="w">  </span><span class="err">$/</span><span class="w">  </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$$</span><span class="w">
+</span><span class="err">|__/</span><span class="w">  </span><span class="err">|__/</span><span class="w"> </span><span class="err">\____</span><span class="w">  </span><span class="err">$$</span><span class="w"> </span><span class="err">\_______/</span><span class="w">    </span><span class="err">\_/</span><span class="w">    </span><span class="err">\_______/</span><span class="w">
+           </span><span class="err">/$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w">                              
+          </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$/</span><span class="w">                              
+           </span><span class="err">\______/</span><span class="w">                               
+</span></code></pre>
 
 <p>The Agave Platform (<a href="http://agaveapi.co">http://agaveapi.co</a>) is an open source, science-as-a-service API platform for powering your digital lab. Agave allows you to bring together your public, private, and shared high performance
 computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources under a single, web-friendly REST API.</p>
@@ -87,7 +101,7 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 
 <p>The Agave documentation site contains documentation, guides, tutorials, and lots of examples to help you build your own digital lab.</p>
 
-<p>If you are simply looking for a UI to interact with the platform and kick the tires, please see the <a href="https://togo.agaveapi.co/auth">Agave ToGo</a> project.</p>
+<aside class="info">If you came here looking for a UI to interact with the platform and kick the tires, please see our reference web application, Agave ToGo, at <a href="http://togo.agaveapi.co/">http://togo.agaveapi.co/</a>.</aside>
 
               <h2 id="conventions">Conventions</h2>
 
@@ -495,9 +509,13 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 
               <h1 id="sdk">SDK</h1>
 
-              <h1 id="documentation">Documentation</h1>
+              <h1 id="web-api">Web API</h1>
 
-              <h2 id="live-docs">Live Docs</h2>
+<p>The Agave Science APIs power the Science-as-a-Service functionality of the Agave Platform. These web APIs allow you to manage all aspects of your code, collaborations, data, and your digital lab. </p>
+
+<p>The Science APIs follow basic REST concepts and use JSON to exchange data. Formal documentation of all endpoints is available in <a href="/swagger/">Swagger 1.2</a> and <a href="/swagger/agave.json">OpenAPI</a> formats. An <a href="/live-docs/">interactive API browser</a> is available as well.   </p>
+
+<aside class="info">You can read more about some of the <a href="#conventions">Conventions</a> we use in the introduction.</aside>  
 
               <h1 id="tutorials">Tutorials</h1>
 
@@ -526,10 +544,10 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 <p>The Agave REST APIs currently supports four authorization flows:</p>
 
 <ol>
-<li>The <a href="#authorization_code_flow">Authorization Code</a> flow first gets a code then exchanges it for an access token and a refresh token. Since the exchange uses your client secret key, you should make that request server-side to keep the integrity of the key. An advantage of this flow is that you can use refresh tokens to extend the validity of the access token.</li>
-<li>The <a href="#implicit_grant_flow">Implicit Grant</a> flow is carried out client-side and does not involve secret keys. The access tokens that are issued are short-lived and there are no refresh tokens to extend them when they expire.</li>
-<li><a href="#resource_owner_flow">Resource Owner Password Credentials</a> flow is suitable for native and mobile applications as well as web services, this flow allows client applications to obtain an access token for a user by directly providing the user credentials in an authentication request. This flow exposes the user&rsquo;s credentials to the client application and is primarily used in situations where the client application is highly trusted such as the command line.</li>
-<li>The <a href="#client_credentials_flow">Client Credentials</a> flow enables users to interact with their own protected resources directly without requiring browser interaction. This is a critical addition for use at the command line, in scripts, and in offline programs. This flow assumes the person registering the client application and the user on whose behalf requests are made be the same person.</li>
+<li>The <a href="#authorization-code">Authorization Code</a> flow first gets a code then exchanges it for an access token and a refresh token. Since the exchange uses your client secret key, you should make that request server-side to keep the integrity of the key. An advantage of this flow is that you can use refresh tokens to extend the validity of the access token.</li>
+<li>The <a href="#implicit-grant">Implicit Grant</a> flow is carried out client-side and does not involve secret keys. The access tokens that are issued are short-lived and there are no refresh tokens to extend them when they expire.</li>
+<li><a href="#resource-owner-password-credentials">Resource Owner Password Credentials</a> flow is suitable for native and mobile applications as well as web services, this flow allows client applications to obtain an access token for a user by directly providing the user credentials in an authentication request. This flow exposes the user&rsquo;s credentials to the client application and is primarily used in situations where the client application is highly trusted such as the command line.</li>
+<li>The <a href="#client-credentials">Client Credentials</a> flow enables users to interact with their own protected resources directly without requiring browser interaction. This is a critical addition for use at the command line, in scripts, and in offline programs. This flow assumes the person registering the client application and the user on whose behalf requests are made be the same person.</li>
 </ol>
 
 <table>
@@ -1363,6 +1381,15 @@ refresh_token </td>
 <p>The access token allows you to make requests to any of the Agave REST APIs on behalf of the authenticated user.</p>
 
               <h2 id="clients-amp-api-keys">Clients &amp; API Keys</h2>
+<pre class="highlight json"><code><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$</span><span class="w"> </span><span class="err">/$$</span><span class="w">                       </span><span class="err">/$$</span><span class="w">
+ </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$|__/</span><span class="w">                      </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\__/|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">   </span><span class="err">/$$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">      </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$$|_</span><span class="w">  </span><span class="err">$$_/</span><span class="w">  </span><span class="err">/$$_____/</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">      </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">   </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">    </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$_____/|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$\____</span><span class="w">  </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$/|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$|</span><span class="w">  </span><span class="err">$$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$//$$$$$$$/</span><span class="w">
+ </span><span class="err">\______/</span><span class="w"> </span><span class="err">|__/|__/</span><span class="w"> </span><span class="err">\_______/|__/</span><span class="w">  </span><span class="err">|__/</span><span class="w">   </span><span class="err">\___/</span><span class="w"> </span><span class="err">|_______/</span><span class="w">
+</span></code></pre>
 
 <p>By now you already have a user account. Your user account identifies you to the web applications you interact with. A username and password is sufficient for interacting with an application because the application has a user interface, so it knows that the authenticated user is the same one interacting with it. The Agave API does not have a user interface, so simply providing it a username and password is not sufficient. Agave needs to know both the user on whose behalf it is acting as well as the client application that is making the call. Whereas every person has a single user account, they may leverage multiple services to do their daily work. They may start out using the <a href="https://de.iplantcollaborative.org" title="iPlant Discovery Environment" target="_blank">Discovery Environment</a> to kick of an analysis, then switch to <a href="https://my-plant.org/" title="MyPlant" target="_blank">MyPlant</a> to discuss some results, then receive an email that new data has been shared with them, click a <a href="#postits/" title="Pre-Authenticated URL Shortening with PostIts">PostIt</a> link that allows them to download the data directly to their desktop, edit the file locally, and save it in a local folder that syncs with their iPlant <a href="http://www.iplantcollaborative.org/discover/data-store" title="iPlant Data Store" target="_blank">cloud storage</a> in the background.</p>
 
@@ -1546,6 +1573,18 @@ refresh_token </td>
 <p>Over time, new APIs will be deployed. When this happens you will need to subscribe to the new APIs. You can do this by POSTing a request to the subscription collection with the information about the new API.</p>
 
               <h2 id="systems">Systems</h2>
+<pre class="highlight json"><code><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">                     </span><span class="err">/$$</span><span class="w">
+ </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">                   </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\__//$$</span><span class="w">   </span><span class="err">/$$</span><span class="w"> </span><span class="err">/$$$$$$$/$$$$$$</span><span class="w">   </span><span class="err">/$$$$$$</span><span class="w"> </span><span class="err">/$$$$$$/$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$/$$_____|_</span><span class="w">  </span><span class="err">$$_/</span><span class="w">  </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$|</span><span class="w"> </span><span class="err">$$_</span><span class="w">  </span><span class="err">$$_</span><span class="w">  </span><span class="err">$$</span><span class="w">
+ </span><span class="err">\____</span><span class="w">  </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w">  </span><span class="err">$$$$$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">   </span><span class="err">|</span><span class="w"> </span><span class="err">$$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w">
+ </span><span class="err">/$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$\____</span><span class="w">  </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$|</span><span class="w"> </span><span class="err">$$_____|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w">  </span><span class="err">$$$$$$$/$$$$$$$/</span><span class="w"> </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+ </span><span class="err">\______/</span><span class="w"> </span><span class="err">\____</span><span class="w">  </span><span class="err">$|_______/</span><span class="w">   </span><span class="err">\___/</span><span class="w">  </span><span class="err">\_______|__/</span><span class="w"> </span><span class="err">|__/</span><span class="w"> </span><span class="err">|__/</span><span class="w">
+          </span><span class="err">/$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+         </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$/</span><span class="w">
+          </span><span class="err">\______/</span><span class="w">
+</span></code></pre>
 
 <p>A system in Agave represents a server or collection of servers. A server can be physical, virtual, or a collection of servers exposed through a single hostname or ip address. Systems are identified and referenced in Agave by a unique ID unrelated to their ip address or hostname. Because of this, a single physical system may be registered multiple times. This allows different users to configure and use a system in whatever way they need to for their specific needs.</p>
 
@@ -1605,46 +1644,44 @@ refresh_token </td>
 <h3 id="filtering-results">Filtering results</h3>
 
 <blockquote>
-<p>List all systems (up to the page limit)
-<code class="prettyprint">shell
-curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; https://public.tenants.agaveapi.co/systems/v2/?type=storage
-</code>
-<code class="prettyprint">plaintext
-systems-list -v -S
-</code></p>
-
-<p>Only execution systems
-<code class="prettyprint">shell
-curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; https://public.tenants.agaveapi.co/systems/v2/?type=execution
-</code>
-<code class="prettyprint">plaintext
-systems-list -v -E
-</code></p>
-
-<p>Only public systems
-<code class="prettyprint">shell
-curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; https://public.tenants.agaveapi.co/systems/v2/?publicOnly=true
-</code>
-<code class="prettyprint">plaintext
-systems-list -v -P
-</code></p>
-
-<p>Only private systems
-<code class="prettyprint">shell
-curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; https://public.tenants.agaveapi.co/systems/v2/?privateOnly=true
-</code>
-<code class="prettyprint">plaintext
-systems-list -v -Q
-</code></p>
-
-<p>Only give the user&rsquo;s default systems
-<code class="prettyprint">shell
-curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; https://public.tenants.agaveapi.co/systems/v2/?default=true
-</code>
-<code class="prettyprint">plaintext
-systems-list -v -D
-</code></p>
+<p>List all systems (up to the page limit)</p>
 </blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/systems/v2/?type<span class="o">=</span>storage
+</code></pre>
+<pre class="highlight plaintext"><code>systems-list -v -S
+</code></pre>
+
+<blockquote>
+<p>Only execution systems</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/systems/v2/?type<span class="o">=</span>execution
+</code></pre>
+<pre class="highlight plaintext"><code>systems-list -v -E
+</code></pre>
+
+<blockquote>
+<p>Only public systems</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/systems/v2/?publicOnly<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+<pre class="highlight plaintext"><code>systems-list -v -P
+</code></pre>
+
+<blockquote>
+<p>Only private systems</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/systems/v2/?privateOnly<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+<pre class="highlight plaintext"><code>systems-list -v -Q
+</code></pre>
+
+<blockquote>
+<p>Only return default systems</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/systems/v2/?default<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+<pre class="highlight plaintext"><code>systems-list -v -D
+</code></pre>
 
 <p>You can further filter the results by type, scope, and default status. See the search section for further filtering options.</p>
 
@@ -1705,7 +1742,7 @@ systems-list -v -D
 
 <p>This time, the response will be a JSON object with a full system description. The following is the description of a storage system. In the next section we talk more about storage systems and how to register one of your own.</p>
 
-<h3 id="storage-systems">Storage systems</h3>
+              <h3 id="storage-systems">Storage systems</h3>
 
 <p>A storage systems can be thought of as an individual data repository that you want to access through Agave. The following JSON object shows how a basic storage systems is described.</p>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
@@ -2109,7 +2146,6 @@ systems-list -v -D
 }
 </code></pre>
 
-
 <p>In each of the examples above, the <code class="prettyprint">storage</code> objects were slightly different, each unique to the protocol used. Descriptions of every attribute in the <code class="prettyprint">storage</code>> object and its children are given in the following tables.</p>
 
 <p><code class="prettyprint">storage</code> attributes give basic connectivity information describing things like how to connect to the system and on what port.</p>
@@ -2186,8 +2222,7 @@ systems-list -v -D
     </tbody>
 </table>
 
-
-<p><code class="prettyprint">storage.auth</code> attributes give authentication information describing how to authenticate to the system specified in the <code class="prettyprint">storage</code> config above.
+<p><p><code class="prettyprint">storage.auth</code> attributes give authentication information describing how to authenticate to the system specified in the <code class="prettyprint">storage</code> config above.</p>
 
 <table>
     <thead>
@@ -2241,8 +2276,7 @@ systems-list -v -D
     </tbody>
 </table>
 
-
-<p><code class="prettyprint">storage.auth.server</code> attributes give information about how to obtain a credential that can be used in the authentication process. Currently only systems using the X509 authentication can leverage this feature to communicate with <a href="http://grid.ncsa.illinois.edu/myproxy/" title="MyProxy Server" target="_blank">MyProxy</a> and <a href="https://bitbucket.org/taccaci/myproxy-gateway" title="MyProxy Gateway" target="_blank">MyProxy Gateway</a> servers.
+<p><p><code class="prettyprint">storage.auth.server</code> attributes give information about how to obtain a credential that can be used in the authentication process. Currently only systems using the X509 authentication can leverage this feature to communicate with <a href="http://grid.ncsa.illinois.edu/myproxy/" title="MyProxy Server" target="_blank">MyProxy</a> and <a href="https://bitbucket.org/taccaci/myproxy-gateway" title="MyProxy Gateway" target="_blank">MyProxy Gateway</a> servers.</p>
 
 <table>
     <thead>
@@ -2276,8 +2310,7 @@ systems-list -v -D
     </tbody>
 </table>
 
-
-<p><code class="prettyprint">system.proxy</code> configuration attributes give information about how to connect to a remote system through a proxy server. This often happens when the target system is behind a firewall or resides on a NAT. Currently proxy servers can only reuse the authentication configuration provided by the target system.
+<p><p><code class="prettyprint">system.proxy</code> configuration attributes give information about how to connect to a remote system through a proxy server. This often happens when the target system is behind a firewall or resides on a NAT. Currently proxy servers can only reuse the authentication configuration provided by the target system.</p>
 
 <table>
     <thead>
@@ -2306,60 +2339,76 @@ systems-list -v -D
     </tbody>
 </table>
 
-
 <aside class="notice">If you have not yet set up a system of your own, now is a good time to grab a sandbox system to use while you follow along with the rest of this tutorial.</aside>
 
-#### Creating a new storage system
+<h4 id="creating-a-new-storage-system">Creating a new storage system</h4>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -F <span class="s2">"fileToUpload=@sftp-password.json"</span> https://public.tenants.agaveapi.co/systems/v2
+</code></pre>
+<pre class="highlight plaintext"><code>systems-addupdate -v -F sftp-password.json
+</code></pre>
 
-&ldquo;`shell
-curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&rdquo; -F &ldquo;fileToUpload=@sftp-password.json&rdquo; https://public.tenants.agaveapi.co/systems/v2
-&ldquo;`
+<blockquote>
+<p>The response from the service will be similar to the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"site"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sftp.storage.example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"lastModified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-06T17:46:42.621-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My example storage system using SFTP to store data for testing"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example SFTP Storage System"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"globalDefault"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"available"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4036169328045649434-242ac117-0001-006"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"public"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORAGE"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"storage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"mirror"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"port"</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"homeDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/systest"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"protocol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SFTP"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"storage.example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"publicAppsDir"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"rootDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PASSWORD"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"roles"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/sftp.storage.example.com/roles"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"credentials"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/sftp.storage.example.com/credentials"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/sftp.storage.example.com"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/data/?q=%7B%22associationIds%22%3A%224036169328045649434-242ac117-0001-006%22%7D"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
-&rdquo;`plaintext
-systems-addupdate -v -F sftp-password.json
-&ldquo;`
+<p>Congratulations, you just added your first system. This storage system can now be used by the <a title="File Management" href="http://agaveapi.co/documentation/tutorials/data-management/">Files service</a> to manage data, the Transfer service as a source or destination of data movement, the Apps service as a application repository, and the <a title="Job Submission" href="http://agaveapi.co/documentation/tutorials/job-managment/">Jobs Service</a> as both a staging and archiving destination.</p>
 
-> The response from the service will be similar to the following:
+<p>Notice that the JSON returned from the Systems service is different than what was submitted. Several fields have been added, and several other have been removed. On line 3, the UUID of the system has been added. This is the same UUID that is used in notifications and metadata references. On line 5, the <code class="prettyprint">status</code> value was added in and assigned a default value since we did not specify it. Ditto for the <code class="prettyprint">site</code> attribute on line 8.</p>
 
-&rdquo;`json
-{
-    &ldquo;id&rdquo; : &ldquo;demo.storage.example.com&rdquo;,
-    &ldquo;uuid&rdquo; : &ldquo;0001411321620333-b0b0b0bb0b-0001-006&rdquo;,
-    &ldquo;name&rdquo; : &ldquo;Example SFTP Storage System&rdquo;,
-    &ldquo;status&rdquo; : &ldquo;UP&rdquo;,
-    &ldquo;type&rdquo; : &ldquo;STORAGE&rdquo;,
-    &ldquo;description&rdquo; : &ldquo;My example storage system using SFTP to store data for testing&rdquo;,
-    &ldquo;site&rdquo; : null,
-    &ldquo;revision&rdquo; : 1,
-    &ldquo;public&rdquo; : false,
-    &ldquo;lastModified&rdquo; : &ldquo;2014-09-21T14:50:35.268-05:00&rdquo;,
-    &ldquo;storage&rdquo; : {
-      &ldquo;host&rdquo; : &ldquo;storage.example.com&rdquo;,
-      &ldquo;port&rdquo; : 22,
-      &ldquo;protocol&rdquo; : &ldquo;SFTP&rdquo;,
-      &ldquo;rootDir&rdquo; : &ldquo;/&rdquo;,
-      &ldquo;homeDir&rdquo; : &ldquo;/home/systest&rdquo;,
-      &ldquo;publicAppsDir&rdquo; : null,
-      &ldquo;mirror&rdquo; : false,
-      &ldquo;proxy&rdquo; : null,
-      &ldquo;auth&rdquo; : {
-        &ldquo;type&rdquo; : &ldquo;PASSWORD&rdquo;
-      }
-    }
-}
-&ldquo;`
+<p>Three new fields were added on lines 9-11. <code class="prettyprint">revision</code> is the number of times this system has been updated. This being our first time registering the system, it is set to <em>1</em>. <code class="prettyprint">public</code> tells whether this system is published as a shared resource for all users. We will cover this more in the section on System scope. <code class="prettyprint">lastModified</code> is a timestamp of the last time the system was updated.</p>
 
-Congratulations, you just added your first system. This storage system can now be used by the <a title="File Management" href="http://agaveapi.co/documentation/tutorials/data-management/">Files service</a> to manage data, the Transfer service as a source or destination of data movement, the Apps service as a application repository, and the <a title="Job Submission" href="http://agaveapi.co/documentation/tutorials/job-managment/">Jobs Service</a> as both a staging and archiving destination.
+<p>In the <code class="prettyprint">storage</code> object, the <code class="prettyprint">publicAppsDir</code> and <code class="prettyprint">mirror</code> fields were both added and set to their default values. In this example we are not using a <code class="prettyprint">proxy</code> server, so it was defaulted to <em>null</em>. Last, and most important, all authentication information has been omitted from the response object. Regardless of the authentication type, no user credential information will ever be returned once they are stored.</p>
 
-Notice that the JSON returned from the Systems service is different than what was submitted. Several fields have been added, and several other have been removed. On line 3, the UUID of the system has been added. This is the same UUID that is used in notifications and metadata references. On line 5, the `status` value was added in and assigned a default value since we did not specify it. Ditto for the `site` attribute on line 8.
+              <h3 id="execution-systems">Execution Systems</h3>
 
-Three new fields were added on lines 9-11. `revision` is the number of times this system has been updated. This being our first time registering the system, it is set to <em>1</em>. `public` tells whether this system is published as a shared resource for all users. We will cover this more in the section on System scope. `lastModified` is a timestamp of the last time the system was updated.
-
-In the `storage` object, the `publicAppsDir` and `mirror` fields were both added and set to their default values. In this example we are not using a `proxy` server, so it was defaulted to <em>null</em>. Last, and most important, all authentication information has been omitted from the response object. Regardless of the authentication type, no user credential information will ever be returned once they are stored.
-
-### Execution Systems
-
-In contrast to storage systems, execution systems specify compute resources where application binaries can be run. In addition to the `storage` attribute found in storage systems, execution systems also have a `login` attribute describing how to connect to the remote system to submit jobs as well as several other attributes that allow Agave to determine how to stage data and run software on the system. The full list of execution system attributes is given in the following tables.
+<p>In contrast to storage systems, execution systems specify compute resources where application binaries can be run. In addition to the <code class="prettyprint">storage</code> attribute found in storage systems, execution systems also have a <code class="prettyprint">login</code> attribute describing how to connect to the remote system to submit jobs as well as several other attributes that allow Agave to determine how to stage data and run software on the system. The full list of execution system attributes is given in the following tables.</p>
 
 <table>
     <thead>
@@ -2423,7 +2472,7 @@ In contrast to storage systems, execution systems specify compute resources wher
         <tr>
             <td>scratchDir</td>
             <td>string</td>
-            <td>Path to use for a job scratch directory. This value is the first choice for creating a job&rsquo;s working directory at runtime. The path will be resolved relative to the <code>rootDir</code> value in the storage config if it begins with a &rdquo;/&ldquo;, and relative to the system <code>homeDir</code> otherwise.</td>
+            <td>Path to use for a job scratch directory. This value is the first choice for creating a job&rsquo;s working directory at runtime. The path will be resolved relative to the <code>rootDir</code> value in the storage config if it begins with a &ldquo;/&rdquo;, and relative to the system <code>homeDir</code> otherwise.</td>
         </tr>
         <tr>
             <td>site</td>
@@ -2433,7 +2482,7 @@ In contrast to storage systems, execution systems specify compute resources wher
         <tr>
             <td>startupScript</td>
             <td>String</td>
-            <td>Path to a script that will be run prior to execution of any command on this system. The path will be resolved relative to the <code>rootDir</code> value in the storage config if it begins with a &rdquo;/&ldquo;, and relative to the system <code>homeDir</code> otherwise. Any environment variables defined in the system description will be set before this script is called. If this script fails, the job will fail. </td>
+            <td>Path to a script that will be run prior to execution of any command on this system. The path will be resolved relative to the <code>rootDir</code> value in the storage config if it begins with a &ldquo;/&rdquo;, and relative to the system <code>homeDir</code> otherwise. Any environment variables defined in the system description will be set before this script is called. If this script fails, the job will fail. </td>
         </tr>
         <tr>
             <td>status</td>
@@ -2453,19 +2502,18 @@ In contrast to storage systems, execution systems specify compute resources wher
         <tr>
             <td>workDir</td>
             <td>string</td>
-            <td>Path to use for a job working directory. This value will be used if no <code>scratchDir</code> is given. The path will be resolved relative to the <code>rootDir</code> value in the storage config if it begins with a &rdquo;/&ldquo;, and relative to the system <code>homeDir</code> otherwise.</td>
+            <td>Path to use for a job working directory. This value will be used if no <code>scratchDir</code> is given. The path will be resolved relative to the <code>rootDir</code> value in the storage config if it begins with a &ldquo;/&rdquo;, and relative to the system <code>homeDir</code> otherwise.</td>
         </tr>
     </tbody>
 </table>
 
+<h4 id="schedulers-and-system-execution-types">Schedulers and system execution types</h4>
 
-#### Schedulers and system execution types
+<p>Agave supports job execution both interactively and through <a href="http://en.wikipedia.org/wiki/Job_scheduler" title="Job Scheduler" target="_blank">batch queueing systems</a> (aka schedulers). We cover the mechanics of job submission in the Job Management tutorial. Here we just point out that regardless of how your job is actually run on the underlying system, the process of submitting, monitoring, sharing, and otherwise interacting with your job through Agave is identical. Describing the scheduler and execution types for your system is really just a matter of picking the most efficient and/or available mechanism for running jobs on your system.</p>
 
-Agave supports job execution both interactively and through <a href="http://en.wikipedia.org/wiki/Job_scheduler" title="Job Scheduler" target="_blank">batch queueing systems</a> (aka schedulers). We cover the mechanics of job submission in the Job Management tutorial. Here we just point out that regardless of how your job is actually run on the underlying system, the process of submitting, monitoring, sharing, and otherwise interacting with your job through Agave is identical. Describing the scheduler and execution types for your system is really just a matter of picking the most efficient and/or available mechanism for running jobs on your system.
+<p>As you saw in the table above, <code class="prettyprint">executionType</code> refers to the classification of jobs going into the system and <code class="prettyprint">scheduler</code> refers to the type of batch scheduler used on a system. These two fields help limit the range of job submission options used on a specific system. For example, it is not uncommon for a HPC system to accept jobs from both a Condor scheduler and a batch scheduler. It is also possible, though generally discouraged, to fork jobs directly on the command line. With so many options, how would users publishing apps on such a system know what mechanism to use? Specifying the execution type and scheduler help narrow down the options to a single execution mechanism.</p>
 
-As you saw in the table above, `executionType` refers to the classification of jobs going into the system and `scheduler` refers to the type of batch scheduler used on a system. These two fields help limit the range of job submission options used on a specific system. For example, it is not uncommon for a HPC system to accept jobs from both a Condor scheduler and a batch scheduler. It is also possible, though generally discouraged, to fork jobs directly on the command line. With so many options, how would users publishing apps on such a system know what mechanism to use? Specifying the execution type and scheduler help narrow down the options to a single execution mechanism.
-
-Thankfully, picking the right combination is pretty simple. The following table illustrates the available combinations.
+<p>Thankfully, picking the right combination is pretty simple. The following table illustrates the available combinations.</p>
 
 <table>
     <thead>
@@ -2494,12 +2542,11 @@ Thankfully, picking the right combination is pretty simple. The following table 
     </tbody>
 </table>
 
-
 <aside class="notice">When you are describing your system, consider the policies put in place by your system administrators. If the system you are defining has a scheduler, chances are they want you to use it.</aside>
 
-#### Defining batch queues <a name="defining-batch-queues">&nbsp;</a>
+<h4 id="defining-batch-queues-nbsp">Defining batch queues <a name="defining-batch-queues">&nbsp;</a></h4>
 
-Agave supports the notion of multiple submit queues. On HPC systems, queues should map to actual batch scheduler queues on the target server. Additionally, queues are used by Agave as a mechanism for implementing quotas on job throughput in a given queue or across an entire system. Queues are defined as a JSON array of objects assigned to the `queues` attribute. The following table summarizes all supported queue parameters.
+<p>Agave supports the notion of multiple submit queues. On HPC systems, queues should map to actual batch scheduler queues on the target server. Additionally, queues are used by Agave as a mechanism for implementing quotas on job throughput in a given queue or across an entire system. Queues are defined as a JSON array of objects assigned to the <code class="prettyprint">queues</code> attribute. The following table summarizes all supported queue parameters.</p>
 
 <table>
     <thead>
@@ -2558,18 +2605,17 @@ Agave supports the notion of multiple submit queues. On HPC systems, queues shou
     </tbody>
 </table>
 
+<h4 id="configuring-quotas">Configuring quotas</h4>
 
-#### Configuring quotas
+<p>In the batch queues table above, several attributes exist to specify limits on the number of total jobs and user jobs in a given queue. Corresponding attributes exist in the execution system to specify limits on the number of total and user jobs across an entire system. These attributes, when used appropriately, can be used to tell Agave how to enforce limits on the concurrent activity of any given user. They can also ensure that Agave will not unfairly monopolize your systems as your application usage grows.</p>
 
-In the batch queues table above, several attributes exist to specify limits on the number of total jobs and user jobs in a given queue. Corresponding attributes exist in the execution system to specify limits on the number of total and user jobs across an entire system. These attributes, when used appropriately, can be used to tell Agave how to enforce limits on the concurrent activity of any given user. They can also ensure that Agave will not unfairly monopolize your systems as your application usage grows.
+<p>If you have ever used a shared HPC system before, you should be familiar with batch queue quotas. If not, the important thing to understand is that they are a critical tool to ensure fair usage of any shared resource. As the owner/administrator for your registered system, you can use the batch queues you define to enforce whatever usage policy you deem appropriate.</p>
 
-If you have ever used a shared HPC system before, you should be familiar with batch queue quotas. If not, the important thing to understand is that they are a critical tool to ensure fair usage of any shared resource. As the owner/administrator for your registered system, you can use the batch queues you define to enforce whatever usage policy you deem appropriate.
+<p>Consider one example where you are using a VM to run image analysis routines on demand through Agave, your server will become memory bound and experience performance degradation if too many processes are running at once. To avoid this, you can set a limit using a batch queue configuration that limits the number of simultaneous tasks that can run at once on your server.</p>
 
-Consider one example where you are using a VM to run image analysis routines on demand through Agave, your server will become memory bound and experience performance degradation if too many processes are running at once. To avoid this, you can set a limit using a batch queue configuration that limits the number of simultaneous tasks that can run at once on your server.
+<p>Another example where quotas can be helpful is to help you properly partitioning your system resources. Consider a user analyzing unstructured data. The problem is computationally and memory intensive. To preserve resources, you could create one queue with a moderate value of <code class="prettyprint">maxJobs</code> and conservative <code class="prettyprint">maxMemoryPerNode</code>, <code class="prettyprint">maxProcessorsPerNode</code>, and <code class="prettyprint">maxNodes</code> values to allow good throughput of small job. You could then create another queue with large <code class="prettyprint">maxMemoryPerNode</code>, <code class="prettyprint">maxProcessorsPerNode</code>, and <code class="prettyprint">maxNodes</code> values while only allowing a single job to run at a time. This gives you both high throughput and high capacity on a single system.</p>
 
-Another example where quotas can be helpful is to help you properly partitioning your system resources. Consider a user analyzing unstructured data. The problem is computationally and memory intensive. To preserve resources, you could create one queue with a moderate value of `maxJobs` and conservative `maxMemoryPerNode`, `maxProcessorsPerNode`, and `maxNodes` values to allow good throughput of small job. You could then create another queue with large `maxMemoryPerNode`, `maxProcessorsPerNode`, and `maxNodes` values while only allowing a single job to run at a time. This gives you both high throughput and high capacity on a single system.
-
-The following sample queue definitions illustrate some other interesting use cases.
+<p>The following sample queue definitions illustrate some other interesting use cases.</p>
 
 <p>
     <select id="queue-config-selector" name="queue-config-selector" onChange="$('.queue-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
@@ -2910,7 +2956,7 @@ As with storage systems, Agave supports several different protocols and mechanis
 
 <p>While it is not required, it is a best practice to always specify <code class="prettyprint">scratchDir</code> and <code class="prettyprint">workDir</code> values for your execution systems and, whenever possible, place them outside of the system <code class="prettyprint">homeDir</code> to ensure data privacy. The reason for this is that the file system available on many servers is actually made up of a combination of physically attached storage, mounted volumes, and network mounts. Often times, your home directory will have a very conservative quota while the mounted storage will essentially be quota free. As the above table shows, when you do not specify a <code class="prettyprint">scratchDir</code> or <code class="prettyprint">workDir</code>, Agave will attempt to create your job work directories in your system <code class="prettyprint">homeDir</code>. It is very likely that, in the course of running simulations, you will reach the quota on your home directory, thereby causing that job and all future jobs to fail on the system until you clear up more space. To avoid this, we recommend specifying a location with sufficient available space to handle the work you want to do.</p>
 
-<p>Another common error that arises from not specifying thoughtful <code class="prettyprint">scratchDir</code> and <code class="prettyprint">workDir</code> values for your execution systems is jobs failing due to &quot;permission denied&rdquo; errors. This often happens when your <code class="prettyprint">scratchDir</code> and/or <code class="prettyprint">workDir</code> resolve to the actual system root. Usually the account you are using to access the system will not have permission to write to <code class="prettyprint">/</code>, so all attempts to create a job working directory fail, accurately, due to a &ldquo;permission denied&rdquo; error.</p>
+<p>Another common error that arises from not specifying thoughtful <code class="prettyprint">scratchDir</code> and <code class="prettyprint">workDir</code> values for your execution systems is jobs failing due to &ldquo;permission denied&rdquo; errors. This often happens when your <code class="prettyprint">scratchDir</code> and/or <code class="prettyprint">workDir</code> resolve to the actual system root. Usually the account you are using to access the system will not have permission to write to <code class="prettyprint">/</code>, so all attempts to create a job working directory fail, accurately, due to a &ldquo;permission denied&rdquo; error.</p>
 
 <aside class="notice">While it is not required, it is a best practice to always specify `scratchDir` and `workDir` values for your execution systems and, whenever possible, place them outside of the system `homeDir` to ensure data privacy.</aside>
 
@@ -2989,7 +3035,157 @@ As with storage systems, Agave supports several different protocols and mechanis
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<h3 id="system-roles">System roles</h3>
+              <h3 id="disabling">Disabling</h3>
+
+<blockquote>
+<p>Disable a system</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$AUTH_TOKEN</span><span class="s2">"</span>
+    -H <span class="s2">"Content-Type: application/json"</span>
+    -X PUT --data-binary <span class="s1">'{"action": "disable"}'</span>
+    https://public.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
+</code></pre>
+<pre class="highlight plaintext"><code>systems-disable $SYSTEM_ID
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"site"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sftp.storage.example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"lastModified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-06T17:46:42.621-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My example storage system using SFTP to store data for testing"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example SFTP Storage System"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"globalDefault"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"available"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4036169328045649434-242ac117-0001-006"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"public"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORAGE"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"storage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"mirror"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"port"</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"homeDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/systest"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"protocol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SFTP"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"storage.example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"publicAppsDir"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"rootDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PASSWORD"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"roles"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/sftp.storage.example.com/roles"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"credentials"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/sftp.storage.example.com/credentials"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/sftp.storage.example.com"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/data/?q=%7B%22associationIds%22%3A%224036169328045649434-242ac117-0001-006%22%7D"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>There may be times when you need to disable a system. If your system has scheduled maintenance periods, you may want to disable the system until the maintenance period ends. You can do this by making a PUT request on a monitor with the a field name <code class="prettyprint">action</code> set to &ldquo;disabled&rdquo;, or simply updating the status to &ldquo;MAINTENANCE&rdquo;. While disabled, all apps and jobs will be disabled. All file operations will be rejected during system downtimes as well. Once restored, all operations will pick back up.</p>
+
+<h3 id="enabling-a-system">Enabling a system</h3>
+
+<blockquote>
+<p>Enable a system</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$AUTH_TOKEN</span><span class="s2">"</span>
+    -H <span class="s2">"Content-Type: application/json"</span>
+    -X PUT --data-binary <span class="s1">'{"action": "enable"}'</span>
+    https://public.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
+</code></pre>
+<pre class="highlight plaintext"><code>systems-enable $SYSTEM_ID
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"site"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sftp.storage.example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"lastModified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-06T17:46:42.621-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My example storage system using SFTP to store data for testing"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example SFTP Storage System"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"globalDefault"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"available"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4036169328045649434-242ac117-0001-006"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"public"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORAGE"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"storage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"mirror"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"port"</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"homeDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/systest"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"protocol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SFTP"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"storage.example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"publicAppsDir"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"rootDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PASSWORD"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"roles"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/sftp.storage.example.com/roles"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"credentials"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/sftp.storage.example.com/credentials"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/sftp.storage.example.com"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/data/?q=%7B%22associationIds%22%3A%224036169328045649434-242ac117-0001-006%22%7D"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Similarly, to enable a monitor, make a PUT request with the a field name <code class="prettyprint">action</code> set to &ldquo;enabled&rdquo;. Once reenabled, the monitor will resume its previous check schedule as specified in the <code class="prettyprint">nextUpdate</code> field, or immediately if that time has already expired.</p>
+
+<h3 id="deleting-systems">Deleting systems</h3>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X DELETE https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
+</code></pre>
+<pre class="highlight plaintext"><code>systems-delete $SYSTEM_ID
+</code></pre>
+
+<blockquote>
+<p>The call will return an empty result.</p>
+</blockquote>
+
+<p>In the event you wish to delete a system, you can make a DELETE request on the system URL. Deleting a system will disable the system and all applications published on that system from use. Any running jobs will be continue to run, but all pending, archiving, paused, and staged jobs will be killed, and any data archived on that system will no longer be available. Restoring a deleted system requires intervention from your tenant admin. Once deleted, the system id cannot be reused at a later time. Use this operation with care.</p>
+
+<aside class="notice">If you simply wish to remove a system from service, you can update the system <span class="highlight">status</span> or <span class="highlight">available</span> attributes depending on whether you want to disable user or visibility.</aside>
+
+<h3 id="multi-user-environments">Multi-user environments</h3>
+
+<p>If your application supports a multi-user environment and those users do not have API accounts, then you may run into a situation where you are juggling multiple user credentials for a single system. Agave has a solution for this problem in the for of its Internal User feature. You can map your application users into a private user store Agave provides you and assign those users credentials on your systems. This allows you to move seamlessly from community users to private users and back without having to alter your application code. For a deep discussion on the mechanics and implications of credential management with internal users, see the <a href="#internal-user-credential-management/" title="Internal User Credential Management">Internal User Credential Management</a> guide.</p>
+
+              <h3 id="system-roles">System roles</h3>
 
 <p>Systems you register are private to you and you alone. You can, however, allow other Agave clients to utilize the system you define by granting them a role on the system using the systems roles services. The available roles are given in the table below.</p>
 
@@ -3026,22 +3222,7 @@ As with storage systems, Agave supports several different protocols and mechanis
 
 <aside class="notice">Please see the Systems Roles tutorial for a deep discussion of system roles and how they are used.</aside>
 
-<h3 id="cloning-systems">Cloning systems</h3>
-
-<p>Sharing systems through the use of roles allows other people to run jobs and access data on that system. When that happens, the users to whom you granted roles are accessing the system under your account. While they do <em>NOT</em> have access to your credentials, they do have access to the system using whatever account you use to authenticate. In most situations, this is not a problem. It is not uncommon to use a shared (or community account) within an application. However sometimes it is preferable for users to use their own account rather than yours. One way to do this is to simply re-send the same system description with a different ID. Another is to use the cloning feature of the Systems service.</p>
-
-<p>Cloning an existing system will create a new system, with a new id, and all attributes copied over with the exception of the original system&rsquo;s authentication information and roles. You will be assigned owner of the system clone, but will still need to add your own credentials in order to do anything useful.</p>
-
-<p>To clone a system, you make a PUT request on the system&rsquo;s url and pass it a new system id.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
-     -X PUT
-     -d <span class="s2">"action=clone&amp;amp;id=systest.demo.clone"</span>
-     https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
-</code></pre>
-<pre class="highlight plaintext"><code>systems-clone -v -I systest.demo.clone $SYSTEM_ID
-</code></pre>
-
-<h3 id="system-scope">System scope</h3>
+              <h3 id="system-scope">System scope</h3>
 
 <p>Throughout these tutorials and <a href="http://agaveapi.co/documentation/beginners-guides/" title="Beginner’s Guides">Beginner&rsquo;s Guides</a>, we have referred to both public and private systems. In addition to roles, systems have a concept of scope associated with them. Not to be confused with OAuth scope mentioned in the <a href="http://agaveapi.co/documentation/authorization/" title="Authorization Guide">Authentication Guide</a>, system scope refers to the availability of a system to the general user community. The following table lists the available scopes and their meanings.</p>
 
@@ -3149,8 +3330,9 @@ As with storage systems, Agave supports several different protocols and mechanis
 
 <p>To publish a system and make it public, you make a PUT request on the system&rsquo;s url.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -H <span class="s2">"Content-Type: application/json"</span>
      -X PUT
-     -d <span class="s2">"action=publish"</span>
+     --data-binary <span class="s1">'{"action":"publish"}'</span>
      https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>systems-publish -v $SYSTEM_ID
@@ -3162,8 +3344,9 @@ As with storage systems, Agave supports several different protocols and mechanis
 
 <h4 id="unpublishing-a-system">Unpublishing a system</h4>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -H <span class="s2">"Content-Type: application/json"</span>
      -X PUT
-     -d <span class="s2">"action=unpublish"</span>
+     --data-binary <span class="s1">'{"action":"unpublish"}'</span>
      https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>systems-unpublish -v $SYSTEM_ID
@@ -3226,8 +3409,9 @@ As with storage systems, Agave supports several different protocols and mechanis
 
 <p>To set a system as the user&rsquo;s default, you make a PUT request on the system&rsquo;s url. Only systems the user has access to may be used as their default.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -H <span class="s2">"Content-Type: application/json"</span>
      -X PUT
-     -d <span class="s2">"action=setdefault"</span>
+     --data-binary <span class="s1">'{"action":"setDefault"}'</span>
      https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>systems-setdefault -v $SYSTEM_ID
@@ -3239,8 +3423,9 @@ As with storage systems, Agave supports several different protocols and mechanis
 
 <h4 id="unsetting-user-default-system">Unsetting user default system</h4>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -H <span class="s2">"Content-Type: application/json"</span>
      -X PUT
-     -d <span class="s2">"action=unsetDefault"</span>
+     --data-binary <span class="s1">'{"action":"unsetDefault"}'</span>
      https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>systems-unsetdefault -v $SYSTEM_ID
@@ -3256,8 +3441,9 @@ As with storage systems, Agave supports several different protocols and mechanis
 
 <p>Tenant administrators may wish to set default storage and execution systems for an entire tenant. These are called global default systems. There may be at most one system of each type set as a global default. To set a global default system, first make sure that the system is public. Only public systems may be set as a global default. Next, make sure you have administrator permissions for your tenant. Only tenant admins may publish systems and manage the global defaults. Lastly, make a PUT request on the system&rsquo;s url with an <code class="prettyprint">action</code> attribute in the body set to <em>unsetGlobalDefault</em>.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -H <span class="s2">"Content-Type: application/json"</span>
      -X PUT
-     -d <span class="s2">"action=setglobaldefault"</span>
+     --data-binary <span class="s1">'{"action":"setGlobalDefault"}'</span>
      https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>systems-setdefault -v -G $SYSTEM_ID
@@ -3271,8 +3457,9 @@ As with storage systems, Agave supports several different protocols and mechanis
 
 <p>To remove a system from being the global default, make the same request with the <code class="prettyprint">action</code> attribute set to <em>unsetGlobalDefault</em>.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -H <span class="s2">"Content-Type: application/json"</span>
      -X PUT
-     -d <span class="s2">"action=unsetGlobalDefault"</span>
+     --data-binary <span class="s1">'{"action":"unsetGlobalDefault"}'</span>
      https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>systems-unsetdefault -v -G $SYSTEM_ID
@@ -3282,27 +3469,16 @@ As with storage systems, Agave supports several different protocols and mechanis
 <p>This time the response from the service will have <code class="prettyprint">default</code> set to <em>false</em> and <code class="prettyprint">public</code> set to <em>true</em>.</p>
 </blockquote>
 
-<h3 id="deleting-systems">Deleting systems</h3>
-
-<p>In the event you wish to permanently delete a system, you can make a DELETE request on the system URL.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X DELETE https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
-</code></pre>
-<pre class="highlight plaintext"><code>systems-delete $SYSTEM_ID
-</code></pre>
-
-<blockquote>
-<p>The call will return an empty result.</p>
-</blockquote>
-
-<p>Deleting a system will disable the system and all applications published on that system from use. Any running jobs will be killed, and any data archived on that system will no longer be available. There is no way to restore a system once it is deleted, and the system id cannot be reused in the future, so use this operation with care.</p>
-
-<aside class="notice">If you simply wish to remove a system from service, you can update the system `status` or `available` attributes depending on whether you want to disable user or visibility.</aside>
-
-<h3 id="multi-user-environments">Multi-user environments</h3>
-
-<p>If your application supports a multi-user environment and those users do not have API accounts, then you may run into a situation where you are juggling multiple user credentials for a single system. Agave has a solution for this problem in the for of its Internal User feature. You can map your application users into a private user store Agave provides you and assign those users credentials on your systems. This allows you to move seamlessly from community users to private users and back without having to alter your application code. For a deep discussion on the mechanics and implications of credential management with internal users, see the <a href="http://agaveapi.co/documentation/tutorials/system-management/internal-user-credential-management/" title="Internal User Credential Management">Internal User Credential Management</a> tutorial.</p>
-
               <h2 id="files">Files</h2>
+<pre class="highlight json"><code><span class="w"> </span><span class="err">/$$$$$$$$</span><span class="w"> </span><span class="err">/$$</span><span class="w"> </span><span class="err">/$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$_____/|__/|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">       </span><span class="err">/$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">   </span><span class="err">/$$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$$$$</span><span class="w">   </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$_____/</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$__/</span><span class="w">   </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$$$$$$$|</span><span class="w">  </span><span class="err">$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">      </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$_____/</span><span class="w"> </span><span class="err">\____</span><span class="w">  </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">      </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$|</span><span class="w">  </span><span class="err">$$$$$$$</span><span class="w"> </span><span class="err">/$$$$$$$/</span><span class="w">
+</span><span class="err">|__/</span><span class="w">      </span><span class="err">|__/|__/</span><span class="w"> </span><span class="err">\_______/|_______/</span><span class="w">
+</span></code></pre>
 
 <p>The Agave Files service allows you to manage data across multiple storage systems using multiple protocols. It supports traditional file operations such as directory listing, renaming, copying, deleting, and upload/download that are traditional to most file services. It also supports file importing from arbitrary locations, metadata assignment, and a full access control layer allowing you to keep your data private, share it with your colleagues, or make it publicly available.</p>
 
@@ -3785,6 +3961,18 @@ files-import -v -U "agave://data.agaveapi.co/$API_USERNAME/foo_project" -S $API_
 <p>Agave keeps a full provenance record of every action it takes or observes on a a file and folder. You can read more about how Agave tracks these things as well as how to access provenance information in the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/data-provenance-tutorial/" title="Data Provenance Tutorial">Data Provenance Tutorial</a>.</p>
 
               <h2 id="apps">Apps</h2>
+<pre class="highlight json"><code><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">
+ </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$$$$$$$/$$__</span><span class="w">  </span><span class="err">$$/$$__</span><span class="w">  </span><span class="err">$$/$$_____/</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$|</span><span class="w">  </span><span class="err">$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$\____</span><span class="w">  </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$$$$$$|</span><span class="w"> </span><span class="err">$$$$$$$//$$$$$$$/</span><span class="w">
+</span><span class="err">|__/</span><span class="w">  </span><span class="err">|__|</span><span class="w"> </span><span class="err">$$____/|</span><span class="w"> </span><span class="err">$$____/|_______/</span><span class="w">
+         </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+         </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+         </span><span class="err">|__/</span><span class="w">     </span><span class="err">|__/</span><span class="w">
+</span></code></pre>
 
 <p>An app, in the context of Agave, is an executable code available for invocation through Agave&rsquo;s Jobs service on a specific execution system. Put another way, an app is a piece of code that you can run on a specific system. If a single code needs to be run on multiple systems, each combination of app and system needs to be defined as an app.</p>
 
@@ -3800,7 +3988,7 @@ files-import -v -U "agave://data.agaveapi.co/$API_USERNAME/foo_project" -S $API_
 
 <p>In practice, you will want to add some descriptive information, constraints, and runtime validation checks to reduce the amount of error users can run into when attempting to run your app. The full lists of app input and parameter attributes are provided in their respective sections below. However, before we dive deeper into the next section on app inputs, let&rsquo;s first get a big picture view of what we are doing when we define our app&rsquo;s input and parameters.</p>
 
-<p><img src="http://agaveapi.co/wp-content/uploads/2014/10/App-Job-Information-Flow-1.png" alt="Input and Parameter Information Flow" width="960" height="720" class="aligncenter size-full wp-image-1661" /></p>
+<p><img src="/images/2014/10/App-Job-Information-Flow-1.png" alt="Input and Parameter Information Flow" width="960" height="720" class="aligncenter size-full wp-image-1661" /></p>
 
 <p>When a user submits a job request in step 1, they specify the inputs and parameters needed to run that job. Those attributes are defined in your app description. The Jobs service will use your app description to validate the values in the job request and either reject it with a descriptive error message as in step 2, or accept it as in step 4. Once the job request is accepted, the values provided for the inputs and parameters given in the job request are used to replace their corresponding template placeholder values in the wrapper script. For example, the job request assigned a value of <em>foo</em> for the input with id equal to <em>input1</em>. Before submitting the job request to the remote system, the Jobs service will replace all occurrences of <code class="prettyprint">${input1}</code> in the app wrapper script with <em>foo</em>. The same will happen with <em>param1</em> and <em>param2</em>. All occurrences of <code class="prettyprint">${param1}</code> will be replaced with <em>bar</em> and all occurrences of <code class="prettyprint">${param2}</code> will be replaced with <em>2</em>, just as specified in the job request.</p>
 
@@ -5260,6 +5448,15 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 <aside class="notice">When cloning public apps, the entire app bundle will be recreated on the `deploymentSystem` you specify or your default storage system. The same is not true for private apps. Cloning a private app will copy the job description, but not the app bundle. This is to honor the original ownership of the assets and prevent them from leaking out to the public space without the owner&rsquo;s permission. If you need direct access to the app&rsquo;s assets, request that the owner give you read access to the folder listed as the deploymentPath in the app description.</aside>
 
               <h2 id="jobs">Jobs</h2>
+<pre class="highlight json"><code><span class="w">    </span><span class="err">/$$$$$</span><span class="w">         </span><span class="err">/$$</span><span class="w">
+   </span><span class="err">|__</span><span class="w">  </span><span class="err">$$</span><span class="w">        </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+      </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$$$$$|</span><span class="w"> </span><span class="err">$$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$$</span><span class="w">
+      </span><span class="err">|</span><span class="w"> </span><span class="err">$$/$$__</span><span class="w">  </span><span class="err">$|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$$/$$_____/</span><span class="w">
+ </span><span class="err">/$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$|</span><span class="w">  </span><span class="err">$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$\____</span><span class="w">  </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w"> </span><span class="err">$$$$$$$//$$$$$$$/</span><span class="w">
+ </span><span class="err">\______/</span><span class="w"> </span><span class="err">\______/|_______/|_______/</span><span class="w">
+</span></code></pre>
 
 <p>The Jobs service is a basic execution service that allows you to run applications registered with the Apps service across multiple, distributed, heterogeneous systems through a common REST interface. The service manages all aspects of execution and job management from data staging, job submission, monitoring, output archiving, event logging, sharing, and notifications. The Jobs service also provides a persistent reference to your job&rsquo;s output data and a mechanism for sharing all aspects of your job with others. Each feature will be described in more detail below.</p>
 
@@ -6469,6 +6666,15 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 <p>To delete a permission, you can issue a DELETE request on the user permission resource we&rsquo;ve been using, or update with an empty permission value.</p>
 
               <h2 id="notifications">Notifications</h2>
+<pre class="highlight json"><code><span class="w"> </span><span class="err">/$$$$$$$</span><span class="w">          </span><span class="err">/$$</span><span class="w">       </span><span class="err">/$$$$$$</span><span class="w">          </span><span class="err">/$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">        </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">      </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">        </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$/$$</span><span class="w">   </span><span class="err">/$|</span><span class="w"> </span><span class="err">$$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\__//$$</span><span class="w">   </span><span class="err">/$|</span><span class="w"> </span><span class="err">$$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$____/|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$\____</span><span class="w">  </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$/$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w"> </span><span class="err">$$$$$$$|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w"> </span><span class="err">$$$$$$$/</span><span class="w">
+</span><span class="err">|__/</span><span class="w">      </span><span class="err">\______/|_______/</span><span class="w"> </span><span class="err">\______/</span><span class="w"> </span><span class="err">\______/|_______/</span><span class="w">
+</span></code></pre>
 
 <p>Under the covers, the Agave API is an event-driven distributed system implemented on top of a reliable, cloud-based messaging system. This means that every action either observed or taken by Agave is tied to an event. The changing of a job from one status to another is an event. The granting of permissions on a file is an event. Editing a piece of metadata is an event, and to be sure, the moment you created an account with Agave was an event. You get the idea.</p>
 
@@ -7414,6 +7620,15 @@ notifications-list-failures 229681451607921126-8e1831906a8e-0001-042&quot;
 <div class="warning">Note: There is no way to save successful notification deliveries.</div>
 
               <h2 id="metadata">Metadata</h2>
+<pre class="highlight json"><code><span class="w"> </span><span class="err">/$$</span><span class="w">      </span><span class="err">/$$</span><span class="w">             </span><span class="err">/$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$$</span><span class="w">    </span><span class="err">/$$$</span><span class="w">            </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$$$</span><span class="w">  </span><span class="err">/$$$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">    </span><span class="err">/$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">$$/$$</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$|_</span><span class="w">  </span><span class="err">$$_/</span><span class="w">   </span><span class="err">|____</span><span class="w">  </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">$$$|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$$$$$$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">      </span><span class="err">/$$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$\</span><span class="w">  </span><span class="err">$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$_____/</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$</span><span class="w"> </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">\/</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w">  </span><span class="err">$$$$$$$</span><span class="w">  </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$/|</span><span class="w">  </span><span class="err">$$$$$$$</span><span class="w">
+</span><span class="err">|__/</span><span class="w">     </span><span class="err">|__/</span><span class="w"> </span><span class="err">\_______/</span><span class="w">   </span><span class="err">\___/</span><span class="w">   </span><span class="err">\_______/</span><span class="w">
+</span></code></pre>
 
 <p>The Agave Metadata service allows you to manage metadata and associate it with Agave entities via associated UUIDs. It supports JSON schema for structured JSON metadata; it also accepts any valid JSON-formatted metadata or plain text String when no schema is specified. As with other Agave services, a full access control layer is available, enabling you to keep your metadata private or share it with your colleagues.</p>
 
@@ -7934,8 +8149,17 @@ notifications-list-failures 229681451607921126-8e1831906a8e-0001-042&quot;
 <p>Permissions may be deleted for a single user by making a DELETE request on the metadata resource permission collection. Please note that the above will delete all permissions for Metadata, such that only the owner will be able to access it.</p>
 
               <h2 id="metadata-schemata">Metadata Schemata</h2>
+<pre class="highlight json"><code><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">          </span><span class="err">/$$</span><span class="w">
+ </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">        </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\__/</span><span class="w"> </span><span class="err">/$$$$$$|</span><span class="w"> </span><span class="err">$$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w"> </span><span class="err">/$$$$$$/$$$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$</span><span class="w"> </span><span class="err">/$$_____|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$$/$$__</span><span class="w">  </span><span class="err">$|</span><span class="w"> </span><span class="err">$$_</span><span class="w">  </span><span class="err">$$_</span><span class="w">  </span><span class="err">$$|____</span><span class="w">  </span><span class="err">$$</span><span class="w">
+ </span><span class="err">\____</span><span class="w">  </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$$$$$$</span><span class="w">
+ </span><span class="err">/$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$_____|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$/$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w">  </span><span class="err">$$$$$$$</span><span class="w">
+ </span><span class="err">\______/</span><span class="w"> </span><span class="err">\_______|__/</span><span class="w">  </span><span class="err">|__/\_______|__/</span><span class="w"> </span><span class="err">|__/</span><span class="w"> </span><span class="err">|__/\_______/</span><span class="w">
+</span></code></pre>
 
-<p>Schemata can be provided in JSON Schema form. The service will validate that the schema is valid JSON and store it. To validate Metadata against it, the schema UUID should be given as a parameter, SchemaId, when uploading Metadata. If no SchemaId is provided, the Metadata service will accept any JSON Object or plain text string and store it accordingly. This flexible approach enabled Agave to handle different levels of structure of Metadata from completely unstructured, to highly structured with complex JSON schemata.</p>
+<p>Schema can be provided in JSON Schema form. The service will validate that the schema is valid JSON and store it. To validate Metadata against it, the schema UUID should be given as a parameter, SchemaId, when uploading Metadata. If no SchemaId is provided, the Metadata service will accept any JSON Object or plain text string and store it accordingly. This flexible approach enabled Agave to handle different levels of structure of Metadata from completely unstructured, to highly structured with complex JSON schemata.</p>
 
 <p>For more on JSON Schema please see <a title="JSON Schema" href="http://json-schema.org/">http://json-schema.org/</a></p>
 
@@ -8081,6 +8305,15 @@ notifications-list-failures 229681451607921126-8e1831906a8e-0001-042&quot;
 <aside class="alert"> Deleting a metadata schema will permanently delete the schema and all its history, permissions, etc. Once the schema is deleted, the remaining metadata items will not be automatically updated, thus it is important to know that updates to metadata items that still reference the schema will fail.</aside>
 
               <h2 id="monitors">Monitors</h2>
+<pre class="highlight json"><code><span class="w"> </span><span class="err">/$$</span><span class="w">      </span><span class="err">/$$</span><span class="w">                  </span><span class="err">/$$</span><span class="w">  </span><span class="err">/$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$$</span><span class="w">    </span><span class="err">/$$$</span><span class="w">                 </span><span class="err">|__/</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$$$</span><span class="w">  </span><span class="err">/$$$$</span><span class="w"> </span><span class="err">/$$$$$$</span><span class="w"> </span><span class="err">/$$$$$$$</span><span class="w"> </span><span class="err">/$$/$$$$$$</span><span class="w">   </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">$$/$$</span><span class="w"> </span><span class="err">$$/$$__</span><span class="w">  </span><span class="err">$|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$|</span><span class="w"> </span><span class="err">$|_</span><span class="w">  </span><span class="err">$$_/</span><span class="w">  </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$/$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">$$$|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">   </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\__/</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$\</span><span class="w">  </span><span class="err">$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">\/</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|__/</span><span class="w">     </span><span class="err">|__/\______/|__/</span><span class="w">  </span><span class="err">|__|__/</span><span class="w">  </span><span class="err">\___/</span><span class="w">  </span><span class="err">\______/|__/</span><span class="w">
+</span></code></pre>
 
 <p>The Agave Monitors API provides a familiar paradigm for monitoring the use ability and accessibility of storage and execution systems you registered with Agave. Similar to services like Pingdom, Pagerduty, and WebCron, the Monitors API allows you to to create regular health checks on a registered system. Unlike standard uptime services, Agave will check that your system is responsive and accessible by performing proactive tests on availability (ping), accessibility (authentication), and functionality (listing or echo). Each check result is persisted and the check history of a given monitor is queryable through the API. As with all resources in the Agave Platform, a full event model is available so you can subscribe to event you care about such as failed checks, restored system availability, and system disablement. </p>
 
@@ -8135,7 +8368,7 @@ notifications-list-failures 229681451607921126-8e1831906a8e-0001-042&quot;
 
 <p>The only piece of information needed to monitor a system is the system ID. Sending a POST request to the Monitors API with a monitor definition containing just the <code class="prettyprint">systemId</code> field with a valid system ID or UUID will create a monitor that will run hourly health checks starting an hour from when you sent the request.  </p>
 
-<aside class="notice">You cannot create monitors on systems for which you do not have at least GUEST permission.</aside>
+<aside class="notice">You cannot create monitors on systems for which you do not have a role.</aside>
 
 <h3 id="custom-frequency-and-start-time">Custom frequency and start time</h3>
 
@@ -8644,6 +8877,15 @@ notifications-list-failures 229681451607921126-8e1831906a8e-0001-042&quot;
 </tbody></table>
 
               <h2 id="user-profiles">User Profiles</h2>
+<pre class="highlight json"><code><span class="w"> </span><span class="err">/$$$$$$$</span><span class="w">                   </span><span class="err">/$$$$$$</span><span class="w"> </span><span class="err">/$$/$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">                 </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$|__|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$/$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\__//$|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$$$$$$/$$__</span><span class="w">  </span><span class="err">$$/$$__</span><span class="w">  </span><span class="err">$|</span><span class="w"> </span><span class="err">$$$$</span><span class="w">   </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$/$$__</span><span class="w">  </span><span class="err">$$/$$_____/</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$____|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\__|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$_/</span><span class="w">   </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$$$$$$|</span><span class="w">  </span><span class="err">$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">    </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$_____/\____</span><span class="w">  </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">    </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$|</span><span class="w">  </span><span class="err">$$$$$$$/$$$$$$$/</span><span class="w">
+</span><span class="err">|__/</span><span class="w">    </span><span class="err">|__/</span><span class="w">      </span><span class="err">\______/|__/</span><span class="w">     </span><span class="err">|__|__/\_______|_______/</span><span class="w">
+</span></code></pre>
 
 <p>The Agave hosted identity service (profiles service) is a RESTful web service that gives organizations a way to create and manage the user accounts within their Agave tenant. The service is backed by a redundant LDAP instance hosted in multiple datacenters making it highly available. Additionally, passwords are stored using the openldap md5crypt algorithm.</p>
 
@@ -8851,13 +9093,22 @@ curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; -X POST -F &quot;fil
 
 <p>The account creation web app provides a simple form to enable user self-sign. Here is a screenshot of the sign up form:</p>
 
-<p><img src="http://agaveapi.co/wp-content/uploads/2015/04/self-signup-screenshot.png" alt="Account creation web app form" /></p>
+<p><img src="/images/2015/04/self-signup-screenshot.png" alt="Account creation web app form" /></p>
 
 <p>The web application also provides an email loop for verification of new accounts. The code is open source and freely available from bitbucket: <a href="https://bitbucket.org/jstubbs/agave_id">Account Creation Web Application</a></p>
 
 <p>Most likely you will want to customize the branding and other aspects of the application, but for simple use cases, the Agave team can deploy a stock instance of the application in your tenant. Work with the Agave developer team if this is of interest to your organization.</p>
 
               <h2 id="events">Events</h2>
+<pre class="highlight json"><code><span class="w"> </span><span class="err">/$$$$$$$$</span><span class="w">                          </span><span class="err">/$$</span><span class="w">            
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$_____/</span><span class="w">                         </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">            
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">   </span><span class="err">/$$</span><span class="w">    </span><span class="err">/$$/$$$$$$</span><span class="w"> </span><span class="err">/$$$$$$$</span><span class="w"> </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$$$|</span><span class="w">  </span><span class="err">$$</span><span class="w">  </span><span class="err">/$$/$$__</span><span class="w">  </span><span class="err">$|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$|_</span><span class="w">  </span><span class="err">$$_/</span><span class="w"> </span><span class="err">/$$_____/</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$__/\</span><span class="w">  </span><span class="err">$$/$$|</span><span class="w"> </span><span class="err">$$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$</span><span class="w"> 
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">    </span><span class="err">\</span><span class="w">  </span><span class="err">$$$/|</span><span class="w"> </span><span class="err">$$_____|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$\____</span><span class="w">  </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$$$$$$\</span><span class="w">  </span><span class="err">$/</span><span class="w"> </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$/$$$$$$$/</span><span class="w">
+</span><span class="err">|________/\_/</span><span class="w">   </span><span class="err">\_______|__/</span><span class="w">  </span><span class="err">|__/</span><span class="w">  </span><span class="err">\___/|_______/</span><span class="w"> 
+</span></code></pre>
 
 <p>Events underpin everything in the Agave Platform. This section covers the events available to each resource.</p>
 
@@ -9429,6 +9680,15 @@ curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; -X POST -F &quot;fil
 </table>
 
               <h2 id="search">Search</h2>
+<pre class="highlight json"><code><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">                                     </span><span class="err">/$$</span><span class="w">
+ </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">                                   </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\__/</span><span class="w"> </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$|</span><span class="w"> </span><span class="err">$$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$</span><span class="w"> </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$|____</span><span class="w">  </span><span class="err">$$/$$__</span><span class="w">  </span><span class="err">$$/$$_____|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">
+ </span><span class="err">\____</span><span class="w">  </span><span class="err">$|</span><span class="w"> </span><span class="err">$$$$$$$$</span><span class="w"> </span><span class="err">/$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\__|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w">
+ </span><span class="err">/$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$|</span><span class="w"> </span><span class="err">$$_____//$$__</span><span class="w">  </span><span class="err">$|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+ </span><span class="err">\______/</span><span class="w"> </span><span class="err">\_______/\_______|__/</span><span class="w">      </span><span class="err">\_______|__/</span><span class="w">  </span><span class="err">|__/</span><span class="w">
+</span></code></pre>
 
 <p>Search is a fundamental feature of the Agave Platform. Each of the core science APIs support a mature, URL-based query mechanism allowing you to search using a sql-inspired json syntax.</p>
 
@@ -9691,7 +9951,11 @@ monitors-checks-search -M target.like=*ec2* \
 
               <h2 id="jupyter-hub">Jupyter Hub</h2>
 
-<p>s</p>
+<p>Jupyter notebooks (formerly iPython notebooks) provide users with interactive computing documents that contain both computer code and a mix of rich text elements such as data visualizations, text paragraphs, hyperlinks, formatted equations, etc. The code cells in notebooks can be executed interactively, cell by cell, and the results of the executions are displayed in subsequent cells in the notebook. The notebooks can also be exported to a serialized JSON formatted file and executed like a traditional program.</p>
+
+<p>JupyterHub is an open source project to provide multi-user hosted notebook servers as a service. When a user signs in to JupyterHub, a notebook server with pre-configured software is automatically launched for them. The Agave team integrated JupyterHub into its identity and access management stack and made several other additional enhancements and customizations to enable the use of Agave&rsquo;s language SDKs such as agavepy and the CLI, persistent storage, and multiple kernel support, directly from their notebooks with very minimal setup. Agave’s deployment of JupyterHub, which runs each user’s notebook server in a Docker container to further enhance reproducibility, is freely available for use in Agave&rsquo;s Public Tenant. </p>
+
+<p>You can get started with JupyterHub today at <a href="https://jupyter.agaveapi.co">https://jupyter.agaveapi.co</a>.</p>
 
               <h2 id="command-line-interface">Command Line Interface</h2>
 
