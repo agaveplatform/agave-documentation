@@ -46,9 +46,11 @@
             if (url && url.length > 1) {
                 url = decodeURIComponent(url[1]);
             } else {
-                url = "/live-docs/agave.json";
+                url = "http://developer.agaveapi.co/live-docs/agave.json";
                 //url = "http://agaveapi.co/swagger/agave.json";
             }
+
+            window.oAuthRedirectUrl = "http://developer.agaveapi.co/live-docs/o2c.html";
 
             window.swaggerUi = new SwaggerUi({
                 url: url,
@@ -58,7 +60,7 @@
                     if (typeof initOAuth == "function") {
 
                         initOAuth({
-                            clientId: "uwESsfCHz7ivfdGCchdRRywMwcAa",
+                            clientId: "C65euyTuJEhZEnKzx_FkKz3EDqwa",
                             realm: "The Agave Platform",
                             appName: "Agave Live Docs"
                         });
