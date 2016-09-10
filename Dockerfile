@@ -1,19 +1,21 @@
 FROM ubuntu:trusty
 
-RUN apt-get update
-RUN apt-get install -y software-properties-common
-RUN add-apt-repository ppa:git-core/ppa
-RUN apt-get update
-RUN apt-get install -y ruby
-RUN apt-get install -y ruby-dev
-RUN apt-get install -y sudo
-RUN apt-get install -y build-essential
-RUN apt-get install -y git
-RUN apt-get install -y curl
-RUN gem install bundler
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:git-core/ppa && \
+    apt-get update && \
+    apt-get install -y ruby ruby-dev sudo build-essential git curl && \
+    gem install bundler && \
 
-RUN useradd -u 1001 jenkins
-RUN mkdir -p /home/jenkins
-RUN chown -R jenkins:jenkins /home/jenkins
-RUN adduser jenkins sudo
-RUN echo 'jenkins ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+    useradd -u 1001 jenkins && \
+    mkdir -p /home/jenkins && \
+    chown -R jenkins:jenkins /home/jenkins && \
+    adduser jenkins sudo && \
+    echo 'jenkins ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+ADD Gemfile /usr/src/docs/Gemfile
+
+WORKDIR /usr/src/docs
+
+RUN bundle install
+
