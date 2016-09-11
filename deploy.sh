@@ -13,6 +13,7 @@ Options:
   -e, --allow-empty        Allow deployment of an empty directory.
   -m, --message MESSAGE    Specify the message used when committing on the
                            deploy branch.
+  -s, --skip-build         Skip the build and just deploy what's there.
   -n, --no-hash            Don't append the source commit's hash to the deploy
                            commit's message.
   -c, --config-file PATH   Override default & environment variables' values
@@ -29,8 +30,6 @@ These variables have default values defined in the script. The defaults can be
 overridden by environment variables. Any environment variables are overridden
 by values set in a '.env' file (if it exists), and in turn by those set in a
 file specified by the '--config-file' option."
-
-bundle exec middleman build --clean --verbose
 
 parse_args() {
   # Set args from a local environment file.
@@ -60,6 +59,9 @@ parse_args() {
     elif [[ ( $1 = "-m" || $1 = "--message" ) && -n $2 ]]; then
       commit_message=$2
       shift 2
+    elif [[ ( $1 = "-s" || $1 = "--skip-build" ) ]]; then
+      skip_build=true
+      shift
     elif [[ $1 = "-n" || $1 = "--no-hash" ]]; then
       GIT_DEPLOY_APPEND_HASH=false
       shift
@@ -88,6 +90,10 @@ parse_args() {
 
 main() {
   parse_args "$@"
+
+  if [[ -z "$skip_build" ]]; then
+    bundle exec middleman build --clean --verbose
+  fi
 
   enable_expanded_output
 
