@@ -15,6 +15,7 @@ toc_footers:
 includes:
 - introduction/introduction
 - introduction/_conventions.md.erb
+- introduction/_conventions-response-customization.md
 - introduction/_status-codes.md.erb
 - sdk/_introduction
 - documentation/_introduction
