@@ -293,6 +293,11 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
             <td>boolean</td>
             <td>If true, returns only the value of the <span class="code">result</span> attribute in the standard response wrapper.</td>
         </tr>
+        <tr>
+            <td>filter</td>
+            <td>string</td>
+            <td>A comma-delimited list of fields to return for each object in the response. Each field may be referenced using JSON notation. See the <a href="#custom-response">Response Customization</a> for more info.</td>
+        </tr>
     </tbody>
 </table>
 
@@ -395,6 +400,28 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 </code></pre>
 
 <p>Agave strives to be a fully descriptive hypermedia API. Given any endpoint, you should be able to walk the API through the links provided in the <code class="prettyprint">_links</code> object in each resource representation. The following user metadata object contains two referenced objects. The first, <code class="prettyprint">self</code> is common to all objects, and contains the URL of that object. The second, <code class="prettyprint">owner</code> contains the URL to the profile of the user who created the object.</p>
+
+              <h3 id="response-customization">Response Customization</h3>
+
+<blockquote>
+<p>Returns the user id, name, and email  </p>
+</blockquote>
+<pre class="highlight html"><code>/profiles/v2/?filter=id,name,email
+</code></pre>
+
+<blockquote>
+<p>Returns the system name, status, app id, and the url to the archvied job output  </p>
+</blockquote>
+<pre class="highlight html"><code>/jobs/v2/?filter=name,status,appId,_links.archiveData.href
+</code></pre>
+
+<blockquote>
+<p>Returns the system id, type, whether it is your default system, and the hostname in the storage config  </p>
+</blockquote>
+<pre class="highlight html"><code>/systems/v2/?filter=id,type,default,storage.host
+</code></pre>
+
+<p>In many situations, Agave may return back too much or too little information in the response to a query. For example, when searching jobs, the <code class="prettyprint">inputs</code> and <code class="prettyprint">parameters</code> fields are not included in the default summary response objects. You can customize the responses you receive from all the Science APIs using the <code class="prettyprint">filter</code> query parameter. The <code class="prettyprint">filter</code> query parameter takes a comma-delimited list of fields to return for each object in the response. Each field may be referenced using JSON notation similar to the search syntax (minus the <code class="prettyprint">.[operation]</code> suffix. The examples to the right show sample requests and responses.</p>
 
               <h3 id="status-codes">Status Codes</h3>
 
@@ -5417,18 +5444,186 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 
 <p>The response will be an empty result object.</p>
 
-              <h3 id="application-scope">Application scope</h3>
+              <h3 id="app-scope">App scope</h3>
 
-<p>In addition to traditional permissions, apps also have a concept of scope. Unless otherwise configured, apps are private to the owner and the users they grant permission. Applications can, however move from the private space into the public space for use any anyone. Moving an app into the public space is called publishing. Publishing an app gives it much greater exposure and results in increased usage by the user community. It also comes with increased responsibilities for the original owner as well as the API administrators. Several of these are listed below:</p>
+<p>In addition to traditional permissions, apps also have a concept of scope. Unless otherwise configured, apps are private to the owner and the users they grant permission. Applications can, however move from the private space into the public space for use any anyone. Moving an app into the public space is called <em>publishing</em>. Publishing an app gives it much greater exposure and results in increased usage by the user community. It also comes with increased responsibilities for the original owner as well as the API administrators. Several of these are listed below:</p>
 
-<p>* Public apps must run on public systems. This makes the app available to everyone.
-    * Public apps must be vetted for performance, reliability, and security by the API administrators.
-    * The original app author must remain available via email for ongoing support.
-    * Public apps must be copied into a public repository and checksummed.
-    * Updates to public apps must create a new checksummed snapshot of the original app.
-    * API administrators must maintain and support the app throughout its lifetime.</p>
+<ul>
+<li>Public apps must run on public systems. This makes the app available to everyone.</li>
+<li>Public apps must be vetted for performance, reliability, and security by the API administrators.</li>
+<li>The original app author must remain available via email for ongoing support.</li>
+<li>Public apps must be copied into a public repository and checksummed.</li>
+<li>Updates to public apps must result in a snapshot of the original app being created and stored with its resulting checksum in a separate location.</li>
+<li>API administrators must maintain and support the app throughout its lifetime.</li>
+</ul>
 
-<p>If you have an app you would like to see published, please contact your API administrators for more information.</p>
+<aside class="success">If you have an app you would like to see published, please contact your API administrators for more information.</aside>
+
+<h4 id="publishing-an-app">Publishing an app</h4>
+
+<blockquote>
+<p>Publishing an app.</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -H <span class="s2">"Content-Type: application/json"</span>
+     -X PUT
+     --data-binary <span class="s1">'{"action":"publish","executionSystem":"condor.opensciencegrid.org"}'</span>
+     https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00
+</code></pre>
+<pre class="highlight plaintext"><code>apps-publish -e condor.opensciencegrid.org wc-osg-1.00
+</code></pre>
+
+<blockquote>
+<p>The response from the service will resemble the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wc-osg-1.00u1"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wc-osg"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"icon"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8734854070765284890-242ac116-0001-005"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"parallelism"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SERIAL"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"defaultProcessorsPerNode"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"defaultMemoryPerNode"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"defaultNodeCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"defaultMaxRunTime"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"defaultQueue"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"isPublic"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"helpURI"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.gnu.org/s/coreutils/manual/html_node/wc-invocation.html"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wc condor"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"shortDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Count words in a file"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"longDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"gnu"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"textutils"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"ontology"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"http://sswapmeet.sswap.info/algorithms/wc"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"executionType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CONDOR"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"executionSystem"</span><span class="p">:</span><span class="w"> </span><span class="s2">"condor.opensciencegrid.org"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"deploymentPath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/agave/apps/wc-1.00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"deploymentSystem"</span><span class="p">:</span><span class="w"> </span><span class="s2">"public.storage.agave"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"templatePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/wrapper.sh"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"testPath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/wrapper.sh"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"checkpointable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"lastModified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-15T04:48:17.000-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"modules"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"load TACC"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"purge"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"available"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"inputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"query1"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"validator"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"order"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"enquote"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"read1.fq"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"File to count words in: "</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"argument"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"showArgument"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"repeatArgument"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"semantics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"minCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"maxCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ontology"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"http://sswapmeet.sswap.info/util/TextDocument"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nt">"fileTypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"text-0"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nt">"outputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"outputWC"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"validator"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"order"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wc_out.txt"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text file"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Results of WC"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"semantics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"minCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"maxCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ontology"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"http://sswapmeet.sswap.info/util/TextDocument"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nt">"fileTypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"executionSystem"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/condor.opensciencegrid.org"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"storageSystem"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/public.storage.agave"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"history"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1/history"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/data/?q=%7B%22associationIds%22%3A%228734854070765284890-242ac116-0001-005%22%7D"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/dooley"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1/pems"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>To publish an app, make a PUT request on the app resource. In this example, we publish the <code class="prettyprint">wc-osg-1.00</code> app. Notice a few things about the response.</p>
+
+<ol>
+<li>Both the <code class="prettyprint">executionSystem</code> and <code class="prettyprint">deploymentSystem</code> have changed. <strong>Public apps must run and store their assets on public systems.</strong></li>
+<li>We did not specify the <code class="prettyprint">deploymentSystem</code> where the public app assets should be stored, so Agave placed them on the default public storage system, <code class="prettyprint">public.storage.agave</code>.</li>
+<li>We did not specify the <code class="prettyprint">deploymentPath</code> where the public app assets should be stored, so Agave placed them in the <code class="prettyprint">publicAppsDir</code> of the <code class="prettyprint">deploymentPath</code>.</li>
+<li>The <code class="prettyprint">deploymentPath</code> is now a zip archive rather than a folder. Agave does this because once, published, the app can no longer be updated, so the assets are frozen and stored in a separate location, removed from user access.</li>
+<li>The <code class="prettyprint">id</code> of the app has changed. It now has a <code class="prettyprint">u1</code> appended to the original app id. This indicates that it is a public app and that it has been updated a single time. If we were to publish the app again, the resulting <code class="prettyprint">id</code> would be <code class="prettyprint">wc-osg-1.00u2</code>. This differs from unpublished apps whose revision number increments without impacting the app id. <strong>Every time you publish an app, the id of the resulting public app will change.</strong></li>
+</ol>
+
+<h4 id="unpublishing-an-app">Unpublishing an app</h4>
+
+<blockquote>
+<p>Unpublishing a public system is equivalent to disabling it.</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+     -H <span class="s2">"Content-Type: application/json"</span>
+     -X PUT
+     --data-binary <span class="s1">'{"action":"disable"}'</span>
+     https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00u1
+</code></pre>
+<pre class="highlight plaintext"><code>apps-disable -v wc-osg-1.00u1
+</code></pre>
+
+<blockquote>
+<p>The response will look identical to before, but with <code class="prettyprint">available</code> set to <em>false</em></p>
+</blockquote>
+
+<p>Unlike systems, it is not possible to unpublish an app. Once published, a deep copy of the app is store in an external location with its own provenance trail. If you would like to remove a published app from further use, simply disable it.</p>
 
               <h3 id="cloning-an-app">Cloning an app</h3>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span><span class="se">\</span>
