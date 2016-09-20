@@ -17,21 +17,21 @@ Search is a fundamental feature of the Agave Platform. Each of the core science 
 
 By default, search is enabled on each collection endpoint allowing you to trim the response down to the results you care about most. The list of available search terms is identical to the attributes included in the JSON returned when requesting the full resource description.
 
-[notice]To see a full listing of the JSON attributes for each resource in the core science APIs, please see the <a href="http://preview.agaveapi.co/documentation/live-docs/" title="Live Documentation">Live Docs</a>.[/notice]
+<aside class="info">To see a full listing of the JSON attributes for each resource in the core science APIs, please see the <a href="/live-docs/" title="Live Docs">Live Docs</a>.</aside>
 
 To search for a specific attribute, you simply append a search expression into the URL query of your request. For example:
 
-```  
-http://agave.iplantc.org/jobs/v2?name=test%20job  
+```json
+http://public.agaveapi.co/jobs/v2?name=test%20job  
 ```
 
-You can include as multiple search expressions to build a more restrictive query.
+> You can include as multiple search expressions to build a more restrictive query.
 
-```  
-http://agave.iplantc.org/jobs/v2?name=test%20job&executionSystem=aws-demo&status=FAILED  
+```json
+http://public.agaveapi.co/jobs/v2?name=test%20job&executionSystem=aws-demo&status=FAILED  
 ```
 
-[alert]<b>Note that the values in your search expression must be URL encoded.</b>[/alert]
+<aside class="warning">Note that the values in your search expression must be URL encoded.</aside>
 
 ### Search operators
 

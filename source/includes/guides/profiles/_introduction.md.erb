@@ -19,7 +19,7 @@ The service uses OAuth2 for authentication, and user's must have special privile
 
 In addition to the web service, there is also a basic front-end web application providing user sign up. The web application will suffice for basic user profiles and can be used as a starting point for more advanced use cases.
 
-<aside class="notice">This service should **NOT** be used for authenticating users. For details on using OAuth for authentication, see the <a href="http://agaveapi.co/?p=1161">Authorization Guide</a></aside>
+<aside class="notice">This service should **NOT** be used for authenticating users. For details on using OAuth for authentication, see the <a href="#authorization">Authorization Guide</a></aside>
 
 ### Creating
 
@@ -28,7 +28,12 @@ Create a user account by sending a POST request to the profiles service, providi
 <aside class="notice">Creating and managing accounts requires a special <span class="code">user-account-manager</span> role. As a best practice, we recommend setting up a separate, dedicated, account to handle user management. Please work with the Agave developer team if this is of interest to your organization.</aside>
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "username=testuser&amp;password=abcd123&amp;email=testuser@test.com" https://public.tenants.agaveapi.co/profiles/v2
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
+    -X POST \
+    -d "username=testuser" \
+    -d "password=abcd123" \
+    -d "email=testuser@test.com" \
+    https://public.tenants.agaveapi.co/profiles/v2
 ```
 
 ```plaintext
@@ -57,21 +62,14 @@ The response to this call for our example user looks like this:
 ```
 
 The complete list of available fields and their descriptions is provided in the table below.
+
 <%= partial "includes/tables/72" %>
 
 Note that the service does not do any password strength enforcement or other password management policies. We leave it to each organization to implement the policies best suited for their use case.
 
 ### Extending with Metadata
 
-We do not expect the fields above to provide full support for anything but the most basic profiles. The recommended strategy is to use the profiles service in combination with the metadata service (see <a href="http://agaveapi.co/?p=1274" title="Metadata Management">Metadata Management</a> for more details) to store additional information. The metadata service allows you to create custom types using JSON schema, making it more flexible than standard LDAP from within a self-service model. Additionally, the metadata service includes a rich query interface for retrieving users based on arbitrary JSON queries.
-
-The general approach used by existing tenants has been to create a single entry per user where the entry contains all additional profile data for the user. Every metadata item representing a user profile can be identified using a fixed string for the "name" attribute (e.g., "user_profile'). The value of the metadata item contains a unique identifier for the user (e.g. username or email address) along with all the additional fields you wish to track on the profile. One benefit of this approach is that it cleanly delineates multiple classes of profiles, for example "admin_profile", "developer_profile", "mathematician_profile", etc. When consuming this information in a web interface, such user-type grouping makes presentation significantly easier.
-
-Another issue to consider when extending user profile information through the Metadata service is ownership. If you create the user's account, then prompt them to login before entering their extended data, it is possible to create the user's metadata record under their account. This has the advantage of giving the user full ownership over the information, however it also opens up the possibility that the user, or a third-party application, could modify or delete the record.
-
-A better approach is to use a service account to create all extended profile metadata records and grant the user READ access on the record. This still allows third-party applications to access the user's information at their request, but prevents any malicious things from happening.
-
-Here is a possible JSON document that could be used to store a metadata record representing a profile:
+> Sample metadata object extending a user profile
 
 ```json
 {
@@ -89,16 +87,20 @@ Here is a possible JSON document that could be used to store a metadata record r
 }
 ```
 
-And here's a call to the Metadata service:
+> Save the extended profile document to the metadata service
+
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@profile_ex" https://public.tenants.agaveapi.co/meta/v2/data/?pretty=true
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
+    -X POST \
+    -F "fileToUpload=@profile_ex" \
+    https://public.tenants.agaveapi.co/meta/v2/data/?pretty=true
 ```
 
 ```plaintext
 metadata-addupdate -v -F profile_ex
 ```
 
-and the response:
+> The response would resemble something like the following:
 
 ```json
 {
@@ -133,11 +135,20 @@ and the response:
 }
 ```
 
-<aside class="notice">For even quicker access, you can associate the metadata record with the UUID of the user through the associationIds attribute. See the <a href="http://agaveapi.co/documentation/tutorials/metadata-management-tutorial/" title="Metadata Management Tutorial">Metadata Tutorial</a> for more information about efficient storing and searching of metadata.</aside>
+We do not expect the fields above to provide full support for anything but the most basic profiles. The recommended strategy is to use the profiles service in combination with the metadata service the (see <a href="#metadata" title="Metadata Guide">Metadata Guide</a> for more details) to store additional information. The metadata service allows you to create custom types using JSON schema, making it more flexible than standard LDAP from within a self-service model. Additionally, the metadata service includes a rich query interface for retrieving users based on arbitrary JSON queries.
+
+The general approach used by existing tenants has been to create a single entry per user where the entry contains all additional profile data for the user. Every metadata item representing a user profile can be identified using a fixed string for the "name" attribute (e.g., "user_profile'). The value of the metadata item contains a unique identifier for the user (e.g. username or email address) along with all the additional fields you wish to track on the profile. One benefit of this approach is that it cleanly delineates multiple classes of profiles, for example "admin_profile", "developer_profile", "mathematician_profile", etc. When consuming this information in a web interface, such user-type grouping makes presentation significantly easier.
+
+Another issue to consider when extending user profile information through the Metadata service is ownership. If you create the user's account, then prompt them to login before entering their extended data, it is possible to create the user's metadata record under their account. This has the advantage of giving the user full ownership over the information, however it also opens up the possibility that the user, or a third-party application, could modify or delete the record.
+
+A better approach is to use a service account to create all extended profile metadata records and grant the user READ access on the record. This still allows third-party applications to access the user's information at their request, but prevents any malicious things from happening.
+
+The example above represents a possible JSON document that could be used to store a metadata record representing a profile:
+
+
+<aside class="notice">For even quicker access, you can associate the metadata record with the UUID of the user through the associationIds attribute. See the <a href="#metadata" title="Metadata Management Guide">Metadata Guide</a> for more information about efficient storing and searching of metadata.</aside>
 
 ### Updating
-
-Updates to existing users can be made by sending a PUT request to https://public.tenants.agaveapi.co/profiles/v2/ and passing the fields to update. For example, we can add a `gravatar` attribute to the account we created above.
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "password=abcd123&amp;email=testuser@test.com&amp;first_name=Test&amp;last_name=User" https://public.tenants.agaveapi.co/profiles/v2/testuser
@@ -169,9 +180,9 @@ The response to this call looks like this:
 }
 ```
 
-### Deleting
+Updates to existing users can be made by sending a PUT request to https://public.tenants.agaveapi.co/profiles/v2/ and passing the fields to update. For example, we can add a `gravatar` attribute to the account we created above.
 
-Deleting existing users can be made by sending a DELETE request to https://public.tenants.agaveapi.co/profiles/v2/ - for example:
+### Deleting
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/profiles/v2/testuser
@@ -191,6 +202,10 @@ The response to this call looks like this:
 "version": "2.0.0-SNAPSHOT-rc3fad"
 }
 ```
+
+To delete an existing user, make a DELETE request on their profile resource.
+
+<aside class="notice">Deleting a user is a destructive action and cannot be undone. Consider the implications of user deletion and the impact on their existing metadata before doing so.</aside>
 
 ### Registration Web Application
 

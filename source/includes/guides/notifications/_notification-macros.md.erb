@@ -2,53 +2,32 @@
 
 > Receive a callback when a new user is created that includes the new user's information
 
-```shell
-https://example.com/sendWelcome.php?username=${USERNAME}&amp;email=${EMAIL}&amp;firstName=${FIRST_NAME}&amp;lastName=${LAST_NAME}&amp;src=agaveapi.co&amp;nonce=1234567
-```
-
-```plaintext
-https://example.com/sendWelcome.php?username=${USERNAME}&amp;email=${EMAIL}&amp;firstName=${FIRST_NAME}&amp;lastName=${LAST_NAME}&amp;src=agaveapi.co&amp;nonce=1234567
+```html
+https://example.com/sendWelcome.php?username=${USERNAME}&email=${EMAIL}&firstName=${FIRST_NAME}&lastName=${LAST_NAME}&src=agaveapi.co&nonce=1234567
 ```
 
 > Receive self-describing job status updates
 
-```shell
-http://example.com/job/${JOB_ID}?status=${STATUS}&amp;lastUpdated=${LAST_UPDATED}
-```
-
-```plaintext
-http://example.com/job/${JOB_ID}?status=${STATUS}&amp;lastUpdated=${LAST_UPDATED}
+```html
+http://example.com/job/${JOB_ID}?status=${STATUS}&lastUpdated=${LAST_UPDATED}
 ```
 
 > Get notified on all jobs going into and out of queues
 
-```shell
-http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=add
-http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
-```
-
-```plaintext
+```html
 http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=add
 http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 ```
 
 > Rerun an analysis when a files finishes staging
 
-```shell
-https://$AGAVE_BASE_URL/jobs/v2/a32487q98wasdfa9-09090b0b-007?action=resubmit
-```
-
-```plaintext
+```html
 https://$AGAVE_BASE_URL/jobs/v2/a32487q98wasdfa9-09090b0b-007?action=resubmit
 ```
 
 > Use plus mailing to route job notifications to different folders
 
-```shell
-nryan+${EXECUTION_SYSTEM}+${JOB_ID}@gmail.com
-```
-
-```plaintext
+```html
 nryan+${EXECUTION_SYSTEM}+${JOB_ID}@gmail.com
 ```
 
@@ -82,5 +61,5 @@ In the context of Agave, a webhook is a URL to which Agave will send a POST requ
   <%= partial "includes/tables/28" %>
   <%= partial "includes/tables/27" %>
 
-The value of webhook template variables is that they allow you to build custom callbacks using the values of the resource variable at run time. Several commonly used webhooks are shown here.
+The value of webhook template variables is that they allow you to build custom callbacks using the values of the resource variable at run time. Several commonly used webhooks are shown in the tables above.
 

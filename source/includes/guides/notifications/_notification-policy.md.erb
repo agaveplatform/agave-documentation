@@ -1,12 +1,8 @@
 ### Retry Policies
 
-In some situations, Agave may be unable to publish a specific notification. When this happens, Agave will immediately retry the notification 5 times in an attempt to deliver it successfully. When delivery fails for a 5th time, the notification is abandoned. If your application requires a more tenacious or methodical approach to retry delivery, you may provide a notification policy.
+> Sample notification subscription object with custom retry policy.
 
-<%= partial "includes/tables/83-notification-policy" %>
-
-Notification retry policies describe the strategy, frequency, delay, limit, and persistency you want to applied when publishing an individual event for a given notification. The following is our previous example with a notification policy included.
-
-```
+```json
 {
   "url" : "$REQUEST_BIN?path=${PATH}&system=${SYSTEM}&event=${EVENT}",
   "event" : "*",
@@ -21,13 +17,22 @@ Notification retry policies describe the strategy, frequency, delay, limit, and 
 }
 ```
 
+In some situations, Agave may be unable to publish a specific notification. When this happens, Agave will immediately retry the notification 5 times in an attempt to deliver it successfully. When delivery fails for a 5th time, the notification is abandoned. If your application requires a more tenacious or methodical approach to retry delivery, you may provide a notification policy.
+
+<%= partial "includes/tables/83-notification-policy" %>
+
+Notification retry policies describe the strategy, frequency, delay, limit, and persistence to be applied when publishing an individual event for a given notification. The example above is our previous example with a notification policy included.
+
+
 ### Failed deliveries
 
 > Query failed attempts for a specific notification
+
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
      https://$API_BASE_URL/notifications/$API_VERSION/229681451607921126-8e1831906a8e-0001-042"/attempts
 ```
+
 ```plaintext
 notifications-list-failures 229681451607921126-8e1831906a8e-0001-042"
 ```

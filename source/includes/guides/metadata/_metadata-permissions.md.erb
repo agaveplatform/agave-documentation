@@ -145,9 +145,9 @@ metadata-pems-addupdate -u $USER_TO_SHARE_METADATA_WITH \
 
 To grant another user read access to your metadata item, assign them `READ` permission. To enable another user to update a metadata item, grant them `READ_WRITE` or `ALL` access.
 
-#### Delete a permission
+#### Delete single user permissions
 
-> Delete permission for single user
+> Delete permission for single user on a Metadata item
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
@@ -168,7 +168,7 @@ Permissions may be deleted for a single user by making a DELETE request on the m
 
 #### Deleting all permissions
 
-> Delete all permissions on a Metadata object:
+> Delete all permissions on a Metadata item
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
@@ -182,7 +182,9 @@ metadata-pems-delete 7341557475441971686-242ac11f-0001-012
 
 > An empty response will be returned from the service.
 
-Permissions may be deleted for a single user by making a DELETE request on the metadata resource permission collection. Please note that the above will delete all permissions for Metadata, such that only the owner will be able to access it.
+Permissions may be deleted for a single user by making a DELETE request on the metadata resource permission collection.
+
+<aside class="info">The above operation will delete all permissions for a Metadata item, such that only the owner will be able to access it. Use with care.</aside>
 
 
 

@@ -1,0 +1,78 @@
+## Postits
+
+The PostIts service is a URL shortening service similar to [bit.ly](https://bit.ly), [goo.gl](https://goo.gl/), and [t.co](http://t.co). It allows you to create pre-authenticated, disposable URLs to any resource in the Agave Platform. You have control over the lifetime and number of times the URL can be redeemed, and you can expire a PostIt at any time. As with all Science API resources, a full set of events is available for you to track usage and integrate the lifecycle of a PostIt into external applications as needed.
+
+The most common use of PostIts is to create URLs to files and folders you can share with others without having to upload them to a third-party service. For example, using the PostIts service, you can share the output(s) of an experimental run, distribute materials for a class, submit data to a third-party service, and serve up assets for a static website like [Agave ToGo](https://togo.agaveapi.co/).
+
+Other uses cases for the PostIts service include creating "drop" folders to which anyone with the link can upload data, allowing a job to be reproducibly rerun for peer review, publishing metadata for public consumption, publishing a canonical reference to your user profile. The possibilities go on and on. Anytime you need to share your science with your world, PostIts can help you.
+
+### Creating PostIts
+
+> Creating a PostIt
+
+```shell
+curl -sk -H "Authorization: Bearer $AUTH_TOKEN" \
+    -X POST
+    -d "lifetime=3600"
+    -d "maxUses=10" \
+    -d "method=GET" \
+    -d "url=https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co//test_upload.bin" \
+    'https://public.agaveapi.co/postits/v2/?pretty=true'
+```
+```plaintext
+postits-create -V -m 10 -l 3600 https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co//test_upload.bin
+
+```
+
+> Should result in something similar to the following:
+
+```json
+{
+  "status": "success",
+  "message": "",
+  "result": {
+    "creator": "dooley",
+    "internalUsername": null,
+    "authenticated": true,
+    "created": "2016-09-20T03:22:06-05:00",
+    "expires": "2016-09-20T04:22:06-05:00",
+    "remainingUses": 10,
+    "postit": "d7592580c32f3a5ec59a31c02a6fb4b9",
+    "noauth": false,
+    "url": "https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co//test_upload.bin",
+    "method": "GET",
+    "_links": {
+      "self": {
+        "href": "https://public.agaveapi.co/postits/v2/d7592580c32f3a5ec59a31c02a6fb4b9"
+      },
+      "profile": {
+        "href": "https://public.agaveapi.co/profiles/v2/nryan"
+      },
+      "file": {
+        "href": "https://public.agaveapi.co/files/v2/media/system///test_upload.bin"
+      }
+    }
+  },
+  "version": "2.1.8-r67868c1"
+}
+```
+
+To create a PostIt, send a POST request to the PostIts service with the target url you want to share. In this example, we are sharing a file we have in Agave's cloud storage account.
+
+In the response you see standard fields such as `created` timestamp and the `postit` token. You also see several fields that lead into the discussion of another aspect of PosIts, the ability to restrict usage and expire them on demand.
+
+### Restricting PostIt usage
+
+When creating a PostIt, you have the ability to limit the lifespan, number of uses, and HTTP method used to connect to the target resource. The following table shows the fields available for this purpose. Not specifying any of these fields results in a single-use PostIt that remains valid for 1 calendar month.
+
+<%= partial "includes/tables/postit-fields" %>
+
+
+### Managing PostIts
+
+
+
+### Redeeming PostIts
+
+
+You redeem a postit by making a non-authenticated HTTP request on the postit url. In the above example, any requst

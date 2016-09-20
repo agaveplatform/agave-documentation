@@ -41,6 +41,7 @@ set :relative_links, true
 
 # Ignore unused migrated docs
 ignore "/migrated_docs/"
+ignore "/live-docs/"
 
 # JQuery cdn
 set :jqcdn, false

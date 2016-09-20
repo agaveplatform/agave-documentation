@@ -1,9 +1,11 @@
 ### Creating
 
+> Create a new notification subscription
+
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST \
     -H "Content-Type: application/json" \
-    --data-binary '{"associatedUuid": "7554973644402463206-242ac114-0001-007", "event": "FINISHED", "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;system=${SYSTEM}&amp;event=${EVENT}" }' \
+    --data-binary '{"associatedUuid": "7554973644402463206-242ac114-0001-007", "event": "FINISHED", "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}" }' \
     https://public.tenants.agaveapi.co/notifications/v2?pretty=true
 ```
 
@@ -17,7 +19,7 @@ notifications-addupdate -F notification.json
 {
   "id": "7612526206168863206-242ac114-0001-011",
   "owner": "nryan",
-  "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;system=${SYSTEM}&amp;event=${EVENT}",
+  "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}",
   "associatedUuid": "7554973644402463206-242ac114-0001-007",
   "event": "FINISHED",
   "responseCode": null,
@@ -60,13 +62,13 @@ Subscribing to an event is done by posting a form or JSON object to the Notifica
 
 ### Updating
 
-> The JSON notification would be
+> The updated notification subscription object
 
 ```json
 {
-    "associatedUuid": "7554973644402463206-242ac114-0001-007"
+    "associatedUuid": "7554973644402463206-242ac114-0001-007",
     "event": "*",
-    "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;system=${SYSTEM}&amp;event=${EVENT}"
+    "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}"
 }
 ```
 
@@ -91,7 +93,7 @@ notifications-addupdate -F notification.json 2699130208276770330-242ac114-0001-0
 {
   "id": "7612526206168863206-242ac114-0001-011",
   "owner": "nryan",
-  "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;system=${SYSTEM}&amp;event=${EVENT}",
+  "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}",
   "associatedUuid": "7554973644402463206-242ac114-0001-007",
   "event": "*",
   "responseCode": null,
@@ -131,6 +133,8 @@ notifications-addupdate -F notification.json 2699130208276770330-242ac114-0001-0
 
 ### Listing
 
+> Listing notification subscriptions
+
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     https://public.tenants.agaveapi.co/notifications/v2/2699130208276770330-242ac114-0001-011
@@ -146,7 +150,7 @@ notifications-list -V
 [
   {
     "id": "7612526206168863206-242ac114-0001-011",
-    "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;system=${SYSTEM}&amp;event=${EVENT}",
+    "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}",
     "associatedUuid": "7554973644402463206-242ac114-0001-007",
     "event": "*",
     "_links": {
@@ -202,6 +206,8 @@ You can get a list of your current notification subscriptions by performing a GE
 
 ### Unsubscribing
 
+> Unsubscribing from a notification subscription
+
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
      -X DELETE \
@@ -212,7 +218,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
 notifications-delete -V
 ```
 
-> Which will result in an empty result response.
+> An standard Agave response with an empty result will be returned.
 
 To unsubscribe from an event, perform a DELETE on the notification URL. Once deleted, you can not restore a subscription. You can, however create a new one. Keep in mind that if you do this, the UUID of the new notification will be different that that of the deleted one. An example of deleting a notification using curl as well as the CLI is given below.
 
