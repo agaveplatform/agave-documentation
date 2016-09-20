@@ -564,7 +564,7 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 
 <p>Most requests to the Agave REST APIs require authorization; that is, the user must have granted permission for an application to access the requested data. To prove that the user has granted permission, the request header sent by the application must include a valid access token.</p>
 
-<p>Before you can begin the authorization process, you will need to <a title="Client Registration" href="/documentation/tutorials/client-registration/">register your client application</a>. That will give you a unique client key and secret key to use in the authorization flows.</p>
+<p>Before you can begin the authorization process, you will need to <a title="Client Registration" href="#client-registration/">register your client application</a>. That will give you a unique client key and secret key to use in the authorization flows.</p>
 
               <h3 id="supported-authorization-flows">Supported Authorization Flows</h3>
 
@@ -1407,7 +1407,7 @@ refresh_token </td>
 
 <p>The access token allows you to make requests to any of the Agave REST APIs on behalf of the authenticated user.</p>
 
-              <h2 id="clients-amp-api-keys">Clients &amp; API Keys</h2>
+              <h2 id="clients-and-api-keys">Clients and API Keys</h2>
 <pre class="highlight json"><code><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$</span><span class="w"> </span><span class="err">/$$</span><span class="w">                       </span><span class="err">/$$</span><span class="w">
  </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$|__/</span><span class="w">                      </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
 </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\__/|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">   </span><span class="err">/$$$$$$$</span><span class="w">
@@ -1418,7 +1418,7 @@ refresh_token </td>
  </span><span class="err">\______/</span><span class="w"> </span><span class="err">|__/|__/</span><span class="w"> </span><span class="err">\_______/|__/</span><span class="w">  </span><span class="err">|__/</span><span class="w">   </span><span class="err">\___/</span><span class="w"> </span><span class="err">|_______/</span><span class="w">
 </span></code></pre>
 
-<p>By now you already have a user account. Your user account identifies you to the web applications you interact with. A username and password is sufficient for interacting with an application because the application has a user interface, so it knows that the authenticated user is the same one interacting with it. The Agave API does not have a user interface, so simply providing it a username and password is not sufficient. Agave needs to know both the user on whose behalf it is acting as well as the client application that is making the call. Whereas every person has a single user account, they may leverage multiple services to do their daily work. They may start out using the <a href="https://de.iplantcollaborative.org" title="iPlant Discovery Environment" target="_blank">Discovery Environment</a> to kick of an analysis, then switch to <a href="https://my-plant.org/" title="MyPlant" target="_blank">MyPlant</a> to discuss some results, then receive an email that new data has been shared with them, click a <a href="#postits/" title="Pre-Authenticated URL Shortening with PostIts">PostIt</a> link that allows them to download the data directly to their desktop, edit the file locally, and save it in a local folder that syncs with their iPlant <a href="http://www.iplantcollaborative.org/discover/data-store" title="iPlant Data Store" target="_blank">cloud storage</a> in the background.</p>
+<p>By now you already have a user account. Your user account identifies you to the web applications you interact with. A username and password is sufficient for interacting with an application because the application has a user interface, so it knows that the authenticated user is the same one interacting with it. The Agave API does not have a user interface, so simply providing it a username and password is not sufficient. Agave needs to know both the user on whose behalf it is acting as well as the client application that is making the call. Whereas every person has a single user account, they may leverage multiple services to do their daily work. They may start out using <a href="https://togo.agaveapi.co/" title="iPlant Discovery Environment" target="_blank">Agave ToGo</a> to kick of an analysis, then switch to <a href="https://edublog/" title="MyPlant" target="_blank">MyPlant</a> to discuss some results, then receive an Slack notice that new data has been shared with them, click a <a href="#postits" title="Pre-Authenticated URL Shortening with PostIts">PostIt</a> link that allows them to download the data directly to their desktop, edit the file locally, and save it in a local folder that syncs with their iPlant <a href="http://www.iplantcollaborative.org/discover/data-store" title="iPlant Data Store" target="_blank">cloud storage</a> in the background.</p>
 
 <p>In each of the above interactions, the user is the same, but the context with which they interact with the Agave is different. Further, the above interactions all involved client applications developed by the same organization. The situation is further complicated when one or more 3rd party client applications are used to leverage the infrastructure. Agave needs to track both the users and client applications with whom it interacts. It does this through the issuance of API keys.</p>
 
@@ -2425,7 +2425,7 @@ refresh_token </td>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Congratulations, you just added your first system. This storage system can now be used by the <a title="File Management" href="http://agaveapi.co/documentation/tutorials/data-management/">Files service</a> to manage data, the Transfer service as a source or destination of data movement, the Apps service as a application repository, and the <a title="Job Submission" href="http://agaveapi.co/documentation/tutorials/job-managment/">Jobs Service</a> as both a staging and archiving destination.</p>
+<p>Congratulations, you just added your first system. This storage system can now be used by the <a title="File Management" href="#files">Files service</a> to manage data, the Transfer service as a source or destination of data movement, the Apps service as a application repository, and the <a title="Job Submission" href="http://agaveapi.co/documentation/tutorials/job-managment/">Jobs Service</a> as both a staging and archiving destination.</p>
 
 <p>Notice that the JSON returned from the Systems service is different than what was submitted. Several fields have been added, and several other have been removed. On line 3, the UUID of the system has been added. This is the same UUID that is used in notifications and metadata references. On line 5, the <code class="prettyprint">status</code> value was added in and assigned a default value since we did not specify it. Ditto for the <code class="prettyprint">site</code> attribute on line 8.</p>
 
@@ -6877,9 +6877,9 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 
 <h3 id="subscriptions">Subscriptions</h3>
 
-<p>As consumers of Agave, you have the ability to subscribe to events occurring on any resource to which you have access. By that we mean, for example, you could subscribe to events on your job and a job that someone shared with you, but you could not subscribe to events on a job submitted by someone else who has not shared the job with you. Basically, if you can see a resource, you can subscribe to its events.</p>
-
-<p>The Notifications service is the primary mechanism by which you create and manage your event subscriptions. A typical use case is a user subscribing for an email alert when her job completes. The following JSON object represents a request for such a notification.</p>
+<blockquote>
+<p>Example notification subscription request</p>
+</blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"associatedUuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001409758089943-5056a550b8-0001-002"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OVERWRITTEN"</span><span class="p">,</span><span class="w">
@@ -6888,7 +6888,11 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>The <code class="prettyprint">associatedUuid</code> value is the UUID of her job. Here, we given the UUID of the <code class="prettyprint">picsumipsum.txt</code> file we uploaded in the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/" title="Data Management Tutorial">Data Management</a> tutorial. The <code class="prettyprint">event</code> value is the name of the event to which she wants to be notified. This example is asking for an email to be sent whenever the file is overwritten. She could have just as easily specified a status of DELETED or RENAME to be notified when the file was deleted or renamed.</p>
+<p>As consumers of Agave, you have the ability to subscribe to events occurring on any resource to which you have access. By that we mean, for example, you could subscribe to events on your job and a job that someone shared with you, but you could not subscribe to events on a job submitted by someone else who has not shared the job with you. Basically, if you can see a resource, you can subscribe to its events.</p>
+
+<p>The Notifications service is the primary mechanism by which you create and manage your event subscriptions. A typical use case is a user subscribing for an email alert when her job completes. The following JSON object represents a request for such a notification.</p>
+
+<p>The <code class="prettyprint">associatedUuid</code> value is the UUID of her job. Here, we given the UUID of the <code class="prettyprint">picsumipsum.txt</code> file we uploaded in the <a href="#files" title="Data Management Guide">Files API</a> guide. The <code class="prettyprint">event</code> value is the name of the event to which she wants to be notified. This example is asking for an email to be sent whenever the file is overwritten. She could have just as easily specified a status of DELETED or RENAME to be notified when the file was deleted or renamed.</p>
 
 <p>The <code class="prettyprint">persistent</code> value specifies whether the notification should fire more than once. By default, all event subscriptions are transient. This is because the events themselves are transient. An event occurs, then it is over. There are, however, many situations where events could occur over and over again. Permission events, changes to metadata and data, application registrations on a system, job submissions to a system or queue, etc., all are transient events that can potentially occur many, many times. In these cases it is either not possible or highly undesirable to constantly resubscribe for the same event. The persistent attribute tells the notification service to keep a subscription alive until it is explicitly deleted.</p>
 
@@ -6903,43 +6907,32 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 <blockquote>
 <p>Receive a callback when a new user is created that includes the new user&rsquo;s information</p>
 </blockquote>
-<pre class="highlight shell"><code>https://example.com/sendWelcome.php?username<span class="o">=</span><span class="k">${</span><span class="nv">USERNAME</span><span class="k">}</span>&amp;amp;email<span class="o">=</span><span class="k">${</span><span class="nv">EMAIL</span><span class="k">}</span>&amp;amp;firstName<span class="o">=</span><span class="k">${</span><span class="nv">FIRST_NAME</span><span class="k">}</span>&amp;amp;lastName<span class="o">=</span><span class="k">${</span><span class="nv">LAST_NAME</span><span class="k">}</span>&amp;amp;src<span class="o">=</span>agaveapi.co&amp;amp;nonce<span class="o">=</span>1234567
-</code></pre>
-<pre class="highlight plaintext"><code>https://example.com/sendWelcome.php?username=${USERNAME}&amp;amp;email=${EMAIL}&amp;amp;firstName=${FIRST_NAME}&amp;amp;lastName=${LAST_NAME}&amp;amp;src=agaveapi.co&amp;amp;nonce=1234567
+<pre class="highlight html"><code>https://example.com/sendWelcome.php?username=${USERNAME}<span class="err">&amp;</span>email=${EMAIL}<span class="err">&amp;</span>firstName=${FIRST_NAME}<span class="err">&amp;</span>lastName=${LAST_NAME}<span class="err">&amp;</span>src=agaveapi.co<span class="err">&amp;</span>nonce=1234567
 </code></pre>
 
 <blockquote>
 <p>Receive self-describing job status updates</p>
 </blockquote>
-<pre class="highlight shell"><code>http://example.com/job/<span class="k">${</span><span class="nv">JOB_ID</span><span class="k">}</span>?status<span class="o">=</span><span class="k">${</span><span class="nv">STATUS</span><span class="k">}</span>&amp;amp;lastUpdated<span class="o">=</span><span class="k">${</span><span class="nv">LAST_UPDATED</span><span class="k">}</span>
-</code></pre>
-<pre class="highlight plaintext"><code>http://example.com/job/${JOB_ID}?status=${STATUS}&amp;amp;lastUpdated=${LAST_UPDATED}
+<pre class="highlight html"><code>http://example.com/job/${JOB_ID}?status=${STATUS}<span class="err">&amp;</span>lastUpdated=${LAST_UPDATED}
 </code></pre>
 
 <blockquote>
 <p>Get notified on all jobs going into and out of queues</p>
 </blockquote>
-<pre class="highlight shell"><code>http://example.com/system/<span class="k">${</span><span class="nv">EXECUTION_SYSTEM</span><span class="k">}</span>/queue/<span class="k">${</span><span class="nv">QUEUE</span><span class="k">}</span>?action<span class="o">=</span>add
-http://example.com/system/<span class="k">${</span><span class="nv">EXECUTION_SYSTEM</span><span class="k">}</span>/queue/<span class="k">${</span><span class="nv">QUEUE</span><span class="k">}</span>?action<span class="o">=</span>subtract
-</code></pre>
-<pre class="highlight plaintext"><code>http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=add
+<pre class="highlight html"><code>http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=add
 http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 </code></pre>
 
 <blockquote>
 <p>Rerun an analysis when a files finishes staging</p>
 </blockquote>
-<pre class="highlight shell"><code>https://<span class="nv">$AGAVE_BASE_URL</span>/jobs/v2/a32487q98wasdfa9-09090b0b-007?action<span class="o">=</span>resubmit
-</code></pre>
-<pre class="highlight plaintext"><code>https://$AGAVE_BASE_URL/jobs/v2/a32487q98wasdfa9-09090b0b-007?action=resubmit
+<pre class="highlight html"><code>https://$AGAVE_BASE_URL/jobs/v2/a32487q98wasdfa9-09090b0b-007?action=resubmit
 </code></pre>
 
 <blockquote>
 <p>Use plus mailing to route job notifications to different folders</p>
 </blockquote>
-<pre class="highlight shell"><code>nryan+<span class="k">${</span><span class="nv">EXECUTION_SYSTEM</span><span class="k">}</span>+<span class="k">${</span><span class="nv">JOB_ID</span><span class="k">}</span>@gmail.com
-</code></pre>
-<pre class="highlight plaintext"><code>nryan+${EXECUTION_SYSTEM}+${JOB_ID}@gmail.com
+<pre class="highlight html"><code>nryan+${EXECUTION_SYSTEM}+${JOB_ID}@gmail.com
 </code></pre>
 
 <p>In the context of Agave, a webhook is a URL to which Agave will send a POST request when that event occurs. A webhook can be any web accessible URL. While you cannot customize the POST content that Agave sends (it is unique to the event), you can take advantage of the many template variables that Agave provides to customize the URL at run time. The following tables show the webhook template variables available for each resource. Use the select box to view the macros for different resources.</p>
@@ -7506,12 +7499,16 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
     </tbody>
 </table></p>
 
-<p>The value of webhook template variables is that they allow you to build custom callbacks using the values of the resource variable at run time. Several commonly used webhooks are shown here.</p>
+<p>The value of webhook template variables is that they allow you to build custom callbacks using the values of the resource variable at run time. Several commonly used webhooks are shown in the tables above.</p>
 
               <h3 id="creating">Creating</h3>
+
+<blockquote>
+<p>Create a new notification subscription</p>
+</blockquote>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST <span class="se">\</span>
     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    --data-binary <span class="s1">'{"associatedUuid": "7554973644402463206-242ac114-0001-007", "event": "FINISHED", "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;amp;system=${SYSTEM}&amp;amp;event=${EVENT}" }'</span> <span class="se">\</span>
+    --data-binary <span class="s1">'{"associatedUuid": "7554973644402463206-242ac114-0001-007", "event": "FINISHED", "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;system=${SYSTEM}&amp;event=${EVENT}" }'</span> <span class="se">\</span>
     https://public.tenants.agaveapi.co/notifications/v2?pretty<span class="o">=</span><span class="nb">true</span>
 </code></pre>
 <pre class="highlight plaintext"><code>notifications-addupdate -F notification.json
@@ -7523,7 +7520,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7612526206168863206-242ac114-0001-011"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;amp;system=${SYSTEM}&amp;amp;event=${EVENT}"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;system=${SYSTEM}&amp;event=${EVENT}"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"associatedUuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7554973644402463206-242ac114-0001-007"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FINISHED"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"responseCode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -7566,12 +7563,12 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 <h3 id="updating">Updating</h3>
 
 <blockquote>
-<p>The JSON notification would be</p>
+<p>The updated notification subscription object</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"associatedUuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7554973644402463206-242ac114-0001-007"</span><span class="w">
-    </span><span class="s2">"event"</span><span class="err">:</span><span class="w"> </span><span class="s2">"*"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;amp;system=${SYSTEM}&amp;amp;event=${EVENT}"</span><span class="w">
+    </span><span class="nt">"associatedUuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7554973644402463206-242ac114-0001-007"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;system=${SYSTEM}&amp;event=${EVENT}"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -7594,7 +7591,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7612526206168863206-242ac114-0001-011"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;amp;system=${SYSTEM}&amp;amp;event=${EVENT}"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;system=${SYSTEM}&amp;event=${EVENT}"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"associatedUuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7554973644402463206-242ac114-0001-007"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"responseCode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -7633,6 +7630,10 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 </span></code></pre>
 
 <h3 id="listing">Listing</h3>
+
+<blockquote>
+<p>Listing notification subscriptions</p>
+</blockquote>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
     https://public.tenants.agaveapi.co/notifications/v2/2699130208276770330-242ac114-0001-011
 </code></pre>
@@ -7645,7 +7646,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7612526206168863206-242ac114-0001-011"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;amp;system=${SYSTEM}&amp;amp;event=${EVENT}"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&amp;system=${SYSTEM}&amp;event=${EVENT}"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"associatedUuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7554973644402463206-242ac114-0001-007"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -7700,6 +7701,10 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 <p>You can get a list of your current notification subscriptions by performing a GET operation on the base /notifications collection. Adding the UUID of a notification will return just that notification. You can also query for all notifications assigned to a specific UUID by adding <code class="prettyprint">associatedUuid=$uuid</code>. An example of querying all notifications using curl as well as the CLI is given below.</p>
 
 <h3 id="unsubscribing">Unsubscribing</h3>
+
+<blockquote>
+<p>Unsubscribing from a notification subscription</p>
+</blockquote>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
      -X DELETE <span class="se">\</span>
      https://public.tenants.agaveapi.co/notifications/v2/2699130208276770330-242ac114-0001-011
@@ -7708,12 +7713,29 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 </code></pre>
 
 <blockquote>
-<p>Which will result in an empty result response.</p>
+<p>An standard Agave response with an empty result will be returned.</p>
 </blockquote>
 
 <p>To unsubscribe from an event, perform a DELETE on the notification URL. Once deleted, you can not restore a subscription. You can, however create a new one. Keep in mind that if you do this, the UUID of the new notification will be different that that of the deleted one. An example of deleting a notification using curl as well as the CLI is given below.</p>
 
               <h3 id="retry-policies">Retry Policies</h3>
+
+<blockquote>
+<p>Sample notification subscription object with custom retry policy.</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"url"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"$REQUEST_BIN?path=${PATH}&amp;system=${SYSTEM}&amp;event=${EVENT}"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"event"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"persistent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"retryStrategy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IMMEDIATE"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"retryLimit"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"retryRate"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"retryDelay"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"saveOnFailure"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <p>In some situations, Agave may be unable to publish a specific notification. When this happens, Agave will immediately retry the notification 5 times in an attempt to deliver it successfully. When delivery fails for a 5th time, the notification is abandoned. If your application requires a more tenacious or methodical approach to retry delivery, you may provide a notification policy.</p>
 
@@ -7754,33 +7776,20 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
     </tbody>
 </table>
 
-<p>Notification retry policies describe the strategy, frequency, delay, limit, and persistency you want to applied when publishing an individual event for a given notification. The following is our previous example with a notification policy included.</p>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"url"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"$REQUEST_BIN?path=${PATH}&amp;system=${SYSTEM}&amp;event=${EVENT}"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"event"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"persistent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"retryStrategy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IMMEDIATE"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"retryLimit"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"retryRate"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"retryDelay"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"saveOnFailure"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<p>Notification retry policies describe the strategy, frequency, delay, limit, and persistence to be applied when publishing an individual event for a given notification. The example above is our previous example with a notification policy included.</p>
 
 <h3 id="failed-deliveries">Failed deliveries</h3>
 
 <blockquote>
-<p>Query failed attempts for a specific notification
-<code class="prettyprint">shell
-curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; \
-     https://$API_BASE_URL/notifications/$API_VERSION/229681451607921126-8e1831906a8e-0001-042&quot;/attempts
-</code>
-<code class="prettyprint">plaintext
-notifications-list-failures 229681451607921126-8e1831906a8e-0001-042&quot;
-</code></p>
+<p>Query failed attempts for a specific notification</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+     https://<span class="nv">$API_BASE_URL</span>/notifications/<span class="nv">$API_VERSION</span>/229681451607921126-8e1831906a8e-0001-042<span class="s2">"/attempts
+</span></code></pre>
+<pre class="highlight plaintext"><code>notifications-list-failures 229681451607921126-8e1831906a8e-0001-042"
+</code></pre>
 
+<blockquote>
 <p>A list of notification attempts will be returned.</p>
 </blockquote>
 <pre class="highlight javascript"><code><span class="p">[</span>
@@ -8305,10 +8314,10 @@ notifications-list-failures 229681451607921126-8e1831906a8e-0001-042&quot;
 
 <p>To grant another user read access to your metadata item, assign them <code class="prettyprint">READ</code> permission. To enable another user to update a metadata item, grant them <code class="prettyprint">READ_WRITE</code> or <code class="prettyprint">ALL</code> access.</p>
 
-<h4 id="delete-a-permission">Delete a permission</h4>
+<h4 id="delete-single-user-permissions">Delete single user permissions</h4>
 
 <blockquote>
-<p>Delete permission for single user</p>
+<p>Delete permission for single user on a Metadata item</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
     -X DELETE
@@ -8328,7 +8337,7 @@ notifications-list-failures 229681451607921126-8e1831906a8e-0001-042&quot;
 <h4 id="deleting-all-permissions">Deleting all permissions</h4>
 
 <blockquote>
-<p>Delete all permissions on a Metadata object:</p>
+<p>Delete all permissions on a Metadata item</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
     -X DELETE
@@ -8341,7 +8350,9 @@ notifications-list-failures 229681451607921126-8e1831906a8e-0001-042&quot;
 <p>An empty response will be returned from the service.</p>
 </blockquote>
 
-<p>Permissions may be deleted for a single user by making a DELETE request on the metadata resource permission collection. Please note that the above will delete all permissions for Metadata, such that only the owner will be able to access it.</p>
+<p>Permissions may be deleted for a single user by making a DELETE request on the metadata resource permission collection.</p>
+
+<aside class="info">The above operation will delete all permissions for a Metadata item, such that only the owner will be able to access it. Use with care.</aside>
 
               <h2 id="metadata-schemata">Metadata Schemata</h2>
 <pre class="highlight json"><code><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">          </span><span class="err">/$$</span><span class="w">
@@ -9090,14 +9101,19 @@ notifications-list-failures 229681451607921126-8e1831906a8e-0001-042&quot;
 
 <p>In addition to the web service, there is also a basic front-end web application providing user sign up. The web application will suffice for basic user profiles and can be used as a starting point for more advanced use cases.</p>
 
-<aside class="notice">This service should **NOT** be used for authenticating users. For details on using OAuth for authentication, see the <a href="http://agaveapi.co/?p=1161">Authorization Guide</a></aside>
+<aside class="notice">This service should **NOT** be used for authenticating users. For details on using OAuth for authentication, see the <a href="#authorization">Authorization Guide</a></aside>
 
 <h3 id="creating">Creating</h3>
 
 <p>Create a user account by sending a POST request to the profiles service, providing an access token of a user with the user-account-manager role. The fields username, password and email are required to create a new user.</p>
 
 <aside class="notice">Creating and managing accounts requires a special <span class="code">user-account-manager</span> role. As a best practice, we recommend setting up a separate, dedicated, account to handle user management. Please work with the Agave developer team if this is of interest to your organization.</aside>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST -d <span class="s2">"username=testuser&amp;amp;password=abcd123&amp;amp;email=testuser@test.com"</span> https://public.tenants.agaveapi.co/profiles/v2
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    -d <span class="s2">"username=testuser"</span> <span class="se">\</span>
+    -d <span class="s2">"password=abcd123"</span> <span class="se">\</span>
+    -d <span class="s2">"email=testuser@test.com"</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/profiles/v2
 </code></pre>
 <pre class="highlight plaintext"><code>profiles-create -u testuser -p abcd123 -e testuser@test.com
 </code></pre>
@@ -9121,7 +9137,8 @@ notifications-list-failures 229681451607921126-8e1831906a8e-0001-042&quot;
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>The complete list of available fields and their descriptions is provided in the table below.
+<p>The complete list of available fields and their descriptions is provided in the table below.</p>
+
 <table>
     <thead>
         <tr>
@@ -9167,21 +9184,15 @@ notifications-list-failures 229681451607921126-8e1831906a8e-0001-042&quot;
             <td>No</td>
         </tr>
     </tbody>
-</table></p>
+</table>
 
 <p>Note that the service does not do any password strength enforcement or other password management policies. We leave it to each organization to implement the policies best suited for their use case.</p>
 
 <h3 id="extending-with-metadata">Extending with Metadata</h3>
 
-<p>We do not expect the fields above to provide full support for anything but the most basic profiles. The recommended strategy is to use the profiles service in combination with the metadata service (see <a href="http://agaveapi.co/?p=1274" title="Metadata Management">Metadata Management</a> for more details) to store additional information. The metadata service allows you to create custom types using JSON schema, making it more flexible than standard LDAP from within a self-service model. Additionally, the metadata service includes a rich query interface for retrieving users based on arbitrary JSON queries.</p>
-
-<p>The general approach used by existing tenants has been to create a single entry per user where the entry contains all additional profile data for the user. Every metadata item representing a user profile can be identified using a fixed string for the &ldquo;name&rdquo; attribute (e.g., &ldquo;user_profile&rsquo;). The value of the metadata item contains a unique identifier for the user (e.g. username or email address) along with all the additional fields you wish to track on the profile. One benefit of this approach is that it cleanly delineates multiple classes of profiles, for example &quot;admin_profile&rdquo;, &ldquo;developer_profile&rdquo;, &ldquo;mathematician_profile&rdquo;, etc. When consuming this information in a web interface, such user-type grouping makes presentation significantly easier.</p>
-
-<p>Another issue to consider when extending user profile information through the Metadata service is ownership. If you create the user&rsquo;s account, then prompt them to login before entering their extended data, it is possible to create the user&rsquo;s metadata record under their account. This has the advantage of giving the user full ownership over the information, however it also opens up the possibility that the user, or a third-party application, could modify or delete the record.</p>
-
-<p>A better approach is to use a service account to create all extended profile metadata records and grant the user READ access on the record. This still allows third-party applications to access the user&rsquo;s information at their request, but prevents any malicious things from happening.</p>
-
-<p>Here is a possible JSON document that could be used to store a metadata record representing a profile:</p>
+<blockquote>
+<p>Sample metadata object extending a user profile</p>
+</blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"user_profile"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"value"</span><span class="p">:{</span><span class="w">
@@ -9197,14 +9208,20 @@ notifications-list-failures 229681451607921126-8e1831906a8e-0001-042&quot;
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>And here&rsquo;s a call to the Metadata service:
-<code class="prettyprint">shell
-curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; -X POST -F &quot;fileToUpload=@profile_ex&quot; https://public.tenants.agaveapi.co/meta/v2/data/?pretty=true
-</code></p>
+<blockquote>
+<p>Save the extended profile document to the metadata service</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    -F <span class="s2">"fileToUpload=@profile_ex"</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/meta/v2/data/?pretty<span class="o">=</span><span class="nb">true</span>
+</code></pre>
 <pre class="highlight plaintext"><code>metadata-addupdate -v -F profile_ex
 </code></pre>
 
-<p>and the response:</p>
+<blockquote>
+<p>The response would resemble something like the following:</p>
+</blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -9237,11 +9254,19 @@ curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; -X POST -F &quot;fil
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<aside class="notice">For even quicker access, you can associate the metadata record with the UUID of the user through the associationIds attribute. See the <a href="http://agaveapi.co/documentation/tutorials/metadata-management-tutorial/" title="Metadata Management Tutorial">Metadata Tutorial</a> for more information about efficient storing and searching of metadata.</aside>
+<p>We do not expect the fields above to provide full support for anything but the most basic profiles. The recommended strategy is to use the profiles service in combination with the metadata service the (see <a href="#metadata" title="Metadata Guide">Metadata Guide</a> for more details) to store additional information. The metadata service allows you to create custom types using JSON schema, making it more flexible than standard LDAP from within a self-service model. Additionally, the metadata service includes a rich query interface for retrieving users based on arbitrary JSON queries.</p>
+
+<p>The general approach used by existing tenants has been to create a single entry per user where the entry contains all additional profile data for the user. Every metadata item representing a user profile can be identified using a fixed string for the &ldquo;name&rdquo; attribute (e.g., &ldquo;user_profile&rsquo;). The value of the metadata item contains a unique identifier for the user (e.g. username or email address) along with all the additional fields you wish to track on the profile. One benefit of this approach is that it cleanly delineates multiple classes of profiles, for example &quot;admin_profile&rdquo;, &ldquo;developer_profile&rdquo;, &ldquo;mathematician_profile&rdquo;, etc. When consuming this information in a web interface, such user-type grouping makes presentation significantly easier.</p>
+
+<p>Another issue to consider when extending user profile information through the Metadata service is ownership. If you create the user&rsquo;s account, then prompt them to login before entering their extended data, it is possible to create the user&rsquo;s metadata record under their account. This has the advantage of giving the user full ownership over the information, however it also opens up the possibility that the user, or a third-party application, could modify or delete the record.</p>
+
+<p>A better approach is to use a service account to create all extended profile metadata records and grant the user READ access on the record. This still allows third-party applications to access the user&rsquo;s information at their request, but prevents any malicious things from happening.</p>
+
+<p>The example above represents a possible JSON document that could be used to store a metadata record representing a profile:</p>
+
+<aside class="notice">For even quicker access, you can associate the metadata record with the UUID of the user through the associationIds attribute. See the <a href="#metadata" title="Metadata Management Guide">Metadata Guide</a> for more information about efficient storing and searching of metadata.</aside>
 
 <h3 id="updating">Updating</h3>
-
-<p>Updates to existing users can be made by sending a PUT request to https://public.tenants.agaveapi.co/profiles/v2/ and passing the fields to update. For example, we can add a <code class="prettyprint">gravatar</code> attribute to the account we created above.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X PUT -d <span class="s2">"password=abcd123&amp;amp;email=testuser@test.com&amp;amp;first_name=Test&amp;amp;last_name=User"</span> https://public.tenants.agaveapi.co/profiles/v2/testuser
 </code></pre>
 <pre class="highlight plaintext"><code>profiles-update -v -p abcd123 -e "testuser@test.com" -f Test -l User testuser
@@ -9267,9 +9292,9 @@ curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; -X POST -F &quot;fil
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<h3 id="deleting">Deleting</h3>
+<p>Updates to existing users can be made by sending a PUT request to https://public.tenants.agaveapi.co/profiles/v2/ and passing the fields to update. For example, we can add a <code class="prettyprint">gravatar</code> attribute to the account we created above.</p>
 
-<p>Deleting existing users can be made by sending a DELETE request to https://public.tenants.agaveapi.co/profiles/v2/ - for example:</p>
+<h3 id="deleting">Deleting</h3>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X DELETE https://public.tenants.agaveapi.co/profiles/v2/testuser
 </code></pre>
 <pre class="highlight plaintext"><code>profiles-delete -v testuser
@@ -9283,6 +9308,10 @@ curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; -X POST -F &quot;fil
 </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0.0-SNAPSHOT-rc3fad"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+
+<p>To delete an existing user, make a DELETE request on their profile resource.</p>
+
+<aside class="notice">Deleting a user is a destructive action and cannot be undone. Consider the implications of user deletion and the impact on their existing metadata before doing so.</aside>
 
 <h3 id="registration-web-application">Registration Web Application</h3>
 
@@ -9891,17 +9920,19 @@ curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; -X POST -F &quot;fil
 
 <p>By default, search is enabled on each collection endpoint allowing you to trim the response down to the results you care about most. The list of available search terms is identical to the attributes included in the JSON returned when requesting the full resource description.</p>
 
-<p>[notice]To see a full listing of the JSON attributes for each resource in the core science APIs, please see the <a href="http://preview.agaveapi.co/documentation/live-docs/" title="Live Documentation">Live Docs</a>.[/notice]</p>
+<aside class="info">To see a full listing of the JSON attributes for each resource in the core science APIs, please see the <a href="/live-docs/" title="Live Docs">Live Docs</a>.</aside>
 
 <p>To search for a specific attribute, you simply append a search expression into the URL query of your request. For example:</p>
-<pre class="highlight plaintext"><code>http://agave.iplantc.org/jobs/v2?name=test%20job  
-</code></pre>
+<pre class="highlight json"><code><span class="err">http://public.agaveapi.co/jobs/v</span><span class="mi">2</span><span class="err">?name=test%</span><span class="mi">20</span><span class="err">job</span><span class="w">  
+</span></code></pre>
 
+<blockquote>
 <p>You can include as multiple search expressions to build a more restrictive query.</p>
-<pre class="highlight plaintext"><code>http://agave.iplantc.org/jobs/v2?name=test%20job&amp;executionSystem=aws-demo&amp;status=FAILED  
-</code></pre>
+</blockquote>
+<pre class="highlight json"><code><span class="err">http://public.agaveapi.co/jobs/v</span><span class="mi">2</span><span class="err">?name=test%</span><span class="mi">20</span><span class="err">job&amp;executionSystem=aws-demo&amp;status=FAILED</span><span class="w">  
+</span></code></pre>
 
-<p>[alert]<b>Note that the values in your search expression must be URL encoded.</b>[/alert]</p>
+<aside class="warning">Note that the values in your search expression must be URL encoded.</aside>
 
 <h3 id="search-operators">Search operators</h3>
 
@@ -10155,10 +10186,10 @@ monitors-checks-search -M target.like=*ec2* \
               <h2 id="command-line-interface">Command Line Interface</h2>
 
 <p>The Agave command-line interface (CLI) is an complete interface to the Agave REST API. The scripts include support for creating persistent authentication sessions, creating/renaming apps, registering and sharing systems, uploading and managing data, creating PostIts, etc. For existing projects looking to leverage Agave for back-end processing, for users wishing to integrate Agave into their existing scripted solutions, or for those new to Agave who just want to kick the tires, the Agave CLI is a powerful tool for all of these things. The Agave CLI can be checked out from the Agave git repository.</p>
-<pre class="highlight shell"><code>git clone https://bitbucket.org/taccaci/foundation-cli
+<pre class="highlight shell"><code>git clone https://bitbucket.org/agaveapi/cli
 </code></pre>
 
-<p>For more information on using the Agave CLI in common tasks, please consult the <a href="http://agaveapi.co/documentation/beginners-guides/" title="Beginner’s Guides">Beginner&rsquo;s Guides</a> which reference it in all their examples or check out the <a href="https://bitbucket.org/agaveapi/science-api-samples" title="Agave Tutorials Samples" target="_blank">Agave Samples project</a> for sample data and examples of how to use it to populate and interact with your tenant.</p>
+<p>For more information on using the Agave CLI in common tasks, please consult the <a href="#tutorials" title="Tutorials">Tutorials Section</a> which reference it in all their examples, or check out the <a href="https://bitbucket.org/agaveapi/science-api-samples" title="Agave Tutorials Samples" target="_blank">Agave Samples project</a> for sample data and examples of how to use it to populate and interact with your tenant.</p>
 
           </div>
           <div class="dark-box">
