@@ -31,6 +31,8 @@ includes:
 - guides/systems/_systems-roles.md.erb
 - guides/systems/_systems-scopes.md.erb
 - guides/files/_introduction.md.erb
+- guides/files/_files-provenance.md.erb
+- guides/files/_files-metadata.md.erb
 - guides/apps/_introduction.md.erb
 - guides/apps/_app-history.md.erb
 - guides/apps/_app-inputs-and-parameters-tutorial.md.erb

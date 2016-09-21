@@ -1,0 +1,94 @@
+### File history
+
+A full history of changes, permissions changes, and access events made through the Files API is recorded for every file and folder on registered <a href="#systems">Agave systems</a>. The recorded history events represent a subset of the events thrown by the Files API. Generally speaking, the events saved in a file item's history represent mutations on the physical file item or its metadata.
+
+#### Direct vs indirect events
+
+Agave will record both direct and indirect events made on a file item. Examples of direct events are transferring a directory from one system to another or renaming a file. Examples of indirect events are a user manually deleting a file from the command line. The table below contains a list of all the provenance actions recorded.
+
+<%= partial "includes/tables/file-history-events" %>
+
+#### Out of band file system changes
+
+Agave does not own the storage and execution systems you access through the Science APIs, so it cannot guarantee that everything that every possible change made to the file system is recorded. Thus, Agave takes a best-effort approach to provenance allowing you to choose, through your own use of best practices, how thorough you want the provenance trail of your data to be.
+
+#### Listing file history
+
+> List the history of a file item
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
+    https://public.agaveapi.co/files/v2/history/nryan/picksumipsum.txt
+```
+
+```plaintext
+files-history -v nryan/picksumipsum.txt
+```
+
+> The response to this contains a summary listing all permissions on the
+
+```json
+$ files-history -v nryan/picksumipsum.txt
+[
+  {
+    "status": "DOWNLOAD",
+    "created": "2016-09-20T19:47:56.000-05:00",
+    "createdBy": "public",
+    "description": "File was downloaded"
+  },
+  {
+    "status": "STAGING_QUEUED",
+    "created": "2016-09-20T19:48:12.000-05:00",
+    "createdBy": "nryan",
+    "description": "File/folder queued for staging"
+  },
+  {
+    "status": "STAGING_COMPLETED",
+    "created": "2016-09-20T19:48:16.000-05:00",
+    "createdBy": "nryan",
+    "description": "Staging completed successfully"
+  },
+  {
+    "status": "TRANSFORMING_COMPLETED",
+    "created": "2016-09-20T19:48:17.000-05:00",
+    "createdBy": "nryan",
+    "description": "Your scheduled transfer of http://129.114.97.92/picksumipsum.txt completed staging. You can access the raw file on iPlant Data Store at /home/nryan/picksumipsum.txt or via the API at https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co//nryan/picksumipsum.txt."
+  }
+]
+```
+
+Basic paginated listing of file item history events is available as shown in the example. Currently, the file history service is readonly. The only way to erase the history on a file item is to delete the file item through the API.
+
+#### Searching file history
+
+> Search a file item's history
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
+    https://public.agaveapi.co/files/v2/history/nryan/picksumipsum.txt?limit=2&offset=1&createdBy.like=*ryan
+```
+
+```plaintext
+files-history-search -v -l 2 -o 1 -S data.agaveapi.co nryan/picksumipsum.txt createdBy.like=*ryan
+```
+
+> The response is a JSON array of every action performed on the file by users with a username ending in `ryan`.
+
+```javascript
+[
+  {
+    "status": "STAGING_QUEUED",
+    "created": "2016-09-20T19:48:12.000-05:00",
+    "createdBy": "nryan",
+    "description": "File/folder queued for staging"
+  },
+  {
+    "status": "STAGING_COMPLETED",
+    "created": "2016-09-20T19:48:16.000-05:00",
+    "createdBy": "nryan",
+    "description": "Staging completed successfully"
+  }
+]
+```
+
+File histories can get rather lengthy over time. Full text search is available on the file history service using the standard <a href="#search">search syntax</a>.

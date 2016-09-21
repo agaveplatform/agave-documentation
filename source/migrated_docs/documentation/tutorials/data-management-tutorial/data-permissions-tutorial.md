@@ -40,9 +40,8 @@ Let's start by listing the permissions on our sample file from the <a href="http
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/files/$API_VERSION/pems/data.agaveapi.co/$API_USERNAME/picksumipsum.txt
 ```
 
-
 ```plaintext
-files-list -v -S data.agaveapi.co $API_USERNAME
+files-pems-list -v -S data.agaveapi.co $API_USERNAME
 ``` 
 
 
