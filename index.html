@@ -3511,11 +3511,13 @@ As with storage systems, Agave supports several different protocols and mechanis
 
 <h3 id="files-service-url-structure">Files service URL structure</h3>
 
-<p>Every file and directory referenced through the Files service has a canonical URI defined as:</p>
-<pre class="highlight shell"><code>https://public.tenants.agaveapi.co/files/v2/media/system/<span class="nv">$SYSTEM_ID</span>/<span class="nv">$PATH</span>
-</code></pre>
+<blockquote>
+<p>Canonical URL for all file items accessible in the Platform</p>
+</blockquote>
+<pre class="highlight http"><code><span class="err">https://public.tenants.agaveapi.co/files/v2/media/system/$SYSTEM_ID/$PATH
+</span></code></pre>
 
-<p>The following table defines each component:</p>
+<p>Every file and directory referenced through the Files service has a canonical URL show in the first example. The following table defines each component:</p>
 
 <table>
     <thead>
@@ -3536,17 +3538,23 @@ As with storage systems, Agave supports several different protocols and mechanis
     </tbody>
 </table>
 
-<p>Agave also supports the concept of default systems. Excluding the <code class="prettyprint">/system/$SYSTEM_ID</code> tokens from the above URL, the Files service will automatically assume you are referencing your default storage system. Thus, if your default system was <code class="prettyprint">data.agaveapi.co</code>,</p>
-<pre class="highlight shell"><code>https://public.tenants.agaveapi.co/files/v2/media/shared
-</code></pre>
+<p>Agave also supports the concept of <em>default systems</em>. Excluding the <code class="prettyprint">/system/$SYSTEM_ID</code> segments from the above URL, the Files service will automatically assume you are referencing your default storage system. Thus, if your default system was <code class="prettyprint">data.agaveapi.co</code>, the following two examples would be identical.</p>
 
-<p>would behave identically to:</p>
-<pre class="highlight shell"><code>https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/shared
-</code></pre>
+<blockquote>
+<p>If <code class="prettyprint">data.agaveapi.co</code> is your default storage system then</p>
+</blockquote>
+<pre class="highlight http"><code><span class="err">https://public.tenants.agaveapi.co/files/v2/media/shared
+</span></code></pre>
+
+<blockquote>
+<p>is equivalent to this:</p>
+</blockquote>
+<pre class="highlight http"><code><span class="err">https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/shared
+</span></code></pre>
 
 <p>This comes in especially handy when referencing your default system paths in other contexts such as job requests and when interacting with the Agave CLI. A good example of this situation is when you have a global default storage system accessible to all your users. In this case, most users will use that for all of their data staging and archiving needs. These users may find it easier not to even think about the system they are using. The default system support in the Files service allows them to do just that.</p>
 
-<aside class="notice">When building applications against the Files service, it is considered a best practice to always specify the intended system ID when constructing URL paths to avoid situations where users change their default systems. This will also provide long-term stability to your data references and make debugging much easier. You can read more about default systems in the <a href="http://agaveapi.co/documentation/tutorials/system-management/" title="System Management">System Management</a> tutorial.</aside>
+<aside class="notice">When building applications against the Files service, it is considered a best practice to always specify the intended system ID when constructing URL paths to avoid situations where users change their default systems. This will also provide long-term stability to your data references and make debugging much easier. You can read more about default systems in the <a href="#systems" title="System Management">Systems Guide</a>.</aside>
 
 <h3 id="understanding-file-paths">Understanding file paths</h3>
 
@@ -3576,7 +3584,7 @@ As with storage systems, Agave supports several different protocols and mechanis
     </tbody>
 </table>
 
-<p><code class="prettyprint">homeDir</code> specifies the path, relative to <code class="prettyprint">rootDir</code>, that Agave should use for relative paths. Since Agave is stateless, there is no concept of a current working directory. Thus, when you specify a path to Agave that does not begin with a <code class="prettyprint">/</code>, Agave will always prefix the path with the value of <code class="prettyprint">homeDir</code>. The following table gives several examples of how different combinations of <code class="prettyprint">rootDir</code>, <code class="prettyprint">homeDir</code>, and URL paths will be resolved by Agave. For a deeper dive into this subject, please see the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/understanding-agave-file-paths/" title="Understanding Agave File Paths">Understanding Agave File Paths</a> tutorial.</p>
+<p><code class="prettyprint">homeDir</code> specifies the path, relative to <code class="prettyprint">rootDir</code>, that Agave should use for relative paths. Since Agave is stateless, there is no concept of a current working directory. Thus, when you specify a path to Agave that does not begin with a <code class="prettyprint">/</code>, Agave will always prefix the path with the value of <code class="prettyprint">homeDir</code>. The following table gives several examples of how different combinations of <code class="prettyprint">rootDir</code>, <code class="prettyprint">homeDir</code>, and URL paths will be resolved by Agave. For a deeper dive into this subject, please see the <a href="#understanding-agave-file-paths" title="Understanding Agave File Paths">Understanding Agave File Paths</a> section.</p>
 
 <table>
     <thead>
@@ -3686,11 +3694,12 @@ As with storage systems, Agave supports several different protocols and mechanis
 <p>Before we talk about how to do basic operations on your data, let&rsquo;s first talk about how you can move your data around. You already have a storage system available to you, so we will start with the &ldquo;hello world&rdquo; of data movement, uploading a file.</p>
 
 <h3 id="uploading-data">Uploading data</h3>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST
-    -F <span class="s2">"fileToUpload=@files/picksumipsum.txt"</span>
-    https://public.tenants.agaveapi.co/files/v2/media/data.agaveapi.co/<span class="nv">$API_USERNAME</span>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    -F <span class="s2">"fileToUpload=@files/picksumipsum.txt"</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/files/v2/media/data.agaveapi.co/nryan
 </code></pre>
-<pre class="highlight plaintext"><code>files-upload -v -F files/picksumipsum.txt -S data.agaveapi.co $API_USERNAME
+<pre class="highlight plaintext"><code>files-upload -v -F files/picksumipsum.txt -S data.agaveapi.co nryan
 </code></pre>
 
 <blockquote>
@@ -3763,10 +3772,10 @@ As with storage systems, Agave supports several different protocols and mechanis
 <p>To demonstrate how this works, will import a the README.md file from the <a href="https://bitbucket.org/agaveapi/science-api-samples" title="Agave Samples" target="_blank">Agave Samples</a> git repository in Bitbucket.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST
     -- data &amp;#039;<span class="o">{</span> <span class="s2">"url"</span>:<span class="s2">"https://bitbucket.org/agaveapi/science-api-samples/raw/master/README.md"</span><span class="o">}</span>&amp;#039;
-    https://public.tenants.agaveapi.co/files/v2/media/data.agaveapi.co/<span class="nv">$API_USERNAME</span>
+    https://public.tenants.agaveapi.co/files/v2/media/data.agaveapi.co/nryan
 </code></pre>
 <pre class="highlight plaintext"><code>files-import -v -U "https://bitbucket.org/agaveapi/science-api-samples/raw/master/README.md"
-    -S data.agaveapi.co $API_USERNAME
+    -S data.agaveapi.co nryan
 </code></pre>
 
 <blockquote>
@@ -3805,30 +3814,42 @@ As with storage systems, Agave supports several different protocols and mechanis
 
 <h3 id="transferring-data">Transferring data</h3>
 
-<p>Much like importing data, Agave can manage the transfer of data between registered systems. This is, in fact, how data is staged prior to running a simulation. Data transfers are fire and forget, so you can simply start a transfer and go about your business. Agave will ensure it completes. If you would like a notification when the transfer completes or reaches a certain stage, you can subscribe for one or more emails and/or <a href="http://webhooks.org" title="Webhooks" target="_blank">webhooks</a> and Agave will process them upon completion. The following table lists the available file events. For more information about Agave&rsquo;s event and notification system, please see the <a href="http://agaveapi.co/documentation/tutorials/notifications-tutorial/" title="Notifications Tutorial" target="_blank">Notifications Tutorial</a> and <a href="http://agaveapi.co/documentation/event-reference/" title="Agave Platform Event Reference" target="_blank">Event Reference</a>.</p>
-
-<p>In the example below, we will transfer a file from <code class="prettyprint">stampede.tacc.utexas.edu</code> to <code class="prettyprint">data.agaveapi.co</code>. While the request looks pretty basic, there&rsquo;s a lot going on behind the scenes. Agave will authenticate to both systems, check permissions, stream data out of Stampede using SFTP and proxy it into <code class="prettyprint">data.agaveapi.co</code> using the IRODS protocol, adjusting the transfer buffer size along the way to optimize throughput. Doing this by hand is both painful and error prone. Doing it with Agave is nearly identical to copying a file from one directory to another on your local system.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST
-    -- data &amp;#039;<span class="o">{</span> <span class="s2">"url"</span>:<span class="s2">"agave://stampede.tacc.utexas.edu//etc/motd"</span><span class="o">}</span>&amp;#039;
-    https://public.tenants.agaveapi.co/files/v2/media/data.agaveapi.co/<span class="nv">$API_USERNAME</span>
+<blockquote>
+<p>Transferring data between systems</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    --data-binary <span class="s1">'{"url":"agave://stampede.tacc.utexas.edu//etc/motd"}'</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/files/v2/media/data.agaveapi.co/nryan
 </code></pre>
-<pre class="highlight plaintext"><code>files-import -v -U "agave://stampede.tacc.utexas.edu//etc/motd" -S data.agaveapi.co $API_USERNAME
+<pre class="highlight plaintext"><code>files-import -v -U "agave://stampede.tacc.utexas.edu//etc/motd" -S data.agaveapi.co nryan
 </code></pre>
 
 <blockquote>
 <p>The response from the service will be the same as the one we received importing a file.</p>
 </blockquote>
 
-<p>One of the benefits of Agave&rsquo;s Files service is that it frees you up to work in parallel and scale as large as your application demands. In the next example we will use Agave&rsquo;s Files to create redundant archives of a shared project directory.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
-    -X POST -- data &amp;#039;<span class="o">{</span> <span class="s2">"url"</span>:<span class="s2">"agave://data.agaveapi.co/</span><span class="nv">$API_USERNAME</span><span class="s2">/foo_project"</span><span class="o">}</span>&amp;#039;
-    https://public.tenants.agaveapi.co/files/v2/media/system/<span class="nv">$API_USERNAME</span>.storage1/
-curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
-    -X POST -- data &amp;#039;<span class="o">{</span> <span class="s2">"url"</span>:<span class="s2">"agave://data.agaveapi.co/</span><span class="nv">$API_USERNAME</span><span class="s2">/foo_project"</span><span class="o">}</span>&amp;#039;
-    https://public.tenants.agaveapi.co/files/v2/media/system/<span class="nv">$API_USERNAME</span>.storage2/
+<p>Much like importing data, Agave can manage the transfer of data between registered systems. This is, in fact, how data is staged prior to running a simulation. Data transfers are fire and forget, so you can simply start a transfer and go about your business. Agave will ensure it completes. If you would like a notification when the transfer completes or reaches a certain stage, you can subscribe for one or more emails and/or <a href="http://webhooks.org" title="Webhooks" target="_blank">webhooks</a> and Agave will process them upon completion. The following table lists the available file events. For more information about the events and notifications systems, please see the <a href="#notifications" title="Notifications Guide" target="_blank">Notifications Guide</a> and <a href="#event-reference" title="Event Reference" target="_blank">Event Reference</a>.</p>
+
+<p>In the example below, we will transfer a file from <code class="prettyprint">stampede.tacc.utexas.edu</code> to <code class="prettyprint">data.agaveapi.co</code>. While the request looks pretty basic, there is a lot going on behind the scenes. Agave will authenticate to both systems, check permissions, stream data out of Stampede using GridFTP and proxy it into <code class="prettyprint">data.agaveapi.co</code> using the SFTP protocol, adjusting the transfer buffer size along the way to optimize throughput. Doing this by hand is both painful and error prone. Doing it with Agave is nearly identical to copying a file from one directory to another on your local system.</p>
+
+<p>One of the benefits of the Files service is that it frees you up to work in parallel and scale as large as your application demands. In the next example we will use the Files service to create redundant archives of a shared project directory.</p>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    --data-binary <span class="s1">'{"url":"agave://data.agaveapi.co/nryan/foo_project"}'</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/files/v2/media/system/nryan.storage1/
+
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    --data-binary <span class="s1">'{"url":"agave://data.agaveapi.co/nryan/foo_project"}'</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/files/v2/media/system/nryan.storage2/
 </code></pre>
-<pre class="highlight plaintext"><code>files-import -v -U "agave://data.agaveapi.co/$API_USERNAME/foo_project" -S $API_USERNAME.storage1
-files-import -v -U "agave://data.agaveapi.co/$API_USERNAME/foo_project" -S $API_USERNAME.storage2
+<pre class="highlight plaintext"><code>files-import -v -U "agave://data.agaveapi.co/nryan/foo_project" -S nryan.storage1
+
+files-import -v -U "agave://data.agaveapi.co/nryan/foo_project" -S nryan.storage2
 </code></pre>
 
 <aside class="notice">Notice in the above examples that the Files services works identically regardless of whether the source is a file or directory. If the source is a file, it will copy the file. If the source is a directory, it will recursively process the contents until everything has been copied.</aside>
@@ -3838,10 +3859,14 @@ files-import -v -U "agave://data.agaveapi.co/$API_USERNAME/foo_project" -S $API_
 <p>Now that we understand how to move data into, out of, and between systems, we will look at how to perform file operations on the data. Again, remember that the Files service gives you a common REST interface to all your storage and execution systems regardless of the authentication mechanism or protocol they use. The examples below will use your default public storage system, but they would work identically with any storage system you have access to.</p>
 
 <h4 id="directory-listing">Directory listing</h4>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
-    https://public.tenants.agaveapi.co/files/v2/listings/data.agaveapi.co/<span class="nv">$API_USERNAME</span>
+
+<blockquote>
+<p>Listing a file or directory</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/files/v2/listings/data.agaveapi.co/nryan
 </code></pre>
-<pre class="highlight plaintext"><code>files-list -v -S data.agaveapi.co $API_USERNAME
+<pre class="highlight plaintext"><code>files-list -v -S data.agaveapi.co nryan
 </code></pre>
 
 <blockquote>
@@ -3918,12 +3943,16 @@ files-import -v -U "agave://data.agaveapi.co/$API_USERNAME/foo_project" -S $API_
 
 <h4 id="copying-files-and-directories">Copying files and directories</h4>
 
-<p>Copying can be performed on any remote system. Unlike the Unix <code class="prettyprint">cp</code> command, all copy invocations in Agave will overwrite the destination target if it exists. In the event of a directory collision, the contents of the two directory trees will be merged with the source overwriting the destination. Any overwritten files will maintain their provenance records and have an additional entry added to record the copy operation.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer de32225c235cf47b9965997270a1496c"</span>
-    -X POST -d <span class="s2">"action=copy&amp;amp;path=</span><span class="nv">$DESTPATH</span><span class="s2">"</span>
-    https://public.tenants.agaveapi.co/files/v2/media/system/<span class="nv">$SYSTEM_ID</span>/<span class="nv">$PATH</span>
+<blockquote>
+<p>Copy a file item within the same system.</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    --data-binary <span class="s1">'{"action":"copy","path":$DESTPATH"}'</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/<span class="nv">$PATH</span>
 </code></pre>
-<pre class="highlight plaintext"><code>files-copy -D $DESTPATH -S $SYSTEM_ID $PATH
+<pre class="highlight plaintext"><code>files-copy -D $DESTPATH -S data.agaveapi.co $PATH
 </code></pre>
 
 <blockquote>
@@ -3932,60 +3961,261 @@ files-import -v -U "agave://data.agaveapi.co/$API_USERNAME/foo_project" -S $API_
 <pre class="highlight json"><code><span class="w">
 </span></code></pre>
 
+<p>Copying can be performed on any remote system. Unlike the Unix <code class="prettyprint">cp</code> command, all copy invocations in Agave will overwrite the destination target if it exists. In the event of a directory collision, the contents of the two directory trees will be merged with the source overwriting the destination. Any overwritten files will maintain their provenance records and have an additional entry added to record the copy operation.</p>
+
 <h4 id="moving-files-and-directories">Moving files and directories</h4>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    --data-binary <span class="s1">'{"action":"move","path":$DESTPATH"}'</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/<span class="nv">$PATH</span>
+</code></pre>
+<pre class="highlight plaintext"><code>files-move -D $DESTPATH -S data.agaveapi.co $PATH
+</code></pre>
+
+<blockquote>
+<p>The response will reflect the new file item</p>
+</blockquote>
+<pre class="highlight json"><code></code></pre>
 
 <p>Moving can be performed on any remote system. Moving a file or directory will overwrite the destination target if it exists. Unlike copy operations, the destination will be completely replaced by the source in the event of a collision. No merge will take place. Further, the provenance of the source will replace that of the target.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer de32225c235cf47b9965997270a1496c"</span>
-    -X POST -d <span class="s2">"action=move&amp;amp;path=</span><span class="nv">$DESTPATH</span><span class="s2">"</span>
-    https://public.tenants.agaveapi.co/files/v2/media/system/<span class="nv">$SYSTEM_ID</span>/<span class="nv">$PATH</span>
-</code></pre>
-<pre class="highlight plaintext"><code>files-move -D $DESTPATH -S $SYSTEM_ID $PATH
-</code></pre>
-<pre class="highlight json"><code></code></pre>
 
 <h4 id="renaming-files-and-directories">Renaming files and directories</h4>
 
-<p>Renaming, like copying and moving, is only applicable within the context of a single system. Unlike on Unix systems, renaming and moving are not synonymous. When specifying a new name for a file or directory, the new name is relative to the parent directory of the original file or directory. Also, If a file or directory already exists with that name, the operation will fail and an error message will be returned. All provenance information will follow the renamed file or directory.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer de32225c235cf47b9965997270a1496c"</span>
-    -X POST -d <span class="s2">"action=rename&amp;amp;path=</span><span class="nv">$NEWNAME</span><span class="s2">"</span>
+<blockquote>
+<p>Renaming a file item</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+   -X POST <span class="se">\</span>
+   --data-binary <span class="s1">'{"action":"rename","path":$NEWNAME"}'</span> <span class="se">\</span>
     https://public.tenants.agaveapi.co/files/v2/media/system/<span class="nv">$SYSTEM_ID</span>/<span class="nv">$PATH</span>
 </code></pre>
 <pre class="highlight plaintext"><code>files-rename -N $NEWNAME -S $SYSTEM_ID $PATH
 </code></pre>
+
+<blockquote>
+<p>The response will reflect the renamed file item</p>
+</blockquote>
 <pre class="highlight json"><code></code></pre>
+
+<p>Renaming, like copying and moving, is only applicable within the context of a single system. Unlike on Unix systems, renaming and moving are not synonymous. When specifying a new name for a file or directory, the new name is relative to the parent directory of the original file or directory. Also, If a file or directory already exists with that name, the operation will fail and an error message will be returned. All provenance information will follow the renamed file or directory.</p>
 
 <h4 id="creating-a-new-directory">Creating a new directory</h4>
 
-<p>Creating a new directory is a recursive action in Agave. If the parent directories do not exist, they will be created on the fly. If a file or directory already exists with that name, the operation will fail and an error message will be returned.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer de32225c235cf47b9965997270a1496c"</span>
-    -X POST -d <span class="s2">"action=mkdir&amp;amp;path=</span><span class="nv">$NEWDIR</span><span class="s2">"</span>
-    https://public.tenants.agaveapi.co/files/v2/media/system/<span class="nv">$SYSTEM_ID</span>/<span class="nv">$PATH</span>
+<blockquote>
+<p>Creating a new directory</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    --data-binary <span class="s1">'{"action":"mkdir","path":$NEWDIR"}'</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/<span class="nv">$PATH</span>
 </code></pre>
 <pre class="highlight plaintext"><code>files-mkdir -N $NEWDIR -S $SYSTEM_ID $PATH
 </code></pre>
+
+<blockquote>
+<p>The response will reflect the new directory</p>
+</blockquote>
 <pre class="highlight json"><code></code></pre>
 
-<h4 id="deleting-a-file-or-directory">Deleting a file or directory</h4>
+<p>Creating a new directory is a recursive action in Agave. If the parent directories do not exist, they will be created on the fly. If a file or directory already exists with that name, the operation will fail and an error message will be returned.</p>
 
-<p>As with creating a directory, deleting a file or directory is a recursive action in Agave. No prompt or warning will be given once the request is sent. It is up to you to implement such checks in your application logic and/or user interface.</p>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer de32225c235cf47b9965997270a1496c"</span>
-    -X DELETE https://public.tenants.agaveapi.co/files/v2/media/system/<span class="nv">$SYSTEM_ID</span>/<span class="nv">$PATH</span>
+<h4 id="deleting-a-file-item">Deleting a file item</h4>
+
+<blockquote>
+<p>Deleting a file item</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -X DELETE <span class="se">\</span>
+    https://public.tenants.agaveapi.co/files/v2/media/system/<span class="nv">$SYSTEM_ID</span>/<span class="nv">$PATH</span>
 </code></pre>
 <pre class="highlight plaintext"><code>files-delete -S $SYSTEM_ID $PATH
 </code></pre>
-<pre class="highlight json"><code></code></pre>
 
-<h3 id="metadata-management">Metadata management</h3>
+<blockquote>
+<p>A standard Agave response with an empty result value will be returned.</p>
+</blockquote>
 
-<p>In many systems, the concept of metadata is directly tied to the notion of a file system. Agave takes a broader view of metadata and supports it as its own first class resource in the REST API. For more information on how to leverage metadata in Agave, please consult the <a href="http://agaveapi.co/documentation/tutorials/metadata-tutorial/" title="Metadata Tutorial">Metadata Tutorial</a>. In there we cover all aspects of how to manage, search, validate, and associate metadata across your entire digital lab.</p>
+<p>As with creating a directory, deleting a file or directory is a recursive action in Agave. No prompt or warning will be given once the request is sent. It is up to you to implement such checks in your application logic and/or user interface.</p>
 
-<h3 id="data-permissions">Data permissions</h3>
+              <h3 id="file-history">File history</h3>
 
-<p>Agave has a fine-grained permission model supporting use cases from creating and expositing readonly storage systems to sharing individual files and folders with one or more users. To learn more about the data permission model and how you can use it to meet your needs, consult the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/data-permissions-tutorial/" title="Data Permissions Tutorial">Data Permissions Tutorial</a>.</p>
+<p>A full history of changes, permissions changes, and access events made through the Files API is recorded for every file and folder on registered <a href="#systems">Agave systems</a>. The recorded history events represent a subset of the events thrown by the Files API. Generally speaking, the events saved in a file item&rsquo;s history represent mutations on the physical file item or its metadata.</p>
 
-<h3 id="data-provenance">Data provenance</h3>
+<h4 id="direct-vs-indirect-events">Direct vs indirect events</h4>
 
-<p>Agave keeps a full provenance record of every action it takes or observes on a a file and folder. You can read more about how Agave tracks these things as well as how to access provenance information in the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/data-provenance-tutorial/" title="Data Provenance Tutorial">Data Provenance Tutorial</a>.</p>
+<p>Agave will record both direct and indirect events made on a file item. Examples of direct events are transferring a directory from one system to another or renaming a file. Examples of indirect events are a user manually deleting a file from the command line. The table below contains a list of all the provenance actions recorded.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Event</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CREATED</td>
+            <td>File or directory was created</td>
+        </tr>
+        <tr>
+            <td>DELETED</td>
+            <td>The file was deleted</td>
+        </tr>
+        <tr>
+            <td>RENAME</td>
+            <td>The file was renamed</td>
+        </tr>
+        <tr>
+            <td>MOVED</td>
+            <td>The file was moved to another path</td>
+        </tr>
+        <tr>
+            <td>OVERWRITTEN</td>
+            <td>The file was overwritten</td>
+        </tr>
+        <tr>
+            <td>PERMISSION_GRANT</td>
+            <td>A user permission was added</td>
+        </tr>
+        <tr>
+            <td>PERMISSION_REVOKE</td>
+            <td>A user permission was deleted</td>
+        </tr>
+        <tr>
+            <td>STAGING_QUEUED</td>
+            <td>File/folder queued for staging</td>
+        </tr>
+        <tr>
+            <td>STAGING</td>
+            <td>File or directory is currently in flight</td>
+        </tr>
+        <tr>
+            <td>STAGING_FAILED</td>
+            <td>Staging failed</td>
+        </tr>
+        <tr>
+            <td>STAGING_COMPLETED</td>
+            <td>Staging completed successfully</td>
+        </tr>
+        <tr>
+            <td>PREPROCESSING</td>
+            <td>Prepairing file for processing
+        </td>
+        </tr>
+        <tr>
+            <td>TRANSFORMING_QUEUED</td>
+            <td>File/folder queued for transform</td>
+        </tr>
+        <tr>
+            <td>TRANSFORMING</td>
+            <td>Transforming file/folder</td>
+        </tr>
+        <tr>
+            <td>TRANSFORMING_FAILED</td>
+            <td>Transform failed</td>
+        </tr>
+        <tr>
+            <td>TRANSFORMING_COMPLETED</td>
+            <td>Transform completed successfully</td>
+        </tr>
+        <tr>
+            <td>UPLOADED</td>
+            <td>New content was uploaded to the file.</td>
+        </tr>
+        <tr>
+            <td>CONTENT_CHANGED</td>
+            <td>Content changed within this file/folder. If a folder, this event will be thrown whenever content changes in any file within this folder at most one level deep.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4 id="out-of-band-file-system-changes">Out of band file system changes</h4>
+
+<p>Agave does not own the storage and execution systems you access through the Science APIs, so it cannot guarantee that everything that every possible change made to the file system is recorded. Thus, Agave takes a best-effort approach to provenance allowing you to choose, through your own use of best practices, how thorough you want the provenance trail of your data to be.</p>
+
+<h4 id="listing-file-history">Listing file history</h4>
+
+<blockquote>
+<p>List the history of a file item</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    https://public.agaveapi.co/files/v2/history/nryan/picksumipsum.txt
+</code></pre>
+<pre class="highlight plaintext"><code>files-history -v nryan/picksumipsum.txt
+</code></pre>
+
+<blockquote>
+<p>The response to this contains a summary listing all permissions on the</p>
+</blockquote>
+<pre class="highlight json"><code><span class="err">$</span><span class="w"> </span><span class="err">files-history</span><span class="w"> </span><span class="err">-v</span><span class="w"> </span><span class="err">nryan/picksumipsum.txt</span><span class="w">
+</span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DOWNLOAD"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-20T19:47:56.000-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"public"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"File was downloaded"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STAGING_QUEUED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-20T19:48:12.000-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"File/folder queued for staging"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STAGING_COMPLETED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-20T19:48:16.000-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Staging completed successfully"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TRANSFORMING_COMPLETED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-20T19:48:17.000-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Your scheduled transfer of http://129.114.97.92/picksumipsum.txt completed staging. You can access the raw file on iPlant Data Store at /home/nryan/picksumipsum.txt or via the API at https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co//nryan/picksumipsum.txt."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Basic paginated listing of file item history events is available as shown in the example. Currently, the file history service is readonly. The only way to erase the history on a file item is to delete the file item through the API.</p>
+
+<h4 id="searching-file-history">Searching file history</h4>
+
+<blockquote>
+<p>Search a file item&rsquo;s history</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    https://public.agaveapi.co/files/v2/history/nryan/picksumipsum.txt?limit<span class="o">=</span>2&amp;offset<span class="o">=</span>1&amp;createdBy.like<span class="o">=</span><span class="k">*</span>ryan
+</code></pre>
+<pre class="highlight plaintext"><code>files-history-search -v -l 2 -o 1 -S data.agaveapi.co nryan/picksumipsum.txt createdBy.like=*ryan
+</code></pre>
+
+<blockquote>
+<p>The response is a JSON array of every action performed on the file by users with a username ending in <code class="prettyprint">ryan</code>.</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"STAGING_QUEUED"</span><span class="p">,</span>
+    <span class="s2">"created"</span><span class="p">:</span> <span class="s2">"2016-09-20T19:48:12.000-05:00"</span><span class="p">,</span>
+    <span class="s2">"createdBy"</span><span class="p">:</span> <span class="s2">"nryan"</span><span class="p">,</span>
+    <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"File/folder queued for staging"</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"STAGING_COMPLETED"</span><span class="p">,</span>
+    <span class="s2">"created"</span><span class="p">:</span> <span class="s2">"2016-09-20T19:48:16.000-05:00"</span><span class="p">,</span>
+    <span class="s2">"createdBy"</span><span class="p">:</span> <span class="s2">"nryan"</span><span class="p">,</span>
+    <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Staging completed successfully"</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre>
+
+<p>File histories can get rather lengthy over time. Full text search is available on the file history service using the standard <a href="#search">search syntax</a>.</p>
+
+              <h3 id="file-metadata-management">File metadata management</h3>
+
+<p>In many systems, the concept of metadata is directly tied to the notion of a file system. Agave takes a broader view of metadata and supports it as its own first class resource in the REST API. For more information on how to leverage metadata in Agave, please consult the <a href="#metadata" title="Metadata Tutorial">Metadata Guide</a>. In there we cover all aspects of how to manage, search, validate, and associate metadata across your entire digital lab.</p>
 
               <h2 id="apps">Apps</h2>
 <pre class="highlight json"><code><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">
@@ -9418,6 +9648,18 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
             <td>The file was deleted</td>
         </tr>
         <tr>
+            <td>INDEX_START</td>
+            <td>Indexing of file/folder started</td>
+        </tr>
+        <tr>
+            <td>INDEX_COMPLETE</td>
+            <td>Indexing of file/folder completed</td>
+        </tr>
+        <tr>
+            <td>INDEX_FAILED</td>
+            <td>Indexing of file/folder failed</td>
+        </tr>
+        <tr>
             <td>RENAME</td>
             <td>The file was renamed</td>
         </tr>
@@ -9456,7 +9698,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
         <tr>
             <td>PREPROCESSING</td>
             <td>Prepairing file for processing
-</td>
+        </td>
         </tr>
         <tr>
             <td>TRANSFORMING_QUEUED</td>
@@ -9475,12 +9717,16 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
             <td>Transform completed successfully</td>
         </tr>
         <tr>
-            <td>UPLOADED</td>
+            <td>UPLOAD</td>
             <td>New content was uploaded to the file.</td>
         </tr>
         <tr>
             <td>CONTENT_CHANGED</td>
             <td>Content changed within this file/folder. If a folder, this event will be thrown whenever content changes in any file within this folder at most one level deep.</td>
+        </tr>
+        <tr>
+            <td>DOWNLOAD</td>
+            <td>The file item was downloaded.</td>
         </tr>
     </tbody>
 </table>

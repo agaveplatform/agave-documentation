@@ -54,26 +54,35 @@ ga('send', 'pageview');
         <div class="page-wrapper">
           <div class="dark-box"></div>
           <div class="content">
-            <h2 id="what-is-provenance">What is provenance</h2>
+            <h3 id="file-history-draft">File history &ndash; <strong>DRAFT</strong></h3>
+
+<p>A full history of changes, permissions changes, and access events made through the Files API is available for every file and folder on registered <a href="#systems">Agave systems</a>. Two kinds of events are recorded in a file item&rsquo;s history, both of which represent mutations of the file item and/or its metadata. </p>
+
+<p>represents the provenance of a file or folder as observed by the Platform over time. </p>
 
 <p>Provenance is:
-* Log with relationships
-* Not versioning
-* Not assuring reproducibility
-* Bank statement, not model car.</p>
+* Logging+relationships</p>
 
-<h3 id="what-information-is-available">What information is available</h3>
+<p>Provenance is not:<br>
+* Versioning
+* Guaranteed reproducibility</p>
 
-<p>Agave tracks every direct action it takes on a file or directory. Additionally, it will make note of any indirect action it observes about file or directory. Examples of direct action are transferring a directory from one system to another or renaming a file. Examples of indirect action are a user manually deleting a file from the command line. The table below contains a list of all the provenance actions recorded.</p>
+<p>Think of provenance as a bank statement, not a kit car.</p>
+
+<h4 id="what-information-is-available">What information is available</h4>
+
+<p>Agave tracks every direct action it takes on a file or directory. As with all Agave resources, the recorded provenance is a subset of the events thrown by various file actions. </p>
+
+<p>Additionally, it will make note of any indirect action it observes about file or directory. Examples of direct action are transferring a directory from one system to another or renaming a file. Examples of indirect action are a user manually deleting a file from the command line. The table below contains a list of all the provenance actions recorded.</p>
 
 <pre><code>Insert data provenance table
 </code></pre>
 
-<h3 id="how-accurate-is-this-information">How accurate is this information</h3>
+<h4 id="how-accurate-is-this-information">How accurate is this information</h4>
 
 <p>Agave does not own the storage and execution systems you access through the REST APIs, so it cannot guarantee that it will be aware of everything that happens on that file system. Thus, Agave takes a best-effort approach to provenance allowing you to choose, through your own use of best practices, how thorough you want the provenance trail of your data to be.</p>
 
-<h3 id="why-is-this-useful">Why is this useful?</h3>
+<h4 id="why-is-this-useful">Why is this useful?</h4>
 
 <ul>
 <li>See who did what, when</li>
@@ -83,9 +92,9 @@ ga('send', 'pageview');
 <li>Trace steps of experiment</li>
 </ul>
 
-<h2 id="accessing-data-provenance-information">Accessing data provenance information</h2>
+<h3 id="file-history">File history</h3>
 
-<h3 id="listing-recent-events">Listing recent events</h3>
+<h4 id="listing-history-events">Listing history events</h4>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/hisotry/data.agaveapi.co/<span class="nv">$API_USERNAME</span>/picksumipsum.txt
 </code></pre>
 <pre class="highlight plaintext"><code>files-history -v -S data.agaveapi.co $API_USERNAME/picksumipsum.txt

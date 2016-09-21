@@ -93,7 +93,7 @@ ga('send', 'pageview');
 <p>Let&rsquo;s start by listing the permissions on our sample file from the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/" title="Data Management Tutorial">Data Management tutorial</a>.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/pems/data.agaveapi.co/<span class="nv">$API_USERNAME</span>/picksumipsum.txt
 </code></pre>
-<pre class="highlight plaintext"><code>files-list -v -S data.agaveapi.co $API_USERNAME
+<pre class="highlight plaintext"><code>files-pems-list -v -S data.agaveapi.co $API_USERNAME
 </code></pre>
 
 <p>The response to this contains a summary listing all permissions on the</p>
