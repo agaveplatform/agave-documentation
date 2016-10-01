@@ -385,7 +385,7 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
     "internalUsername": null,
     "lastUpdated": "2013-11-16T11:25:38.900-06:00",
     "name": "color",
-    "owner": "dooley",
+    "owner": "nryan",
     "uuid": "0001384622738900-5056a550b8-0001-012",
     "value": "red",
     "_links": {
@@ -393,7 +393,7 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
             "href": "https://public.tenants.agaveapi.co/meta/v2/data/0001384622738900-5056a550b8-0001-012"
         },
         "owner": {
-            "href": "https://public.tenants.agaveapi.co/profiles/v2/dooley"
+            "href": "https://public.tenants.agaveapi.co/profiles/v2/nryan"
         }
     }
 }
@@ -1713,55 +1713,56 @@ refresh_token </td>
 <p>You can further filter the results by type, scope, and default status. See the search section for further filtering options.</p>
 
 <h3 id="system-details">System details</h3>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/systems/v2/<span class="nv">$SYSTEM_ID</span>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co
 </code></pre>
-<pre class="highlight plaintext"><code>systems-list -v $SYSTEM_ID
+<pre class="highlight plaintext"><code>systems-list -v data.agaveapi.co
 </code></pre>
 
 <blockquote>
 <p>The response will be something like this:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-   </span><span class="nt">"default"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-   </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">"The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&amp;#039;s technologies."</span><span class="p">,</span><span class="w">
-   </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span><span class="w">
-   </span><span class="nt">"lastModified"</span><span class="p">:</span><span class="s2">"2013-11-12T07:08:30.000-06:00"</span><span class="p">,</span><span class="w">
-   </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"iPlant Data Store"</span><span class="p">,</span><span class="w">
-   </span><span class="nt">"public"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-   </span><span class="nt">"revision"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="w">
-   </span><span class="nt">"site"</span><span class="p">:</span><span class="s2">"iplantcollaborative.org"</span><span class="p">,</span><span class="w">
-   </span><span class="nt">"status"</span><span class="p">:</span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
-   </span><span class="nt">"storage"</span><span class="p">:{</span><span class="w">
-      </span><span class="nt">"auth"</span><span class="p">:{</span><span class="w">
-         </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"PASSWORD"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nt">"homeDir"</span><span class="p">:</span><span class="s2">"/"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"host"</span><span class="p">:</span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"mirror"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"port"</span><span class="p">:</span><span class="mi">1247</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"protocol"</span><span class="p">:</span><span class="s2">"IRODS"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"proxy"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"publicAppsDir"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"resource"</span><span class="p">:</span><span class="s2">"bitol"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"rootDir"</span><span class="p">:</span><span class="s2">"/iplant/home"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"zone"</span><span class="p">:</span><span class="s2">"iplant"</span><span class="w">
-   </span><span class="p">},</span><span class="w">
-   </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"STORAGE"</span><span class="p">,</span><span class="w">
-   </span><span class="nt">"uuid"</span><span class="p">:</span><span class="s2">"0001384260598633-5056a550b8-0001-006"</span><span class="p">,</span><span class="w">
-   </span><span class="nt">"_links"</span><span class="p">:{</span><span class="w">
-      </span><span class="nt">"credentials"</span><span class="p">:{</span><span class="w">
-         </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co/credentials"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nt">"metadata"</span><span class="p">:{</span><span class="w">
-         </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/meta/v2/data/?q={"</span><span class="err">associationIds</span><span class="s2">":"</span><span class="mi">0001384260598633-5056</span><span class="err">a</span><span class="mi">550</span><span class="err">b</span><span class="mi">8-0001-006</span><span class="s2">"}"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nt">"roles"</span><span class="p">:{</span><span class="w">
-         </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co/roles"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nt">"self"</span><span class="p">:{</span><span class="w">
-         </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-   </span><span class="p">}</span><span class="w">
+  </span><span class="nt">"site"</span><span class="p">:</span><span class="w"> </span><span class="s2">"agaveapi.co"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"lastModified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-30T21:43:11.000-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cloud storage system for the Agave Public tenant"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Agave Cloud Storage"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dooley"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"roles"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co/roles"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"credentials"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co/credentials"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/data/?q=%7B%22associationIds%22%3A%224602981590618992154-242ac116-0001-006%22%7D"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"globalDefault"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"available"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4602981590618992154-242ac116-0001-006"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"public"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORAGE"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"storage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"mirror"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"port"</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"homeDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"protocol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SFTP"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"corral.tacc.utexas.edu"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"publicAppsDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/apps"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"rootDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/gpfs/corral3/repl/projects/agave/root"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SSHKEYS"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -3710,18 +3711,18 @@ As with storage systems, Agave supports several different protocols and mechanis
     </span><span class="nt">"lastModified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-09-03T10:28:09.943-05:00"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"picksumipsum.txt"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"nativeFormat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"raw"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"systest"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/iplant/home/systest/picksumipsum.txt"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/nryan/picksumipsum.txt"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://129.114.60.211/picksumipsum.txt"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STAGING_QUEUED"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"systemId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001409758089943-5056a550b8-0001-002"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nt">"history"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/systest/picksumipsum.txt"</span><span class="w">
+            </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt"</span><span class="w">
+            </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"</span><span class="w">
@@ -3784,23 +3785,23 @@ As with storage systems, Agave supports several different protocols and mechanis
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"README.md"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"uuid"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0001409758713912-5056a550b8-0001-002"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"owner"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"systest"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"internalUsername"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"lastModified"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-09-10T20:00:55.266-05:00"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"source"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"https://bitbucket.org/agaveapi/science-api-samples/raw/master/README.md"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/iplant/home/systest/README.md"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/nryan/README.md"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"STAGING_QUEUED"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"systemId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"nativeFormat"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"raw"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"_links"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"self"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"href"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/README.md"</span><span class="w">
+        </span><span class="nt">"href"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/README.md"</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="nt">"system"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nt">"href"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="nt">"history"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"href"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/systest/README.md"</span><span class="w">
+        </span><span class="nt">"href"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/README.md"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -3879,13 +3880,13 @@ files-import -v -U "agave://data.agaveapi.co/nryan/foo_project" -S nryan.storage
         </span><span class="nt">"length"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="nt">"mimeType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text/directory"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"."</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"systest"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"permisssions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ALL"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dir"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest"</span><span class="w">
+                </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan"</span><span class="w">
             </span><span class="p">},</span><span class="w">
             </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
                 </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"</span><span class="w">
@@ -3898,13 +3899,13 @@ files-import -v -U "agave://data.agaveapi.co/nryan/foo_project" -S nryan.storage
     </span><span class="nt">"length"</span><span class="p">:</span><span class="w"> </span><span class="mi">3235</span><span class="p">,</span><span class="w">
     </span><span class="nt">"mimeType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text/plain"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"picksumipsum.txt"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"systest/picksumipsum.txt"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan/picksumipsum.txt"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ALL"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt"</span><span class="w">
+                </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"</span><span class="w">
@@ -4216,6 +4217,325 @@ files-import -v -U "agave://data.agaveapi.co/nryan/foo_project" -S nryan.storage
               <h3 id="file-metadata-management">File metadata management</h3>
 
 <p>In many systems, the concept of metadata is directly tied to the notion of a file system. Agave takes a broader view of metadata and supports it as its own first class resource in the REST API. For more information on how to leverage metadata in Agave, please consult the <a href="#metadata" title="Metadata Tutorial">Metadata Guide</a>. In there we cover all aspects of how to manage, search, validate, and associate metadata across your entire digital lab.</p>
+
+              <h3 id="file-permissions">File permissions</h3>
+
+<p>Agave has a fine-grained permission model supporting use cases from creating and exposing readonly storage systems to sharing individual files and folders with one or more users. The permissions available for files items are listed in the following table. Please note that a user must have WRITE permissions to grant or revoke permissions on a file item.</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>READ</td>
+<td>User can view, but not edit or execute the resource</td>
+</tr>
+<tr>
+<td>WRITE</td>
+<td>User can edit, but not view or execute the resource</td>
+</tr>
+<tr>
+<td>EXECUTE</td>
+<td>User can execute, but not view or edit the resource</td>
+</tr>
+<tr>
+<td>READ_WRITE</td>
+<td>User can view and write the resource, but not execute</td>
+</tr>
+<tr>
+<td>READ_EXECUTE</td>
+<td>User can view and execute the resource, but not edit it</td>
+</tr>
+<tr>
+<td>WRITE_EXECUTE</td>
+<td>User can edit and execute the resource, but not view it</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td>User has full control over the resource</td>
+</tr>
+<tr>
+<td>NONE</td>
+<td>User has all permissions revoked on the given resource</td>
+</tr>
+</tbody></table>
+
+<h4 id="listing-all-permissions">Listing all permissions</h4>
+
+<blockquote>
+<p>List the permissions on a file item</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s1">'https://public.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?pretty=true''
+</span></code></pre>
+<pre class="highlight plaintext"><code>files-pems-list \
+    -S data.agaveapi.co \
+    nryan/picksumipsum.txt
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"internalUsername"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"permission"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"read"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"write"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"execute"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"recursive"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username.eq=nryan"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"file"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>To list all permissions for a file item, make a GET request on the file item&rsquo;s permission collection</p>
+
+<h4 id="list-permissions-for-a-specific-user">List permissions for a specific user</h4>
+
+<blockquote>
+<p>List the permissions on a file item for a given user</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username<span class="o">=</span>rclemens
+</code></pre>
+<pre class="highlight plaintext"><code>files-pems-list \
+    -u rclemens \
+    -S data.agaveapi.co \
+    nryan/picksumipsum.txt
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"username"</span><span class="p">:</span><span class="s2">"rclemens"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"permission"</span><span class="p">:{</span><span class="w">
+    </span><span class="nt">"read"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"write"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:{</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username=rclemens"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"parent"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"profile"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/profiles/v2/rclemens"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Checking permissions for a single user is done using agave URL query search syntax.</p>
+
+<h4 id="grant-permissions">Grant permissions</h4>
+
+<blockquote>
+<p>Grant read access to a file item</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    --data <span class="s1">'{"username":"rclemens", "permission":"READ"}'</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt
+</code></pre>
+<pre class="highlight plaintext"><code>files-pems-update 
+    -u rclemens \
+    -p READ \
+    -S data.agaveapi.co \
+    nryan/picksumipsum.txt
+</code></pre>
+
+<blockquote>
+<p>Grant read and write access to a file item</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    --data <span class="s1">'{"username","rclemens", "permission":"READ_WRITE"}'</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt
+</code></pre>
+<pre class="highlight plaintext"><code>files-pems-addupdate 
+    -u rclemens \
+    -p READ_WRITE \
+    -S data.agaveapi.co \
+    nryan/picksumipsum.txt
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rclemens"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"internalUsername"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"permission"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"read"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"write"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"execute"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"recursive"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username.eq=rclemens"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"file"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/rclemens"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>To grant another user read access to your metadata item, assign them <code class="prettyprint">READ</code> permission. To enable another user to update a file item, grant them <code class="prettyprint">READ_WRITE</code> or <code class="prettyprint">ALL</code> access.</p>
+
+<h4 id="delete-single-user-permissions">Delete single user permissions</h4>
+
+<blockquote>
+<p>Delete permission for single user on a file item</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     --data <span class="s1">'{"username","rclemens", "permission":"NONE"}'</span> <span class="se">\</span>
+     https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt
+</code></pre>
+<pre class="highlight plaintext"><code>files-pems-update  \
+    -u rclemens \
+    -p 'NONE' \
+    -S data.agaveapi.co \
+    nryan/picksumipsum.txt
+</code></pre>
+
+<blockquote>
+<p>A response similiar to the following will be returned</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rclemens"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"internalUsername"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"permission"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"read"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"write"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"execute"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"recursive"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username.eq=rclemens"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"file"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/rclemens"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Permissions may be deleted for a single user by making a DELETE request on the metadata user permission resource. This will immediately revoke all permissions to the file item for that user.</p>
+
+<aside class="info">Please note that ownership cannot be revoked or reassigned. The user who created the metadata item will always have ownership of that item.</aside>
+
+<h4 id="deleting-all-permissions">Deleting all permissions</h4>
+
+<blockquote>
+<p>Delete all permissions on a file item</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     --data <span class="s1">'{"username","*", "permission":"NONE"}'</span> <span class="se">\</span>
+     https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt
+
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+     -X DELETE <span class="se">\</span>
+     https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt
+</code></pre>
+<pre class="highlight plaintext"><code>files-pems-delete \
+    -S data.agaveapi.co \
+    nryan/picksumipsum.txt
+</code></pre>
+
+<blockquote>
+<p>An empty response will be returned from the service.</p>
+</blockquote>
+
+<p>Permissions may be cleared for all users on a file item by making a DELETE request on the file item permission collection. In </p>
+
+<aside class="info">The above operation will delete all permissions for a file item, such that only the owner will be able to access it. Use with care.</aside>
+
+<h4 id="recursive-operations">Recursive operations</h4>
+
+<blockquote>
+<p>Recursively delete all permissions on a directory</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     --data <span class="s1">'{"username","*", "permission":"READ_WRITE", "recursive": true}'</span> <span class="se">\</span>
+     https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt
+
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+     -X DELETE <span class="se">\</span>
+     https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?recursive<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+<pre class="highlight plaintext"><code>files-pems-delete \
+    --recursive \
+    -S data.agaveapi.co \
+    nryan/picksumipsum.txt
+</code></pre>
+
+<blockquote>
+<p>An empty response will be returned from the service on delete. Update will return something like the following.</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"internalUsername"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"permission"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"read"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"write"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"execute"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"recursive"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username.eq=nryan"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"file"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>When dealing with directories, the permission operations you perform will apply onto to the directory item itself. Permissions will not automatically propagate to the directory contents. In cases where you want to recursively apply permissions to the entire directory tree, you can do so by including the <code class="prettyprint">recursive</code> attribute in your permission objects or to your URL query parameters when making a DELETE request.</p>
 
               <h2 id="apps">Apps</h2>
 <pre class="highlight json"><code><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">
@@ -4708,7 +5028,7 @@ files-import -v -U "agave://data.agaveapi.co/nryan/foo_project" -S nryan.storage
 
 <h3 id="app-packaging">App packaging</h3>
 
-<p>Agave API apps have a generalized structure that allows them to carry dependencies around with them. In the case below, <em>package-name-version.dot.dot</em> is a folder that you build on your local system, then store in the iPlant Data Store in a designated location (we recommend /iplant/home/IPLANTUSERNAME/applications/APPFOLDER). It contains binaries, support scripts, test data, etc. all in one package. Agave basically uses a very rough form of containerized applications (more on this later). We suggest you set your apps up to look something like the following:</p>
+<p>Agave API apps have a generalized structure that allows them to carry dependencies around with them. In the case below, <em>package-name-version.dot.dot</em> is a folder that you build on your local system, then store in your Agave Cloud Storage in a designated location (we recommend /home/<username>/applications/<app folder name>). It contains binaries, support scripts, test data, etc. all in one package. Agave basically uses a very rough form of containerized applications (more on this later). We suggest you set your apps up to look something like the following:</p>
 <pre class="highlight plaintext"><code>package-name-version.dot.dot
 |--system_name
 |----bin.tgz (optional)
@@ -4793,7 +5113,7 @@ tar -czf bin.tgz bin &amp;amp;&amp;amp; rm -rf bin
 * Clean up when you&rsquo;re done</p>
 
 <p>First, you will need some test data in your current directory (i.e., $WORK/iPlant/samtools-0.1.19/stampede/ ). You can use this test file</p>
-<pre class="highlight shell"><code>files-get -S data.agaveapi.co /shared/iplantcollaborative/example_data/Samtools_mpileup/ex1.bam
+<pre class="highlight shell"><code>files-get -S data.agaveapi.co /shared/datasets/example_data/Samtools_mpileup/ex1.bam
 </code></pre>
 
 <p>or you can any other BAM file for your testing purposes. Make sure if you use another file to change the filename in your test script accordingly!</p>
@@ -5816,7 +6136,7 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
       </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/data/?q=%7B%22associationIds%22%3A%228734854070765284890-242ac116-0001-005%22%7D"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/dooley"</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1/pems"</span><span class="w">
@@ -8053,6 +8373,191 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 
 <div class="warning">Note: There is no way to save successful notification deliveries.</div>
 
+              <h2 id="postits">PostIts</h2>
+<pre class="highlight json"><code><span class="w"> </span><span class="err">/$$$$$$$</span><span class="w">                       </span><span class="err">/$$</span><span class="w">    </span><span class="err">/$$$$$$</span><span class="w"> </span><span class="err">/$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">                     </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">   </span><span class="err">|_</span><span class="w">  </span><span class="err">$$_/|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$$$$$</span><span class="w">   </span><span class="err">/$$$$$$$</span><span class="w"> </span><span class="err">/$$$$$$</span><span class="w">   </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$$$$$$//$$__</span><span class="w">  </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$_____/|_</span><span class="w">  </span><span class="err">$$_/</span><span class="w">   </span><span class="err">|</span><span class="w"> </span><span class="err">$$|_</span><span class="w">  </span><span class="err">$$_/</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$____/|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$|</span><span class="w">  </span><span class="err">$$$$$$</span><span class="w">   </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">\____</span><span class="w">  </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">     </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$/</span><span class="w"> </span><span class="err">/$$$$$$$/</span><span class="w">  </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$//$$$$$$|</span><span class="w">  </span><span class="err">$$$$/</span><span class="w">
+</span><span class="err">|__/</span><span class="w">      </span><span class="err">\______/</span><span class="w"> </span><span class="err">|_______/</span><span class="w">    </span><span class="err">\___/</span><span class="w"> </span><span class="err">|______/</span><span class="w"> </span><span class="err">\___/</span><span class="w">
+</span></code></pre>
+
+<p>The PostIts service is a URL shortening service similar to <a href="https://bit.ly">bit.ly</a>, <a href="https://goo.gl/">goo.gl</a>, and <a href="http://t.co">t.co</a>. It allows you to create pre-authenticated, disposable URLs to any resource in the Agave Platform. You have control over the lifetime and number of times the URL can be redeemed, and you can expire a PostIt at any time. As with all Science API resources, a full set of events is available for you to track usage and integrate the lifecycle of a PostIt into external applications as needed.</p>
+
+<p>The most common use of PostIts is to create URLs to files and folders you can share with others without having to upload them to a third-party service. For example, using the PostIts service, you can share the output(s) of an experimental run, distribute materials for a class, submit data to a third-party service, and serve up assets for a static website like <a href="https://togo.agaveapi.co/">Agave ToGo</a>.</p>
+
+<p>Other uses cases for the PostIts service include creating &ldquo;drop&rdquo; folders to which anyone with the link can upload data, allowing a job to be reproducibly rerun for peer review, publishing metadata for public consumption, publishing a canonical reference to your user profile. The possibilities go on and on. Anytime you need to share your science with your world, PostIts can help you.</p>
+
+<h3 id="creating-postits">Creating PostIts</h3>
+
+<blockquote>
+<p>Creating a PostIt</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$AUTH_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    -d <span class="s2">"lifetime=3600"</span> <span class="se">\</span>
+    -d <span class="s2">"maxUses=10"</span> <span class="se">\</span>
+    -d <span class="s2">"method=GET"</span> <span class="se">\</span>
+    -d <span class="s2">"url=https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"</span> <span class="se">\</span>
+    <span class="s1">'https://public.agaveapi.co/postits/v2/?pretty=true'</span>
+</code></pre>
+<pre class="highlight plaintext"><code>postits-create \
+    -m 10 \
+    -l 86400 \
+    https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt
+</code></pre>
+
+<blockquote>
+<p>Should result in something similar to the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"creator"</span><span class="p">:</span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"internalUsername"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"authenticated"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created"</span><span class="p">:</span><span class="s2">"2016-09-30T21:51:31-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"expires"</span><span class="p">:</span><span class="s2">"2016-10-01T00:14:51-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"remainingUses"</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"postit"</span><span class="p">:</span><span class="s2">"f61256c53bf3744185de4ac6c0c839b4"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"noauth"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co//home/nryan/picksumipsum.txt"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"method"</span><span class="p">:</span><span class="s2">"GET"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:{</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/postits/v2/f61256c53bf3744185de4ac6c0c839b4"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"profile"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"file"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co//home/nryan/picksumipsum.txt"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>To create a PostIt, send a POST request to the PostIts service with the target url you want to share. In this example, we are sharing a file we have in Agave&rsquo;s cloud storage account.</p>
+
+<p>In the response you see standard fields such as <code class="prettyprint">created</code> timestamp and the <code class="prettyprint">postit</code> token. You also see several fields that lead into the discussion of another aspect of PosIts, the ability to restrict usage and expire them on demand.</p>
+
+<h3 id="restricting-postit-usage">Restricting PostIt usage</h3>
+
+<p>When creating a PostIt, you have the ability to limit the lifespan, number of uses, and HTTP method used to connect to the target resource. The following table shows the fields available for this purpose. Not specifying any of these fields results in a single-use PostIt that remains valid for 1 calendar month.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Attribute</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>maxUses</td>
+            <td>JSON object</td>
+            <td>The maximum number of times the postit may be redeemed. Defaults to 1.</td>
+        </tr>
+        <tr>
+            <td>maxLifetime</td>
+            <td>string</td>
+            <td>The maximum lifetime in seconds over which the postit may be redeemed. Defaults to 1 month.</td>
+        </tr>
+        <tr>
+            <td>method</td>
+            <td>GET,POST,PUT,DELETE</td>
+            <td>The HTTP method to be used to request the target resource when redeeming a postit. Defaults to GET</td>
+        </tr>
+        <tr>
+            <td>noauth</td>
+            <td>boolean</td>
+            <td>Whether the request to the target resource should be authenticated. Defaults to true.</td>
+        </tr>
+    </tbody>
+ </table>
+
+<aside class="warning">If you intend and using a PostIt as a link in a web page or a messaging service like Slack, HipChat, Facebook, Twitter, etc, which unfurl URL for display, then you should set the maximum uses greater than 4 due to the number of preflight requests made to the URL for display. Failing to do so will result in the URL showing up in the feed, but failing to resolve when clicked to download.</aside>
+
+<h3 id="listing-active-postits">Listing Active PostIts</h3>
+
+<blockquote>
+<p>Listing active PostIts</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$AUTH_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s1">'https://public.agaveapi.co/postits/v2/?pretty=true'</span>
+</code></pre>
+<pre class="highlight plaintext"><code>postits-list -v 
+</code></pre>
+
+<blockquote>
+<p>Should result in something similar to the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"creator"</span><span class="p">:</span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"internalUsername"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"authenticated"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="s2">"2016-09-30T21:51:31-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expires"</span><span class="p">:</span><span class="s2">"2016-10-01T00:14:51-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"remainingUses"</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"postit"</span><span class="p">:</span><span class="s2">"f61256c53bf3744185de4ac6c0c839b4"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"noauth"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co//home/nryan/picksumipsum.txt"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"method"</span><span class="p">:</span><span class="s2">"GET"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/postits/v2/f61256c53bf3744185de4ac6c0c839b4"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"profile"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"file"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co//home/nryan/picksumipsum.txt"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<h3 id="redeeming-postits">Redeeming PostIts</h3>
+
+<blockquote>
+<p>Redeeming a PostIt</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -s -o picksumipsum.txt <span class="s1">'https://public.agaveapi.co/postits/v2/f61256c53bf3744185de4ac6c0c839b4'</span>
+</code></pre>
+<pre class="highlight plaintext"><code>curl -s -o picksumipsum.txt 'https://public.agaveapi.co/postits/v2/f61256c53bf3744185de4ac6c0c839b4'
+</code></pre>
+
+<blockquote>
+<p>Which would download the <code class="prettyprint">picksumipsum.txt</code> file from your storage system.</p>
+</blockquote>
+
+<p>You redeem a postit by making a non-authenticated HTTP request on the PostIt URL. In the above example, that would be <code class="prettyprint">https://public.agaveapi.co/postits/v2/ead227bace394790e56beb07e7c3ff4d</code>. Every time you make a get request on the PostIt, the <code class="prettyprint">remainingUses</code> field decrements by 1. This continues until the value hits 0 or the PostIt outlives its <code class="prettyprint">expires</code> field.</p>
+
+<h4 id="forcing-postit-browser-downloads">Forcing PostIt browser downloads</h4>
+
+<p>If you are using PostIts in a browser environment, you can force a file download by adding <code class="prettyprint">force=true</code> to the PostIt URL query. If the target URL is a file item, the name of the file item will be included in the <code class="prettyprint">Content-Disposition</code> header so the downloaded file has the correct file name. You may also add the same query parameter to any target file item to force the <code class="prettyprint">Content-Disposition</code> header from the Files API.</p>
+
+<h3 id="expiring-postits">Expiring PostIts</h3>
+
+<blockquote>
+<p>Manually expiring a PostIt</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$AUTH_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -X DELETE
+    <span class="s1">'https://public.agaveapi.co/postits/v2/f61566c53bf3744185de4ac6c0c839b4?pretty=true'</span>
+</code></pre>
+<pre class="highlight plaintext"><code>postits-delete f61566c53bf3744185de4ac6c0c839b4
+</code></pre>
+
+<blockquote>
+<p>Which will result in an empty response from the server.</p>
+</blockquote>
+
+<p>In addition to setting expiration parameters when you create a PostIt, you can manually expire a PostIt at any time by making an authenticated DELETE request on the PostIt URL. This will instantly expire the PostIt from further use and remove it from your listing results.</p>
+
               <h2 id="metadata">Metadata</h2>
 <pre class="highlight json"><code><span class="w"> </span><span class="err">/$$</span><span class="w">      </span><span class="err">/$$</span><span class="w">             </span><span class="err">/$$</span><span class="w">
 </span><span class="err">|</span><span class="w"> </span><span class="err">$$$</span><span class="w">    </span><span class="err">/$$$</span><span class="w">            </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
@@ -8385,7 +8890,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 
 <p>Some common search syntax examples. Consult the <a href="https://docs.mongodb.com/manual/tutorial/query-documents/">MongoDB Query Documentation</a> for more examples and full syntax documentation.</p>
 
-              <h3 id="permissions">Permissions</h3>
+              <h3 id="metadata-permissions">Metadata Permissions</h3>
 
 <p>The Metadata service supports permissions for both Metadata and Schemata consistent with that of a number of other Agave services. If no permissions are explicitly set, only the owner of the Metadata and tenant administrators can access it.</p>
 
@@ -8425,9 +8930,9 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 <p>List the permissions on Metadata for a given user</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
-    https://public.tenants.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012/pems/<span class="nv">$USER_TO_SHARE_METADATA_WITH</span>
+    https://public.tenants.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012/pems/rclemens
 </code></pre>
-<pre class="highlight plaintext"><code>metadata-pems-list -u $USER_TO_SHARE_METADATA_WITH \
+<pre class="highlight plaintext"><code>metadata-pems-list -u rclemens \
     7341557475441971686-242ac11f-0001-012
 </code></pre>
 
@@ -8449,7 +8954,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
         </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/7341557475441971686-242ac11f-0001-012"</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/dooley"</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/nryan"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -8466,7 +8971,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
     https://public.tenants.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012/pems/nryan
 </code></pre>
-<pre class="highlight plaintext"><code>metadata-pems-list -u $USER_TO_SHARE_METADATA_WITH \
+<pre class="highlight plaintext"><code>metadata-pems-list -u rclemens \
     7341557475441971686-242ac11f-0001-012
 </code></pre>
 
@@ -8487,7 +8992,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
       </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/meta/v2/7341557475441971686-242ac11f-0001-012"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nt">"profile"</span><span class="p">:{</span><span class="w">
-      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/meta/v2/dooley"</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/meta/v2/nryan"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -8502,9 +9007,9 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 </blockquote>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST
     --data <span class="s1">'{"permission":"READ"}'</span>
-    https://public.tenants.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012/pems/<span class="nv">$USER_TO_SHARE_METADATA_WITH</span>
+    https://public.tenants.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012/pems/rclemens
 </code></pre>
-<pre class="highlight plaintext"><code>metadata-pems-addupdate -u $USER_TO_SHARE_METADATA_WITH \
+<pre class="highlight plaintext"><code>metadata-pems-addupdate -u rclemens \
     -p READ 7341557475441971686-242ac11f-0001-012
 </code></pre>
 
@@ -8513,9 +9018,9 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 </blockquote>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST
     --data <span class="s1">'{"permission":"READ_WRITE"}'</span>
-    https://public.tenants.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012/pems/<span class="nv">$USER_TO_SHARE_METADATA_WITH</span>
+    https://public.tenants.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012/pems/rclemens
 </code></pre>
-<pre class="highlight plaintext"><code>metadata-pems-addupdate -u $USER_TO_SHARE_METADATA_WITH \
+<pre class="highlight plaintext"><code>metadata-pems-addupdate -u rclemens \
     -p READ_WRITE 7341557475441971686-242ac11f-0001-012
 </code></pre>
 
@@ -8523,14 +9028,14 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 <p>The response will look something like the following:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$USER_TO_SHARE_METADATA_WITH"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rclemens"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"permission"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"read"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nt">"write"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/7341557475441971686-242ac11f-0001-012/pems/$USER_TO_SHARE_METADATA_WITH"</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/7341557475441971686-242ac11f-0001-012/pems/rclemens"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nt">"parent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/7341557475441971686-242ac11f-0001-012"</span><span class="w">
@@ -8551,9 +9056,9 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 </blockquote>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
     -X DELETE
-    https://public.tenants.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012/pems/<span class="nv">$USER_TO_SHARE_METADATA_WITH</span>
+    https://public.tenants.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012/pems/rclemens
 </code></pre>
-<pre class="highlight plaintext"><code>metadata-pems-delete -u $USER_TO_SHARE_METADATA_WITH 7341557475441971686-242ac11f-0001-012
+<pre class="highlight plaintext"><code>metadata-pems-delete -u rclemens 7341557475441971686-242ac11f-0001-012
 </code></pre>
 
 <blockquote>
@@ -9232,7 +9737,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
     </span><span class="nt">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-06-12T19:10:22Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This monitor was created by dooley"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This monitor was created by nryan"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5705275956568068582-242ac11f-0001-035"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -10330,88 +10835,154 @@ monitors-checks-search -M target.like=*ec2* \
 
 <h3 id="date-support">Date support</h3>
 
-<p>Dates returned from the Agave core science API are always formatted as ISO 8601 dates. When searching, however, a much more flexible date syntax is supported. The following table lists supported expressions by example.
+<p>Dates returned from the Agave core science API are always formatted as ISO8601 dates. When searching, however, a much more flexible date syntax is supported. The following table lists supported expressions by example.</p>
+
 <table>
     <thead>
         <tr>
-            <th>Operator</th>
-            <th>Values</th>
-            <th>Description</th>
+            <th>Expression</th>
+            <th>Equivalent Expression</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>eq</td>
-            <td>mixed</td>
-            <td>Matches values equal to the given search value. All comparisons are case sensitive. This cannot be used for complex object comparison.</td>
+            <td>08:00:00.000</td>
+            <td></td>
         </tr>
         <tr>
-            <td>on</td>
-            <td>datestring</td>
-            <td>Matches dates falling on the given datestring. Regardless of the precision given in the datestring, the search will look for matches from midnight to midnight on the resovled date.</td>
+            <td>4pm or 04:00pm or 16:00</td>
+            <td>16:00:00.000</td>
         </tr>
         <tr>
-            <td>neq</td>
-            <td>mixed</td>
-            <td>Matches values <b>not</b> equal to the given search value. All comparisons are case sensitive. This cannot be used for complex object comparison.</td>
+            <td>430pm or 04:30pm or 16:30</td>
+            <td>16:30:00.000</td>
         </tr>
         <tr>
-            <td>lt</td>
-            <td>mixed</td>
-            <td>Matches values less than the given search value. </td>
+            <td>4pm</td>
+            <td>17:00:00.000</td>
         </tr>
         <tr>
-            <td>before</td>
-            <td>datestring</td>
-            <td>Matches dates falling before the given datestring. Single second precision is supported.</td>
+            <td>+1 second|minute|hour|day|week|month|year</td>
+            <td>now +1 second|minute|hour|day|week|month|year</td>
         </tr>
         <tr>
-            <td>lte</td>
-            <td>mixed</td>
-            <td>Matches values less than or equal to the given search value. </td>
+            <td>-1 second|minute|hour|day|week|month|year</td>
+            <td>now -1 second|minute|hour|day|week|month|year</td>
         </tr>
         <tr>
-            <td>gt</td>
-            <td>mixed</td>
-            <td>Matches values greater than the given search value. </td>
+            <td>next Tuesday</td>
+            <td></td>
         </tr>
         <tr>
-            <td>after</td>
-            <td>datestring</td>
-            <td>Matches values after the given datestring. </td>
+            <td>last Tuesday</td>
+            <td></td>
         </tr>
         <tr>
-            <td>gte</td>
-            <td>mixed</td>
-            <td>Matches values greater than or equal to the given search value. </td>
+            <td>now</td>
+            <td>new Date()</td>
         </tr>
         <tr>
-            <td>in</td>
-            <td>comma-separated list</td>
-            <td>Matches values in the given comma-separated list. This is equivalent to applying the <span class="code">like</span> operator to each comma-separated value .</td>
+            <td>today</td>
+            <td>00:00:00.000</td>
         </tr>
         <tr>
-            <td>nin</td>
-            <td>comma-separated list</td>
-            <td>Matches values <b>not</b> in the given comma-separated list. This is equivalent to applying the <span class="code">nlike</span> operator to each comma-separated value .</td>
+            <td>midnight</td>
+            <td>00:00:00.000 +24 hours</td>
         </tr>
         <tr>
-            <td>like</td>
-            <td>string</td>
-            <td>Matches values similar to the given search term. Wildcards (<em>) may be used to perform partial matches.</td>
+            <td>morning or this morning</td>
+            <td>07:00:00.000</td>
         </tr>
         <tr>
-            <td>nlike</td>
-            <td>string</td>
-            <td>Matches values different from the given search term. Wildcards (</em>) may be used to perform partial matches.</td>
+            <td>noon</td>
+            <td>12:00:00.000</td>
         </tr>
         <tr>
-            <td>between</td>
-            <td>comma-separated datestring </td>
-            <td>Matches dates falling within the given range. Single second precision is supported at either end of the range.</td>
+            <td>afternoon or this afternoon</td>
+            <td>13:00:00.000</td>
+        </tr>
+        <tr>
+            <td>evening or this evening</td>
+            <td>17:00:00.000</td>
+        </tr>
+        <tr>
+            <td>tonight</td>
+            <td>20:00:00.000</td>
+        </tr>
+        <tr>
+            <td>tomorrow</td>
+            <td>now +24 hours</td>
+        </tr>
+        <tr>
+            <td>tomorrow morning</td>
+            <td>morning +24 hours</td>
+        </tr>
+        <tr>
+            <td>noon tomorrow or tomorrow noon</td>
+            <td>noon +24 hours</td>
+        </tr>
+        <tr>
+            <td>tomorrow afternoon</td>
+            <td>afternoon +24 hours</td>
+        </tr>
+        <tr>
+            <td>yesterday</td>
+            <td>now -24 hours</td>
+        </tr>
+        <tr>
+            <td>all the permutations of yesterday and morning, noon, afternoon, and evening</td>
+            <td>#colspan#</td>
+        </tr>
+        <tr>
+            <td>2004</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>October or Oct</td>
+            <td>10/1</td>
+        </tr>
+        <tr>
+            <td>Tuesday or Tue</td>
+            <td><i>Calendar date of the next Tuesday</i></td>
+        </tr>
+        <tr>
+            <td>October 26, 1981 or Oct 26, 1981</td>
+            <td>10/26/1981</td>
+        </tr>
+        <tr>
+            <td>October 26 or Oct 26</td>
+            <td>10/26</td>
+        </tr>
+        <tr>
+            <td>26 October 1981</td>
+            <td>10/26/1981</td>
+        </tr>
+        <tr>
+            <td>26 Oct 1981</td>
+            <td>10/26/1981</td>
+        </tr>
+        <tr>
+            <td>26 Oct 81</td>
+            <td>10/26/1981</td>
+        </tr>
+        <tr>
+            <td>10/26/1981 or 10-26-1981</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>10/26/81 or 10-26-81</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>1981/10/26 or 1981-10-26</td>
+            <td>10/26/1981</td>
+        </tr>
+        <tr>
+            <td>10/26 or 10-26</td>
+            <td></td>
         </tr>
     </tbody>
-</table></p>
+</table>
 
               <h1 id="tooling">Tooling</h1>
 
