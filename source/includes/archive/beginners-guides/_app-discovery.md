@@ -166,7 +166,7 @@ apps-list -v wc-osg-1.00u1
       "href":"https://public.tenants.agaveapi.co/meta/v2/data/?q={\"associationIds\":\"0001402162152914-5056a550b8-0001-005\"}"
     },
     "owner":{  
-      "href":"https://public.tenants.agaveapi.co/profiles/v2/dooley"
+      "href":"https://public.tenants.agaveapi.co/profiles/v2/nryan"
     },
     "permissions":{  
       "href":"https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00u1/pems"

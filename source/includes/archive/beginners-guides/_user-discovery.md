@@ -5,19 +5,19 @@ Nothing great is ever accomplished alone. In the course of conducting your resea
 ## Finding others  
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/profiles/v2/?email=dooley?naked=true
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/profiles/v2/?email=nryan?naked=true
 ```
 
 ```plaintext
-profiles-list -v -E dooley
+profiles-list -v -E nryan
 ``` 
 ```javascript
 [ 
   {
     "username" : "tilefish2",
-    "email" : "dooley@adelphi.edu",
+    "email" : "nryan@adelphi.edu",
     "firstName" : "james",
-    "lastName" : "dooley",
+    "lastName" : "nryan",
     "position" : "null",
     "institution" : "null",
     "phone" : null,
@@ -38,8 +38,8 @@ profiles-list -v -E dooley
     }
   }, 
   {
-    "username" : "dooley",
-    "email" : "dooley@tacc.utexas.edu",
+    "username" : "nryan",
+    "email" : "nryan@tacc.utexas.edu",
     "firstName" : "Rion",
     "lastName" : "Dooley",
     "position" : "null",
@@ -54,16 +54,16 @@ profiles-list -v -E dooley
     "gender" : "",
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/profiles/v2/dooley"
+        "href" : "https://public.tenants.agaveapi.co/profiles/v2/nryan"
       },
       "users" : {
-        "href" : "https://public.tenants.agaveapi.co/profiles/v2/dooley/users"
+        "href" : "https://public.tenants.agaveapi.co/profiles/v2/nryan/users"
       }
     }
   }, 
   {
     "username" : "systest",
-    "email" : "dooley@iplantcollaborative.org",
+    "email" : "nryan@iplantcollaborative.org",
     "firstName" : "Systest",
     "lastName" : "Account",
     "position" : "null",
@@ -90,7 +90,7 @@ profiles-list -v -E dooley
 
 To search for other users, make a GET request to the Profiles service with the search type and value in the URL query.
 
-The response to this call is a JSON array of users who email addresses match the search term `dooley` in some way.
+The response to this call is a JSON array of users who email addresses match the search term `nryan` in some way.
 <br/>
 <br/>
 <br/>

@@ -54,7 +54,7 @@ During the jobs submission process, Agave will store your inputs and parameters 
 
 ### App packaging  
 
-Agave API apps have a generalized structure that allows them to carry dependencies around with them. In the case below, <em>package-name-version.dot.dot</em> is a folder that you build on your local system, then store in the iPlant Data Store in a designated location (we recommend /iplant/home/IPLANTUSERNAME/applications/APPFOLDER). It contains binaries, support scripts, test data, etc. all in one package. Agave basically uses a very rough form of containerized applications (more on this later). We suggest you set your apps up to look something like the following:
+Agave API apps have a generalized structure that allows them to carry dependencies around with them. In the case below, <em>package-name-version.dot.dot</em> is a folder that you build on your local system, then store in your Agave Cloud Storage in a designated location (we recommend /home/<username>/applications/<app folder name>). It contains binaries, support scripts, test data, etc. all in one package. Agave basically uses a very rough form of containerized applications (more on this later). We suggest you set your apps up to look something like the following:
 
 ```
 package-name-version.dot.dot
@@ -143,7 +143,7 @@ Your first objective is to create a script that you know will run to completion 
 First, you will need some test data in your current directory (i.e., $WORK/iPlant/samtools-0.1.19/stampede/ ). You can use this test file
 
 ```shell
-files-get -S data.agaveapi.co /shared/iplantcollaborative/example_data/Samtools_mpileup/ex1.bam
+files-get -S data.agaveapi.co /shared/datasets/example_data/Samtools_mpileup/ex1.bam
 ```
 
 or you can any other BAM file for your testing purposes. Make sure if you use another file to change the filename in your test script accordingly!

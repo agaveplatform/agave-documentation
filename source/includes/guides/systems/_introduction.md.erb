@@ -125,55 +125,56 @@ You can further filter the results by type, scope, and default status. See the s
 ### System details
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co
 ```
 ```plaintext
-systems-list -v $SYSTEM_ID
+systems-list -v data.agaveapi.co
 ```
 > The response will be something like this:
 
 ```json
 {
-   "default":true,
-   "description":"The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&#039;s technologies.",
-   "id":"data.agaveapi.co",
-   "lastModified":"2013-11-12T07:08:30.000-06:00",
-   "name":"iPlant Data Store",
-   "public":true,
-   "revision":4,
-   "site":"iplantcollaborative.org",
-   "status":"UP",
-   "storage":{
-      "auth":{
-         "type":"PASSWORD"
-      },
-      "homeDir":"/",
-      "host":"data.agaveapi.co",
-      "mirror":true,
-      "port":1247,
-      "protocol":"IRODS",
-      "proxy":null,
-      "publicAppsDir":null,
-      "resource":"bitol",
-      "rootDir":"/iplant/home",
-      "zone":"iplant"
-   },
-   "type":"STORAGE",
-   "uuid":"0001384260598633-5056a550b8-0001-006",
-   "_links":{
-      "credentials":{
-         "href":"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co/credentials"
-      },
-      "metadata":{
-         "href":"https://public.tenants.agaveapi.co/meta/v2/data/?q={"associationIds":"0001384260598633-5056a550b8-0001-006"}"
-      },
-      "roles":{
-         "href":"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co/roles"
-      },
-      "self":{
-         "href":"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"
-      }
-   }
+  "site": "agaveapi.co",
+  "id": "data.agaveapi.co",
+  "revision": 4,
+  "default": true,
+  "lastModified": "2016-09-30T21:43:11.000-05:00",
+  "status": "UP",
+  "description": "Cloud storage system for the Agave Public tenant",
+  "name": "Agave Cloud Storage",
+  "owner": "dooley",
+  "_links": {
+    "roles": {
+      "href": "https://public.agaveapi.co/systems/v2/data.agaveapi.co/roles"
+    },
+    "credentials": {
+      "href": "https://public.agaveapi.co/systems/v2/data.agaveapi.co/credentials"
+    },
+    "self": {
+      "href": "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+    },
+    "metadata": {
+      "href": "https://public.agaveapi.co/meta/v2/data/?q=%7B%22associationIds%22%3A%224602981590618992154-242ac116-0001-006%22%7D"
+    }
+  },
+  "globalDefault": true,
+  "available": true,
+  "uuid": "4602981590618992154-242ac116-0001-006",
+  "public": true,
+  "type": "STORAGE",
+  "storage": {
+    "mirror": false,
+    "port": 22,
+    "homeDir": "/home",
+    "protocol": "SFTP",
+    "host": "corral.tacc.utexas.edu",
+    "publicAppsDir": "/apps",
+    "proxy": null,
+    "rootDir": "/gpfs/corral3/repl/projects/agave/root",
+    "auth": {
+      "type": "SSHKEYS"
+    }
+  }
 }
 ```
 

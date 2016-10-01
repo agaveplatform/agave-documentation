@@ -155,7 +155,7 @@ The response to this contains the full description of the system `docker.iplantc
       "port":22,
       "protocol":"SFTP",
       "proxy":null,
-      "rootDir":"/home/dooley/vhome"
+      "rootDir":"/home/nryan/vhome"
    },
    "type":"EXECUTION",
    "uuid":"0001402177703917-5056a550b8-0001-006",

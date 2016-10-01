@@ -98,7 +98,7 @@ The JSON for our intermediate app is below.
     {
       "id":"dataset",
       "value":{
-        "default":"agave://data.agaveapi.co/dooley/inputs/pyplot/testdata.csv",
+        "default":"agave://data.agaveapi.co/nryan/inputs/pyplot/testdata.csv",
         "type":"string",
         "validator":"([^s]+(.(?i)(zip|gz|tgz|tar.gz|bz2|rar|csv))$)",
         "visible":true,
@@ -570,8 +570,8 @@ That will produce JSON similar to the following in the `submit.json` file. In th
   "appId": "demo-pyplot-demo-advanced-0.1.0",
   "inputs": {
     "dataset": [
-      "agave://data.agaveapi.co/dooley/inputs/pyplot/testdata.csv",
-      "agave://data.agaveapi.co/dooley/inputs/pyplot/testdata2.csv"
+      "agave://data.agaveapi.co/nryan/inputs/pyplot/testdata.csv",
+      "agave://data.agaveapi.co/nryan/inputs/pyplot/testdata2.csv"
     ]
   },
   "archive": false,

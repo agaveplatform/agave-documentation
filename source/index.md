@@ -33,6 +33,7 @@ includes:
 - guides/files/_introduction.md.erb
 - guides/files/_files-provenance.md.erb
 - guides/files/_files-metadata.md.erb
+- guides/files/_files-permissions.md.erb
 - guides/apps/_introduction.md.erb
 - guides/apps/_app-history.md.erb
 - guides/apps/_app-inputs-and-parameters-tutorial.md.erb
@@ -51,6 +52,9 @@ includes:
 - guides/notifications/_notification-macros.md.erb
 - guides/notifications/_notification-managing.md.erb
 - guides/notifications/_notification-policy.md.erb
+- guides/postits/_introduction.md.erb
+#- guides/postits/_postits-downloads.md.erb
+#- guides/postits/_postits-events.md.erb
 - guides/metadata/_introduction.md.erb
 - guides/metadata/_metadata-validation.md.erb
 - guides/metadata/_metadata-search.md.erb

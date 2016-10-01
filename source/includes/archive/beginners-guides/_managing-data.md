@@ -128,32 +128,32 @@ Standard data management tasks are supported as well. Agave gives you a common i
 ### Creating directories
  
 ```shell
-curl -sk -H "Authorization: Bearer 35ed548df42cb551e7a5dbbc28a37d32" -X PUT -d "action=mkdir&path=foo/biz" https://public.agaveapi.co/files/v2/media/dooley?pretty=true&naked=true
+curl -sk -H "Authorization: Bearer 35ed548df42cb551e7a5dbbc28a37d32" -X PUT -d "action=mkdir&path=foo/biz" https://public.agaveapi.co/files/v2/media/nryan?pretty=true&naked=true
 ```
 ```plaintext
-files-mkdir -N foo/biz -V dooley
+files-mkdir -N foo/biz -V nryan
 ```
 ```json
 {
     "name" : "biz",
     "uuid" : "4639785346841317861-e0bd34dffff8de6-0001-002",
-    "owner" : "dooley",
+    "owner" : "nryan",
     "internalUsername" : null,
     "lastModified" : "2016-01-11T11:39:23.054-06:00",
-    "source" : "dooley/foo/biz",
-    "path" : "dooley/foo/biz",
+    "source" : "nryan/foo/biz",
+    "path" : "nryan/foo/biz",
     "status" : "TRANSFORMING_COMPLETED",
     "systemId" : "data.agaveapi.co",
     "nativeFormat" : "dir",
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/dooley/foo/biz"
+        "href" : "https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/foo/biz"
       },
       "system" : {
         "href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
       },
       "history" : {
-        "href" : "https://public.agaveapi.co/files/v2/history/system/data.agaveapi.co/dooley/foo/biz"
+        "href" : "https://public.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/foo/biz"
       }
     }
 }
