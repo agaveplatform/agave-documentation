@@ -14,8 +14,8 @@
 
     <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-    <script src="javascripts/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- <script src="javascripts/jquery.min.js" type="text/javascript"></script> -->
 
       <script src="javascripts/all.js" type="text/javascript"></script>
     <script>
@@ -3559,7 +3559,7 @@ As with storage systems, Agave supports several different protocols and mechanis
 
 <h3 id="understanding-file-paths">Understanding file paths</h3>
 
-<p>One potentially confusing feature of Agave is its support for virtualizing systems paths. Every registered system specifies both a root directory, <code class="prettyprint">rootDir</code>, and a home directory, <code class="prettyprint">homeDir</code> attribute in its storage configuration. <code class="prettyprint">rootDir</code> tells Agave the absolute path on the remote system that it should treat as <code class="prettyprint">/</code>. Similar to the Linux <code class="prettyprint">chroot</code> command; no requests made to Agave will ever be resolved to locations outside of <code class="prettyprint">rootDir</code>.</p>
+<p>One powerful, but potentially confusing feature of Agave is its support for virtualizing systems paths. Every registered system specifies both a root directory, <code class="prettyprint">rootDir</code>, and a home directory, <code class="prettyprint">homeDir</code> attribute in its storage configuration. <code class="prettyprint">rootDir</code> tells Agave the absolute path on the remote system that it should treat as <code class="prettyprint">/</code>. Similar to the Linux <code class="prettyprint">chroot</code> command; no requests made to Agave will ever be resolved to locations outside of <code class="prettyprint">rootDir</code>.</p>
 
 <table>
     <thead>
@@ -3695,6 +3695,10 @@ As with storage systems, Agave supports several different protocols and mechanis
 <p>Before we talk about how to do basic operations on your data, let&rsquo;s first talk about how you can move your data around. You already have a storage system available to you, so we will start with the &ldquo;hello world&rdquo; of data movement, uploading a file.</p>
 
 <h3 id="uploading-data">Uploading data</h3>
+
+<blockquote>
+<p>Uploading a file  </p>
+</blockquote>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
     -X POST <span class="se">\</span>
     -F <span class="s2">"fileToUpload=@files/picksumipsum.txt"</span> <span class="se">\</span>
@@ -3713,7 +3717,7 @@ As with storage systems, Agave supports several different protocols and mechanis
     </span><span class="nt">"nativeFormat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"raw"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/nryan/picksumipsum.txt"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://129.114.60.211/picksumipsum.txt"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1/picksumipsum.txt"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STAGING_QUEUED"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"systemId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001409758089943-5056a550b8-0001-002"</span><span class="p">,</span><span class="w">
@@ -3733,11 +3737,11 @@ As with storage systems, Agave supports several different protocols and mechanis
 
 <p>You may upload data to a remote systems by performing a multipart POST on the FILES service. If you are using the Agave CLI, you can perform recursive directory uploads. If you are manually calling curl or building an app with the Agave SDK, you will need to implement the recursion yourself. You can take a look in the <code class="prettyprint">files-upload</code> script to see how this is done. The following is an example of how to upload a file that we will use in the remainder of this tutorial.</p>
 
-<p>You will see a progress bar while the file uploads, followed by a response from the server with a description of the uploaded file. Agave does not block during data movement operations, so it may be just a second before the file physically shows up on the remote system.</p>
+<p>You will see a progress bar while the file uploads, followed by a response from the server with a description of the uploaded file. Agave does not block during data movement operations, so it may be just a moment before the file physically shows up on the remote system.</p>
 
 <h3 id="importing-data">Importing data</h3>
 
-<p>You can also import data from an external URL. Rather than making a multipart file upload request, you can pass in a JSON object with the URL and an optional target file name, file type, and array of notifications which should be made when the import completes. Agave supports several protocols for ingestion listed in the next table.</p>
+<p>You can also have Agave download data from an external URL. Rather than making a multipart file upload request, you can pass in a JSON object with the URL and an optional target file name, type, and array of notifications subscriptions. Agave supports several protocols for ingestion listed in the next table.</p>
 
 <table>
     <thead>
@@ -3770,7 +3774,11 @@ As with storage systems, Agave supports several different protocols and mechanis
     </tbody>
 </table>
 
-<p>To demonstrate how this works, will import a the README.md file from the <a href="https://bitbucket.org/agaveapi/science-api-samples" title="Agave Samples" target="_blank">Agave Samples</a> git repository in Bitbucket.</p>
+<p>To demonstrate how this works, we will import a README.md file from the <a href="https://bitbucket.org/agaveapi/science-api-samples" title="Agave Samples" target="_blank">Agave Samples</a> git repository in Bitbucket.</p>
+
+<blockquote>
+<p>Download a file from a web accessible URL  </p>
+</blockquote>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST
     -- data &amp;#039;<span class="o">{</span> <span class="s2">"url"</span>:<span class="s2">"https://bitbucket.org/agaveapi/science-api-samples/raw/master/README.md"</span><span class="o">}</span>&amp;#039;
     https://public.tenants.agaveapi.co/files/v2/media/data.agaveapi.co/nryan
@@ -3807,9 +3815,9 @@ As with storage systems, Agave supports several different protocols and mechanis
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Importing data from a third party is done offline as an asynchronous activity, so the response from the server will come right away. The response is given below. One thing worth noting is that the file length given in the response will always be -1. This is because Agave does not know what the actual file size is yet. That will be updated later on, after the transfer has finished.</p>
+<p>Downloading data from a third party is done offline as an asynchronous activity, so the response from the server will come right away. One thing worth noting is that the file length given in the response will always be -1. This is because, generally speaking, Agave does not know what the actual source file size is until after the repsonse is send back. The file size will be updated as the download progresses. You can track the progress by querying the destination file item&rsquo;s history. An entry will be present showing the progress of the download.</p>
 
-<p>For this exercise, the file we just imported is just a few KB, so you should see it appear in your home folder on <code class="prettyprint">data.agaveapi.co</code> almost immediately. If you were importing larger datasets, the transfer could take significantly longer depending on the network quality between Agave and the source location. In this case, you would see the file size continue to increase until it completed. In the event of a failed transfer, Agave will retry several times before canceling the transfer.</p>
+<p>For this exercise, the file we just downloaded is just a few KB, so you should see it appear in your home folder on <code class="prettyprint">data.agaveapi.co</code> almost immediately. If you were importing larger datasets, the transfer could take significantly longer depending on the network quality between Agave and the source location. In this case, you would see the file size continue to increase until it completed. In the event of a failed transfer, Agave will retry several times before canceling the transfer.</p>
 
 <aside class="notice">Agave attempts to make smart decisions about how and when to transfer data. This includes leveraging third-party transfers whenever possible, scaling directory copies out horizontally, and taking advantage of chunked or parallel uploads. As a result, data may arrive in a non-deterministic way on the target system. This is normal and should be expected.</aside>
 
@@ -3831,11 +3839,11 @@ As with storage systems, Agave supports several different protocols and mechanis
 <p>The response from the service will be the same as the one we received importing a file.</p>
 </blockquote>
 
-<p>Much like importing data, Agave can manage the transfer of data between registered systems. This is, in fact, how data is staged prior to running a simulation. Data transfers are fire and forget, so you can simply start a transfer and go about your business. Agave will ensure it completes. If you would like a notification when the transfer completes or reaches a certain stage, you can subscribe for one or more emails and/or <a href="http://webhooks.org" title="Webhooks" target="_blank">webhooks</a> and Agave will process them upon completion. The following table lists the available file events. For more information about the events and notifications systems, please see the <a href="#notifications" title="Notifications Guide" target="_blank">Notifications Guide</a> and <a href="#event-reference" title="Event Reference" target="_blank">Event Reference</a>.</p>
+<p>Much like downloading data, Agave can manage the transfer of data between registered systems. This is, in fact, how data is staged prior to running a simulation. Data transfers are carried out asynchronously, so you can simply start a transfer and go about your business. Agave will ensure it completes. If you would like a notification when the transfer completes or reaches a certain stage, you can subscribe for one or more emails, <a href="http://webhooks.org" title="Webhooks" target="_blank">webhooks</a>, and/or <a href="#reatime-notifications" title="Realtime Notifications">realtime</a> notifications, and Agave will alert them when as the transfer progresses. The following table lists the available file events. For more information about the events and notifications systems, please see the <a href="#notifications" title="Notifications Guide" target="_blank">Notifications Guide</a> and <a href="#event-reference" title="Event Reference" target="_blank">Event Reference</a>.</p>
 
 <p>In the example below, we will transfer a file from <code class="prettyprint">stampede.tacc.utexas.edu</code> to <code class="prettyprint">data.agaveapi.co</code>. While the request looks pretty basic, there is a lot going on behind the scenes. Agave will authenticate to both systems, check permissions, stream data out of Stampede using GridFTP and proxy it into <code class="prettyprint">data.agaveapi.co</code> using the SFTP protocol, adjusting the transfer buffer size along the way to optimize throughput. Doing this by hand is both painful and error prone. Doing it with Agave is nearly identical to copying a file from one directory to another on your local system.</p>
 
-<p>One of the benefits of the Files service is that it frees you up to work in parallel and scale as large as your application demands. In the next example we will use the Files service to create redundant archives of a shared project directory.</p>
+<p>One of the benefits of the Files service is that it frees you up to work in parallel and scale with your application demands. In the next example we will use the Files service to create redundant archives of a shared project directory.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
     -X POST <span class="se">\</span>
@@ -3950,7 +3958,7 @@ files-import -v -U "agave://data.agaveapi.co/nryan/foo_project" -S nryan.storage
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
     -X POST <span class="se">\</span>
-    --data-binary <span class="s1">'{"action":"copy","path":$DESTPATH"}'</span> <span class="se">\</span>
+    --data-binary <span class="s1">'{"action":"copy","path":"$DESTPATH"}'</span> <span class="se">\</span>
     https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/<span class="nv">$PATH</span>
 </code></pre>
 <pre class="highlight plaintext"><code>files-copy -D $DESTPATH -S data.agaveapi.co $PATH
@@ -3968,7 +3976,7 @@ files-import -v -U "agave://data.agaveapi.co/nryan/foo_project" -S nryan.storage
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
     -X POST <span class="se">\</span>
-    --data-binary <span class="s1">'{"action":"move","path":$DESTPATH"}'</span> <span class="se">\</span>
+    --data-binary <span class="s1">'{"action":"move","path":"$DESTPATH"}'</span> <span class="se">\</span>
     https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/<span class="nv">$PATH</span>
 </code></pre>
 <pre class="highlight plaintext"><code>files-move -D $DESTPATH -S data.agaveapi.co $PATH
@@ -3989,14 +3997,14 @@ files-import -v -U "agave://data.agaveapi.co/nryan/foo_project" -S nryan.storage
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
    -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
    -X POST <span class="se">\</span>
-   --data-binary <span class="s1">'{"action":"rename","path":$NEWNAME"}'</span> <span class="se">\</span>
+   --data-binary <span class="s1">'{"action":"rename","path":"$NEWNAME"}'</span> <span class="se">\</span>
     https://public.tenants.agaveapi.co/files/v2/media/system/<span class="nv">$SYSTEM_ID</span>/<span class="nv">$PATH</span>
 </code></pre>
 <pre class="highlight plaintext"><code>files-rename -N $NEWNAME -S $SYSTEM_ID $PATH
 </code></pre>
 
 <blockquote>
-<p>The response will reflect the renamed file item</p>
+<p>The response will reflect the renamed file item  </p>
 </blockquote>
 <pre class="highlight json"><code></code></pre>
 
@@ -4010,7 +4018,7 @@ files-import -v -U "agave://data.agaveapi.co/nryan/foo_project" -S nryan.storage
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
     -X POST <span class="se">\</span>
-    --data-binary <span class="s1">'{"action":"mkdir","path":$NEWDIR"}'</span> <span class="se">\</span>
+    --data-binary <span class="s1">'{"action":"mkdir","path":"$NEWDIR"}'</span> <span class="se">\</span>
     https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/<span class="nv">$PATH</span>
 </code></pre>
 <pre class="highlight plaintext"><code>files-mkdir -N $NEWDIR -S $SYSTEM_ID $PATH
@@ -4536,6 +4544,124 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 </span></code></pre>
 
 <p>When dealing with directories, the permission operations you perform will apply onto to the directory item itself. Permissions will not automatically propagate to the directory contents. In cases where you want to recursively apply permissions to the entire directory tree, you can do so by including the <code class="prettyprint">recursive</code> attribute in your permission objects or to your URL query parameters when making a DELETE request.</p>
+
+              <h3 id="publishing-data">Publishing data</h3>
+
+<p>Agave provides multiple ways to share your data with your colleagues and the general public. In addition to the standard permission model enabling you to share your data with one or more authenticated users within the Platform, you also have the ability to publish your data and make it available via an unauthenticated public URL. Unlike traditional web and cloud hosting, your data remains in its original location and is served in situ by Agave upon user request.</p>
+
+<aside class="info">See the <a href="#postits">PostIts Guide</a> for other ways to securely share your data with others.</aside>
+
+<h4 id="publishing-individual-files">Publishing individual files</h4>
+
+<blockquote>
+<p>Publish file item for public access</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    --data <span class="s1">'{"username","public", "permission":"READ"}'</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt
+</code></pre>
+<pre class="highlight plaintext"><code>files-pems-addupdate \
+    -u public \
+    -p READ \
+    -S data.agaveapi.co \
+    nryan/picksumipsum.txt
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"public"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"permission"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"read"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"write"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"execute"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"recursive"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username.eq=$SHARE_USERNAME"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"file"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/$SHARE_USERNAME"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h4 id="publishing-directories">Publishing directories</h4>
+
+<blockquote>
+<p>Publish directory for public access</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    --data <span class="s1">'{"username","public", "permission":"READ", "recursive": true}'</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/public
+</code></pre>
+<pre class="highlight plaintext"><code>files-pems-addupdate \
+    --recursive \
+    -u public \
+    -p READ \
+    -S data.agaveapi.co \
+    nryan/public
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"public"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"permission"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"read"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"write"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"execute"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"recursive"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/public?username.eq=public"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"file"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/public"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Publishing an entire directory is similar to publishing a single file item. Simply include a <code class="prettyprint">recursive</code> field to your request with a value of <code class="prettyprint">true</code>. Once published, the directory will be available through Agave&rsquo;s public download URLS. The structure of the directory&rsquo;s url is predictable. Each user has a unique namespace for their published data.</p>
+
+<p><code class="prettyprint">https://public.agaveapi.co/files/v2/download/&lt;username&gt;/system/&lt;system_id&gt;/&lt;path&gt;</code>. </p>
+
+<h4 id="publishing-considerations">Publishing considerations</h4>
+
+<p>Publishing data through Agave can be a great way to share and access data. There are situations in which it may not be an ideal choice. We list several of the pitfalls user run into when publishing their data.</p>
+
+<h5 id="large-file-publishing">Large file publishing</h5>
+
+<p>Before publishing your large datasets, take a step back and consider how you might leverage the Files or Transfers API to reliable serve up your data. HTTP is not the fastest way to serve up the data, and it may not be the best usage pattern for applications hoping to consume it. Thinking through your use case is well worth the time, even if publishing ends up being the best approach.  </p>
+
+<h5 id="static-website-hosting">Static website hosting</h5>
+
+<p>Website hosting is a fairly common use case for data publishing. The challenge is that your assets are still hosted remotely from our API servers and fetched on demand. This can create some heavy latency when serving up lots of assets. Depending on the nature of your backend storage solution, it may not easily handle access patterns common to the web. In those situations, you may see some files fail to load from time to time. If your site has many files, even a small failure rate can keep your site from reliably loading. </p>
+
+<p>If you are going to use the file publishing service for web hosting, the following tips can help improve your overall experience.</p>
+
+<ol>
+<li>Whenever possible, reference versions of your css, fonts, and javascript dependencies hosted on public CDN. CloudFlare, Google, and Amazon all host public mirrors of the most popular javascript libraries and frameworks. Linking to those can greatly speed up your load time.</li>
+<li>Use a technology like <code class="prettyprint">Webpack</code> to reduce the number of files needed to serve your application.<br></li>
+<li>Lazy load your assets with <code class="prettyprint">oclazyload</code>, <code class="prettyprint">requirejs</code> or including <code class="prettyprint">async</code> attributes on your <code class="prettyprint">&lt;script&gt;</code> elements.<br></li>
+<li>Store your assets on a storage system with as little connection and protocol overhead as possible. That means avoiding tape archives, gridftp, overprovisioned shared resources, and systems only accessible through a proxied connection. While the service will still work in all of these situations, it is common for the overhead involved in establishing a connection and authenticating to take longer than the actual file transfer when the file is small. Simply avoiding slower storage protocols can greating speed up your application&rsquo;s load time.</li>
+</ol>
 
               <h2 id="apps">Apps</h2>
 <pre class="highlight json"><code><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">
@@ -6858,6 +6984,10 @@ curl -sk -H <span class="s2">"Authorization: Bearer  </span><span class="nv">$AC
 </span></code></pre>
 
 <h3 id="deleting">Deleting</h3>
+
+<blockquote>
+<p>Deleting a job  </p>
+</blockquote>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X DELETE https://public.tenants.agaveapi.co/jobs/v2/<span class="nv">$JOB_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>jobs-delete $JOB_ID
@@ -6865,11 +6995,13 @@ curl -sk -H <span class="s2">"Authorization: Bearer  </span><span class="nv">$AC
 
 <p>Over time the number of jobs you have run can grow rather large. You can delete jobs to remove them from your listing results.</p>
 
-<blockquote>
-<p>Deleting a job will hide it from view, not permanently delete the record.</p>
-</blockquote>
+<aside class="info">Deleting a job will hide it from view, not permanently delete the record.</aside>
 
 <h3 id="resubmitting">Resubmitting</h3>
+
+<blockquote>
+<p>Resubmitting a job  </p>
+</blockquote>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST -d <span class="s2">"action=resubmit"</span> https://public.tenants.agaveapi.co/jobs/v2/<span class="nv">$JOB_ID</span>
 </code></pre>
 <pre class="highlight plaintext"><code>jobs-resubmit $JOB_ID
@@ -8860,7 +8992,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
-<p>In addition to retrieving Metadata via its UUID, the Metadata service supports <a href="https://docs.mongodb.com/manual/tutorial/query-documents/">MongoDB query syntax</a>. Just add the <code class="prettyprint">q=&lt;value&gt;</code> to URL query portion of your GET request on the metadata collection.</p>
+<p>In addition to retrieving Metadata via its UUID, the Metadata service supports <a href="https://docs.mongodb.com/manual/tutorial/query-documents/">MongoDB query syntax</a>. Just add the <code class="prettyprint">q=&lt;value&gt;</code> to URL query portion of your GET request on the metadata collection. This differs from other APIs, but provides a richer syntax to query and filter responses.</p>
 
 <p>If you wanted to look up Metadata corresponding to a specific value within its JSON Metadata value, you can specify this using a JSON object such as <code class="prettyprint">{&quot;name&quot;: &quot;mustard plant&quot;}</code>. Remember that, in order to send JSON in a URL query string, it must first be URL encoded. Luckily this is easily handled for us by <code class="prettyprint">curl</code> and the Agave CLI.</p>
 
@@ -10058,6 +10190,237 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 
 <p>Most likely you will want to customize the branding and other aspects of the application, but for simple use cases, the Agave team can deploy a stock instance of the application in your tenant. Work with the Agave developer team if this is of interest to your organization.</p>
 
+              <h2 id="uuid">UUID</h2>
+<pre class="highlight json"><code><span class="w"> </span><span class="err">/$$</span><span class="w">   </span><span class="err">/$$</span><span class="w"> </span><span class="err">/$$</span><span class="w">   </span><span class="err">/$$</span><span class="w"> </span><span class="err">/$$$$$$</span><span class="w"> </span><span class="err">/$$$$$$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$|_</span><span class="w">  </span><span class="err">$$_/|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$/|</span><span class="w">  </span><span class="err">$$$$$$/</span><span class="w"> </span><span class="err">/$$$$$$|</span><span class="w"> </span><span class="err">$$$$$$$/</span><span class="w">
+ </span><span class="err">\______/</span><span class="w">  </span><span class="err">\______/</span><span class="w"> </span><span class="err">|______/|_______/</span><span class="w">
+</span></code></pre>
+
+<p>The Agave UUID service resolves the type and representation of one or more Agave UUID. This is helpful, for instance, when you need to expand the hypermedia response of another resource, get the URL corresponding to a UUID, or fetch the representations of multiple resources in a single request.</p>
+
+<h3 id="resolving-a-single-uuid">Resolving a single UUID</h3>
+
+<blockquote>
+<p>Resolving a uuid</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/uuid/v2/0001409758089943-5056a550b8-0001-002
+</code></pre>
+<pre class="highlight plaintext"><code>uuid-lookup -v 0001409758089943-5056a550b8-0001-002
+</code></pre>
+
+<blockquote>
+<p>The response will look something like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="s2">"0001409758089943-5056a550b8-0001-002"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:{</span><span class="w">
+    </span><span class="nt">"file"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>A single UUID can be resolved by making a GET request on the UUID resource. The response will include the UUID and the type of the resource to which it is associated. The canonical resource URL is available in the hypermedia response. All calls to the UUID API are authenticated, however no permission checks will be made when doing basic resolving.</p>
+
+<h3 id="expanding-a-uuid-query">Expanding a UUID query</h3>
+
+<blockquote>
+<p>Resolving a uuid to a full resource representation</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/uuid/v2/0001409758089943-5056a550b8-0001-002?expand<span class="o">=</span><span class="nb">true</span>&amp;pretty<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+<pre class="highlight plaintext"><code>uuid-lookup -v -e 0001409758089943-5056a550b8-0001-002
+</code></pre>
+
+<blockquote>
+<p>The response will include the entire representation of the resource just as if you queried the Files API.</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"internalUsername"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"lastModified"</span><span class="p">:</span><span class="s2">"2014-09-03T10:28:09.943-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"picksumipsum.txt"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"nativeFormat"</span><span class="p">:</span><span class="s2">"raw"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"owner"</span><span class="p">:</span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/home/nryan/picksumipsum.txt"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"source"</span><span class="p">:</span><span class="s2">"http://127.0.0.1/picksumipsum.txt"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="s2">"STAGING_QUEUED"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"systemId"</span><span class="p">:</span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="s2">"0001409758089943-5056a550b8-0001-002"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:{</span><span class="w">
+    </span><span class="nt">"history"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"system"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Often times you need more information about the resource associated with the UUID. You can save yourself an API request by adding <code class="prettyprint">expand=true</code> to the URL query. The resulting response, if successful, will include the full resource representation of the resource associated with the UUID just as if you had called its URL directly. Filtering is also supported, so you can specify just the fields you want returned in the response.</p>
+
+<aside class="warning">When requesting resource expansion, permission checks are made on each UUID prior to resolution. Thus, if you do not have permission to view a resource, you will receive a 403 rather than the expanded resource representation.</aside>
+
+<h3 id="resolving-multiple-uuid">Resolving multiple UUID</h3>
+
+<blockquote>
+<p>Resolving multiple UUID.  </p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/uuid/v2/?uuids.eq<span class="o">=</span>0001409758089943-5056a550b8-0001-002,0001414144065563-5056a550b8-0001-007?expand<span class="o">=</span><span class="nb">true</span>&amp;pretty<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+<pre class="highlight plaintext"><code>uuid-lookup -v -E 0001409758089943-5056a550b8-0001-002 0001414144065563-5056a550b8-0001-007
+</code></pre>
+
+<blockquote>
+<p>The response will be similar to the following.  </p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="s2">"0001409758089943-5056a550b8-0001-002"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"file"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="s2">"0001414144065563-5056a550b8-0001-007"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"JOB"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"file"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>To resolve multiple UUID, make a GET request on the uuids collection and pass the UUID in as a comma-separated list to the <code class="prettyprint">uuids</code> query parameter. The response will contain a list of resolved resources in the same order that you requested them.</p>
+
+<h3 id="expanding-multiple-uuid">Expanding multiple UUID</h3>
+
+<blockquote>
+<p>Resolving multiple UUID to their resource representations</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    https://public.tenants.agaveapi.co/uuid/v2/?uuids.eq<span class="o">=</span>0001409758089943-5056a550b8-0001-002,0001414144065563-5056a550b8-0001-007?expand<span class="o">=</span><span class="nb">true</span>&amp;pretty<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+<pre class="highlight plaintext"><code>uuid-lookup -v -e 0001409758089943-5056a550b8-0001-002 0001414144065563-5056a550b8-0001-007
+</code></pre>
+
+<blockquote>
+<p>The response will include an array of the expanded representations in the order they were requested in the URL query.</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"$JOB_ID"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"demo-pyplot-demo-advanced test-1414139896"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:</span><span class="s2">"$API_USERNAME"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"appId"</span><span class="p">:</span><span class="s2">"demo-pyplot-demo-advanced-0.1.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"executionSystem"</span><span class="p">:</span><span class="s2">"$PUBLIC_EXECUTION_SYSTEM"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"batchQueue"</span><span class="p">:</span><span class="s2">"debug"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"nodeCount"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"processorsPerNode"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"memoryPerNode"</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"maxRunTime"</span><span class="p">:</span><span class="s2">"01:00:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"archive"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"retries"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"localId"</span><span class="p">:</span><span class="s2">"10321"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"outputPath"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="s2">"STOPPED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"submitTime"</span><span class="p">:</span><span class="s2">"2014-10-24T04:48:11.000-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"startTime"</span><span class="p">:</span><span class="s2">"2014-10-24T04:48:08.000-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"endTime"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"inputs"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"dataset"</span><span class="p">:</span><span class="s2">"agave://$PUBLIC_STORAGE_SYSTEM/$API_USERNAME/inputs/pyplot/testdata.csv"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"parameters"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"chartType"</span><span class="p">:</span><span class="s2">"bar"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"height"</span><span class="p">:</span><span class="s2">"512"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"showLegend"</span><span class="p">:</span><span class="s2">"false"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"xlabel"</span><span class="p">:</span><span class="s2">"Time"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"background"</span><span class="p">:</span><span class="s2">"#FFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"width"</span><span class="p">:</span><span class="s2">"1024"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"showXLabel"</span><span class="p">:</span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"separateCharts"</span><span class="p">:</span><span class="s2">"false"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"unpackInputs"</span><span class="p">:</span><span class="s2">"false"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ylabel"</span><span class="p">:</span><span class="s2">"Magnitude"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"showYLabel"</span><span class="p">:</span><span class="s2">"true"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"app"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"executionSystem"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/systems/v2/$PUBLIC_EXECUTION_SYSTEM"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"archiveData"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/outputs/listings"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"owner"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/profiles/v2/$API_USERNAME"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"permissions"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/pems"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"history"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/history"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"metadata"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/meta/v2/data/?q=%7b%22associationIds%22%3a%220001414144065563-5056a550b8-0001-007%22%7d"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"notifications"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/notifications/v2/?associatedUuid=0001414144065563-5056a550b8-0001-007"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"internalUsername"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"lastModified"</span><span class="p">:</span><span class="s2">"2014-09-03T10:28:09.943-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"picksumipsum.txt"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"nativeFormat"</span><span class="p">:</span><span class="s2">"raw"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:</span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/home/nryan/picksumipsum.txt"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"source"</span><span class="p">:</span><span class="s2">"http://127.0.0.1/picksumipsum.txt"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="s2">"STAGING_QUEUED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"systemId"</span><span class="p">:</span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="s2">"0001409758089943-5056a550b8-0001-002"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"history"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"system"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Expansion also works when querying UUID in bulk. Simply add <code class="prettyprint">expand=true</code> to the URL query in your request and the full resource representation of each UUID will be returned in an array with the original UUID request order maintained. If any of the resolutions fail due to permission violation or server error, the error response object will be provided rather than resource representation.</p>
+
               <h2 id="events">Events</h2>
 <pre class="highlight json"><code><span class="w"> </span><span class="err">/$$$$$$$$</span><span class="w">                          </span><span class="err">/$$</span><span class="w">            
 </span><span class="err">|</span><span class="w"> </span><span class="err">$$_____/</span><span class="w">                         </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">            
@@ -10363,6 +10726,22 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
             <td>HEARTBEAT</td>
             <td>Job heartbeat received</td>
         </tr>
+        <tr>
+            <td>JOB_RUNTIME_CALLBACK_EVENT</td>
+            <td>This is the default event thrown when a job pushes out runtime information using the <span class="code">AGAVE_JOB_CALLBACK_NOTIFICATION</span> macro.</td>
+        </tr>
+        <tr>
+            <td>EMPTY_STATUS_RESPONSE</td>
+            <td>An empty response was received from the remote execution system when querying for job status</td>
+        </tr>
+        <tr>
+            <td>REMOTE_STATUS_CHANGE</td>
+            <td>The status of the job on the remote system was changed by an external process. The change does not reflect a change in Agave&rsquo;s understanding of the job&rsquo;s status.</td>
+        </tr>
+        <tr>
+            <td>UNKNOWN_TERMINATION</td>
+            <td>The job experienced an unknown termination event and is no longer running on the remote system. The job will be failed by Agave momentarily.</td>
+        </tr>
     </tbody>
 </table>
 
@@ -10665,7 +11044,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
  </span><span class="err">\______/</span><span class="w"> </span><span class="err">\_______/\_______|__/</span><span class="w">      </span><span class="err">\_______|__/</span><span class="w">  </span><span class="err">|__/</span><span class="w">
 </span></code></pre>
 
-<p>Search is a fundamental feature of the Agave Platform. Each of the core science APIs support a mature, URL-based query mechanism allowing you to search using a sql-inspired json syntax.</p>
+<p>Search is a fundamental feature of the Agave Platform. Most of the core science APIs support a mature, URL-based query mechanism allowing you to search using a sql-inspired json syntax. The two exceptions are the Files and Metadata APIs. The Files service does not index the directory or file contents of registered systems, so there is no way for it to performantly search the file system. The metadata service supports MongoDB query syntax, thus allowing more flexible, and slightly more complex, querying syntax.</p>
 
 <h3 id="query-syntax">Query syntax</h3>
 
