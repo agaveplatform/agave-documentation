@@ -44,7 +44,7 @@ This comes in especially handy when referencing your default system paths in oth
 
 ### Understanding file paths
 
-One potentially confusing feature of Agave is its support for virtualizing systems paths. Every registered system specifies both a root directory, `rootDir`, and a home directory, `homeDir` attribute in its storage configuration. `rootDir` tells Agave the absolute path on the remote system that it should treat as `/`. Similar to the Linux `chroot` command; no requests made to Agave will ever be resolved to locations outside of `rootDir`.
+One powerful, but potentially confusing feature of Agave is its support for virtualizing systems paths. Every registered system specifies both a root directory, `rootDir`, and a home directory, `homeDir` attribute in its storage configuration. `rootDir` tells Agave the absolute path on the remote system that it should treat as `/`. Similar to the Linux `chroot` command; no requests made to Agave will ever be resolved to locations outside of `rootDir`.
 
 <%= partial "includes/tables/21" %>
 
@@ -58,6 +58,8 @@ Before we talk about how to do basic operations on your data, let's first talk a
 
 ### Uploading data
 
+> Uploading a file  
+
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -X POST \
@@ -67,7 +69,8 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
 
 ```plaintext
 files-upload -v -F files/picksumipsum.txt -S data.agaveapi.co nryan
-```
+```  
+
 > The response will look something like this:
 
 ```json
@@ -78,7 +81,7 @@ files-upload -v -F files/picksumipsum.txt -S data.agaveapi.co nryan
     "nativeFormat": "raw",
     "owner": "nryan",
     "path": "/home/nryan/picksumipsum.txt",
-    "source": "http://129.114.60.211/picksumipsum.txt",
+    "source": "http://127.0.0.1/picksumipsum.txt",
     "status": "STAGING_QUEUED",
     "systemId": "data.agaveapi.co",
     "uuid": "0001409758089943-5056a550b8-0001-002",
@@ -98,16 +101,18 @@ files-upload -v -F files/picksumipsum.txt -S data.agaveapi.co nryan
 
 You may upload data to a remote systems by performing a multipart POST on the FILES service. If you are using the Agave CLI, you can perform recursive directory uploads. If you are manually calling curl or building an app with the Agave SDK, you will need to implement the recursion yourself. You can take a look in the `files-upload` script to see how this is done. The following is an example of how to upload a file that we will use in the remainder of this tutorial.
 
-You will see a progress bar while the file uploads, followed by a response from the server with a description of the uploaded file. Agave does not block during data movement operations, so it may be just a second before the file physically shows up on the remote system.
+You will see a progress bar while the file uploads, followed by a response from the server with a description of the uploaded file. Agave does not block during data movement operations, so it may be just a moment before the file physically shows up on the remote system.
 
 
 ### Importing data
 
-You can also import data from an external URL. Rather than making a multipart file upload request, you can pass in a JSON object with the URL and an optional target file name, file type, and array of notifications which should be made when the import completes. Agave supports several protocols for ingestion listed in the next table.
+You can also have Agave download data from an external URL. Rather than making a multipart file upload request, you can pass in a JSON object with the URL and an optional target file name, type, and array of notifications subscriptions. Agave supports several protocols for ingestion listed in the next table.
 
 <%= partial "includes/tables/23" %>
 
-To demonstrate how this works, will import a the README.md file from the <a href="https://bitbucket.org/agaveapi/science-api-samples" title="Agave Samples" target="_blank">Agave Samples</a> git repository in Bitbucket.
+To demonstrate how this works, we will import a README.md file from the <a href="https://bitbucket.org/agaveapi/science-api-samples" title="Agave Samples" target="_blank">Agave Samples</a> git repository in Bitbucket.
+
+> Download a file from a web accessible URL  
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST
@@ -148,9 +153,9 @@ files-import -v -U "https://bitbucket.org/agaveapi/science-api-samples/raw/maste
 }
 ```
 
-Importing data from a third party is done offline as an asynchronous activity, so the response from the server will come right away. The response is given below. One thing worth noting is that the file length given in the response will always be -1. This is because Agave does not know what the actual file size is yet. That will be updated later on, after the transfer has finished.
+Downloading data from a third party is done offline as an asynchronous activity, so the response from the server will come right away. One thing worth noting is that the file length given in the response will always be -1. This is because, generally speaking, Agave does not know what the actual source file size is until after the repsonse is send back. The file size will be updated as the download progresses. You can track the progress by querying the destination file item's history. An entry will be present showing the progress of the download.
 
-For this exercise, the file we just imported is just a few KB, so you should see it appear in your home folder on `data.agaveapi.co` almost immediately. If you were importing larger datasets, the transfer could take significantly longer depending on the network quality between Agave and the source location. In this case, you would see the file size continue to increase until it completed. In the event of a failed transfer, Agave will retry several times before canceling the transfer.
+For this exercise, the file we just downloaded is just a few KB, so you should see it appear in your home folder on `data.agaveapi.co` almost immediately. If you were importing larger datasets, the transfer could take significantly longer depending on the network quality between Agave and the source location. In this case, you would see the file size continue to increase until it completed. In the event of a failed transfer, Agave will retry several times before canceling the transfer.
 
 <aside class="notice">Agave attempts to make smart decisions about how and when to transfer data. This includes leveraging third-party transfers whenever possible, scaling directory copies out horizontally, and taking advantage of chunked or parallel uploads. As a result, data may arrive in a non-deterministic way on the target system. This is normal and should be expected.</aside>
 
@@ -172,12 +177,11 @@ files-import -v -U "agave://stampede.tacc.utexas.edu//etc/motd" -S data.agaveapi
 
 > The response from the service will be the same as the one we received importing a file.
 
-Much like importing data, Agave can manage the transfer of data between registered systems. This is, in fact, how data is staged prior to running a simulation. Data transfers are fire and forget, so you can simply start a transfer and go about your business. Agave will ensure it completes. If you would like a notification when the transfer completes or reaches a certain stage, you can subscribe for one or more emails and/or <a href="http://webhooks.org" title="Webhooks" target="_blank">webhooks</a> and Agave will process them upon completion. The following table lists the available file events. For more information about the events and notifications systems, please see the <a href="#notifications" title="Notifications Guide" target="_blank">Notifications Guide</a> and <a href="#event-reference" title="Event Reference" target="_blank">Event Reference</a>.
+Much like downloading data, Agave can manage the transfer of data between registered systems. This is, in fact, how data is staged prior to running a simulation. Data transfers are carried out asynchronously, so you can simply start a transfer and go about your business. Agave will ensure it completes. If you would like a notification when the transfer completes or reaches a certain stage, you can subscribe for one or more emails, <a href="http://webhooks.org" title="Webhooks" target="_blank">webhooks</a>, and/or <a href="#reatime-notifications" title="Realtime Notifications">realtime</a> notifications, and Agave will alert them when as the transfer progresses. The following table lists the available file events. For more information about the events and notifications systems, please see the <a href="#notifications" title="Notifications Guide" target="_blank">Notifications Guide</a> and <a href="#event-reference" title="Event Reference" target="_blank">Event Reference</a>.
 
 In the example below, we will transfer a file from `stampede.tacc.utexas.edu` to `data.agaveapi.co`. While the request looks pretty basic, there is a lot going on behind the scenes. Agave will authenticate to both systems, check permissions, stream data out of Stampede using GridFTP and proxy it into `data.agaveapi.co` using the SFTP protocol, adjusting the transfer buffer size along the way to optimize throughput. Doing this by hand is both painful and error prone. Doing it with Agave is nearly identical to copying a file from one directory to another on your local system.
 
-
-One of the benefits of the Files service is that it frees you up to work in parallel and scale as large as your application demands. In the next example we will use the Files service to create redundant archives of a shared project directory.
+One of the benefits of the Files service is that it frees you up to work in parallel and scale with your application demands. In the next example we will use the Files service to create redundant archives of a shared project directory.
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
@@ -281,7 +285,7 @@ Basic file operations are available by sending a POST request the the `/files/v2
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
-    --data-binary '{"action":"copy","path":$DESTPATH"}' \
+    --data-binary '{"action":"copy","path":"$DESTPATH"}' \
     https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/$PATH
 ```
 
@@ -303,7 +307,7 @@ Copying can be performed on any remote system. Unlike the Unix `cp` command, all
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
-    --data-binary '{"action":"move","path":$DESTPATH"}' \
+    --data-binary '{"action":"move","path":"$DESTPATH"}' \
     https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/$PATH
 ```
 
@@ -327,17 +331,17 @@ Moving can be performed on any remote system. Moving a file or directory will ov
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
    -H "Content-Type: application/json" \
    -X POST \
-   --data-binary '{"action":"rename","path":$NEWNAME"}' \
+   --data-binary '{"action":"rename","path":"$NEWNAME"}' \
     https://public.tenants.agaveapi.co/files/v2/media/system/$SYSTEM_ID/$PATH
-```
+```  
 
 ```plaintext
 files-rename -N $NEWNAME -S $SYSTEM_ID $PATH
-```
+```  
 
-> The response will reflect the renamed file item
+> The response will reflect the renamed file item  
 
-```json
+```json  
 ```
 
 Renaming, like copying and moving, is only applicable within the context of a single system. Unlike on Unix systems, renaming and moving are not synonymous. When specifying a new name for a file or directory, the new name is relative to the parent directory of the original file or directory. Also, If a file or directory already exists with that name, the operation will fail and an error message will be returned. All provenance information will follow the renamed file or directory.
@@ -350,7 +354,7 @@ Renaming, like copying and moving, is only applicable within the context of a si
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
-    --data-binary '{"action":"mkdir","path":$NEWDIR"}' \
+    --data-binary '{"action":"mkdir","path":"$NEWDIR"}' \
     https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/$PATH
 ```
 

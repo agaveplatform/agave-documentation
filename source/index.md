@@ -34,6 +34,7 @@ includes:
 - guides/files/_files-provenance.md.erb
 - guides/files/_files-metadata.md.erb
 - guides/files/_files-permissions.md.erb
+- guides/files/_files-publishing.md.erb
 - guides/apps/_introduction.md.erb
 - guides/apps/_app-history.md.erb
 - guides/apps/_app-inputs-and-parameters-tutorial.md.erb
@@ -62,6 +63,7 @@ includes:
 - guides/metadata/_metadata-schema.md.erb
 - guides/monitors/_introduction.md.erb
 - guides/profiles/_introduction.md.erb
+- guides/uuids/_introduction.md.erb
 - guides/events/_introduction
 - guides/events/_event-reference.md.erb
 - guides/search/_introduction.md.erb

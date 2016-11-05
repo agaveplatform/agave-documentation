@@ -75,8 +75,11 @@ jobs-stop $JOB_ID
     }
   }
 }
-```
+```  
+
 ### Deleting
+
+> Deleting a job  
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID
@@ -87,17 +90,20 @@ jobs-delete $JOB_ID
 
 Over time the number of jobs you have run can grow rather large. You can delete jobs to remove them from your listing results.
 
-> Deleting a job will hide it from view, not permanently delete the record.
+<aside class="info">Deleting a job will hide it from view, not permanently delete the record.</aside>
 
 
 ### Resubmitting
 
+> Resubmitting a job  
+
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "action=resubmit" https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID
-```
+```  
+
 ```
 jobs-resubmit $JOB_ID
-```
+```  
 
 Often times you will want to rerun a previous job as part of a pipeline, automation, or validation that the results were valid. In this situation, it is convenient to use the `resubmit` feature of the Jobs service.
 

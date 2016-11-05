@@ -98,5 +98,21 @@
 			<td>HEARTBEAT</td>
 			<td>Job heartbeat received</td>
 		</tr>
+		<tr>
+            <td>JOB_RUNTIME_CALLBACK_EVENT</td>
+            <td>This is the default event thrown when a job pushes out runtime information using the <span class="code">AGAVE_JOB_CALLBACK_NOTIFICATION</span> macro.</td>
+        </tr>
+		<tr>
+            <td>EMPTY_STATUS_RESPONSE</td>
+            <td>An empty response was received from the remote execution system when querying for job status</td>
+        </tr>
+		<tr>
+            <td>REMOTE_STATUS_CHANGE</td>
+            <td>The status of the job on the remote system was changed by an external process. The change does not reflect a change in Agave's understanding of the job's status.</td>
+        </tr>
+		<tr>
+            <td>UNKNOWN_TERMINATION</td>
+            <td>The job experienced an unknown termination event and is no longer running on the remote system. The job will be failed by Agave momentarily.</td>
+        </tr>
 	</tbody>
 </table>

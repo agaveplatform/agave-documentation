@@ -11,7 +11,7 @@
  \______/ \_______/\_______|__/      \_______|__/  |__/
 ```
 
-Search is a fundamental feature of the Agave Platform. Each of the core science APIs support a mature, URL-based query mechanism allowing you to search using a sql-inspired json syntax.
+Search is a fundamental feature of the Agave Platform. Most of the core science APIs support a mature, URL-based query mechanism allowing you to search using a sql-inspired json syntax. The two exceptions are the Files and Metadata APIs. The Files service does not index the directory or file contents of registered systems, so there is no way for it to performantly search the file system. The metadata service supports MongoDB query syntax, thus allowing more flexible, and slightly more complex, querying syntax.
 
 ### Query syntax
 
