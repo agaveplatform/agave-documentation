@@ -1,0 +1,51 @@
+/* Stylesheet to remove the right panel and inline all code */
+//body {
+//    font-size: 16px
+//}
+
+#fouc {
+    .lang-selector {
+        #codeToggle {
+            span {
+                font-weight: bold;
+                font-size: 1.2em;
+            }
+            span.menu-left {
+                display: none;
+            }
+        }
+    }
+}
+
+#fouc.wide {
+
+    .page-wrapper {
+        .lang-selector {
+            display: block;
+            #codeToggle span.menu-right {
+                display: none;
+            }
+        }
+        .content {
+            > h1, > h2, > h3, > h4, > h5, > h6, > p, > table, > ul, > ol, > aside, > dl {
+                margin-right: auto;
+            }
+            pre, blockquote {
+                margin: 10px auto;
+                width: 95%;
+                float: none;
+                clear: right;
+                max-height: none;
+                background-color: transparent;
+                p {
+                    padding: 0;
+                    background-color: transparent;
+                    color: #5c666f;
+                }
+            }
+        }
+        .dark-box {
+            display: none
+        }
+    }
+}

@@ -26,7 +26,6 @@ under the License.
 
     <script src="https://use.typekit.net/squ8frf.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
-    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
 
     <%= stylesheet_link_tag :screen, media: :screen %>
     <%= stylesheet_link_tag :print, media: :print %>
@@ -104,6 +103,7 @@ under the License.
           <div class="dark-box">
             <% if language_tabs %>
               <div class="lang-selector">
+                <a href="#" id="codeToggle"><span class="menu-left" aria-hidden="true"><%= h('<')%></span><span class="menu-right" aria-hidden="true"><%= h('>')%></span></a>
                 <% language_tabs.each do |lang| %>
                   <% if lang.is_a? Hash %>
                     <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
@@ -112,6 +112,7 @@ under the License.
                   <% end %>
                 <% end %>
               </div>
+
             <% end %>
           </div>
         </div>
