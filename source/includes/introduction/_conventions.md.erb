@@ -124,19 +124,31 @@ By default, all responses are serialized JSON. To receive pre-formatted JSON, ad
 
 ### Pagination
 
-All resource collections support a way of paging the dataset, taking an `offset` and `limit` as query parameters:
-
 > Pagination using `limit` and `offset` query parameters.
 
-```html
-curl -sk -H "Authorization: Bearer ${API_KEY}" "https://public.tenants.agaveapi.co/jobs/v2/?offset=50&amp;limit=25"
+```shell
+curl -sk -H \
+    "Authorization: Bearer ${API_KEY}" \
+    "https://public.tenants.agaveapi.co/jobs/v2/?offset=50&limit=25"
 ```
 
-Note that offset numbering is zero-based and that omitting the offset parameter will return the first X elements. Unless specified, all result sets are paginated in groups of 100. Check the documentation for the specific endpoint to see specific information.
+```plaintext
+jobs-list -o 50 -l 25
+```
+
+All resource collections support a way of paging the dataset, taking an `offset` and `limit` as query parameters:
+
+
+Note that offset numbering is zero-based and that omitting the offset parameter will return the first X elements. By default, all search and listing responses from the Science APIs are paginated in groups of 250 objects. The lone exception being the Files API which will return all results by default.
+
+Check the documentation for the specific endpoint to see specific information.
+
+<aside class="danger">Default pagination size is a tenant-specific configuration value and may vary from tenant to tenant. Check with your admin for the default pagination size configured for your tenant.</aside>
+
 
 ### Timestamps
 
-Timestamps are returned in <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> format as <a title="Offset to Coordinated Universal Time" href="http://en.wikipedia.org/wiki/Offset_to_Coordinated_Universal_Time" target="_blank">Coordinated Universal Time</a>(UTC) with zero offset: `YYYY-MM-DDTHH:MM:SSZ`. If the time is imprecise (for example, the date/time of an album release), an additional field will show the precision; see for example, `created` in an <a title="Job object" href="http://agaveapi.co/live-docs/#!/jobs/list_get_0" target="_blank">Job object</a>.
+Timestamps are returned in <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> format offset for Central Standard Time (-05:00) `YYYY-MM-DDTHH:MM:SSZ-05:00`.
 
 ### CORS
 
