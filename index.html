@@ -8,8 +8,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 
 
-    <script src="https://use.typekit.net/squ8frf.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <!-- <script src="https://use.typekit.net/squ8frf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script> -->
 
     <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
@@ -359,19 +359,27 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 
 <h3 id="pagination">Pagination</h3>
 
-<p>All resource collections support a way of paging the dataset, taking an <code class="prettyprint">offset</code> and <code class="prettyprint">limit</code> as query parameters:</p>
-
 <blockquote>
 <p>Pagination using <code class="prettyprint">limit</code> and <code class="prettyprint">offset</code> query parameters.</p>
 </blockquote>
-<pre class="highlight html"><code>curl -sk -H "Authorization: Bearer ${API_KEY}" "https://public.tenants.agaveapi.co/jobs/v2/?offset=50<span class="ni">&amp;amp;</span>limit=25"
+<pre class="highlight shell"><code>curl -sk -H <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="k">${</span><span class="nv">API_KEY</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"https://public.tenants.agaveapi.co/jobs/v2/?offset=50&amp;limit=25"</span>
+</code></pre>
+<pre class="highlight plaintext"><code>jobs-list -o 50 -l 25
 </code></pre>
 
-<p>Note that offset numbering is zero-based and that omitting the offset parameter will return the first X elements. Unless specified, all result sets are paginated in groups of 100. Check the documentation for the specific endpoint to see specific information.</p>
+<p>All resource collections support a way of paging the dataset, taking an <code class="prettyprint">offset</code> and <code class="prettyprint">limit</code> as query parameters:</p>
+
+<p>Note that offset numbering is zero-based and that omitting the offset parameter will return the first X elements. By default, all search and listing responses from the Science APIs are paginated in groups of 250 objects. The lone exception being the Files API which will return all results by default.</p>
+
+<p>Check the documentation for the specific endpoint to see specific information.</p>
+
+<aside class="danger">Default pagination size is a tenant-specific configuration value and may vary from tenant to tenant. Check with your admin for the default pagination size configured for your tenant.</aside>
 
 <h3 id="timestamps">Timestamps</h3>
 
-<p>Timestamps are returned in <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> format as <a title="Offset to Coordinated Universal Time" href="http://en.wikipedia.org/wiki/Offset_to_Coordinated_Universal_Time" target="_blank">Coordinated Universal Time</a>(UTC) with zero offset: <code class="prettyprint">YYYY-MM-DDTHH:MM:SSZ</code>. If the time is imprecise (for example, the date/time of an album release), an additional field will show the precision; see for example, <code class="prettyprint">created</code> in an <a title="Job object" href="http://agaveapi.co/live-docs/#!/jobs/list_get_0" target="_blank">Job object</a>.</p>
+<p>Timestamps are returned in <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> format offset for Central Standard Time (-05:00) <code class="prettyprint">YYYY-MM-DDTHH:MM:SSZ-05:00</code>.</p>
 
 <h3 id="cors">CORS</h3>
 
@@ -400,27 +408,98 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 
 <p>Agave strives to be a fully descriptive hypermedia API. Given any endpoint, you should be able to walk the API through the links provided in the <code class="prettyprint">_links</code> object in each resource representation. The following user metadata object contains two referenced objects. The first, <code class="prettyprint">self</code> is common to all objects, and contains the URL of that object. The second, <code class="prettyprint">owner</code> contains the URL to the profile of the user who created the object.</p>
 
-              <h3 id="response-customization">Response Customization</h3>
+              <h3 id="customizing-responses">Customizing Responses</h3>
 
 <blockquote>
-<p>Returns the user id, name, and email  </p>
+<p>Returns the user id, name, and email for the authenticated user  </p>
 </blockquote>
-<pre class="highlight html"><code>/profiles/v2/?filter=id,name,email
+<pre class="highlight shell"><code>curl -sk -H <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="k">${</span><span class="nv">API_KEY</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"https://public.tenants.agaveapi.co/profiles/v2/me?filter=username,email
+</span></code></pre>
+<pre class="highlight plaintext"><code>profiles-list -v --filter=username,email me
 </code></pre>
 
 <blockquote>
-<p>Returns the system name, status, app id, and the url to the archvied job output  </p>
+<p>The response would look something like the following:  </p>
 </blockquote>
-<pre class="highlight html"><code>/jobs/v2/?filter=name,status,appId,_links.archiveData.href
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan@rangers.mlb.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Returns the name, status, app id, and the url to the archived job output for every user job   </p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="k">${</span><span class="nv">API_KEY</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"https://public.tenants.agaveapi.co/jobs/v2/?limit=2&amp;filter=name,status,appId,_links.archiveData.href
+</span></code></pre>
+<pre class="highlight plaintext"><code>jobs-list -v --limit=2 --filter=name,status,appId,_links.archiveData
 </code></pre>
 
 <blockquote>
-<p>Returns the system id, type, whether it is your default system, and the hostname in the storage config  </p>
+<p>The response would look something like the following:  </p>
 </blockquote>
-<pre class="highlight html"><code>/systems/v2/?filter=id,type,default,storage.host
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"demo-pyplot-demo-advanced test-1414139896"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FINISHED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"appId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"demo-pyplot-demo-advanced-0.1.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"archiveData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://agave.iplantc.org/jobs/v2/0001414144065563-5056a550b8-0001-007/outputs/listings"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo-pyplot-demo-advanced test-1414270831"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FINISHED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"appId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"demo-pyplot-demo-advanced-0.1.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"archiveData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://agave.iplantc.org/jobs/v2/3259859908028273126-242ac115-0001-007/outputs/listings"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Returns the system id, type, whether it is your default system, and the hostname from the system&rsquo;s storage config  </p>
+</blockquote>
+<pre class="highlight shell"><code>/systems/v2/?filter<span class="o">=</span>id,type,default,storage.host  
+</code></pre>
+<pre class="highlight plaintext"><code>systems-list -v --limit=2 --filter=id,type,default,storage.host  
 </code></pre>
 
-<p>In many situations, Agave may return back too much or too little information in the response to a query. For example, when searching jobs, the <code class="prettyprint">inputs</code> and <code class="prettyprint">parameters</code> fields are not included in the default summary response objects. You can customize the responses you receive from all the Science APIs using the <code class="prettyprint">filter</code> query parameter. The <code class="prettyprint">filter</code> query parameter takes a comma-delimited list of fields to return for each object in the response. Each field may be referenced using JSON notation similar to the search syntax (minus the <code class="prettyprint">.[operation]</code> suffix. The examples to the right show sample requests and responses.</p>
+<blockquote>
+<p>The response would look something like the following:  </p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORAGE"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"storage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dtn01.prod.agaveapi.co"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker.tacc.utexas.edu"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EXECUTION"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"storage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"129.114.6.50"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>In many situations, Agave may return back too much or too little information in the response to a query. For example, when searching jobs, the <code class="prettyprint">inputs</code> and <code class="prettyprint">parameters</code> fields are not included in the default summary response objects. You can customize the responses you receive from all the Science APIs using the <code class="prettyprint">filter</code> query parameter.   </p>
+
+<p>The <code class="prettyprint">filter</code> query parameter takes a comma-delimited list of fields to return for each object in the response. Each field may be referenced using JSON notation similar to the search syntax (minus the <code class="prettyprint">.[operation]</code> suffix. The examples to the right show sample requests and responses.  </p>
 
               <h3 id="status-codes">Status Codes</h3>
 
@@ -11046,26 +11125,24 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 <p>Search is a fundamental feature of the Agave Platform. Most of the core science APIs support a mature, URL-based query mechanism allowing you to search using a sql-inspired json syntax. The two exceptions are the Files and Metadata APIs. The Files service does not index the directory or file contents of registered systems, so there is no way for it to performantly search the file system. The metadata service supports MongoDB query syntax, thus allowing more flexible, and slightly more complex, querying syntax.</p>
 
 <h3 id="query-syntax">Query syntax</h3>
+<pre class="highlight json"><code><span class="err">http://public.agaveapi.co/jobs/v</span><span class="mi">2</span><span class="err">?name=test%</span><span class="mi">20</span><span class="err">job</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>You can include as multiple search expressions to build a more restrictive query.</p>
+</blockquote>
+<pre class="highlight json"><code><span class="err">http://public.agaveapi.co/jobs/v</span><span class="mi">2</span><span class="err">?name=test%</span><span class="mi">20</span><span class="err">job&amp;executionSystem=aws-demo&amp;status=FAILED</span><span class="w">
+</span></code></pre>
 
 <p>By default, search is enabled on each collection endpoint allowing you to trim the response down to the results you care about most. The list of available search terms is identical to the attributes included in the JSON returned when requesting the full resource description.</p>
 
 <aside class="info">To see a full listing of the JSON attributes for each resource in the core science APIs, please see the <a href="/live-docs/" title="Live Docs">Live Docs</a>.</aside>
 
 <p>To search for a specific attribute, you simply append a search expression into the URL query of your request. For example:</p>
-<pre class="highlight json"><code><span class="err">http://public.agaveapi.co/jobs/v</span><span class="mi">2</span><span class="err">?name=test%</span><span class="mi">20</span><span class="err">job</span><span class="w">  
-</span></code></pre>
-
-<blockquote>
-<p>You can include as multiple search expressions to build a more restrictive query.</p>
-</blockquote>
-<pre class="highlight json"><code><span class="err">http://public.agaveapi.co/jobs/v</span><span class="mi">2</span><span class="err">?name=test%</span><span class="mi">20</span><span class="err">job&amp;executionSystem=aws-demo&amp;status=FAILED</span><span class="w">  
-</span></code></pre>
 
 <aside class="warning">Note that the values in your search expression must be URL encoded.</aside>
 
 <h3 id="search-operators">Search operators</h3>
-
-<p>By default, all search expressions are evaluated for equality. In order to perform more complex queries, you may append a search operator to the attribute in your search expression. The following examples should help clarify:</p>
 <pre class="highlight shell"><code><span class="c"># systems with cloud in their name  </span>
 systems/v2?name.like<span class="o">=</span><span class="k">*</span>cloud<span class="k">*</span>
 
@@ -11085,40 +11162,40 @@ apps-search 'lastModified.between=10/1,10/30'
 jobs-search 'id.in=PENDING,ARCHIVING'
 </code></pre>
 
+<p>By default, all search expressions are evaluated for equality. In order to perform more complex queries, you may append a search operator to the attribute in your search expression. The following examples should help clarify:</p>
+
 <p>For resources with nested collections, you may use JSON dot notation to query the subresources in the collection.</p>
 <pre class="highlight shell"><code><span class="c"># systems using Amazon S3 as the storage protocol  </span>
-systems/v2?storage.protocol<span class="o">=</span><span class="s2">"S3"</span>
+systems/v2?storage.protocol.eq<span class="o">=</span><span class="s2">"S3"</span>
 
 <span class="c"># systems with a batch queue allowing more than 10 concurrent user jobs  </span>
 systems/v2?queues.maxUserJobs.gt<span class="o">=</span>10
 </code></pre>
 <pre class="highlight plaintext"><code># systems using Amazon S3 as the storage protocol  
-systems-search 'storage.protocol=S3'
+systems-search 'storage.protocol.eq=S3'
 
 # systems with a batch queue allowing more than 10 concurrent user jobs  
 systems-search 'queues.maxUserJobs.gt=10'
 </code></pre>
 
 <h3 id="multiple-operators">Multiple operators</h3>
-
-<p>As before you can include multiple search expressions to narrow your results.</p>
 <pre class="highlight shell"><code><span class="c"># jobs whos app has hadoop in the name, ran on a system with id aws-demo, and started</span>
 <span class="c"># any time during the last business week</span>
-<span class="nb">jobs</span>/v2?appId.like<span class="o">=</span><span class="k">*</span>hadoop<span class="k">*</span>&amp;executionSystem.eq<span class="o">=</span>aws-demo&amp;startTime.between<span class="o">=</span>last%20monday,last%20friday  
+<span class="nb">jobs</span>/v2?appId.like<span class="o">=</span><span class="k">*</span>hadoop<span class="k">*</span>&amp;executionSystem.eq<span class="o">=</span>aws-demo&amp;startTime.between<span class="o">=</span>last%20monday,last%20friday
 
-<span class="c"># users who profile has a last name ending in ross and an email address ending in texas.edu   </span>
-profiles/v2?lastname.like<span class="o">=</span><span class="k">*</span>ross&amp;email.like<span class="o">=</span><span class="k">*</span>texas.edu  
+<span class="c"># users who profile has a last name ending in ross and an email address ending in texas.edu</span>
+profiles/v2?lastname.like<span class="o">=</span><span class="k">*</span>ross&amp;email.like<span class="o">=</span><span class="k">*</span>texas.edu
 
 <span class="c"># failed login checks on the a system with uuid 0001409867973952-5056a550b8-0001-014</span>
-monitors/v2/?target.like<span class="o">=</span><span class="k">*</span>ec2<span class="k">*</span>&amp;result.eq<span class="o">=</span>FAILED&amp;type<span class="o">=</span>LOGIN  
+monitors/v2/?target.like<span class="o">=</span><span class="k">*</span>ec2<span class="k">*</span>&amp;result.eq<span class="o">=</span>FAILED&amp;type<span class="o">=</span>LOGIN
 </code></pre>
 <pre class="highlight plaintext"><code># jobs whos app has hadoop in the name, ran on a system with id aws-demo, and started
 # any time during the last business week
 jobs-search 'appId.like=*hadoop*' \
             'executionSystem.eq=aws-demo' \
-            'startTime.between=last%20monday,last%20friday'  
+            'startTime.between=last%20monday,last%20friday'
 
-# users who profile has a last name ending in ross and an email address ending in texas.edu   
+# users who profile has a last name ending in ross and an email address ending in texas.edu
 profiles-search 'lastname.like=*ross' 'email.like=*texas.edu'
 
 # failed login monitor checks on systems with "ec2" in the name
@@ -11126,6 +11203,8 @@ monitors-checks-search -M target.like=*ec2* \
                       'result.eq=FAILED' \
                       'type=LOGIN'
 </code></pre>
+
+<p>As before you can include multiple search expressions to narrow your results.</p>
 
 <p>The full list of search operators is given in the following table.</p>
 
@@ -11224,8 +11303,8 @@ monitors-checks-search -M target.like=*ec2* \
     </thead>
     <tbody>
         <tr>
-            <td>08:00:00.000</td>
             <td></td>
+            <td>08:00:00.000</td>
         </tr>
         <tr>
             <td>4pm or 04:00pm or 16:00</td>
@@ -11361,6 +11440,57 @@ monitors-checks-search -M target.like=*ec2* \
         </tr>
     </tbody>
 </table>
+
+<h3 id="custom-search-result">Custom search result</h3>
+
+<blockquote>
+<p>Search with multiple operators and return a custom response</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="c"># jobs whos app has hadoop in the name, ran on a system with id aws-demo, and started</span>
+<span class="c"># any time during the last business week</span>
+<span class="nb">jobs</span>/v2?appId.like<span class="o">=</span><span class="k">*</span>cloud<span class="k">*</span>&amp;executionSystem.like<span class="o">=</span><span class="k">*</span>docker<span class="k">*</span>&amp;startTime.after<span class="o">=</span>2016-01-01&amp;naked<span class="o">=</span><span class="nb">true</span>&amp;limit<span class="o">=</span>3
+</code></pre>
+<pre class="highlight plaintext"><code># jobs whos app has hadoop in the name, ran on a system with id aws-demo, and started
+# any time during the last business week
+jobs-search -v --limit=3 \
+            --filter=id,appId,executionSystem,status,created \
+            'appId.like=*cloud*' \
+            'executionSystem.like=*docker*'
+            'startTime.after=2016-01-01' \
+            'naked=true'
+</code></pre>
+
+<blockquote>
+<p>There response will be a JSON array of custom objects comprised of only the fields you specified in the <code class="prettyprint">filter</code> query parameter.</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"2974032102330798566-242ac115-0001-007"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"appId"</span><span class="p">:</span><span class="s2">"cloud-runner-0.1.0u1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"executionSystem"</span><span class="p">:</span><span class="s2">"docker.tacc.utexas.edu"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="s2">"FINISHED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="s2">"2016-11-03T16:04:53.000-05:00"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"8643408718823550490-242ac115-0001-007"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"appId"</span><span class="p">:</span><span class="s2">"cloud-runner-0.1.0u1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"executionSystem"</span><span class="p">:</span><span class="s2">"docker.tacc.utexas.edu"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="s2">"FINISHED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="s2">"2016-11-03T15:17:24.000-05:00"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"9049010248689521126-242ac115-0001-007"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"appId"</span><span class="p">:</span><span class="s2">"cloud-runner-0.1.0u1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"executionSystem"</span><span class="p">:</span><span class="s2">"docker.tacc.utexas.edu"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="s2">"FINISHED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="s2">"2016-11-03T15:17:07.000-05:00"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>By combining the search, filtering, and <code class="prettyprint">naked</code> query parameters, you can query the API and return just the information you care about. The example search will return a JSON array of job objects with just the <code class="prettyprint">id</code>, <code class="prettyprint">appId</code>, <code class="prettyprint">executionSystem</code>, <code class="prettyprint">status</code>, and <code class="prettyprint">created</code> fields from the full job object in the response. This combination of search, filtering, and pagination provides a powerful mechanism for generating custom views of the data.</p>
+
+<aside class="info">For more information on resolving uuid and expanding linked references in the response objects, see the <a href="#uuid">UUID Service Guide</a>.</aside>
 
               <h1 id="tooling">Tooling</h1>
 
