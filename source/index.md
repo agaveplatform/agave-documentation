@@ -57,6 +57,7 @@ includes:
 #- guides/postits/_postits-downloads.md.erb
 #- guides/postits/_postits-events.md.erb
 - guides/metadata/_introduction.md.erb
+- guides/metadata/_metadata-listing.md.erb
 - guides/metadata/_metadata-validation.md.erb
 - guides/metadata/_metadata-search.md.erb
 - guides/metadata/_metadata-permissions.md.erb
