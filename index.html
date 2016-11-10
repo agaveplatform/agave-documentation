@@ -8781,7 +8781,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 
 <p>The Agave Metadata service allows you to manage metadata and associate it with Agave entities via associated UUIDs. It supports JSON schema for structured JSON metadata; it also accepts any valid JSON-formatted metadata or plain text String when no schema is specified. As with other Agave services, a full access control layer is available, enabling you to keep your metadata private or share it with your colleagues.</p>
 
-<h3 id="structure">Structure</h3>
+<h3 id="metadata-structure">Metadata Structure</h3>
 
 <blockquote>
 <p>Key-value metadata item</p>
@@ -8983,9 +8983,141 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 
 <p>To delete a metadata item, simply make a DELETE request on the metadata resource.</p>
 
-<aside class="notice"> Deleting a monitor will permanently delete the monitor and all its history, permissions, etc.</aside>
+<aside class="notice"> Deleting a metadata item will permanently delete the item and all its permissions, etc. </aside>
 
-              <h3 id="validating-metadata">Validating metadata</h3>
+              <h3 id="metadata-details">Metadata details</h3>
+
+<blockquote>
+<p>Fetching a metadata item</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    https://public.tenants.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012
+</code></pre>
+<pre class="highlight plaintext"><code>metadata-list -v 7341557475441971686-242ac11f-0001-012
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="s2">"7341557475441971686-242ac11f-0001-012"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"schemaId"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"internalUsername"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"associationIds"</span><span class="p">:[</span><span class="w">
+    </span><span class="s2">"179338873096442342-242ac113-0001-002"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"6608339759546166810-242ac114-0001-007"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"lastUpdated"</span><span class="p">:</span><span class="s2">"2016-08-29T05:51:39.908-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"some metadata"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"value"</span><span class="p">:{</span><span class="w">
+    </span><span class="nt">"title"</span><span class="p">:</span><span class="s2">"Example Metadata"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"properties"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"species"</span><span class="p">:</span><span class="s2">"arabidopsis"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">"A model plant organism..."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"created"</span><span class="p">:</span><span class="s2">"2016-08-29T05:43:18.618-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"owner"</span><span class="p">:</span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:{</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"permissions"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013/pems"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"associationIds"</span><span class="p">:[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"rel"</span><span class="p">:</span><span class="s2">"179338873096442342-242ac113-0001-002"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/files/v2/media/system/storage.example.com//"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"title"</span><span class="p">:</span><span class="s2">"file"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"rel"</span><span class="p">:</span><span class="s2">"6608339759546166810-242ac114-0001-007"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/jobs/v2/6608339759546166810-242ac114-0001-007"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"title"</span><span class="p">:</span><span class="s2">"job"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>To fetch a detailed description of a metadata item, make a GET request on the resource URL. The response will be the full metadata item representation. Two points of interest in the example response are that the response does not have an <code class="prettyprint">id</code> field. Instead, it has a <code class="prettyprint">uuid</code> field which serves as its ID. This is the result of regression support for legacy consumers and will be changed in the next major release.</p>
+
+<p>The second point of interest in the response is the <code class="prettyprint">_links.associationIds</code> array in the hypermedia response. This contains an expanded representation of the <code class="prettyprint">associationIds</code> field in the body. The objects in this array are similar to the information you would recieve by calling the <a href="#uuid">UUID API</a> to resolve each of the <code class="prettyprint">associationIds</code> array values. By leveraging the information in the hypermedia response, you can save several round trips to resolve basic information about the resources the <code class="prettyprint">associationIds</code> represent.</p>
+
+<aside class="info">In the event you need the entire resource representations for each `associationIds` value, you can simply explode the json array into a comma-separated string and call the <a href="#uuid">UUID API</a> with `expand=true` in the query. </aside>
+
+<h3 id="metadata-browsing">Metadata browsing</h3>
+
+<blockquote>
+<p>Listing your metadata</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    https://public.tenants.agaveapi.co/meta/v2/data?limit<span class="o">=</span>1
+</code></pre>
+<pre class="highlight plaintext"><code>metadata-list -v -l 1
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7341557475441971686-242ac11f-0001-012"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"schemaId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"internalUsername"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"associationIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"179338873096442342-242ac113-0001-002"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"6608339759546166810-242ac114-0001-007"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-29T05:51:39.908-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"some metadata"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example Metadata"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"species"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arabidopsis"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A model plant organism..."</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-29T05:43:18.618-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013/pems"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"associationIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"rel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"179338873096442342-242ac113-0001-002"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/files/v2/media/system/storage.example.com//"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"rel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6608339759546166810-242ac114-0001-007"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/jobs/v2/6608339759546166810-242ac114-0001-007"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"job"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>To browse your Metadata, make a GET request against the <code class="prettyprint">/meta/v2/data</code> collection. This will return all the metadata you created and to which you have been granted READ access. This includes any metadata items that have been shared with the <code class="prettyprint">public</code> or <code class="prettyprint">world</code> users. In practice, users will have many metadata items created and shared with them as part of normal use of the platform, so pagination and <a href="#metadata-search">search</a> become important aspects of interacting with the service.</p>
+
+<p>For admins, who have implicit access to all metadata, the default listing response will be a paginated list of every metadata item in the tenant. To avoid such a scenario, admin users can append <code class="prettyprint">privileged=false</code> to bypass implicit permissions and only return the metadata queries to which they have ownership or been granted explicit access.</p>
+
+<aside class="info">Admin users can append `privileged=false` to bypass implicit permissions and only return the metadata queries to which they have ownership or been granted explicit access.</aside>
+
+              <h3 id="metadata-validation">Metadata Validation</h3>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST
     -H <span class="s1">'Content-Type: application/json'</span>
     --data-binary <span class="s1">'{"schemaId": "4736020169528054246-242ac11f-0001-013", "value": {"title": "Example Metadata", "properties": {"description": "A model organism..."}}, "name": "some metadata"}'</span>
@@ -9008,7 +9140,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 
 <p>Given our previous example metadata schema object, the following request would fail due to a missing &ldquo;species&rdquo; value in the metadata item <code class="prettyprint">value</code> field.</p>
 
-              <h3 id="searching">Searching</h3>
+              <h3 id="metadata-searching">Metadata Searching</h3>
 
 <blockquote>
 <p>Searching metadata for all items with name like &ldquo;mustard plant&rdquo;</p>
@@ -9017,7 +9149,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
     --data-urlencode <span class="s1">'{"name": "mustard plant"}'</span>
     https://public.tenants.agaveapi.co/meta/v2/data
 </code></pre>
-<pre class="highlight plaintext"><code>metadata-list -i -v -Q '{"name":"mustard+plant"}'
+<pre class="highlight plaintext"><code>metadata-list -v -Q '{"name":"mustard+plant"}'
 </code></pre>
 
 <blockquote>
