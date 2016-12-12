@@ -1,3 +1,7 @@
-### File metadata management
+### File events
 
-In many systems, the concept of metadata is directly tied to the notion of a file system. Agave takes a broader view of metadata and supports it as its own first class resource in the REST API. For more information on how to leverage metadata in Agave, please consult the <a href="#metadata" title="Metadata Tutorial">Metadata Guide</a>. In there we cover all aspects of how to manage, search, validate, and associate metadata across your entire digital lab.
+Agave throws file events on every content change, permission change, and file item access request in the platform. A list of the file events thrown is given in the following table.
+
+<%= partial "includes/tables/46" %>
+
+File events do not happen in a vaccuum. A file item only exists within the context of a System, so enable aggregate listeners across an entire system, a corresponding system event is thrown for each file event. System event names are constructed by prefixing the file event name with `SYSTEM_`.

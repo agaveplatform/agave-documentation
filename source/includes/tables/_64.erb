@@ -45,8 +45,12 @@
 		</tr>
 		<tr>
 			<td>AGAVE_JOB_NAME</td>
-			<td>The name of the job as given at submit time.</td>
+			<td>The slugified version of the name of the job. See the section on <a href="#slugs">Conventions</a> for more information about slugs.</td>
 		</tr>
+		<tr>
+            <td>AGAVE_JOB_NAME_RAW</td>
+            <td>The name of the job as given at submit time.</td>
+        </tr>
 		<tr>
 			<td>AGAVE_JOB_NODE_COUNT</td>
 			<td>The number of nodes requested at submit time.</td>
@@ -89,7 +93,7 @@
 		</tr>
 		<tr>
 			<td>AGAVE_JOB_CALLBACK_FAILURE</td>
-			<td>Represents a call back to the API stating the job failed. Use this with caution as it will tell the API the job failed even if it has not yet completed.</td>
+			<td>Represents a call back to the API stating the job failed. Use this with caution as it will tell the API the job failed even if it has not yet completed. Upon receiving this callback, Agave will abandon the job and skip any archiving that may have been requested. Think of this as <span class="code">kill -9</span> for the job lifecycle.</td>
 		</tr>
 	</tbody>
 </table>

@@ -10,9 +10,11 @@
 |  $$$$$$|  $$$$$$| $$  | $|  $$$$$$| $$ | $$ | $|  $$$$$$$
  \______/ \_______|__/  |__/\_______|__/ |__/ |__/\_______/
 ```
-Schema can be provided in JSON Schema form. The service will validate that the schema is valid JSON and store it. To validate Metadata against it, the schema UUID should be given as a parameter, SchemaId, when uploading Metadata. If no SchemaId is provided, the Metadata service will accept any JSON Object or plain text string and store it accordingly. This flexible approach enabled Agave to handle different levels of structure of Metadata from completely unstructured, to highly structured with complex JSON schemata.
+Schema can be provided in JSON Schema form. The service will validate that the schema is valid JSON and store it. To validate Metadata against it, the schema UUID should be given as a parameter, `schemaId`, when uploading Metadata. If no `schemaId`` is provided, the Metadata service will accept any JSON Object or plain text string and store it accordingly. This flexible approach allows Agave a high degree of flexibility in handling structured and unstructured metadata alike.
 
 For more on JSON Schema please see <a title="JSON Schema" href="http://json-schema.org/">http://json-schema.org/</a>
+
+<aside class="info"> The metadata service supports both JSON Schema v3 and v4. No additional work is needed on your part to specify which version you want to use, the service will autodetect the version and validate it accordingly. </aside>
 
 To add a metadata schema to the repository:
 
@@ -158,3 +160,9 @@ metadata-schema-delete 4736020169528054246-242ac11f-0001-013
 To delete a metadata schema, simply make a DELETE request on the metadata schema resource.
 
 <aside class="alert"> Deleting a metadata schema will permanently delete the schema and all its history, permissions, etc. Once the schema is deleted, the remaining metadata items will not be automatically updated, thus it is important to know that updates to metadata items that still reference the schema will fail.</aside>
+
+### Specifying schemata as $ref
+
+When building new JSON Schema definitions, it is often helpful to break each object out into its own definition and use `$ref` fields to reference them. The metadata service supports such references between metadata schema resources. Simply provide the fully qualified URL of another valid metadata schema resources as the value to a `$ref` field and Agave will resolve the reference internally, applying the appropriate authentication and authorization for the requesting user to the request to the referenced resource.
+
+<aside class="warning"> When using Agave Metadata Schema as external references in a JSON Schema definition, make sure you grant at READ permission or greater to every referenced Agave Metadata Schema resource needed to resolved the JSON Schema definition. </aside>
