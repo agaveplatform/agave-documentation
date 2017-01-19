@@ -300,6 +300,32 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
     </tbody>
 </table>
 
+<h4 id="experimental-query-parameters">Experimental query parameters</h4>
+
+<p>Starting with the 2.1.10 release, two new query parameters have been introduced into the jobs api as an experimental feature. The following table lists them for reference</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Values</th>
+            <th>Purpose</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>sort</td>
+            <td>asc, desc </td>
+            <td>The sort order of the response. <span class="code">asc</span> by default.</td>
+        </tr>
+        <tr>
+            <td>sortBy</td>
+            <td>string</td>
+            <td>The field by which to sort the response. Any field present in the full representation of the resource that you are querying is supported. Multiple values are not currently supported.</td>
+        </tr>
+    </tbody>
+</table>
+
 <h3 id="responses">Responses</h3>
 
 <p>All data is received and returned as a JSON object. The <a title="Live Documentation" href="/live-docs/">Live Docs</a> provide a description of all the retrievable objects.</p>
@@ -308,7 +334,7 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Permission denied. You do not have permission to view this system"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.2.0-r8228"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.1.10-r8228"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -749,7 +775,7 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 <blockquote>
 <p>A typical request will look something like this</p>
 </blockquote>
-<pre class="highlight http"><code><span class="err">https://public.tenants.agaveapi.co/authorize/?client_id=gTgp...SV8a&amp;amp;response_type=code&amp;amp;redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&amp;amp;scope=PRODUCTION&amp;amp;state=866
+<pre class="highlight http"><code><span class="err">https://public.tenants.agaveapi.co/authorize/?client_id=gTgp...SV8a&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&amp;scope=PRODUCTION&amp;state=866
 </span></code></pre>
 
 <p>The authorization process starts with your application sending a request to the Agave authorization service. (The reason your application sends this request can vary: it may be a step in the initialization of your application or in response to some user action, like a button click.) The request is sent to the /authorize endpoint of the Authorization service:</p>
@@ -806,7 +832,7 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 <blockquote>
 <p>Sample success redirect back from the server</p>
 </blockquote>
-<pre class="highlight http"><code><span class="err">https://example.com/callback?code=Pq3S..M4sY&amp;amp;state=866
+<pre class="highlight http"><code><span class="err">https://example.com/callback?code=Pq3S..M4sY&amp;state=866
 </span></code></pre>
 
 <table>
@@ -848,7 +874,7 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 
 <p>If the user has denied access, there will be no access token and the final URL will have a query string containing the following parameters:</p>
 <pre class="highlight plaintext"><code># Sample denial redirect back from the server
-https://example.com/callback?error=access_denied&amp;amp;state=867
+https://example.com/callback?error=access_denied&amp;state=867
 </code></pre>
 
 <table>
@@ -1071,7 +1097,7 @@ refresh_token </td>
 <p><img src="/images/2014/09/Implicit-Flow.png" alt="Implicit Flow" style="width: 100%; height:auto"/></p>
 
 <h4 id="1-your-application-requests-authorization">1. Your application requests authorization</h4>
-<pre class="highlight json"><code><span class="err">https://public.tenants.agaveapi.co/authorize?client_id=gTgp...SV</span><span class="mi">8</span><span class="err">a&amp;amp;redirect_uri=http:%</span><span class="mi">2</span><span class="err">F%</span><span class="mi">2</span><span class="err">Fexample.com%</span><span class="mi">2</span><span class="err">Fcallback&amp;amp;scope=PRODUCTION&amp;amp;response_type=token&amp;amp;state=</span><span class="mi">867</span><span class="w">
+<pre class="highlight json"><code><span class="err">https://public.tenants.agaveapi.co/authorize?client_id=gTgp...SV</span><span class="mi">8</span><span class="err">a&amp;redirect_uri=http:%</span><span class="mi">2</span><span class="err">F%</span><span class="mi">2</span><span class="err">Fexample.com%</span><span class="mi">2</span><span class="err">Fcallback&amp;scope=PRODUCTION&amp;response_type=token&amp;state=</span><span class="mi">867</span><span class="w">
 </span></code></pre>
 
 <p>The flow starts off with your application redirecting the user to the <code class="prettyprint">/authorize</code> endpoint of the Authorization service. The request will include parameters in the query string:</p>
@@ -1128,7 +1154,7 @@ refresh_token </td>
 <blockquote>
 <p>A valid success response would be</p>
 </blockquote>
-<pre class="highlight http"><code><span class="err">https://example.com/callback?access_token=Vr17...amUa&amp;amp;token_type=bearer&amp;amp;expires_in=3600&amp;amp;state=867
+<pre class="highlight http"><code><span class="err">https://example.com/callback?access_token=Vr17...amUa&amp;token_type=bearer&amp;expires_in=3600&amp;state=867
 </span></code></pre>
 
 <p>After the user grants (or denies) access, the Agave Authorization service redirects the user to the <code class="prettyprint">redirect_uri</code>. If the user has granted access, the final URL will contain the following data parameters in the query string.</p>
@@ -1175,7 +1201,7 @@ refresh_token </td>
 <blockquote>
 <p>A failed response would resemble something like</p>
 </blockquote>
-<pre class="highlight shell"><code>https://example.com/callback?error<span class="o">=</span>access_denied&amp;amp;state<span class="o">=</span>867
+<pre class="highlight shell"><code>https://example.com/callback?error<span class="o">=</span>access_denied&amp;state<span class="o">=</span>867
 </code></pre>
 
 <table>
@@ -2572,13 +2598,15 @@ refresh_token </td>
         </tr>
         <tr>
             <td>scheduler</td>
-            <td>LSF, LOADLEVELER, PBS, SGE, CONDOR, FORK, COBALT, TORQUE, MOAB, SLURM, UNKNOWN</td>
-            <td><b>Required:</b> The type of batch scheduler available on the system. This only applies to systems with executionType HPC and CONDOR.</td>
+            <td>LSF, LOADLEVELER, PBS, SGE, CONDOR, FORK, COBALT, TORQUE, MOAB, SLURM,
+            CUSTOM_LSF, CUSTOM_LOADLEVELER, CUSTOM_PBS, CUSTOM_SGE, CUSTOM_CONDOR,
+            FORK, CUSTOM_COBALT, CUSTOM_TORQUE, CUSTOM_MOAB, CUSTOM_SLURM, UNKNOWN</td>
+            <td><b>Required:</b> The type of batch scheduler available on the system. This only applies to systems with executionType HPC and CONDOR. The *_CUSTOM version of each scheduler provides a mechanism for you to override the default scheduler directives added by Agave and explicitly add your own through the <span style="code">customDirectives</span> field in each of the batchQueue definitions for your system.</td>
         </tr>
         <tr>
             <td>scratchDir</td>
             <td>string</td>
-            <td>Path to use for a job scratch directory. This value is the first choice for creating a job&rsquo;s working directory at runtime. The path will be resolved relative to the <code>rootDir</code> value in the storage config if it begins with a &ldquo;/&rdquo;, and relative to the system <code>homeDir</code> otherwise.</td>
+            <td>Path to use for a job scratch directory. This value is the first choice for creating a job`s working directory at runtime. The path will be resolved relative to the <code>rootDir</code> value in the storage config if it begins with a &ldquo;/&rdquo;, and relative to the system <code>homeDir</code> otherwise.</td>
         </tr>
         <tr>
             <td>site</td>
@@ -2588,7 +2616,7 @@ refresh_token </td>
         <tr>
             <td>startupScript</td>
             <td>String</td>
-            <td>Path to a script that will be run prior to execution of any command on this system. The path will be resolved relative to the <code>rootDir</code> value in the storage config if it begins with a &ldquo;/&rdquo;, and relative to the system <code>homeDir</code> otherwise. Any environment variables defined in the system description will be set before this script is called. If this script fails, the job will fail. </td>
+            <td>Path to a script that will be run prior to execution of any command on this system. The path will be a standard path on the remote system. A limited set of system macros are supported in this field. They are <span style="code">rootDir</span>, <span style="code">homeDir</span>, <span style="code">systemId</span>, <span style="code">workDir</span>, and <span style="code">homeDir</span>. The standard set of runtime job attributes are also supported. Between the two set of macros, you should be able to construct distinct paths per job, user, and app. Any environment variables defined in the system description will be added after this script is sourced. If this script fails, output will be logged to the <span style="code">.agave.log</span> file in your job directory. Job submission will still continue regardless of the exit code of the script.</td>
         </tr>
         <tr>
             <td>status</td>
@@ -9442,9 +9470,11 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
  </span><span class="err">\______/</span><span class="w"> </span><span class="err">\_______|__/</span><span class="w">  </span><span class="err">|__/\_______|__/</span><span class="w"> </span><span class="err">|__/</span><span class="w"> </span><span class="err">|__/\_______/</span><span class="w">
 </span></code></pre>
 
-<p>Schema can be provided in JSON Schema form. The service will validate that the schema is valid JSON and store it. To validate Metadata against it, the schema UUID should be given as a parameter, SchemaId, when uploading Metadata. If no SchemaId is provided, the Metadata service will accept any JSON Object or plain text string and store it accordingly. This flexible approach enabled Agave to handle different levels of structure of Metadata from completely unstructured, to highly structured with complex JSON schemata.</p>
+<p>Schema can be provided in JSON Schema form. The service will validate that the schema is valid JSON and store it. To validate Metadata against it, the schema UUID should be given as a parameter, <code class="prettyprint">schemaId</code>, when uploading Metadata. If no <code class="prettyprint">schemaId</code>` is provided, the Metadata service will accept any JSON Object or plain text string and store it accordingly. This flexible approach allows Agave a high degree of flexibility in handling structured and unstructured metadata alike.</p>
 
 <p>For more on JSON Schema please see <a title="JSON Schema" href="http://json-schema.org/">http://json-schema.org/</a></p>
+
+<aside class="info"> The metadata service supports both JSON Schema v3 and v4. No additional work is needed on your part to specify which version you want to use, the service will autodetect the version and validate it accordingly. </aside>
 
 <p>To add a metadata schema to the repository:</p>
 
@@ -9586,6 +9616,12 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 <p>To delete a metadata schema, simply make a DELETE request on the metadata schema resource.</p>
 
 <aside class="alert"> Deleting a metadata schema will permanently delete the schema and all its history, permissions, etc. Once the schema is deleted, the remaining metadata items will not be automatically updated, thus it is important to know that updates to metadata items that still reference the schema will fail.</aside>
+
+<h3 id="specifying-schemata-as-ref">Specifying schemata as $ref</h3>
+
+<p>When building new JSON Schema definitions, it is often helpful to break each object out into its own definition and use <code class="prettyprint">$ref</code> fields to reference them. The metadata service supports such references between metadata schema resources. Simply provide the fully qualified URL of another valid metadata schema resources as the value to a <code class="prettyprint">$ref</code> field and Agave will resolve the reference internally, applying the appropriate authentication and authorization for the requesting user to the request to the referenced resource.</p>
+
+<aside class="warning"> When using Agave Metadata Schema as external references in a JSON Schema definition, make sure you grant at READ permission or greater to every referenced Agave Metadata Schema resource needed to resolved the JSON Schema definition. </aside>
 
               <h2 id="monitors">Monitors</h2>
 <pre class="highlight json"><code><span class="w"> </span><span class="err">/$$</span><span class="w">      </span><span class="err">/$$</span><span class="w">                  </span><span class="err">/$$</span><span class="w">  </span><span class="err">/$$</span><span class="w">
@@ -10344,9 +10380,9 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 <aside class="notice">For even quicker access, you can associate the metadata record with the UUID of the user through the associationIds attribute. See the <a href="#metadata" title="Metadata Management Guide">Metadata Guide</a> for more information about efficient storing and searching of metadata.</aside>
 
 <h3 id="updating">Updating</h3>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X PUT -d <span class="s2">"password=abcd123&amp;amp;email=testuser@test.com&amp;amp;first_name=Test&amp;amp;last_name=User"</span> https://public.tenants.agaveapi.co/profiles/v2/testuser
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X PUT -d <span class="s2">"password=abcd123&amp;email=testuser@test.com&amp;first_name=Test&amp;last_name=User"</span> https://public.tenants.agaveapi.co/profiles/v2/testuser
 </code></pre>
-<pre class="highlight plaintext"><code>profiles-update -v -p abcd123 -e "testuser@test.com" -f Test -l User testuser
+<pre class="highlight plaintext"><code>profiles-addupdate -v -p abcd123 -e "testuser@test.com" -f Test -l User testuser
 </code></pre>
 
 <p>The response to this call looks like this:</p>
