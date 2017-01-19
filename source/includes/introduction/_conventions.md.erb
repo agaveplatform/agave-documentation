@@ -93,6 +93,14 @@ Several URL query parameters are common across all services. The following table
 
 <%= partial "includes/tables/77" %>
 
+
+#### Experimental query parameters
+
+Starting with the 2.1.10 release, two new query parameters have been introduced into the jobs api as an experimental feature. The following table lists them for reference
+
+<%= partial "includes/tables/86-search-query-parameters" %>
+
+
 ### Responses
 
 All data is received and returned as a JSON object. The <a title="Live Documentation" href="/live-docs/">Live Docs</a> provide a description of all the retrievable objects.
@@ -103,7 +111,7 @@ All data is received and returned as a JSON object. The <a title="Live Documenta
 {
     "status": "error",
     "message": "Permission denied. You do not have permission to view this system",
-    "version": "2.2.0-r8228",
+    "version": "2.1.10-r8228",
     "result": {}
 }
 ```

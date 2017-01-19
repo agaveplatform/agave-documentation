@@ -151,11 +151,11 @@ The example above represents a possible JSON document that could be used to stor
 ### Updating
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "password=abcd123&amp;email=testuser@test.com&amp;first_name=Test&amp;last_name=User" https://public.tenants.agaveapi.co/profiles/v2/testuser
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "password=abcd123&email=testuser@test.com&first_name=Test&last_name=User" https://public.tenants.agaveapi.co/profiles/v2/testuser
 ```
 
 ```plaintext
-profiles-update -v -p abcd123 -e "testuser@test.com" -f Test -l User testuser
+profiles-addupdate -v -p abcd123 -e "testuser@test.com" -f Test -l User testuser
 ```
 
 The response to this call looks like this:

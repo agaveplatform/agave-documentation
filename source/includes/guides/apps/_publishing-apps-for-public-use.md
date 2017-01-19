@@ -30,15 +30,14 @@ Once you have a working app that you have verified runs correctly, you contact y
 
 ##### Admins create a public version of the app <a name="admins-create-a-public-version-of-the-app">&nbsp;</a>  
 
-Once the app is vetted, your tenant admins will tell Agave to publish the app. This can be done with a single call the the Apps API. An example of publishing the `demo-pyplot-demo-advanced-0.1.0` app from our <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a> is shown below.
+Once the app is vetted, your tenant admins will tell Agave to publish the app. This can be done with a single call the the Apps API. An example of publishing the `demo-pyplot-demo-advanced-0.1.0` app from our <a href="#registering-an-app" title="App Regisration Guide">App Registration Guide</a> is shown below.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=publish" https://public.tenants.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0?pretty=true
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=publish" https://public.tenants.agaveapi.co/apps/v2/wc-1.00?pretty=true
 ```
 
-
 ```plaintext
-apps-publish -v demo-pyplot-demo-advanced-0.1.0
+apps-publish -v wc-1.00
 ```
 
 
@@ -66,7 +65,7 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
     "shortDescription" : "Advanced demo plotting app",
     "longDescription" : "Advanced demo app to create a graph using Python",
     "tags" : [ "python", "demo", "plotting", "tutorial" ],
-    "ontology" : [ "" ],
+    "ontology" : [],
     "executionType" : "CLI",
     "executionSystem" : "docker.iplantcollaborative.org",
     "deploymentPath" : "/api/v2/apps/demo-pyplot-demo-advanced-0.1.0u1.zip",
@@ -382,14 +381,14 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
     }
   }
 }
-[/javascript]
+```  
 
 Notice a few things about the response above. First, a new app was created. Our existing private app is still available and in place, however we now have a new app, `demo-pyplot-demo-advanced-0.1.0u1` with its own id. We should also point out that the id structure of public apps is different than that of private apps. In this example, the newly published app has a `u1` appended to the end of the private app id. The `u1` refers to the revision number of the public app. This is rest to 1 the first time you publish an app. Unlike private apps which can be updated over and over again without chagning the canonical URL, the canonical URL for public apps changes ever time the app is updated. This ensures that the behavior of an app never change. You can be assured that as long as a public app is available, it will always behave the same.
 
 Second, notice that the `deploymentPath` has changed. Previously the app's assets were hosted out of a folder on the user's private storage system. Now, the `deploymentPath` points to a zip archive off the root of a public storage system. The location where public app archives are stored is determined by the `system.storage.publicAppsDir` value of the public `deploymentSystem`. By default, if no value is provided, Agave will attempt to store the archive in `/api/v2/apps`. If this folder does not exist and cannot be created, then publication will fail.
 
-<pre>`When an app is published, a zip archive is created of the private apps's &lt;span class="code"&gt;deploymentPath&lt;/span&gt; and coped to the public apps directory of the &lt;span class="code"&gt;deploymentSystem&lt;/span&gt;. 
-`</pre>
+<aside class="notice">When an app is published, a zip archive is created of the private apps's <span class="code">deploymentPath</span> and coped to the public apps directory of the <span> class="code">deploymentSystem</span>. 
+</aside>
 
 This is an important point. The new public app record is updated to reflect the new storage location and a checksum of the zipped archive is saved. Every time the app is run, the checksum is validated, the archive is unzipped, and the app is run exactly as before. If at any time, the checksum of the zipped archive does not match the recorded value, the app is disabled and the tenant administrators are notified. As a design decision, public apps are disabled if their data or behavior becomes compromised. Because of this, you can be assured that when you use a public app, the results will always be consistent.
 
@@ -403,11 +402,9 @@ It is not uncommon for the need to arise where you realize you need to update an
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=publish" https://public.tenants.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0?pretty=true
 ```
 
-
 ```plaintext
 apps-publish -v demo-pyplot-demo-advanced-0.1.0
 ```
-
 
 ```json
 {
@@ -749,12 +746,12 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
     }
   }
 }
-[/javascript]
+``` 
 
 Notice that both the revision number and app id changed after publication. Now, if we were to query the Apps service, we would see both `demo-pyplot-demo-advanced-0.1.0u1` and `demo-pyplot-demo-advanced-0.1.0u2` present.
 
-<pre>`Republishing an app creates a new app with incremented revision number. It does **not** delete the previous app.
-`</pre>
+<aside class="warning">Republishing an app creates a new app with incremented revision number. It does **not** delete the previous app.
+</aside>
 
 It is up to you to set the policy in place dealing with how you choose to retire public apps.
 
@@ -762,16 +759,17 @@ Also notice that the `deploymentPath` for the new app has changed. Every time an
 
 ##### Deleting a public app  
 
-As with private apps, public apps can be removed by issuing a DELETE request on the app's URL. Tenant admin permissions are required to delete public apps.
-
+> Delete a public app  
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0u1
 ``` 
 
-
 ```plaintext
 apps-delete demo-pyplot-demo-advanced-0.1.0u1
-```
+```  
+
+> This will result in an empty success response
 
 
-[/tabgroup]
+As with private apps, public apps can be removed by issuing a DELETE request on the app's URL. Tenant admin permissions are required to delete public apps.
+

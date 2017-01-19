@@ -237,7 +237,6 @@ uuid-lookup -v -e 0001409758089943-5056a550b8-0001-002 0001414144065563-5056a550
     }
   }
 ]
-```  
-Expansion also works when querying UUID in bulk. Simply add `expand=true` to the URL query in your request and the full resource representation of each UUID will be returned in an array with the original UUID request order maintained. If any of the resolutions fail due to permission violation or server error, the error response object will be provided rather than resource representation.
+```
 
-https://agave.iplantc.org/authorize/?client_id=FtYbpdfIqOhQ6TfK6zoUfdO3ZvUa&response_type=code&redirect_uri=http://127.0.0.1:8000&scope=PRODUCTION
+Expansion also works when querying UUID in bulk. Simply add `expand=true` to the URL query in your request and the full resource representation of each UUID will be returned in an array with the original UUID request order maintained. If any of the resolutions fail due to permission violation or server error, the error response object will be provided rather than resource representation.

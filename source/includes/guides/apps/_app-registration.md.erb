@@ -226,7 +226,7 @@ In addition to the inputs and parameters you define when registering your app, t
 
 #### Describing your app
 
-<aside class="notice">App description authoring has historically been challenging for new users. To help you with the process, we created the <a title="Agave App Builder" href="/app-builder/">App Builder</a> tool which gives you a dynamic form you can fill out to create a JSON description can publish to the API.</aside>
+<aside class="notice">App description authoring has historically been challenging for new users. To help you with the process, we created the <a title="Agave ToGo App Wizard" href="https://togo.agaveapi.co/app/#/apps/new/">Agave ToGo App Wizard</a> which gives you a dynamic form you can fill out to create a JSON description can publish to the API.</aside>
 
 Now that you have your app bundled up and ready to go, it is time to register it with the Apps service. App registration is done by POSTing a JSON description of your app to the service. This section describes the structure of an app description and walks you through authoring an app description for the pyplot app used in the rest of the tutorials.
 
@@ -238,15 +238,15 @@ Table 1 lists the top level attributes of an Agave app descxription. App descrip
 
 <aside class="notice">Note that the name and version are combined and used to uniquely identify your app globally. </aside>
 
-### App environment and assets <a name="app-environment-and-assets">&nbsp;</a>
+### App environment and assets
 
-### App inputs and parameters <a name="app-inputs-and-parameters">&nbsp;</a>
+### App inputs and parameters
 
 In addition to basic info describing the purpose and identity of the app, we need to describe how to interact with the software the app represents. App inputs and parameters define the data and command-line arguments (flags, arguments, etc.) needed by your wrapper script in order to properly run your application code. The word choice here is intentional. In the section on <a name="creating-a-wrapper-template">Creating a wrapper template</a> we saw that Agave will inject the runtime values of the inputs and parameters given in a job request to the wrapper template. The wrapper template is just a shell script that you provide to invoke your app on the target `exectionSystem`. You can define whatever `inputs` and `parameters` you need to provide the information your wrapper template needs to deliver the behavior you need. Thus, there does <strong>not</strong> necessarily need to be a relationship between the naming, number, or existence of app inputs and parameters and the arguments needed to run your application code.
 
 In the following sections we cover each argument type in detail.
 
-#### App inputs <a name="app-inputs">&nbsp;</a>
+#### App inputs
 
 App inputs describe data inputs supported by your app. Each input can represent one or more files or folders. Inptus can be optional or required and may physically reside anywhere accessible using any of the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/" title="Data Management Tutorial">data protocols</a> supported by Agave. Table 2 lists the attributes of a JSON app input description.
 
