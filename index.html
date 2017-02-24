@@ -4913,7 +4913,7 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
       </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/public"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/public"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -9438,6 +9438,27 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 <p>metadata search for values with any field matching an item in the given array</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w"> </span><span class="nt">"value.profile.status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"$in"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w"> </span><span class="s2">"paused"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>metadata search for items with a name matching a case-insensitive regex</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"$regex"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^Cactus.*"</span><span class="p">,</span><span class="w"> </span><span class="nt">"$options"</span><span class="p">:</span><span class="w"> </span><span class="s2">"i"</span><span class="p">}}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>metadata search for value by regex matched against each line of a value</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w"> </span><span class="nt">"value.description"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"$regex"</span><span class="p">:</span><span class="w"> </span><span class="s2">".*monocots.*"</span><span class="p">,</span><span class="w"> </span><span class="nt">"$options"</span><span class="p">:</span><span class="w"> </span><span class="s2">"m"</span><span class="p">}}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>metadata search for value by conditional queries</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w"> </span><span class="nt">"$or"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="nt">"value.description"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"$regex"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">".*prickly pear.*"</span><span class="p">,</span><span class="s2">".*agave.*"</span><span class="p">,</span><span class="s2">".*century.*"</span><span class="p">],</span><span class="w"> </span><span class="nt">"$options"</span><span class="p">:</span><span class="w"> </span><span class="s2">"i"</span><span class="p">}},</span><span class="w">
+    </span><span class="p">{</span><span class="nt">"value.title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"$regex"</span><span class="p">:</span><span class="w"> </span><span class="s2">".*Cactus$"</span><span class="p">},</span><span class="w"> </span><span class="nt">"value.order"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"$regex"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Agavoideae"</span><span class="p">}}</span><span class="w">
+</span><span class="err">}</span><span class="w">
 </span></code></pre>
 
 <p>Some common search syntax examples. Consult the <a href="https://docs.mongodb.com/manual/tutorial/query-documents/">MongoDB Query Documentation</a> for more examples and full syntax documentation.</p>
