@@ -2,11 +2,37 @@
 
 Agave provides multiple ways to share your data with your colleagues and the general public. In addition to the standard permission model enabling you to share your data with one or more authenticated users within the Platform, you also have the ability to publish your data and make it available via an unauthenticated public URL. Unlike traditional web and cloud hosting, your data remains in its original location and is served in situ by Agave upon user request.
 
+Publishing a file for folder is simply a matter of granting the special `public` user `READ` permission on a file or folder. Similar to the way listings and permissions are exposed through unique paths in the Files API, published data is served from a custom `/files/v2/download` path. The public data URLs have the following structure:
+
+`https://public.agaveapi.co/files/v2/download/<username>/system/<system_id>/<path>`
+
+Notice two things. First, a username is inserted after the *download* path element. This is needed because there is no authorized user for whom to validate system or file ownership on a public request. The username gives the context by which to verify the availability of the system and file item being requested. Second, the `system_id` is mandatory in public data requests. This ensures that the public URL remains the same even when the default storage system of the user who published it changes.
+
+The following sections give examples of publishing files and folders in the Agave Platform.
+
 <aside class="info">See the <a href="#postits">PostIts Guide</a> for other ways to securely share your data with others.</aside>
+
 
 #### Publishing individual files
 
-> Publish file item for public access
+> Publish file item on your default storage system for public access
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
+    -H "Content-Type: application/json" \
+    -X POST \
+    --data '{"username","public", "permission":"READ"}' \
+    https://public.tenants.agaveapi.co/files/v2/pems/nryan/picksumipsum.txt
+```
+
+```plaintext
+files-pems-addupdate \
+    -u public \
+    -p READ \
+    nryan/picksumipsum.txt
+```
+
+> Publish file item on a named system for public access
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
@@ -37,21 +63,43 @@ files-pems-addupdate \
   "recursive": false,
   "_links": {
     "self": {
-      "href": "https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username.eq=$SHARE_USERNAME"
+      "href": "https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username.eq=public"
     },
     "file": {
       "href": "https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt"
     },
     "profile": {
-      "href": "https://public.agaveapi.co/profiles/v2/$SHARE_USERNAME"
+      "href": "https://public.agaveapi.co/profiles/v2/public"
     }
   }
 }
 ```
 
+Publishing a file for folder is simply a matter of giving the special `public` user `READ` permission on the file. Once published, the file will be available at the following URL:
+
+`https://public.tenants.agaveapi.co/files/v2/download/nryan/system/data.agaveapi.co/nryan/picksumipsum.txt`
+
 #### Publishing directories
 
-> Publish directory for public access
+> Publish directory on your default storage system for public access
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
+    -H "Content-Type: application/json" \
+    -X POST \
+    --data '{"username","public", "permission":"READ", "recursive": true}' \
+    https://public.tenants.agaveapi.co/files/v2/pems/nryan/public
+```
+
+```plaintext
+files-pems-addupdate \
+    --recursive \
+    -u public \
+    -p READ \
+    nryan/public
+```
+
+> Publish directory on a named system for public access
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
@@ -95,9 +143,11 @@ files-pems-addupdate \
 }
 ```
 
-Publishing an entire directory is similar to publishing a single file item. Simply include a `recursive` field to your request with a value of `true`. Once published, the directory will be available through Agave's public download URLS. The structure of the directory's url is predictable. Each user has a unique namespace for their published data.
+Publishing an entire directory is identical to publishing a single file item. To make all the contents of the directory public as well, include a `recursive` field to your request with a value of `true`. Once published, the directory and all its contents will be avaialble for download. The above example will make every file and folder in the "nryan/public" directory of "data.agaveapi.co" available for download at the following URL:
 
- `https://public.agaveapi.co/files/v2/download/<username>/system/<system_id>/<path>`. 
+ `https://public.agaveapi.co/files/v2/download/nryan/system/data.agaveapi.co/nryan/public`
+
+<aside class="notice">Remember that whenever you publish a folder, anything you put in that folder becomes publicly available. As with any cloud storage service, think before blindly copying data into your cloud storage. If you want to restrict the duration or frequency which your public data is accessed, you should see the <a href="#postits">PostIts Guide</a> for other ways to securely share your data with others.</aside>
  
 #### Publishing considerations
 
