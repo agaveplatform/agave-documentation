@@ -19,7 +19,7 @@ The order in which wrapper templates are processed in CLI apps is as follows.
     1. Shell environment sourced
     2. `environment` variables injected
     3. `startupScript` run
-    4. Custom `modules`</span>` prepended to the top of the wrapper
+    4. Custom `modules` prepended to the top of the wrapper
     5. `inputs` and `parameters` template variables replaced with values from the  job request
     6. Blacklist commands, if present, are disabled in the scripts.
     7. Resulting script is forked into the background immediately.
@@ -32,25 +32,40 @@ Comes from the system definition. Handle in your script if you cannot change the
 
 See more about <a href="http://modules.sourceforge.net/" title="The Environment Modules Project" target="_blank">Modules</a> and <a href="https://github.com/TACC/Lmod" title="Lmod: An Environment Module System based on Lua" target="_blank">Lmod</a>. Can be used to customize your environment, locate your application, and improve portability between systems. Agave does not install or manage the module installation on a particular system, however it does know how to interact with it. Specifying the modules needed to run your app either in your wrapper template or in your system definition can greatly help you during the development process.
 
+#### Default job macros
+
+Agave provides information about the job, system, and user as predefined macros you can use in your wrapper templates. The full list of  runtime job macros are give in the following table.
+
+<%= partial "includes/tables/64" %>
+
+
 #### Input data  
 
 Agave will stage the files and folders you specify as inputs to your app. These will be available in the top level of your job directory at runtime. Additionally, the names of each of the inputs will be injected into your wrapper template for you to use in your application logic. Please be aware that Agave will not attempt to resolve namespace conflicts between your app inputs. That means that if a job specifies two inputs with the same name, one will overwrite the other during the input staging phase of the job and, though the variable names will be correctly injected to the wrapper script, your job will most likely fail due to missing data.
 
 #### Variable injection  
 
-If you refer back to the app definition we used in the App Management Tutorial, you will see there are multiple inputs and parameters defined for that app. Each input and parameter object had an `id` attribute. That `id` value is the attribute name you use to associate runtime values with app inputs and parameters. When a job is submitted to Agave, prior to physically running the wrapper template, all instances of that `id` are replaced with the actual value from the job request. For example, the following example shows our app description, a job request, and the resulting wrapper template at run time.
+If you refer back to the app definition we used in the App Management Tutorial, you will see there are multiple inputs and parameters defined for that app. Each input and parameter object had an `id` attribute. That `id` value is the attribute name you use to associate runtime values with app inputs and parameters. When a job is submitted to Agave, prior to physically running the wrapper template, all instances of that `id` are replaced with the actual value from the job request. The example below shows our app description, a job request, and the resulting wrapper template at run time.
 
 #### Type declarations  
 
-During the jobs submission process, Agave will store your inputs and parameters as serialized JSON. At the point that variable injection occurs, Agave will
+During the jobs submission process, Agave will store your inputs and parameters as serialized JSON. At the point that variable injection occurs, Agave will replace all occurrences of your input and parameter with their value provided in the job request. In order for Agave to properly identify your input and parameter ids, wrap them in brackets and prepend a dollar sign. For example, if you have a parameter with id `param1`, you would include it in your wrapper script as `${param1}`. Case sensitivity is honored at all times.
 
 #### Boolean values  
 
+Boolean values are passed in as truthy values. true = 1, false is empty.
+
 #### Cardinality  
+
+Cardinality is not used in resolving wrapper template variables.
 
 #### Validation  
 
+Cardinality is not used in resolving wrapper template variables.
+
 #### Parameter Flags  
+
+If your parameter was of type "flag", Agave will replace all occurences of the template variable with the value you provided for the `argument` field.
 
 ### App packaging  
 
