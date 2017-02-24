@@ -90,4 +90,27 @@ The given query will return all metadata with name, "mustard plant" that you hav
 { "value.profile.status": { "$in": [ "active", "paused" ] } }
 ```
 
+
+> metadata search for items with a name matching a case-insensitive regex
+
+```json
+{ "name": { "$regex": "^Cactus.*", "$options": "i"}}
+```
+
+> metadata search for value by regex matched against each line of a value
+
+
+```json
+{ "value.description": { "$regex": ".*monocots.*", "$options": "m"}}
+```
+
+> metadata search for value by conditional queries
+
+```json
+{ "$or": [
+    {"value.description": { "$regex": [".*prickly pear.*",".*agave.*",".*century.*"], "$options": "i"}},
+    {"value.title": { "$regex": ".*Cactus$"}, "value.order": { "$regex": "Agavoideae"}}
+}
+```
+
 Some common search syntax examples. Consult the [MongoDB Query Documentation](https://docs.mongodb.com/manual/tutorial/query-documents/) for more examples and full syntax documentation.
