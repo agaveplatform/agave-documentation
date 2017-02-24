@@ -2641,6 +2641,133 @@ refresh_token </td>
     </tbody>
 </table>
 
+<h4 id="startup-startupscript">Startup startupScript</h4>
+
+<p>Every time Agave establishes a connection to an execution system, local or remote, it will attempt to source the <code class="prettyprint">startupScript</code> provided in your system definition. The value of <code class="prettyprint">startupScript</code> may be an absolute path on the system (ie. &ldquo;/usr/local/bin/common_aliases.sh&rdquo;, &ldquo;/home/nryan/.bashrc&rdquo;, etc.) or a path relative to physical home directory of the account used to authenticate to the system (&ldquo;.bashrc&rdquo;, &ldquo;.profile&rdquo;, &ldquo;agave/scripts/startup.sh&rdquo;, etc).</p>
+
+<p>The <code class="prettyprint">startupScript</code> field supports the use of template variables which Agave will resolve at runtime before establishing a connection. If you would prefer to specify the startup script as a virtualized path on the system, prepend <code class="prettyprint">${SYSTEM_ROOT_DIR}</code> to the path. If the system will be made public, you can specify a file relative to the home directory of the calling user by prefixing your <code class="prettyprint">startupScript</code> value with <code class="prettyprint">${SYSTEM_ROOT_DIR}/${SYSTEM_HOME_DIR}/${USERNAME}</code> A full list of the variables available is given in the following table.</p>
+
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SYSTEM_ID</td>
+<td>ID of the system (ex. ssh.execute.example.com)</td>
+</tr>
+<tr>
+<td>SYSTEM_UUID</td>
+<td>fThe UUID of the system</td>
+</tr>
+<tr>
+<td>SYSTEM_STORAGE_PROTOCOL</td>
+<td>The protocol used to move data to and from this system</td>
+</tr>
+<tr>
+<td>SYSTEM_STORAGE_HOST</td>
+<td>The storage host for this sytem</td>
+</tr>
+<tr>
+<td>SYSTEM_STORAGE_PORT</td>
+<td>The storage port for this system</td>
+</tr>
+<tr>
+<td>SYSTEM_STORAGE_RESOURCE</td>
+<td>The system resource for iRODS systems</td>
+</tr>
+<tr>
+<td>SYSTEM_STORAGE_ZONE</td>
+<td>The system zone for iRODS systems</td>
+</tr>
+<tr>
+<td>SYSTEM_STORAGE_ROOTDIR</td>
+<td>The virtual root directory exposed on this system</td>
+</tr>
+<tr>
+<td>SYSTEM_STORAGE_HOMEDIR</td>
+<td>The home directory on this system relative to the STORAGE_ROOT_DIR</td>
+</tr>
+<tr>
+<td>SYSTEM_STORAGE_AUTH_TYPE</td>
+<td>The storage authentication method for this system</td>
+</tr>
+<tr>
+<td>SYSTEM_STORAGE_CONTAINER</td>
+<td>The the object store bucket in which the <span class="code">rootDir</span> resides.</td>
+</tr>
+<tr>
+<td>SYSTEM_LOGIN_PROTOCOL</td>
+<td>The protocol used to establish a session with this system (eg SSH, GSISSH, etc)</td>
+</tr>
+<tr>
+<td>SYSTEM_LOGIN_HOST</td>
+<td>The login host for this system</td>
+</tr>
+<tr>
+<td>SYSTEM_LOGIN_PORT</td>
+<td>The login port for this system</td>
+</tr>
+<tr>
+<td>SYSTEM_LOGIN_AUTH_TYPE</td>
+<td>The login authentication method for this system</td>
+</tr>
+<tr>
+<td>SYSTEM_OWNER</td>
+<td>The username of the user who created the system.</td>
+</tr>
+<tr>
+<td>AGAVE_JOB_NAME</td>
+<td>The slugified version of the name of the job. See the section on <a href="#slugs">Conventions</a> for more information about slugs.</td>
+</tr>
+<tr>
+<td>AGAVE_JOB_ID</td>
+<td>The unique identifier of the job.</td>
+</tr>
+<tr>
+<td>AGAVE_JOB_APP_ID</td>
+<td>The <span class="code">appId</span> for which the job was requested.</td>
+</tr>
+<tr>
+<td>AGAVE_JOB_BATCH_QUEUE</td>
+<td>The batch queue on the <span class="code">AGAVE_JOB_EXECUTION_SYSTEM</span> to which the job was submitted.</td>
+</tr>
+<tr>
+<td>AGAVE_JOB_EXECUTION_SYSTEM</td>
+<td>The Agave execution system id where this job is running.</td>
+</tr>
+<tr>
+<td>AGAVE_JOB_ARCHIVE_PATH</td>
+<td>The path on the <span class="code">archiveSystem</span> where the job output will be copied if archiving is enabled.</td>
+</tr>
+<tr>
+<td>AGAVE_JOB_OWNER</td>
+<td>The username of the job owner.</td>
+</tr>
+<tr>
+<td>AGAVE_JOB_TENANT</td>
+<td>The id of the tenant to which the job was submitted.</td>
+</tr>
+<tr>
+<td>MONITOR_ID</td>
+<td>The ID of the monitor.</td>
+</tr>
+<tr>
+<td>MONITOR_CHECK_ID</td>
+<td>The ID of the monitor check making the request.</td>
+</tr>
+<tr>
+<td>MONITOR_OWNER</td>
+<td>The username of the user who created the monitor.</td>
+</tr>
+</tbody>
+</table>
+
+<aside class="notice">The <span class="code">startupScript</span> is <strong>NOT</strong> a virtual path relative to the relative to the system <span class="code">rootDir</span> and <span class="code">homeDir</span>. It is an acutal path on the remote system. The reason being that this value can only be set by the system owner, so it is unlikely to be a security issue, and the login account home directory may not be visible from the virtualized file system exposed by the system definition. This gives the owner a way to properly configure their user environment while protecting assets they would otherwise choose not to expose.</aside>
+
 <h4 id="schedulers-and-system-execution-types">Schedulers and system execution types</h4>
 
 <p>Agave supports job execution both interactively and through <a href="http://en.wikipedia.org/wiki/Job_scheduler" title="Job Scheduler" target="_blank">batch queueing systems</a> (aka schedulers). We cover the mechanics of job submission in the Job Management tutorial. Here we just point out that regardless of how your job is actually run on the underlying system, the process of submitting, monitoring, sharing, and otherwise interacting with your job through Agave is identical. Describing the scheduler and execution types for your system is really just a matter of picking the most efficient and/or available mechanism for running jobs on your system.</p>
@@ -2763,6 +2890,7 @@ refresh_token </td>
 <pre id="queue-short-job" class="json queue-config">
 <code>{
     "name":"short_job",
+    "mappedName": null,
     "maxJobs":100,
     "maxUserJobs":10,
     "maxNodes":32,
@@ -2779,6 +2907,7 @@ refresh_token </td>
 <code># Restrict the queue to having at most 10 total jobs in it at once. Jobs may run for no more than an hour.
 {
     "name":"small_q",
+    "mappedName": null,
     "maxJobs":10,
     "maxUserJobs":1,
     "maxNodes":32,
@@ -2795,6 +2924,7 @@ refresh_token </td>
 <code># Restrict the queue to only running single node jobs.
 {
     "name":"short_job",
+    "mappedName": null,
     "maxJobs":100,
     "maxUserJobs":10,
     "maxNodes":1,
@@ -2814,6 +2944,7 @@ refresh_token </td>
 [
   {
     "name":"big_mem",
+    "mappedName": null,
     "maxJobs":10,
     "maxUserJobs":1,
     "maxNodes":1,
@@ -2825,6 +2956,7 @@ refresh_token </td>
   },
   {
     "name":"big_compute",
+    "mappedName": null,
     "maxJobs":10,
     "maxUserJobs":10,
     "maxNodes":256,
@@ -6917,7 +7049,7 @@ curl -sk -H <span class="s2">"Authorization: Bearer  </span><span class="nv">$AC
 
 <p>Webhooks are the alternative, preferred way for your application to monitor the status of asynchronous actions in Agave. If you are a <a href="http://en.wikipedia.org/wiki/Design_Patterns_(book)" title="Gang of Four" target="_blank">Gang of Four</a> disciple, webhooks are a mechanism for implementing the <a href="http://en.wikipedia.org/wiki/Observer%5Fpattern" title="Observer Pattern" target="_blank">Observer Pattern</a>. They are widely used across the web and chances are that something you&rsquo;re using right now is leveraging them. In the context of Agave, a webhook is a URL that you give to Agave in advance of an event which it later POSTs a response to when that event occurs. A webhook can be any web accessible URL.</p>
 
-<aside class="notice">For more information about webhooks, events, and notifications in Agave, please see the <a href="http://agaveapi.co/notifications-and-events/" title="Notifications and Events">Notifications and Events</a> page.</aside>
+<aside class="notice">For more information about webhooks, events, and notifications in Agave, please see the <a href="http://developer.agaveapi.co/#notifications/" title="Notifications Guide">Notifications</a> and <a href="http://developer.agaveapi.co/#events/" title="Events Guide">Events</a> Guides.</aside>
 
 <p>The Jobs service provides several template variables for constructing dynamic URLs. Template variables can be included anywhere in your URL by surrounding the variable name in the following manner <code class="prettyprint">${VARIABLE_NAME}</code>. When an event of interest occurs, the variables will be resolved and the resulting URL called. Several example urls are given below.</p>
 <pre class="highlight json"><code><span class="err">http://example.com/?job_id=$</span><span class="p">{</span><span class="err">JOB_ID</span><span class="p">}</span><span class="err">&amp;amp;job_status=$</span><span class="p">{</span><span class="err">EVENT</span><span class="p">}</span><span class="w">
@@ -6996,7 +7128,7 @@ curl -sk -H <span class="s2">"Authorization: Bearer  </span><span class="nv">$AC
 
 <h4 id="email">Email</h4>
 
-<p>In situations where you do not have a persistent web address, or access to a backend service, you may find it more convenient to subscribe for email notifications rather then providing a webhook. Agave supports email notifications support as well. Simply specify a valid email address in the <code class="prettyprint">url</code> field in your job submission notification object and an email will be sent to that address when a relevant event occurs. A sample email message is given below.</p>
+<p>In situations where you do not have a persistent web address, or access to a backend service, you may find it more convenient to subscribe for email notifications rather then providing a webhook. Agave supports email notifications as well. Simply specify a valid email address in the <code class="prettyprint">url</code> field in your job submission notification object and an email will be sent to that address when a relevant event occurs. A sample email message is given below.</p>
 <pre class="highlight json"><code><span class="err">The</span><span class="w"> </span><span class="err">status</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">job</span><span class="w"> </span><span class="mi">0001414144065563-5056</span><span class="err">a</span><span class="mi">550</span><span class="err">b</span><span class="mi">8-0001-007</span><span class="err">,</span><span class="w"> </span><span class="s2">"demo-pyplot-demo-advanced test-1414139896,"</span><span class="w"> </span><span class="err">has</span><span class="w"> </span><span class="err">changed</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">FINISHED.</span><span class="w">
 
 </span><span class="err">Name:</span><span class="w"> </span><span class="err">demo-pyplot-demo-advanced</span><span class="w"> </span><span class="err">test</span><span class="mi">-1414139896</span><span class="w">
@@ -7909,8 +8041,8 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
     </thead>
     <tbody>
         <tr>
-            <td>UUID</td>
-            <td>The UUID of the monitor</td>
+            <td>ID</td>
+            <td>The ID of the monitor</td>
         </tr>
         <tr>
             <td>EVENT</td>
@@ -8186,7 +8318,7 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
             <td>The storage host for this sytem</td>
         </tr>
         <tr>
-            <td>STORAGE_POST</td>
+            <td>STORAGE_PORT</td>
             <td>The storage port for this system</td>
         </tr>
         <tr>
@@ -8196,6 +8328,10 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
         <tr>
             <td>STORAGE_ZONE</td>
             <td>The system zone for iRODS systems</td>
+        </tr>
+        <tr>
+            <td>STORAGE_CONTAINER</td>
+            <td>The the object store bucket in which the <span class="code">rootDir</span> resides. </td>
         </tr>
         <tr>
             <td>STORAGE_ROOT_DIR</td>
@@ -10993,6 +11129,8 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 
 <h4 id="metadata">Metadata</h4>
 
+<!-- Begin Metadata Events -->
+
 <table>
     <thead>
         <tr>
@@ -11023,6 +11161,8 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
         </tr>
     </tbody>
 </table>
+
+<!-- End Metadata Events -->
 
 <h4 id="monitors">Monitors</h4>
 
@@ -11088,6 +11228,8 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 
 <h4 id="schema">Schema</h4>
 
+<!-- Begin Metadata Schema Events -->
+
 <table>
     <thead>
         <tr>
@@ -11119,7 +11261,11 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
     </tbody>
 </table>
 
+<!-- End Metadata Schema Events -->
+
 <h4 id="postits">PostIts</h4>
+
+<!-- Begin PostIt Events -->
 
 <table>
     <thead>
@@ -11151,6 +11297,8 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
         </tr>
     </tbody>
 </table>
+
+<!-- End PostIt Events -->
 
 <h4 id="profiles">Profiles</h4>
 
@@ -11233,6 +11381,59 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
         </tr>
     </tbody>
 </table>
+
+<h4 id="tags">Tags</h4>
+
+<!-- Begin Tags API Events -->
+
+<table>
+    <thead>
+        <tr>
+            <th>Event</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CREATED</td>
+            <td><td>Tag was registered</td>
+        </tr>
+        <tr>
+            <td>UPDATED</td>
+            <td><td>Tag was updated</td>
+        </tr>
+        <tr>
+            <td>DELETED</td>
+            <td><td>Tag was deleted from active use</td>
+        </tr>
+        <tr>
+            <td>RESOURCE_ADDED</td>
+                 <td>Tag was restored from deleted status</td>
+        </tr>
+        <tr>
+            <td>RESOURCE_REMOVED</td>
+                   <td>Tag was disabled</td>
+        </tr>
+        <tr>
+            <td>PUBLISHED</td>
+            <td>Tag was published for public use</td>
+        </tr>
+        <tr>
+            <td>UNPUBLISHED</td>
+            <td>Tag was unpublished. It will no longer be available for public use</td>
+        </tr>
+        <tr>
+            <td>PERMISSION_REVOKE</td>
+            <td>One or more user permissions were revoked on this tag</td>
+        </tr>
+        <tr>
+            <td>PERMISSION_GRANT</td>
+            <td>One or more user permissions were granted on this tag</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- End Tags API Events -->
 
 <h4 id="transfers">Transfers</h4>
 
