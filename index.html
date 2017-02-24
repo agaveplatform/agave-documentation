@@ -5403,8 +5403,8 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 <p>1. Shell environment sourced
     2. <code class="prettyprint">environment</code> variables injected
     3. <code class="prettyprint">startupScript</code> run
-    4. Custom <code class="prettyprint">modules</code></span><code class="prettyprint">prepended to the top of the wrapper
-    5.</code>inputs<code class="prettyprint">and</code>parameters` template variables replaced with values from the  job request
+    4. Custom <code class="prettyprint">modules</code> prepended to the top of the wrapper
+    5. <code class="prettyprint">inputs</code> and <code class="prettyprint">parameters</code> template variables replaced with values from the  job request
     6. Blacklist commands, if present, are disabled in the scripts.
     7. Resulting script is forked into the background immediately.</p>
 
@@ -5416,25 +5416,137 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 
 <p>See more about <a href="http://modules.sourceforge.net/" title="The Environment Modules Project" target="_blank">Modules</a> and <a href="https://github.com/TACC/Lmod" title="Lmod: An Environment Module System based on Lua" target="_blank">Lmod</a>. Can be used to customize your environment, locate your application, and improve portability between systems. Agave does not install or manage the module installation on a particular system, however it does know how to interact with it. Specifying the modules needed to run your app either in your wrapper template or in your system definition can greatly help you during the development process.</p>
 
+<h4 id="default-job-macros">Default job macros</h4>
+
+<p>Agave provides information about the job, system, and user as predefined macros you can use in your wrapper templates. The full list of  runtime job macros are give in the following table.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>AGAVE_JOB_APP_ID</td>
+            <td>The <span class="code">appId</span> for which the job was requested.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_ARCHIVE</td>
+            <td>Binary boolean value indicating whether the current job will be archived after the wrapper template exits.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_ARCHIVE_SYSTEM</td>
+            <td>The system to which the job will be archived after the wrapper template exits.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_ARCHIVE_URL
+</td>
+            <td>The fully qualified URL to the archive folder where the job output will be copied if archiving is enabled, or the URL of the output listing </td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_ARCHIVE_PATH</td>
+            <td>The path on the <span class="code">archiveSystem</span> where the job output will be copied if archiving is enabled.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_BATCH_QUEUE</td>
+            <td>The batch queue on the <span class="code">AGAVE_JOB_EXECUTION_SYSTEM</span> to which the job was submitted.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_EXECUTION_SYSTEM</td>
+            <td>The Agave execution system id where this job is running.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_ID</td>
+            <td>The unique identifier of the job.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_MEMORY_PER_NODE</td>
+            <td>The amount of memory per node requested at submit time.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_NAME</td>
+            <td>The slugified version of the name of the job. See the section on <a href="#slugs">Conventions</a> for more information about slugs.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_NAME_RAW</td>
+            <td>The name of the job as given at submit time.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_NODE_COUNT</td>
+            <td>The number of nodes requested at submit time.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_OWNER</td>
+            <td>The username of the job owner.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_PROCESSORS_PER_NODE</td>
+            <td>The number of cores requested at submit time.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_SUBMIT_TIME</td>
+            <td>The time at which the job was submitted in ISO-8601 format.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_TENANT</td>
+            <td>The id of the tenant to which the job was submitted.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_ARCHIVE_URL</td>
+            <td>The Agave url to which the job will be archived after the job completes.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_CALLBACK_RUNNING</td>
+            <td>Represents a call back to the API stating the job has started.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_CALLBACK_CLEANING_UP</td>
+            <td>Represents a call back to the API stating the job is cleaning up.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_CALLBACK_ALIVE</td>
+            <td>Represents a call back to the API stating the job is still alive. This will essentially update the timestamp on the job and add an entry to the job&rsquo;s history record.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_CALLBACK_NOTIFICATION</td>
+            <td>Represents a call back to the API telling it to forward a notification to the registered endpoint for that job. If no notification is registered, this will be ignored.</td>
+        </tr>
+        <tr>
+            <td>AGAVE_JOB_CALLBACK_FAILURE</td>
+            <td>Represents a call back to the API stating the job failed. Use this with caution as it will tell the API the job failed even if it has not yet completed. Upon receiving this callback, Agave will abandon the job and skip any archiving that may have been requested. Think of this as <span class="code">kill -9</span> for the job lifecycle.</td>
+        </tr>
+    </tbody>
+</table>
+
 <h4 id="input-data">Input data</h4>
 
 <p>Agave will stage the files and folders you specify as inputs to your app. These will be available in the top level of your job directory at runtime. Additionally, the names of each of the inputs will be injected into your wrapper template for you to use in your application logic. Please be aware that Agave will not attempt to resolve namespace conflicts between your app inputs. That means that if a job specifies two inputs with the same name, one will overwrite the other during the input staging phase of the job and, though the variable names will be correctly injected to the wrapper script, your job will most likely fail due to missing data.</p>
 
 <h4 id="variable-injection">Variable injection</h4>
 
-<p>If you refer back to the app definition we used in the App Management Tutorial, you will see there are multiple inputs and parameters defined for that app. Each input and parameter object had an <code class="prettyprint">id</code> attribute. That <code class="prettyprint">id</code> value is the attribute name you use to associate runtime values with app inputs and parameters. When a job is submitted to Agave, prior to physically running the wrapper template, all instances of that <code class="prettyprint">id</code> are replaced with the actual value from the job request. For example, the following example shows our app description, a job request, and the resulting wrapper template at run time.</p>
+<p>If you refer back to the app definition we used in the App Management Tutorial, you will see there are multiple inputs and parameters defined for that app. Each input and parameter object had an <code class="prettyprint">id</code> attribute. That <code class="prettyprint">id</code> value is the attribute name you use to associate runtime values with app inputs and parameters. When a job is submitted to Agave, prior to physically running the wrapper template, all instances of that <code class="prettyprint">id</code> are replaced with the actual value from the job request. The example below shows our app description, a job request, and the resulting wrapper template at run time.</p>
 
 <h4 id="type-declarations">Type declarations</h4>
 
-<p>During the jobs submission process, Agave will store your inputs and parameters as serialized JSON. At the point that variable injection occurs, Agave will</p>
+<p>During the jobs submission process, Agave will store your inputs and parameters as serialized JSON. At the point that variable injection occurs, Agave will replace all occurrences of your input and parameter with their value provided in the job request. In order for Agave to properly identify your input and parameter ids, wrap them in brackets and prepend a dollar sign. For example, if you have a parameter with id <code class="prettyprint">param1</code>, you would include it in your wrapper script as <code class="prettyprint">${param1}</code>. Case sensitivity is honored at all times.</p>
 
 <h4 id="boolean-values">Boolean values</h4>
 
+<p>Boolean values are passed in as truthy values. true = 1, false is empty.</p>
+
 <h4 id="cardinality">Cardinality</h4>
+
+<p>Cardinality is not used in resolving wrapper template variables.</p>
 
 <h4 id="validation">Validation</h4>
 
+<p>Cardinality is not used in resolving wrapper template variables.</p>
+
 <h4 id="parameter-flags">Parameter Flags</h4>
+
+<p>If your parameter was of type &ldquo;flag&rdquo;, Agave will replace all occurences of the template variable with the value you provided for the <code class="prettyprint">argument</code> field.</p>
 
 <h3 id="app-packaging">App packaging</h3>
 
