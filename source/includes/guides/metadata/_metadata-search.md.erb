@@ -107,9 +107,27 @@ The given query will return all metadata with name, "mustard plant" that you hav
 > metadata search for value by conditional queries
 
 ```json
-{ "$or": [
-    {"value.description": { "$regex": [".*prickly pear.*",".*agave.*",".*century.*"], "$options": "i"}},
-    {"value.title": { "$regex": ".*Cactus$"}, "value.order": { "$regex": "Agavoideae"}}
+{
+   "$or":[
+      {
+         "value.description":{
+            "$regex":[
+               ".*prickly pear.*",
+               ".*agave.*",
+               ".*century.*"
+            ],
+            "$options":"i"
+         }
+      },
+      {
+         "value.title":{
+            "$regex":".*Cactus$"
+         },
+         "value.order":{
+            "$regex":"Agavoideae"
+         }
+      }
+   ]
 }
 ```
 
