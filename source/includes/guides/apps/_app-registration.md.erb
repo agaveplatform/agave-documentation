@@ -240,6 +240,8 @@ Table 1 lists the top level attributes of an Agave app descxription. App descrip
 
 ### App environment and assets
 
+
+
 ### App inputs and parameters
 
 In addition to basic info describing the purpose and identity of the app, we need to describe how to interact with the software the app represents. App inputs and parameters define the data and command-line arguments (flags, arguments, etc.) needed by your wrapper script in order to properly run your application code. The word choice here is intentional. In the section on <a name="creating-a-wrapper-template">Creating a wrapper template</a> we saw that Agave will inject the runtime values of the inputs and parameters given in a job request to the wrapper template. The wrapper template is just a shell script that you provide to invoke your app on the target `exectionSystem`. You can define whatever `inputs` and `parameters` you need to provide the information your wrapper template needs to deliver the behavior you need. Thus, there does <strong>not</strong> necessarily need to be a relationship between the naming, number, or existence of app inputs and parameters and the arguments needed to run your application code.

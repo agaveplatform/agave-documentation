@@ -131,7 +131,7 @@ Often times, however, polling is unavoidable. In these situations, we recommend 
 
 Webhooks are the alternative, preferred way for your application to monitor the status of asynchronous actions in Agave. If you are a <a href="http://en.wikipedia.org/wiki/Design_Patterns_(book)" title="Gang of Four" target="_blank">Gang of Four</a> disciple, webhooks are a mechanism for implementing the <a href="http://en.wikipedia.org/wiki/Observer%5Fpattern" title="Observer Pattern" target="_blank">Observer Pattern</a>. They are widely used across the web and chances are that something you're using right now is leveraging them. In the context of Agave, a webhook is a URL that you give to Agave in advance of an event which it later POSTs a response to when that event occurs. A webhook can be any web accessible URL.
 
-<aside class="notice">For more information about webhooks, events, and notifications in Agave, please see the <a href="http://agaveapi.co/notifications-and-events/" title="Notifications and Events">Notifications and Events</a> page.</aside>
+<aside class="notice">For more information about webhooks, events, and notifications in Agave, please see the <a href="http://developer.agaveapi.co/#notifications/" title="Notifications Guide">Notifications</a> and <a href="http://developer.agaveapi.co/#events/" title="Events Guide">Events</a> Guides.</aside>
 
 The Jobs service provides several template variables for constructing dynamic URLs. Template variables can be included anywhere in your URL by surrounding the variable name in the following manner `${VARIABLE_NAME}`. When an event of interest occurs, the variables will be resolved and the resulting URL called. Several example urls are given below.
 
@@ -151,7 +151,7 @@ The full list of template variables are listed in the following table.
 
 #### Email
 
-In situations where you do not have a persistent web address, or access to a backend service, you may find it more convenient to subscribe for email notifications rather then providing a webhook. Agave supports email notifications support as well. Simply specify a valid email address in the `url` field in your job submission notification object and an email will be sent to that address when a relevant event occurs. A sample email message is given below.
+In situations where you do not have a persistent web address, or access to a backend service, you may find it more convenient to subscribe for email notifications rather then providing a webhook. Agave supports email notifications as well. Simply specify a valid email address in the `url` field in your job submission notification object and an email will be sent to that address when a relevant event occurs. A sample email message is given below.
 
 ```json
 The status of job 0001414144065563-5056a550b8-0001-007, "demo-pyplot-demo-advanced test-1414139896," has changed to FINISHED.

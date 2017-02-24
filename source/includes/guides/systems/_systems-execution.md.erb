@@ -4,6 +4,16 @@ In contrast to storage systems, execution systems specify compute resources wher
 
 <%= partial "includes/tables/49" %>
 
+#### Startup startupScript
+
+Every time Agave establishes a connection to an execution system, local or remote, it will attempt to source the `startupScript` provided in your system definition. The value of `startupScript` may be an absolute path on the system (ie. "/usr/local/bin/common_aliases.sh", "/home/nryan/.bashrc", etc.) or a path relative to physical home directory of the account used to authenticate to the system (".bashrc", ".profile", "agave/scripts/startup.sh", etc).
+
+The `startupScript` field supports the use of template variables which Agave will resolve at runtime before establishing a connection. If you would prefer to specify the startup script as a virtualized path on the system, prepend `${SYSTEM_ROOT_DIR}` to the path. If the system will be made public, you can specify a file relative to the home directory of the calling user by prefixing your `startupScript` value with `${SYSTEM_ROOT_DIR}/${SYSTEM_HOME_DIR}/${USERNAME}` A full list of the variables available is given in the following table.
+
+<%= partial "includes/tables/87-startup-script-template-variables" %>
+
+<aside class="notice">The <span class="code">startupScript</span> is <strong>NOT</strong> a virtual path relative to the relative to the system <span class="code">rootDir</span> and <span class="code">homeDir</span>. It is an acutal path on the remote system. The reason being that this value can only be set by the system owner, so it is unlikely to be a security issue, and the login account home directory may not be visible from the virtualized file system exposed by the system definition. This gives the owner a way to properly configure their user environment while protecting assets they would otherwise choose not to expose.</aside>
+
 #### Schedulers and system execution types
 
 Agave supports job execution both interactively and through <a href="http://en.wikipedia.org/wiki/Job_scheduler" title="Job Scheduler" target="_blank">batch queueing systems</a> (aka schedulers). We cover the mechanics of job submission in the Job Management tutorial. Here we just point out that regardless of how your job is actually run on the underlying system, the process of submitting, monitoring, sharing, and otherwise interacting with your job through Agave is identical. Describing the scheduler and execution types for your system is really just a matter of picking the most efficient and/or available mechanism for running jobs on your system.
@@ -46,6 +56,7 @@ The following sample queue definitions illustrate some other interesting use cas
 <pre id="queue-short-job" class="json queue-config">
 <code>{
     "name":"short_job",
+    "mappedName": null,
     "maxJobs":100,
     "maxUserJobs":10,
     "maxNodes":32,
@@ -62,6 +73,7 @@ The following sample queue definitions illustrate some other interesting use cas
 <code># Restrict the queue to having at most 10 total jobs in it at once. Jobs may run for no more than an hour.
 {
     "name":"small_q",
+    "mappedName": null,
     "maxJobs":10,
     "maxUserJobs":1,
     "maxNodes":32,
@@ -78,6 +90,7 @@ The following sample queue definitions illustrate some other interesting use cas
 <code># Restrict the queue to only running single node jobs.
 {
     "name":"short_job",
+    "mappedName": null,
     "maxJobs":100,
     "maxUserJobs":10,
     "maxNodes":1,
@@ -97,6 +110,7 @@ The following sample queue definitions illustrate some other interesting use cas
 [
   {
     "name":"big_mem",
+    "mappedName": null,
     "maxJobs":10,
     "maxUserJobs":1,
     "maxNodes":1,
@@ -108,6 +122,7 @@ The following sample queue definitions illustrate some other interesting use cas
   },
   {
     "name":"big_compute",
+    "mappedName": null,
     "maxJobs":10,
     "maxUserJobs":10,
     "maxNodes":256,
