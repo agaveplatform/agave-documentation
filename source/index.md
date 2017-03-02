@@ -7,7 +7,7 @@ language_tabs:
 
 toc_footers:
   - <a href='https://public.agaveapi.co/create_account' target='_blank'>Create an Account</a>
-  - <a href='https://bitbucket.org/taccaci/agave-flat/src/master/CHANGELOG.md' target='_blank'>CHANGELOG</a>
+  - <a href='https://bitbucket.org/agaveapi/agave-flat/src/master/CHANGELOG.md' target='_blank'>CHANGELOG</a>
   - <a href='http://status.agaveapi.co' target='_blank'>Status Page</a>
   - <a href='http://support.agaveapi.co' target='_blank'>Issues</a>
   - <a href='http://support.agaveapi.co' target='_blank'>Knowledge Base</a>

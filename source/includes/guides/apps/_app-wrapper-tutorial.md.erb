@@ -4,25 +4,25 @@ In order to run your application, you will need to create a wrapper template tha
 
 The order in which wrapper templates are processed in HPC and Condor apps is as follows.
 
-    1. `environment` variables injected.
-    2. `startupScript` run.
-    3. Scheduler directives prepended to the wrapper template.
-    4. `additionalDirectives` concatenated after the scheduler directives.
-    5. Custom `modules` concatenated after the additionalDirectives.
-    6. `inputs` and `parameters` template variables replaced with values from the job request.
-    7. Blacklist commands, if present, are disabled in the scripts.
-    8. Resulting script is written to the remote job execution folder and executed.
+1. `environment` variables injected.
+2. `startupScript` run.
+3. Scheduler directives prepended to the wrapper template.
+4. `additionalDirectives` concatenated after the scheduler directives.
+5. Custom `modules` concatenated after the additionalDirectives.
+6. `inputs` and `parameters` template variables replaced with values from the job request.
+7. Blacklist commands, if present, are disabled in the scripts.
+8. Resulting script is written to the remote job execution folder and executed.
 
 
 The order in which wrapper templates are processed in CLI apps is as follows.
 
-    1. Shell environment sourced
-    2. `environment` variables injected
-    3. `startupScript` run
-    4. Custom `modules` prepended to the top of the wrapper
-    5. `inputs` and `parameters` template variables replaced with values from the  job request
-    6. Blacklist commands, if present, are disabled in the scripts.
-    7. Resulting script is forked into the background immediately.
+1. Shell environment sourced
+2. `environment` variables injected
+3. `startupScript` run
+4. Custom `modules` prepended to the top of the wrapper
+5. `inputs` and `parameters` template variables replaced with values from the  job request
+6. Blacklist commands, if present, are disabled in the scripts.
+7. Resulting script is forked into the background immediately.
 
 #### Environment  
 
