@@ -64,7 +64,7 @@ ga('send', 'pageview');
           </div>
             <ul class="toc-footer">
                 <li><a href='https://public.agaveapi.co/create_account' target='_blank'>Create an Account</a></li>
-                <li><a href='https://bitbucket.org/taccaci/agave-flat/src/master/CHANGELOG.md' target='_blank'>CHANGELOG</a></li>
+                <li><a href='https://bitbucket.org/agaveapi/agave-flat/src/master/CHANGELOG.md' target='_blank'>CHANGELOG</a></li>
                 <li><a href='http://status.agaveapi.co' target='_blank'>Status Page</a></li>
                 <li><a href='http://support.agaveapi.co' target='_blank'>Issues</a></li>
                 <li><a href='http://support.agaveapi.co' target='_blank'>Knowledge Base</a></li>
@@ -5389,24 +5389,28 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 
 <p>The order in which wrapper templates are processed in HPC and Condor apps is as follows.</p>
 
-<p>1. <code class="prettyprint">environment</code> variables injected.
-    2. <code class="prettyprint">startupScript</code> run.
-    3. Scheduler directives prepended to the wrapper template.
-    4. <code class="prettyprint">additionalDirectives</code> concatenated after the scheduler directives.
-    5. Custom <code class="prettyprint">modules</code> concatenated after the additionalDirectives.
-    6. <code class="prettyprint">inputs</code> and <code class="prettyprint">parameters</code> template variables replaced with values from the job request.
-    7. Blacklist commands, if present, are disabled in the scripts.
-    8. Resulting script is written to the remote job execution folder and executed.</p>
+<ol>
+<li><code class="prettyprint">environment</code> variables injected.</li>
+<li><code class="prettyprint">startupScript</code> run.</li>
+<li>Scheduler directives prepended to the wrapper template.</li>
+<li><code class="prettyprint">additionalDirectives</code> concatenated after the scheduler directives.</li>
+<li>Custom <code class="prettyprint">modules</code> concatenated after the additionalDirectives.</li>
+<li><code class="prettyprint">inputs</code> and <code class="prettyprint">parameters</code> template variables replaced with values from the job request.</li>
+<li>Blacklist commands, if present, are disabled in the scripts.</li>
+<li>Resulting script is written to the remote job execution folder and executed.</li>
+</ol>
 
 <p>The order in which wrapper templates are processed in CLI apps is as follows.</p>
 
-<p>1. Shell environment sourced
-    2. <code class="prettyprint">environment</code> variables injected
-    3. <code class="prettyprint">startupScript</code> run
-    4. Custom <code class="prettyprint">modules</code> prepended to the top of the wrapper
-    5. <code class="prettyprint">inputs</code> and <code class="prettyprint">parameters</code> template variables replaced with values from the  job request
-    6. Blacklist commands, if present, are disabled in the scripts.
-    7. Resulting script is forked into the background immediately.</p>
+<ol>
+<li>Shell environment sourced</li>
+<li><code class="prettyprint">environment</code> variables injected</li>
+<li><code class="prettyprint">startupScript</code> run</li>
+<li>Custom <code class="prettyprint">modules</code> prepended to the top of the wrapper</li>
+<li><code class="prettyprint">inputs</code> and <code class="prettyprint">parameters</code> template variables replaced with values from the  job request</li>
+<li>Blacklist commands, if present, are disabled in the scripts.</li>
+<li>Resulting script is forked into the background immediately.</li>
+</ol>
 
 <h4 id="environment">Environment</h4>
 
