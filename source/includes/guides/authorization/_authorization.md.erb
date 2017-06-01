@@ -209,12 +209,10 @@ https://example.com/callback
 > A valid success response would be
 
 ```http
-https://example.com/callback#access_token=Vr17...amUa&token_type=bearer&expires_in=3600&state=867
+https://example.com/callback?access_token=Vr17...amUa&token_type=bearer&expires_in=3600&state=867
 ```
 
 After the user grants (or denies) access, the Agave Authorization service redirects the user to the `redirect_uri`. If the user has granted access, the final URL will contain the following data parameters in the query string.
-
-<aside class="alert">Notice the token information is appended the the callback url as a URL <em>fragment</em>, not query parameters. This is important if you are manually parsing the callback response because the <span class="code">access_token</span> will not be available as a query parameter. You will need to either parse the fragment from the URL yourself, or use an URL library in your development language to handle it for you.</span>
 
 <%= partial "includes/tables/18" %>
 
