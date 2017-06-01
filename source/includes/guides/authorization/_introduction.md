@@ -8,7 +8,7 @@
 | $$  | $$| $$  | $$| $$  | $$  | $$ /$$| $$  | $$
 |  $$$$$$/| $$  | $$|  $$$$$$/  |  $$$$/| $$  | $$
  \______/ |__/  |__/ \______/    \___/  |__/  |__/
-```
+ ```
 
 Most requests to the Agave REST APIs require authorization; that is, the user must have granted permission for an application to access the requested data. To prove that the user has granted permission, the request header sent by the application must include a valid access token.
 

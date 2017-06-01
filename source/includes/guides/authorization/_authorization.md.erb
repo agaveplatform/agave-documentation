@@ -22,7 +22,7 @@ There are two kinds of tokens you will obtained: access and refresh. Access toke
 The method is suitable for long-running applications in which the user logs in once and the access token can be refreshed. Since the token exchange involves sending your secret key, this should happen on a secure location, like a backend service, not from a client like a browser or mobile apps. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>. This flow is also the authorization flow used in our REST API Tutorial.
 
 <p>
-    <img src="/images/2014/09/Authorization-Code-Flow.png" alt="Authorization Code Flow Diagram" style="height: auto;"/>
+    <img src="images/2014/09/Authorization-Code-Flow.png" alt="Authorization Code Flow Diagram" style="height: auto;"/>
 </p>
 
 #### 1. Your application requests authorization
@@ -75,7 +75,7 @@ https://example.com/callback?error=access_denied&state=867
 
 #### 4. Your application requests refresh and access tokens
 
-```bash
+```http
 POST https://public.tenants.agaveapi.co/token
 ```
 
@@ -115,7 +115,7 @@ On success, the response from the Agave Authorization service has the status cod
 
 > Make a call to the API
 
-```bash
+```http
 curl -H "Authorization: Bearer a742...12d2"
     https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true&naked=true
 ```
@@ -141,7 +141,7 @@ Once you have a valid access token, you can include it in `Authorization` header
 
 #### 7. Requesting access token from refresh token
 
-```bash
+```http
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=refresh_token
     -d refresh_token=d77c...Sacf
@@ -162,7 +162,7 @@ Access tokens are deliberately set to expire after a short time, usually 4 hours
 
 The request is sent to the token endpoint of the Agave Authorization service:
 
-```
+```http
 POST https://public.tenants.agaveapi.co/token
 ```
 
@@ -179,11 +179,11 @@ The header of this POST request must contain the following parameter:
 
 Implicit grant flow is for clients that are implemented entirely using JavaScript and running in resource owner's browser. You do not need any server side code to use it. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>.
 
-<img src="/images/2014/09/Implicit-Flow.png" alt="Implicit Flow" style="width: 100%; height:auto"/>
+<img src="images/2014/09/Implicit-Flow.png" alt="Implicit Flow" style="width: 100%; height:auto"/>
 
 #### 1. Your application requests authorization
 
-```json
+```http
 https://public.tenants.agaveapi.co/authorize?client_id=gTgp...SV8a&redirect_uri=http:%2F%2Fexample.com%2Fcallback&scope=PRODUCTION&response_type=token&state=867
 ```
 
@@ -214,7 +214,7 @@ https://example.com/callback#access_token=Vr17...amUa&token_type=bearer&expires_
 
 After the user grants (or denies) access, the Agave Authorization service redirects the user to the `redirect_uri`. If the user has granted access, the final URL will contain the following data parameters in the query string.
 
-<aside class="alert">Notice the token information is appended the the callback url as a URL <em>fragment</em>, not query parameters. This is important if you are manually parsing the callback response because the <span class="code">access_token</span> will not be available as a query parameter. You will need to either parse the fragment from the URL yourself, or use an URL library in your development language to handle it for you.</span>
+<aside class="alert">Notice the token information is appended the the callback url as a URL <em>fragment</em>, not query parameters. This is important if you are manually parsing the callback response because the <span class="code">access_token</span> will not be available as a query parameter. You will need to either parse the fragment from the URL yourself, or use an URL library in your development language to handle it for you.</span></aside>
 
 <%= partial "includes/tables/18" %>
 
@@ -222,15 +222,22 @@ If the user has denied access, there will be no access token and the final URL w
 
 > A failed response would resemble something like
 
-```bash
+```http
 https://example.com/callback?error=access_denied&state=867
 ```
+
 <%= partial "includes/tables/19" %>
 
 #### 4. Use the access token to access the Agave REST APIs
 
+> A call to the profiles API to fetch the profile of the authenticated user would look like the following
+
 ```bash
 curl -H "Authorization: Bearer 61e6...Mc96" https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true
+```
+
+```plaintext
+profiles-list -v me
 ```
 
 > The response would look something like this:
@@ -252,21 +259,25 @@ curl -H "Authorization: Bearer 61e6...Mc96" https://public.tenants.agaveapi.co/p
 
 The access token allows you to make requests to any of the Agave REST APIs on behalf of the authenticated user.
 
+<aside class="warning">The profile service can be customized on a tenant-by-tenant basis and may reflect slightly different response syntax from that pictured here. Please consult your individual tenant documentation for the correct syntax for your tenant. </aside>
 
 ### Resource Owner Password Credentials
 
 The method is suitable for scenarios where there is a high degree of trust between the end-user and the client application. This could be a Desktop application, shell script, or server-to-server communication where user authorization is needed. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>.
 
-<img src="/images/2014/09/Resource-Owner-Password-Flow.png" style="width:100%; height:auto;">
+<img src="images/2014/09/Resource-Owner-Password-Flow.png" style="width:100%; height:auto;">
 
 #### 1. Your application requests authorization
-```bash
+```shell
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=password
     -d username=rjohnson
     -d password=password
     -d scope=PRODUCTION
     https://public.tenants.agaveapi.co/token
+```
+```plaintext
+auth-tokens-create -u rjohnson -p password
 ```
 
 > The response would look something like this:
@@ -355,7 +366,7 @@ The header of this POST request must contain the following parameter:
 
 The method is suitable for authenticating your requests to the Agave REST API. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>.
 
-<img src="/images/2014/09/Client-Credentials-Flow.png" style="width:100%; height:auto;">
+<img src="images/2014/09/Client-Credentials-Flow.png" style="width:100%; height:auto;">
 
 #### 1. Your application requests authorization
 
