@@ -19,7 +19,7 @@ includes:
 - introduction/_status-codes.md.erb
 - sdk/_introduction
 - documentation/_introduction
-- tutorials/_introduction
+#- tutorials/_introduction
 - guides/_introduction
 - guides/authorization/_introduction
 - guides/authorization/_authorization.md.erb
