@@ -1,0 +1,164 @@
+### Job submission
+
+Job submission is a term recycled from shared batch computing environments where a user would submit a request for a unit of computational work (called a Job) to the batch scheduler, then go head home for dinner while waiting for the computer to complete the job they gave it.
+
+Originally the batch scheduler was a person and the term batch came from their ability to process several submissions together. Later on, as human schedulers were replaced by software, the term stuck even though the process remained unchanged. Today the term job submission is essentially unchanged.
+
+A user submits a request for a unit of work to be done. The primary difference is that today, often times, the wait time between submission and execution is considerably less. On shared systems, such as many of the HPC systems originally targeted by Agave, waiting for your job to start is the price you pay for the incredible performance you get once your job starts.
+
+Agave, too, adopts the concept of job submission, though it is not in and of itself a scheduler. In the context of Agave's Job service, the process of running an application registered with the Apps service is referred to as submitting a job.
+
+Unlike in the batch scheduling world where each scheduler has its own job submission syntax and its own idiosyncrasies, the mechanism for submitting a job to Agave is consistent regardless of the application or system on which you run. A HTML form or JSON object are posted to the Jobs service. The submission is validated, and the job is forwarded to the scheduling and execution services for processing.
+
+Because Agave takes an app-centric view of science, execution does not require knowing about the underlying systems on which an application runs. Simply knowing how the parameters and inputs you want to use when running an app is sufficient to define a job. Agave will handle the rest.
+
+As mentioned previously, jobs are submitted by making a HTTP POST request either a HTML form or a JSON object to the Jobs service. All job submissions must include a few mandatory values that are used to define a basic unit of work. Table 1 lists the optional and required attributes of all job submissions.
+
+<%= partial "includes/tables/69" %>
+
+<p class="table-caption">Table 1. The optional and required attributes common to all job submissions. Optional fields are marked with an astericks.</p>
+
+<aside class="notice">In this tutorial we will use JSON for our examples, however, one could replace the JSON object with a HTML form mapping JSON attribute and values to HTML form attributes and values one for one and get the same results, with the exception of the `notifications` attribute which is not accepted using HTML form submission and would need to be added after submitting the job request by sending each of the notification objects with the returned job id to the <a href="http://agaveapi.co/documentation/tutorials/notification-management-tutorial/" title="Notification Management Tutorial">Notifications API</a>.</aside>
+
+In addition to the standard fields for all jobs, the application you specify in the `appId` field will also have its own set of inputs and parameters specified during registration that are unique to that app. (For more information about app registration and descriptions, see the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a>).
+
+The following snippet shows a sample JSON job request that could be submitted to the Jobs service to run the `pyplot-0.1.0` app from the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/advanced-app-example/" title="Advanced App Example">Advanced App Example</a> tutorial.
+
+```json
+{
+  "name":"pyplot-demo test",
+  "appId":"demo-pyplot-demo-advanced-0.1.0",
+  "inputs":{
+    "dataset":[
+      "agave://$PUBLIC_STORAGE_SYSTEM/$API_USERNAME/inputs/pyplot/testdata.csv",
+      "agave://$PUBLIC_STORAGE_SYSTEM/$API_USERNAME/inputs/pyplot/testdata2.csv"
+    ]
+  },
+  "archive":false,
+  "parameters":{
+    "unpackInputs":false,
+    "chartType":[
+      "bar",
+      "line"
+    ],
+    "width":1024,
+    "height":512,
+    "background":"#d96727",
+    "showYLabel":true,
+    "ylabel":"The Y Axis Label",
+    "showXLabel":true,
+    "xlabel":"The X Axis Label",
+    "showLegend":true,
+    "separateCharts":false
+  },
+  "notifications":[
+    {
+      "url":"$API_EMAIL",
+      "event":"RUNNING"
+    },
+    {
+      "url":"$API_EMAIL",
+      "event":"FINISHED"
+    },
+    {
+      "url":"http://http://requestbin.agaveapi.co/o1aiawo1?job_id=${JOB_ID}&amp;status=${JOB_STATUS}",
+      "event":"*",
+      "persistent":true
+    }
+  ]
+}
+```
+
+Notice that this example specifies a single input attribute, `dataset`. The `pyplot-0.1.0` app definition specified that the `dataset` input attribute could accept more than one value (maxCardinality = 2). In the job request object, that translates to an array of string values. Each string represents a piece of data that Agave will transfer into the job work directory prior to job execution. Any value accepted by the Files service when <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/#importing-data">importing data</a> is accepted here. Some examples of valid values are given in the following table.
+
+<%= partial "includes/tables/73" %>
+
+<p class="table-caption">Table 2. Examples of different syntaxes that input values can be specified in the job request object. Here we assume that the validator for the input field is such that these would pass.</p>
+
+The example job request also specifies `parameters` object with the parameters defined in the `pyplot-0.1.0` app description. Notice that the parameter `type` value specified in the app description is reflected here. Numbers are given as numbers, not strings. Boolean and flag attributes are given as boolean true and false values. As with the input section, there is also a parameter `chartType` that accepts multiple values. In this case that translates to an array of string value. Had the parameter type required another primary type, that would be used in the array instead.
+
+Finally, we see a `notifications` array specifying that we want Agave send three notifications related to this job. The first is a one-time email when the job starts running. The second is a one-time email when the job reaches a terminal state. The third is a webhook to the url we specified. More on notifications in the section on monitoring below.
+
+#### Job submission validation
+
+If everything went well, you will receive a response that looks something like the following JSON object.
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@job.json" https://public.tenants.agaveapi.co/jobs/v2?pretty=true
+```
+```plaintext
+jobs-submit -F job.json
+```
+
+```json
+{
+  "status" : "success",
+  "message" : null,
+  "version" : "2.1.0-r6d11c",
+  "result" : {
+    "id" : "0001414144065563-5056a550b8-0001-007",
+    "name" : "demo-pyplot-demo-advanced test-1414139896",
+    "owner" : "$API_USERNAME",
+    "appId" : "demo-pyplot-demo-advanced-0.1.0",
+    "executionSystem" : "$PUBLIC_EXECUTION_SYSTEM",
+    "batchQueue" : "debug",
+    "nodeCount" : 1,
+    "processorsPerNode" : 1,
+    "memoryPerNode" : 1.0,
+    "maxRunTime" : "01:00:00",
+    "archive" : false,
+    "retries" : 0,
+    "localId" : "10321",
+    "outputPath" : null,
+    "status" : "FINISHED",
+    "submitTime" : "2014-10-24T04:48:11.000-05:00",
+    "startTime" : "2014-10-24T04:48:08.000-05:00",
+    "endTime" : "2014-10-24T04:48:15.000-05:00",
+    "inputs" : {
+      "dataset" : "agave://$PUBLIC_STORAGE_SYSTEM/$API_USERNAME/inputs/pyplot/testdata.csv"
+    },
+    "parameters" : {
+      "chartType" : "bar",
+      "height" : "512",
+      "showLegend" : "false",
+      "xlabel" : "Time",
+      "background" : "#FFF",
+      "width" : "1024",
+      "showXLabel" : "true",
+      "separateCharts" : "false",
+      "unpackInputs" : "false",
+      "ylabel" : "Magnitude",
+      "showYLabel" : "true"
+    },
+    "_links" : {
+      "self" : {
+        "href" : "https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007"
+      },
+      "app" : {
+        "href" : "https://public.tenants.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0"
+      },
+      "executionSystem" : {
+        "href" : "https://public.tenants.agaveapi.co/systems/v2/$PUBLIC_EXECUTION_SYSTEM"
+      },
+      "archiveData" : {
+        "href" : "https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/outputs/listings"
+      },
+      "owner" : {
+        "href" : "https://public.tenants.agaveapi.co/profiles/v2/$API_USERNAME"
+      },
+      "permissions" : {
+        "href" : "https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/pems"
+      },
+      "history" : {
+        "href" : "https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/history"
+      },
+      "metadata" : {
+        "href" : "https://public.tenants.agaveapi.co/meta/v2/data/?q={"associationIds":"0001414144065563-5056a550b8-0001-007"}"
+      },
+      "notifications" : {
+        "href" : "https://public.tenants.agaveapi.co/notifications/v2/?associatedUuid=0001414144065563-5056a550b8-0001-007"
+      }
+    }
+  }
+}
+```

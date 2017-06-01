@@ -1,0 +1,72 @@
+### Retry Policies
+
+> Sample notification subscription object with custom retry policy.
+
+```json
+{
+  "url" : "$REQUEST_BIN?path=${PATH}&system=${SYSTEM}&event=${EVENT}",
+  "event" : "*",
+  "persistent": true,
+  "policy": {
+      "retryStrategy": "IMMEDIATE",
+      "retryLimit": 20,
+      "retryRate": 5,
+      "retryDelay": 0,
+      "saveOnFailure": true
+    }
+}
+```
+
+In some situations, Agave may be unable to publish a specific notification. When this happens, Agave will immediately retry the notification 5 times in an attempt to deliver it successfully. When delivery fails for a 5th time, the notification is abandoned. If your application requires a more tenacious or methodical approach to retry delivery, you may provide a notification policy.
+
+<%= partial "includes/tables/83-notification-policy" %>
+
+Notification retry policies describe the strategy, frequency, delay, limit, and persistence to be applied when publishing an individual event for a given notification. The example above is our previous example with a notification policy included.
+
+
+### Failed deliveries
+
+> Query failed attempts for a specific notification
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
+     https://$API_BASE_URL/notifications/$API_VERSION/229681451607921126-8e1831906a8e-0001-042"/attempts
+```
+
+```plaintext
+notifications-list-failures 229681451607921126-8e1831906a8e-0001-042"
+```
+
+> A list of notification attempts will be returned.
+
+```javascript
+[
+  {
+    "id" : "229681451607921126-8e1831906a8e-0001-042",
+    "url" : "https://httpbin.org/status/500",
+    "event" : "SENT",
+    "associatedUuid" : "5833036796741676570-b0b0b0bb0b-0001-011",
+    "startTime" : "2016-06-19T22:21:02.266-05:00",
+    "endTime" : "2016-06-19T22:21:03.268-05:00",
+    "response" : {
+      "code" : 500,
+      "message" : ""
+    },
+    "_links" : {
+      "self" : {
+        "href" : "https://$API_BASE_URL/notifications/$API_VERSION/229123105859441126-8e1831906a8e-0001-011/attempts/229681451607921126-8e1831906a8e-0001-042"
+      },
+      "notification" : {
+        "href" : "https://$API_BASE_URL/notifications/$API_VERSION/5833036796741676570-b0b0b0bb0b-0001-011"
+      },
+      "profile" : {
+        "href" : "https://$API_BASE_URL/profiles/$API_VERSION/ipcservices"
+      }
+    }
+  }
+]
+```
+
+By providing a retry policy where `saveOnFailure` is true, failed messages will be persisted and made available for querying at a later time. This is a great way to handled missed work due to a server failure, maintenance downtime, etc. To query for for failed messages
+
+<div class="warning">Note: There is no way to save successful notification deliveries.</div>

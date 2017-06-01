@@ -1,0 +1,65 @@
+### URL Macros
+
+> Receive a callback when a new user is created that includes the new user's information
+
+```html
+https://example.com/sendWelcome.php?username=${USERNAME}&email=${EMAIL}&firstName=${FIRST_NAME}&lastName=${LAST_NAME}&src=agaveapi.co&nonce=1234567
+```
+
+> Receive self-describing job status updates
+
+```html
+http://example.com/job/${JOB_ID}?status=${STATUS}&lastUpdated=${LAST_UPDATED}
+```
+
+> Get notified on all jobs going into and out of queues
+
+```html
+http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=add
+http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
+```
+
+> Rerun an analysis when a files finishes staging
+
+```html
+https://$AGAVE_BASE_URL/jobs/v2/a32487q98wasdfa9-09090b0b-007?action=resubmit
+```
+
+> Use plus mailing to route job notifications to different folders
+
+```html
+nryan+${EXECUTION_SYSTEM}+${JOB_ID}@gmail.com
+```
+
+In the context of Agave, a webhook is a URL to which Agave will send a POST request when that event occurs. A webhook can be any web accessible URL. While you cannot customize the POST content that Agave sends (it is unique to the event), you can take advantage of the many template variables that Agave provides to customize the URL at run time. The following tables show the webhook template variables available for each resource. Use the select box to view the macros for different resources.
+
+<p>
+    <select id="notification-macros-selector" name="notification-macros-selector" onChange="$('.notification-macros').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
+        <option value="notification-macros-apps">Apps</option>
+        <option value="notification-macros-jobs">Jobs</option>
+        <option value="notification-macros-files">Files</option>
+        <option value="notification-macros-metadata">Metadata</option>
+        <option value="notification-macros-metadata-schema">Metadata Schema</option>
+        <option value="notification-macros-monitors">Monitors</option>
+        <option value="notification-macros-notifications">Notifications</option>
+        <option value="notification-macros-postits">PostIts</option>
+        <option value="notification-macros-profiles">Profiles</option>
+        <option value="notification-macros-systems">Systems</option>
+        <option value="notification-macros-transforms">Transforms</option>
+    </select>
+</p>
+
+  <%= partial "includes/tables/36" %>
+  <%= partial "includes/tables/33" %>
+  <%= partial "includes/tables/35" %>
+  <%= partial "includes/tables/32" %>
+  <%= partial "includes/tables/31" %>
+  <%= partial "includes/tables/26" %>
+  <%= partial "includes/tables/81" %>
+  <%= partial "includes/tables/30" %>
+  <%= partial "includes/tables/29" %>
+  <%= partial "includes/tables/28" %>
+  <%= partial "includes/tables/27" %>
+
+The value of webhook template variables is that they allow you to build custom callbacks using the values of the resource variable at run time. Several commonly used webhooks are shown in the tables above.
+

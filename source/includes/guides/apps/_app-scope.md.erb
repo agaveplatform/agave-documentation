@@ -1,0 +1,179 @@
+### App scope
+
+In addition to traditional permissions, apps also have a concept of scope. Unless otherwise configured, apps are private to the owner and the users they grant permission. Applications can, however move from the private space into the public space for use any anyone. Moving an app into the public space is called _publishing_. Publishing an app gives it much greater exposure and results in increased usage by the user community. It also comes with increased responsibilities for the original owner as well as the API administrators. Several of these are listed below:
+
+* Public apps must run on public systems. This makes the app available to everyone.
+* Public apps must be vetted for performance, reliability, and security by the API administrators.
+* The original app author must remain available via email for ongoing support.
+* Public apps must be copied into a public repository and checksummed.
+* Updates to public apps must result in a snapshot of the original app being created and stored with its resulting checksum in a separate location.
+* API administrators must maintain and support the app throughout its lifetime.
+
+<aside class="success">If you have an app you would like to see published, please contact your API administrators for more information.</aside>
+
+#### Publishing an app
+
+> Publishing an app.
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
+     -H "Content-Type: application/json"
+     -X PUT
+     --data-binary '{"action":"publish","executionSystem":"condor.opensciencegrid.org"}'
+     https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00
+```
+
+```plaintext
+apps-publish -e condor.opensciencegrid.org wc-osg-1.00
+```
+
+> The response from the service will resemble the following:
+
+```json
+{
+  "id": "wc-osg-1.00u1",
+  "name": "wc-osg",
+  "icon": null,
+  "uuid": "8734854070765284890-242ac116-0001-005",
+  "parallelism": "SERIAL",
+  "defaultProcessorsPerNode": 1,
+  "defaultMemoryPerNode": 1,
+  "defaultNodeCount": 1,
+  "defaultMaxRunTime": null,
+  "defaultQueue": null,
+  "version": "1.00",
+  "revision": 1,
+  "isPublic": false,
+  "helpURI": "http://www.gnu.org/s/coreutils/manual/html_node/wc-invocation.html",
+  "label": "wc condor",
+  "shortDescription": "Count words in a file",
+  "longDescription": "",
+  "tags": [
+    "gnu",
+    "textutils"
+  ],
+  "ontology": [
+    "http://sswapmeet.sswap.info/algorithms/wc"
+  ],
+  "executionType": "CONDOR",
+  "executionSystem": "condor.opensciencegrid.org",
+  "deploymentPath": "/agave/apps/wc-1.00",
+  "deploymentSystem": "public.storage.agave",
+  "templatePath": "/wrapper.sh",
+  "testPath": "/wrapper.sh",
+  "checkpointable": true,
+  "lastModified": "2016-09-15T04:48:17.000-05:00",
+  "modules": [
+    "load TACC",
+    "purge"
+  ],
+  "available": true,
+  "inputs": [
+    {
+      "id": "query1",
+      "value": {
+        "validator": "",
+        "visible": true,
+        "required": false,
+        "order": 0,
+        "enquote": false,
+        "default": [
+          "read1.fq"
+        ]
+      },
+      "details": {
+        "label": "File to count words in: ",
+        "description": "",
+        "argument": null,
+        "showArgument": false,
+        "repeatArgument": false
+      },
+      "semantics": {
+        "minCardinality": 1,
+        "maxCardinality": -1,
+        "ontology": [
+          "http://sswapmeet.sswap.info/util/TextDocument"
+        ],
+        "fileTypes": [
+          "text-0"
+        ]
+      }
+    }
+  ],
+  "parameters": [],
+  "outputs": [
+    {
+      "id": "outputWC",
+      "value": {
+        "validator": "",
+        "order": 0,
+        "default": "wc_out.txt"
+      },
+      "details": {
+        "label": "Text file",
+        "description": "Results of WC"
+      },
+      "semantics": {
+        "minCardinality": 1,
+        "maxCardinality": 1,
+        "ontology": [
+          "http://sswapmeet.sswap.info/util/TextDocument"
+        ],
+        "fileTypes": []
+      }
+    }
+  ],
+  "_links": {
+    "self": {
+      "href": "https://public.agaveapi.co/apps/v2/wc-osg-1.00u1"
+    },
+    "executionSystem": {
+      "href": "https://public.agaveapi.co/systems/v2/condor.opensciencegrid.org"
+    },
+    "storageSystem": {
+      "href": "https://public.agaveapi.co/systems/v2/public.storage.agave"
+    },
+    "history": {
+      "href": "https://public.agaveapi.co/apps/v2/wc-osg-1.00u1/history"
+    },
+    "metadata": {
+      "href": "https://public.agaveapi.co/meta/v2/data/?q=%7B%22associationIds%22%3A%228734854070765284890-242ac116-0001-005%22%7D"
+    },
+    "owner": {
+      "href": "https://public.agaveapi.co/profiles/v2/nryan"
+    },
+    "permissions": {
+      "href": "https://public.agaveapi.co/apps/v2/wc-osg-1.00u1/pems"
+    }
+  }
+}
+```
+
+To publish an app, make a PUT request on the app resource. In this example, we publish the `wc-osg-1.00` app. Notice a few things about the response.
+
+1. Both the `executionSystem` and `deploymentSystem` have changed. **Public apps must run and store their assets on public systems.**
+1. We did not specify the `deploymentSystem` where the public app assets should be stored, so Agave placed them on the default public storage system, `public.storage.agave`.
+1. We did not specify the `deploymentPath` where the public app assets should be stored, so Agave placed them in the `publicAppsDir` of the `deploymentPath`.
+1. The `deploymentPath` is now a zip archive rather than a folder. Agave does this because once, published, the app can no longer be updated, so the assets are frozen and stored in a separate location, removed from user access.
+1. The `id` of the app has changed. It now has a `u1` appended to the original app id. This indicates that it is a public app and that it has been updated a single time. If we were to publish the app again, the resulting `id` would be `wc-osg-1.00u2`. This differs from unpublished apps whose revision number increments without impacting the app id. **Every time you publish an app, the id of the resulting public app will change.**
+
+
+#### Unpublishing an app
+
+> Unpublishing a public system is equivalent to disabling it.
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
+     -H "Content-Type: application/json"
+     -X PUT
+     --data-binary '{"action":"disable"}'
+     https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00u1
+```
+
+```plaintext
+apps-disable -v wc-osg-1.00u1
+```
+
+> The response will look identical to before, but with `available` set to _false_
+
+Unlike systems, it is not possible to unpublish an app. Once published, a deep copy of the app is store in an external location with its own provenance trail. If you would like to remove a published app from further use, simply disable it.

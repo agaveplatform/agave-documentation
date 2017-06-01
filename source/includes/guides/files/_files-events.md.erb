@@ -1,0 +1,7 @@
+### File events
+
+Agave throws file events on every content change, permission change, and file item access request in the platform. A list of the file events thrown is given in the following table.
+
+<%= partial "includes/tables/46" %>
+
+File events do not happen in a vaccuum. A file item only exists within the context of a System, so enable aggregate listeners across an entire system, a corresponding system event is thrown for each file event. System event names are constructed by prefixing the file event name with `SYSTEM_`.
