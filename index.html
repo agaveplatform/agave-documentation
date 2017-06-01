@@ -1154,10 +1154,12 @@ refresh_token </td>
 <blockquote>
 <p>A valid success response would be</p>
 </blockquote>
-<pre class="highlight http"><code><span class="err">https://example.com/callback?access_token=Vr17...amUa&amp;token_type=bearer&amp;expires_in=3600&amp;state=867
+<pre class="highlight http"><code><span class="err">https://example.com/callback#access_token=Vr17...amUa&amp;token_type=bearer&amp;expires_in=3600&amp;state=867
 </span></code></pre>
 
 <p>After the user grants (or denies) access, the Agave Authorization service redirects the user to the <code class="prettyprint">redirect_uri</code>. If the user has granted access, the final URL will contain the following data parameters in the query string.</p>
+
+<aside class="alert">Notice the token information is appended the the callback url as a URL <em>fragment</em>, not query parameters. This is important if you are manually parsing the callback response because the <span class="code">access_token</span> will not be available as a query parameter. You will need to either parse the fragment from the URL yourself, or use an URL library in your development language to handle it for you.</span>
 
 <table>
     <thead>
@@ -1196,14 +1198,14 @@ refresh_token </td>
     </tbody>
 </table>
 
-<p>If the user has denied access, there will be no access token and the final URL will have a query string containing the following parameters:</p>
 
-<blockquote>
-<p>A failed response would resemble something like</p>
-</blockquote>
-<pre class="highlight shell"><code>https://example.com/callback?error<span class="o">=</span>access_denied&amp;state<span class="o">=</span>867
-</code></pre>
+If the user has denied access, there will be no access token and the final URL will have a query string containing the following parameters:
 
+> A failed response would resemble something like
+
+&ldquo;`bash
+https://example.com/callback?error=access_denied&state=867
+&rdquo;`
 <table>
     <thead>
         <tr>
@@ -1227,56 +1229,61 @@ refresh_token </td>
     </tbody>
 </table>
 
-<h4 id="4-use-the-access-token-to-access-the-agave-rest-apis">4. Use the access token to access the Agave REST APIs</h4>
-<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer 61e6...Mc96"</span> https://public.tenants.agaveapi.co/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>
-</code></pre>
 
-<blockquote>
-<p>The response would look something like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"create_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20140905072223Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan@mlb.com"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nolan"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nolan Ryan"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ryan"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"mobile_phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(123) 456-7890"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(123) 456-7890"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+#### 4. Use the access token to access the Agave REST APIs
 
-<p>The access token allows you to make requests to any of the Agave REST APIs on behalf of the authenticated user.</p>
+&ldquo;`bash
+curl -H &quot;Authorization: Bearer 61e6&hellip;Mc96&rdquo; https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true
+&ldquo;`
 
-<h3 id="resource-owner-password-credentials">Resource Owner Password Credentials</h3>
+> The response would look something like this:
 
-<p>The method is suitable for scenarios where there is a high degree of trust between the end-user and the client application. This could be a Desktop application, shell script, or server-to-server communication where user authorization is needed. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>.</p>
+&rdquo;`json
+{
+    &ldquo;create_time&rdquo;: &ldquo;20140905072223Z&rdquo;,
+    &ldquo;email&rdquo;: &ldquo;nryan@mlb.com&rdquo;,
+    &ldquo;first_name&rdquo;: &ldquo;Nolan&rdquo;,
+    &ldquo;full_name&rdquo;: &ldquo;Nolan Ryan&rdquo;,
+    &ldquo;last_name&rdquo;: &ldquo;Ryan&rdquo;,
+    &ldquo;mobile_phone&rdquo;: &ldquo;(123) 456-7890&rdquo;,
+    &ldquo;phone&rdquo;: &ldquo;(123) 456-7890&rdquo;,
+    &ldquo;status&rdquo;: &ldquo;Active&rdquo;,
+    &ldquo;uid&rdquo;: 0,
+    &ldquo;username&rdquo;: &ldquo;nryan&rdquo;
+}
+&ldquo;`
 
-<p><img src="/images/2014/09/Resource-Owner-Password-Flow.png" style="width:100%; height:auto;"></p>
+The access token allows you to make requests to any of the Agave REST APIs on behalf of the authenticated user.
 
-<h4 id="1-your-application-requests-authorization">1. Your application requests authorization</h4>
-<pre class="highlight shell"><code>curl -sku <span class="s2">"Authorization: Basic Qt3c...Rm1y="</span>
-    -d <span class="nv">grant_type</span><span class="o">=</span>password
-    -d <span class="nv">username</span><span class="o">=</span>rjohnson
-    -d <span class="nv">password</span><span class="o">=</span>password
-    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION
+
+### Resource Owner Password Credentials
+
+The method is suitable for scenarios where there is a high degree of trust between the end-user and the client application. This could be a Desktop application, shell script, or server-to-server communication where user authorization is needed. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>.
+
+<img src="/images/2014/09/Resource-Owner-Password-Flow.png" style="width:100%; height:auto;">
+
+#### 1. Your application requests authorization
+&rdquo;`bash
+curl -sku &ldquo;Authorization: Basic Qt3c&hellip;Rm1y=&rdquo;
+    -d grant_type=password
+    -d username=rjohnson
+    -d password=password
+    -d scope=PRODUCTION
     https://public.tenants.agaveapi.co/token
-</code></pre>
+&ldquo;`
 
-<blockquote>
-<p>The response would look something like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3Dsr...pv21"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">14400</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dyVa...MqR0"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bearer"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+> The response would look something like this:
 
-<p>The request is sent to the <code class="prettyprint">/token</code> endpoint of the Agave Authentication service. The request will include the following parameters in the request body:</p>
+&rdquo;`json
+{
+    &ldquo;access_token&rdquo;: &ldquo;3Dsr&hellip;pv21&rdquo;,
+    &ldquo;expires_in&rdquo;: 14400,
+    &ldquo;refresh_token&rdquo;: &ldquo;dyVa&hellip;MqR0&rdquo;,
+    &ldquo;token_type&rdquo;: &ldquo;bearer&rdquo;
+}
+&ldquo;`
+
+The request is sent to the `/token` endpoint of the Agave Authentication service. The request will include the following parameters in the request body:
 
 <table>
     <thead>
@@ -1288,7 +1295,7 @@ refresh_token </td>
     <tbody>
         <tr>
             <td>grant_type</td>
-            <td><i>Required.</i> Set it to &ldquo;refresh_token&rdquo;.</td>
+            <td><i>Required.</i> Set it to &quot;refresh_token&rdquo;.</td>
         </tr>
         <tr>
             <td>username</td>
@@ -1305,7 +1312,8 @@ refresh_token </td>
     </tbody>
 </table>
 
-<p>The header of this POST request must contain the following parameter:</p>
+
+The header of this POST request must contain the following parameter:
 
 <table>
     <thead>
@@ -1321,6 +1329,7 @@ refresh_token </td>
         </tr>
     </tbody>
 </table>
+
 
 <aside class="notice">It is not necessary for the username and password sent in the authorization request correspond to those of the client credentials owner, you can obtain an access token for any user provided you have their username and password. It is important to note that this flow should ***only*** be used in situations of high trust where no browser is available to handle the HTTP redirects required by the Authorization Code flow. Collecting and/or unnecessarily exposing user passwords is a violation of the <a href="/terms-of-service/" title="Terms of Service">Terms of Service</a> and subject to immediate account revocation.</aside>
 <pre class="highlight shell"><code>https://example.com/callback?error<span class="o">=</span>access_denied
@@ -1450,7 +1459,7 @@ refresh_token </td>
     <tbody>
         <tr>
             <td>grant_type</td>
-            <td><i>Required.</i> Set it to &ldquo;refresh_token&rdquo;.</td>
+            <td><i>Required.</i> Set it to &ldquo;client_credentials&rdquo;.</td>
         </tr>
         <tr>
             <td>scope</td>
@@ -10772,6 +10781,719 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 <p>The web application also provides an email loop for verification of new accounts. The code is open source and freely available from bitbucket: <a href="https://bitbucket.org/jstubbs/agave_id">Account Creation Web Application</a></p>
 
 <p>Most likely you will want to customize the branding and other aspects of the application, but for simple use cases, the Agave team can deploy a stock instance of the application in your tenant. Work with the Agave developer team if this is of interest to your organization.</p>
+
+              <h2 id="tags">Tags</h2>
+<pre class="highlight json"><code><span class="w"> </span><span class="err">/$$$$$$$$</span><span class="w">
+</span><span class="err">|__</span><span class="w">  </span><span class="err">$$__/</span><span class="w">
+   </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">   </span><span class="err">/$$$$$$</span><span class="w">   </span><span class="err">/$$$$$$$</span><span class="w">
+   </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">|____</span><span class="w">  </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$_____/</span><span class="w">
+   </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">/$$$$$$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$|</span><span class="w">  </span><span class="err">$$$$$$</span><span class="w">
+   </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$__</span><span class="w">  </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">\____</span><span class="w">  </span><span class="err">$$</span><span class="w">
+   </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w">  </span><span class="err">$$$$$$$|</span><span class="w">  </span><span class="err">$$$$$$$</span><span class="w"> </span><span class="err">/$$$$$$$/</span><span class="w">
+   </span><span class="err">|__/</span><span class="w"> </span><span class="err">\_______/</span><span class="w"> </span><span class="err">\____</span><span class="w">  </span><span class="err">$$|_______/</span><span class="w">
+                  </span><span class="err">/$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w">
+                 </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$/</span><span class="w">
+                  </span><span class="err">\______/</span><span class="w">
+</span></code></pre>
+
+<p>The Agave Tags service provides free form tagging of any addressable resource in the platform. A Tag is similiar to a <a href="#metadata" title="Tags Guide">Metadata</a> object in that it has <code class="prettyprint">name</code> and <code class="prettyprint">associatedIds</code> fields, but Tags do not contain any other data. Tags have permissions just like tags, but unlike the Tags service, Tag names must be unique for a given user or group. That means you can only have one tag with a given name, but multiple users may create tags with the same name.</p>
+
+<h3 id="tag-structure">Tag Structure</h3>
+
+<blockquote>
+<p>Tag structure</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"some metadata"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"associationIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+</span><span class="err">}</span><span class="w">
+</span></code></pre>
+
+<p>Every tag has two fields shown in the following table.</p>
+
+<table><thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>string; 1-256</td>
+<td><code class="prettyprint">required</code> An alphanumeric key unique within the set of tags for a given user, which can be used in leu of the id.</td>
+</tr>
+<tr>
+<td>associationIds</td>
+<td>array;</td>
+<td>An JSON array of zero or more UUID to which this tag should be associated.</td>
+</tr>
+</tbody></table>
+
+<p>The <code class="prettyprint">name</code> field is just that, a user-defined name you give to your tag. Every <code class="prettyprint">name</code> field must be unique within the set of tags available to the user. This means that two users can create tags with the same name, but each tag will have its own unique id and be managed as distinct resources. User may not create multiple tags with the same name, but they may share a tag with someone who already has a tag of the same name. In that situation, referencing the private and shared tag by ID will prevent ambiguity over which tag is being used. When the tag id is not specified, the private tag owned by the requesting user will always be selected.</p>
+
+<h4 id="associations">Associations</h4>
+
+<p>Each tag also has an optional <code class="prettyprint">associationIds</code> field. This field contains a JSON array of Agave UUID for which this tag applies. We refer to the resources in this array as the tagged resources. No implied behavior comes with this relationship, it is simply a way to define arbitrary associations between resources.</p>
+
+<aside class="notice">The <code class="highlight">associationIds</code> field does not carry with it any special permissions or behavior. It is simply a link between a tag and the resources it represents.</aside>
+
+<h3 id="creating-tags">Creating tags</h3>
+
+<blockquote>
+<p>Create a new tag</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST  
+    -H <span class="s1">'Content-Type: application/json'</span>
+    --data-binary <span class="s1">'{"name": "demo"}'</span>
+    https://public.tenants.agaveapi.co/tags/v2
+</code></pre>
+<pre class="highlight plaintext"><code>tags-addupdate -v -F - &lt;&lt;&lt;'{"name": "demo"}'
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3042501574756462105-242ac113-0001-048"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"associationIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nt">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-13T12:37:14.000-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-13T12:38:14.000-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"associationIds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/associations"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>New Tags are created by making a POST request to the Tags collection. As we mentioned before, Tag names are unique for a given user, so attempting to create a tag with an existing name will fail.</p>
+
+<h3 id="updating-tags">Updating tags</h3>
+
+<blockquote>
+<p>Update a tag</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST
+    -H <span class="s1">'Content-Type: application/json'</span>
+    --data-binary <span class="s1">'{"name": "demo", "associationIds":["576158795084066330-242ac119-0001-007","1557538007895839206-242ac119-0001-007"]}'</span>
+    https://public.tenants.agaveapi.co/tags/v2/demo
+
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST
+    -H <span class="s1">'Content-Type: application/json'</span>
+    --data-binary <span class="s1">'{"name": "demo", "associationIds":["576158795084066330-242ac119-0001-007","1557538007895839206-242ac119-0001-007"]}'</span>
+    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048
+</code></pre>
+<pre class="highlight plaintext"><code>tags-addupdate -v -F - demo &lt;&lt;&lt;'{"name": "demo", "associationIds":["576158795084066330-242ac119-0001-007","1557538007895839206-242ac119-0001-007"]}'
+
+tags-addupdate -v -F - 3042501574756462105-242ac113-0001-048 &lt;&lt;&lt;'{"name": "demo", "associationIds":["576158795084066330-242ac119-0001-007","1557538007895839206-242ac119-0001-007"]}'
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3042501574756462105-242ac113-0001-048"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"associationIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"576158795084066330-242ac119-0001-007"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"1557538007895839206-242ac119-0001-007"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-13T12:38:14.000-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-13T12:38:14.000-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"associationIds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/associations"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Updating tags is done by POSTing an updated tag object to the existing resource. When updating, it is important to note that it is not possible to change the tag <code class="prettyprint">uuid</code>, <code class="prettyprint">owner</code>, <code class="prettyprint">lastUpdated</code> or <code class="prettyprint">created</code> fields. Those fields are managed by the service.</p>
+
+<h3 id="deleting-metadata">Deleting metadata</h3>
+
+<blockquote>
+<p>Delete a tag</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    -X DELETE
+    https://public.tenants.agaveapi.co/tags/v2/demo
+
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    -X DELETE
+    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048
+</code></pre>
+<pre class="highlight plaintext"><code>tags-delete demo
+tags-delete 3042501574756462105-242ac113-0001-048
+</code></pre>
+
+<blockquote>
+<p>An empty response will be returned from the service.</p>
+</blockquote>
+
+<p>To delete a tag, simply make a DELETE request on the tag resource.</p>
+
+<aside class="notice"> Deleting a tag will permanently delete the item and all its permissions, etc. </aside>
+
+              <h3 id="tag-details">Tag details</h3>
+
+<blockquote>
+<p>Fetching tag details</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048
+
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    https://public.tenants.agaveapi.co/tags/v2/demo
+
+</code></pre>
+<pre class="highlight plaintext"><code>tags-list -v 3042501574756462105-242ac113-0001-048
+tags-list -v demo
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3042501574756462105-242ac113-0001-048"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"associationIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"576158795084066330-242ac119-0001-007"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"1557538007895839206-242ac119-0001-007"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-13T12:38:14.000-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-13T12:38:14.000-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"associationIds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/associations"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>To fetch a detailed description of a tag, make a GET request on the resource URL. You can use either the tag name or id when querying for the tag. The response will be the full tag representation. Unlike the Metadata API, the URL of each UUID in the <code class="prettyprint">associationIds</code> are not resolved in the response. This is because assocations can be managed with their own API.</p>
+
+<aside class="info">In the event you need the entire resource representations for each `associationIds` value, you can simply explode the json array into a comma-separated string and call the <a href="#uuid">UUID API</a> with `expand=true` in the query. </aside>
+
+<h3 id="tag-browsing">Tag browsing</h3>
+
+<blockquote>
+<p>Listing your tags</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    https://public.tenants.agaveapi.co/tags/v2?limit<span class="o">=</span>1
+</code></pre>
+<pre class="highlight plaintext"><code>tags-list -v -l 1
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3042501574756462105-242ac113-0001-048"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"associationIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"576158795084066330-242ac119-0001-007"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"1557538007895839206-242ac119-0001-007"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-13T12:38:14.000-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-13T12:38:14.000-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"associationIds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/associations"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>To browse your Tags, make a GET request against the <code class="prettyprint">/tags/v2</code> collection. This will return all the tags you created and to which you have been granted READ access. This includes any tags that have been shared with the <code class="prettyprint">public</code> or <code class="prettyprint">world</code> users. In practice, users will have many tags created and shared with them as part of normal use of the platform, so pagination and <a href="#tag-search">search</a> become important aspects of interacting with the service.</p>
+
+<p>For admins, who have implicit access to all tags, the default listing response will be a paginated list of every tag in the tenant. To avoid such a scenario, admin users can append <code class="prettyprint">privileged=false</code> to bypass implicit permissions and only return the metadata queries to which they have ownership or been granted explicit access.</p>
+
+<aside class="info">Admin users can append `privileged=false` to bypass implicit permissions and only return the metadata queries to which they have ownership or been granted explicit access.</aside>
+
+              <h3 id="tag-associations">Tag associations</h3>
+
+<blockquote>
+<p>Fetching tagged resources</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/associations
+
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    https://public.tenants.agaveapi.co/tags/v2/demo/associations
+
+</code></pre>
+<pre class="highlight plaintext"><code>tags-associations-list -v 3042501574756462105-242ac113-0001-048
+tags-associations-list -v demo
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"576158795084066330-242ac119-0001-007"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"job"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/demo/associations/576158795084066330-242ac119-0001-007"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"job"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/jobs/v2/576158795084066330-242ac119-0001-007"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1557538007895839206-242ac119-0001-007"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"job"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/demo/associations/1557538007895839206-242ac119-0001-007"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"job"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/jobs/v2/1557538007895839206-242ac119-0001-007"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Because the focus of the Tags API is on establishing and maintaining these relationships, the Tags API exposes the <code class="prettyprint">associationIds</code> as a managed subresource. This was a design choice due to the large number of associations that tend to develop over time. <code class="prettyprint">associationIds</code> can be managed much like permissions are managed across the Science APIs.</p>
+
+<h4 id="browsing-tag-associations">Browsing tag associations</h4>
+
+<p>To fetch a list of the resources associated with a given tag, query the <code class="prettyprint">associations</code> subcollection of a tag. This will return a response JSON array of objects similar to that returned from the UUIDS service. Each response object will contain the resource <code class="prettyprint">uuid</code> and <code class="prettyprint">type</code>. In the hypermedia response, you will find the URL to the resource.</p>
+
+<aside class="info">In the event you need the entire resource representations for each `associationIds` value, you can include `expand=true` in the URL query. This is identical to the way the UUIDS service expands resources. </aside>
+
+<h4 id="updating-tag-associations">Updating tag associations</h4>
+
+<blockquote>
+<p>Tagging a resource</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    -X POST
+    https://public.tenants.agaveapi.co/tags/v2/demo/associations/7322676215012195046-242ac114-0001-007
+</code></pre>
+<pre class="highlight plaintext"><code>tags-associations-addupdate -v demo 7322676215012195046-242ac114-0001-007
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7322676215012195046-242ac114-0001-007"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"job"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/demo/associations/7322676215012195046-242ac114-0001-007"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+      </span><span class="s2">"job"</span><span class="err">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/jobs/v2/7322676215012195046-242ac114-0001-007"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>To tag a single resource, you can make an empty POST request to the tagged resource details endpoint. If this resource is not already associated with the given tag, it will be associated when the request is made.</p>
+
+<h4 id="removing-tag-associations">Removing tag associations</h4>
+
+<blockquote>
+<p>Untagging a resource</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    -X DELETE
+    https://public.tenants.agaveapi.co/tags/v2/demo/associations/7322676215012195046-242ac114-0001-007
+</code></pre>
+<pre class="highlight plaintext"><code>tags-associations-delete -v demo 7322676215012195046-242ac114-0001-007
+</code></pre>
+
+<blockquote>
+<p>An empty response will be returned from the service</p>
+</blockquote>
+
+<h4 id="bulk-tagging-resources">Bulk tagging resources</h4>
+
+<blockquote>
+<p>Tagging multiple resources</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    -X POST
+    --data-binary <span class="s1">'["911605847797535206-242ac114-0001-007",
+                    "5369569074237730330-242ac114-0001-007",
+                    "8333211822347981286-242ac114-0001-007"]'</span>
+    https://public.tenants.agaveapi.co/tags/v2/demo/associations
+</code></pre>
+<pre class="highlight plaintext"><code>tags-associations-addupdate -v demo \
+    911605847797535206-242ac114-0001-007 \
+    5369569074237730330-242ac114-0001-007 \
+    8333211822347981286-242ac114-0001-007
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"911605847797535206-242ac114-0001-007"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"job"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/demo/associations/911605847797535206-242ac114-0001-007"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"job"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/jobs/v2/911605847797535206-242ac114-0001-007"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5369569074237730330-242ac114-0001-007"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"job"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/demo/associations/5369569074237730330-242ac114-0001-007"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"job"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/jobs/v2/5369569074237730330-242ac114-0001-007"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8333211822347981286-242ac114-0001-007"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"job"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/demo/associations/8333211822347981286-242ac114-0001-007"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"job"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/jobs/v2/8333211822347981286-242ac114-0001-007"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>To tag multiple resources at once, POST a JSON array of the resource UUID to the associations collection of the tag. If the resoures are already tagged, no change will be made. If they are not currently tagged they will be tagged. Resources already tagged, but not included in the array of UUID will remain unchanged.</p>
+
+<h3 id="deleting-metadata">Deleting metadata</h3>
+
+<blockquote>
+<p>Delete a tag</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    -X DELETE
+    https://public.tenants.agaveapi.co/tags/v2/demo/associations
+
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    -X DELETE
+    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/associations
+</code></pre>
+<pre class="highlight plaintext"><code>tags-resources-delete demo
+tags-resources-delete 3042501574756462105-242ac113-0001-048
+</code></pre>
+
+<blockquote>
+<p>An empty response will be returned from the service.</p>
+</blockquote>
+
+<p>Untag all the resources associated with a tag at once, make a DELETE erquest on the assocations collection of the tag.</p>
+
+<aside class="notice"> Clearing resources will remove the assocation, but not the resources themselves. </aside>
+
+              <h3 id="tag-searching">Tag Searching</h3>
+
+<blockquote>
+<p>Search all tags for a given resource uuid</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    https://public.tenants.agaveapi.co/tags/v2?associationIds.eq<span class="o">=</span>179338873096442342-242ac113-0001-002z
+</code></pre>
+<pre class="highlight plaintext"><code>tags-search -v associationIds.like=179338873096442342-242ac113-0001-002
+</code></pre>
+
+<blockquote>
+<p>The response will be an array of matching tag objects</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3042501574756462105-242ac113-0001-048"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"associationIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"576158795084066330-242ac119-0001-007"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"1557538007895839206-242ac119-0001-007"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-13T12:38:14.000-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-13T12:38:14.000-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"associationIds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/associations"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/nryan"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Standard JSON sql syntax used across the rest of the Science APIs is available in the Tags service. All fields in the Tag object are available for querying.</p>
+
+              <h3 id="tag-permissions">Tag Permissions</h3>
+
+<p>The Tags service supports permissions fconsistent with that of a number of other Agave services. If no permissions are explicitly set, only the owner of the Tag and tenant administrators can access it.</p>
+
+<p>The permissions available for Tags listed in the following table. Please note that a user must have WRITE permissions to grant or revoke permissions on a tag.</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>READ</td>
+<td>User can view the resource</td>
+</tr>
+<tr>
+<td>WRITE</td>
+<td>User can edit, but not view the resource</td>
+</tr>
+<tr>
+<td>READ_WRITE</td>
+<td>User can manage the resource</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td>User can manage the resource</td>
+</tr>
+<tr>
+<td>NONE</td>
+<td>User can view the resource</td>
+</tr>
+</tbody></table>
+
+<h4 id="listing-all-permissions">Listing all permissions</h4>
+
+<blockquote>
+<p>List the permissions on a Tag for a given user</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    https://public.tenants.agaveapi.co/tags/v2/demo/pems/rclemens
+
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems/rclemens
+</code></pre>
+<pre class="highlight plaintext"><code>tags-pems-list -u rclemens demo
+
+tags-pems-list -u rclemens \
+    3042501574756462105-242ac113-0001-048
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"permission"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"read"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"write"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems/nryan"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"parent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/nryan"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>To list all permissions for a tag, make a GET request on the tag&rsquo;s permission collection</p>
+
+<h4 id="list-permissions-for-a-specific-user">List permissions for a specific user</h4>
+
+<blockquote>
+<p>List the permissions on Metadata for a given user</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    https://public.tenants.agaveapi.co/tags/v2/data/3042501574756462105-242ac113-0001-048/pems/nryan
+</code></pre>
+<pre class="highlight plaintext"><code>tags-pems-list -u rclemens \
+    3042501574756462105-242ac113-0001-048
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"username"</span><span class="p">:</span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"permission"</span><span class="p">:{</span><span class="w">
+    </span><span class="nt">"read"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"write"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:{</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems/nryan"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"parent"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"profile"</span><span class="p">:{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="s2">"https://public.agaveapi.co/tags/v2/nryan"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Checking permissions for a single user is simply a matter of adding the username of the user in question to the end of the tag permission collection.</p>
+
+<h4 id="grant-permissions">Grant permissions</h4>
+
+<blockquote>
+<p>Grant read access to a tag</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST
+    --data <span class="s1">'{"permission":"READ"}'</span>
+    https://public.tenants.agaveapi.co/tags/v2/data/3042501574756462105-242ac113-0001-048/pems/rclemens
+</code></pre>
+<pre class="highlight plaintext"><code>tags-pems-addupdate -u rclemens \
+    -p READ 3042501574756462105-242ac113-0001-048
+</code></pre>
+
+<blockquote>
+<p>Grant read and write access to a tag</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST
+    --data <span class="s1">'{"permission":"READ_WRITE"}'</span>
+    https://public.tenants.agaveapi.co/tags/v2/data/3042501574756462105-242ac113-0001-048/pems/rclemens
+</code></pre>
+<pre class="highlight plaintext"><code>tags-pems-addupdate -u rclemens \
+    -p READ_WRITE 3042501574756462105-242ac113-0001-048
+</code></pre>
+
+<blockquote>
+<p>The response will look something like the following:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rclemens"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"permission"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"read"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"write"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems/rclemens"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"parent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/tags/v2/jstubbs"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>To grant another user read access to your tag, assign them <code class="prettyprint">READ</code> permission. To enable another user to update a tag, grant them <code class="prettyprint">READ_WRITE</code> or <code class="prettyprint">ALL</code> access.</p>
+
+<h4 id="delete-single-user-permissions">Delete single user permissions</h4>
+
+<blockquote>
+<p>Delete permission for single user on a Metadata item</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    -X DELETE
+    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems/rclemens
+</code></pre>
+<pre class="highlight plaintext"><code>tags-pems-delete -u rclemens 3042501574756462105-242ac113-0001-048
+</code></pre>
+
+<blockquote>
+<p>An empty response will come back from the API.</p>
+</blockquote>
+
+<p>Permissions may be deleted for a single user by making a DELETE request on the tag&rsquo;s user permission resource. This will immediately revoke all permissions to the tag for that user.</p>
+
+<aside class="info">Please note that ownership cannot be revoked or reassigned. The user who created the tag will always have ownership of that item.</aside>
+
+<h4 id="deleting-all-permissions">Deleting all permissions</h4>
+
+<blockquote>
+<p>Delete all permissions on a Metadata item</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    -X DELETE
+    https://public.tenants.agaveapi.co/tags/v2/demo/pems
+
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>
+    -X DELETE
+    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems
+</code></pre>
+<pre class="highlight plaintext"><code>tags-pems-delete demo
+tags-pems-delete 3042501574756462105-242ac113-0001-048
+</code></pre>
+
+<blockquote>
+<p>An empty response will be returned from the service.</p>
+</blockquote>
+
+<p>Permissions may be deleted for a single user by making a DELETE request on the tag resource permission collection.</p>
+
+<aside class="info">The above operation will delete all permissions for a tag, such that only the owner will be able to access it. Use with care.</aside>
 
               <h2 id="uuid">UUID</h2>
 <pre class="highlight json"><code><span class="w"> </span><span class="err">/$$</span><span class="w">   </span><span class="err">/$$</span><span class="w"> </span><span class="err">/$$</span><span class="w">   </span><span class="err">/$$</span><span class="w"> </span><span class="err">/$$$$$$</span><span class="w"> </span><span class="err">/$$$$$$$</span><span class="w">
