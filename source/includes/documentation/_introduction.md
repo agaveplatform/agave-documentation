@@ -13,4 +13,4 @@ The Science APIs follow basic REST concepts and use JSON to exchange data. Forma
 ## Interactive API Explorer
 Often it is easier to explore a new API using an interactive tool rather than writing code. We provide our <a href="live-docs/">Live Docs</a>, an interactive API browser based on the Swagger UI project, to help you kick the tires on the API and get example requests and responses to help with your onboarding efforts. 
 
-<p style="text-align:center;margin-top:45px;"><a style="padding:12px 15px;line-height: 30px; outline: 0;background: #00a7b8; color: #ffffff; text-decoration:none!important;" href="/live-docs/">Visit Agave Live Docs</a></p>  
+<p style="text-align:center;margin-top:45px;"><a style="padding:12px 15px;line-height: 30px; outline: 0;background: #00a7b8; color: #ffffff; text-decoration:none!important;" href="live-docs/">Visit Agave Live Docs</a></p>  
