@@ -662,8 +662,7 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$__</span><span class="w">  </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">    </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">\</span><span class="w"> </span><span class="err">$$</span><span class="w">
 </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w"> </span><span class="err">/$$|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
 </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$$$/|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$|</span><span class="w">  </span><span class="err">$$$$$$/</span><span class="w">  </span><span class="err">|</span><span class="w">  </span><span class="err">$$$$/|</span><span class="w"> </span><span class="err">$$</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">$$</span><span class="w">
- </span><span class="err">\______/</span><span class="w"> </span><span class="err">|__/</span><span class="w">  </span><span class="err">|__/</span><span class="w"> </span><span class="err">\______/</span><span class="w">    </span><span class="err">\___/</span><span class="w">  </span><span class="err">|__/</span><span class="w">  </span><span class="err">|__/</span><span class="w">                                                          
-
+ </span><span class="err">\______/</span><span class="w"> </span><span class="err">|__/</span><span class="w">  </span><span class="err">|__/</span><span class="w"> </span><span class="err">\______/</span><span class="w">    </span><span class="err">\___/</span><span class="w">  </span><span class="err">|__/</span><span class="w">  </span><span class="err">|__/</span><span class="w">
 </span></code></pre>
 
 <p>Most requests to the Agave REST APIs require authorization; that is, the user must have granted permission for an application to access the requested data. To prove that the user has granted permission, the request header sent by the application must include a valid access token.</p>
@@ -838,36 +837,26 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 <table>
     <thead>
         <tr>
-            <th>Query parameter 
-</th>
-            <th>Value 
-</th>
+            <th>Query parameter </th>
+            <th>Value </th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>access_token 
-</td>
-            <td>An access token that can be provided in subsequent calls, for example to <a href="https://developer.spotify.com/spotify-web-api/">Spotify Web API</a> services. 
-</td>
+            <td>access_token </td>
+            <td>An access token that can be provided in subsequent calls, for example to <a href="https://public.agaveapi.co/profiles/v2/me?pretty=true">Agave Profiles API</a>. </td>
         </tr>
         <tr>
-            <td>token_type 
-</td>
-            <td>Value: “bearer” 
-</td>
+            <td>token_type </td>
+            <td>Value: &ldquo;bearer&rdquo; </td>
         </tr>
         <tr>
-            <td>expires_in 
-</td>
-            <td>The time period (in seconds) for which the access token is valid. 
-</td>
+            <td>expires_in </td>
+            <td>The time period (in seconds) for which the access token is valid. </td>
         </tr>
         <tr>
-            <td>state 
-</td>
-            <td>The value of the <code>state</code> parameter supplied in the request. 
-</td>
+            <td>state </td>
+            <td>The value of the <code>state</code> parameter supplied in the request. </td>
         </tr>
     </tbody>
 </table>
@@ -1164,40 +1153,29 @@ refresh_token </td>
 <table>
     <thead>
         <tr>
-            <th>Query parameter 
-</th>
-            <th>Value 
-</th>
+            <th>Query parameter </th>
+            <th>Value </th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>access_token 
-</td>
-            <td>An access token that can be provided in subsequent calls, for example to <a href="https://developer.spotify.com/spotify-web-api/">Spotify Web API</a> services. 
-</td>
+            <td>access_token </td>
+            <td>An access token that can be provided in subsequent calls, for example to <a href="https://public.agaveapi.co/profiles/v2/me?pretty=true">Agave Profiles API</a>. </td>
         </tr>
         <tr>
-            <td>token_type 
-</td>
-            <td>Value: “bearer” 
-</td>
+            <td>token_type </td>
+            <td>Value: &ldquo;bearer&rdquo; </td>
         </tr>
         <tr>
-            <td>expires_in 
-</td>
-            <td>The time period (in seconds) for which the access token is valid. 
-</td>
+            <td>expires_in </td>
+            <td>The time period (in seconds) for which the access token is valid. </td>
         </tr>
         <tr>
-            <td>state 
-</td>
-            <td>The value of the <code>state</code> parameter supplied in the request. 
-</td>
+            <td>state </td>
+            <td>The value of the <code>state</code> parameter supplied in the request. </td>
         </tr>
     </tbody>
 </table>
-
 
 If the user has denied access, there will be no access token and the final URL will have a query string containing the following parameters:
 
@@ -4970,7 +4948,7 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
          </span><span class="err">|__/</span><span class="w">     </span><span class="err">|__/</span><span class="w">
 </span></code></pre>
 
-<p>An app, in the context of Agave, is an executable code available for invocation through Agave&rsquo;s Jobs service on a specific execution system. Put another way, an app is a piece of code that you can run on a specific system. If a single code needs to be run on multiple systems, each combination of app and system needs to be defined as an app.</p>
+<p>An app, in the context of Agave, is an executable code available for invocation through the Agave Jobs service on a specific execution system. Put another way, an app is a piece of code that you can run on a specific system. If a single code needs to be run on multiple systems, each combination of app and system needs to be defined as an app.</p>
 
 <p>Apps are language agnostic and may or may not carry with them their own dependencies. (More on bundling your app in a moment.) Any code that can be forked at the command line or submitted to a batch scheduler can be registered as an Agave app and run through the Jobs service.</p>
 
