@@ -4,24 +4,29 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Agave Live Docs</title>
-    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+    <title>Agave Developer Docs</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 
-    <script type="text/javascript">
-      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
-      analytics.load("ahAKHCapavwGo8rmdDxiohHIV8W660mc");
-      analytics.page()
-      }}();
-    </script>
-    <script src="https://use.typekit.net/squ8frf.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
-    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
-    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+
+    <!-- <script src="https://use.typekit.net/squ8frf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script> -->
 
     <link href="../../../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="../../../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- <script src="../../../javascripts/jquery.min.js" type="text/javascript"></script> -->
+
       <script src="../../../javascripts/all_nosearch.js" type="text/javascript"></script>
+    <script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-43163231-12', 'auto');
+ga('require', 'eventTracker');
+ga('require', 'outboundLinkTracker');
+ga('require', 'urlChangeTracker');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script src="../../../javascripts/autotrack.js" type="text/javascript" async="true"></script>
 
     <style>
     .js #fouc { display: none; }
@@ -60,7 +65,7 @@
 
 <p>Registering an app with the Apps service is conceptually simple. Just describe your app as a JSON document and POST it to the Apps service. Historically, this has actually been the hardest part for new users to figure out. So, to ease the process, we&rsquo;ve created a couple tools that you can use to define your apps. The first is the <a href="http://togo.agaveapi.co/app/" title="App Builder">App Builder</a> page. On this page you will find a form-driven wizard that you can fill out generate the JSON description for your app. Once created, you can POST the JSON directly to the Apps service. If you are new to app registration, this is a great place to start because it shrinks the learning curve involved in defining your app.</p>
 
-<p>The second tool is the <a href="https://bitbucket.org/taccaci/agave-samples/" title="Agave Samples Repository" target="_blank">Agave Samples</a> project. The Agave Samples project is a set of sample data used throughout these tutorials. The project contains several app definitions ranging in complexity from a trivial no-parameter, no-argument hello world, to a complex multi-input application with multiple parameter types. The Agave Samples project is a great place to start when building your app by hand because it draws on the experiences of many successful application publishers. You can check out the Agave Samples project from Bitbucket by cloning the Git repository:</p>
+<p>The second tool is the <a href="https://bitbucket.org/agaveapi/science-api-samples/" title="Agave Samples Repository" target="_blank">Agave Samples</a> project. The Agave Samples project is a set of sample data used throughout these tutorials. The project contains several app definitions ranging in complexity from a trivial no-parameter, no-argument hello world, to a complex multi-input application with multiple parameter types. The Agave Samples project is a great place to start when building your app by hand because it draws on the experiences of many successful application publishers. You can check out the Agave Samples project from Bitbucket by cloning the Git repository:</p>
 <pre class="highlight shell"><code>git clone https://bitbucket.org/taccaci/agave-apps-boilerplate
 </code></pre>
 
@@ -104,7 +109,7 @@
 |- wrapper.sh
 </code></pre>
 
-For other examples of more complicated app bundles, consult the <a title="Agave Samples project" href="https://bitbucket.org/taccaci/agave-samples">Agave Samples</a> repository.
+For other examples of more complicated app bundles, consult the <a title="Agave Samples project" href="https://bitbucket.org/agaveapi/science-api-samples">Agave Samples</a> repository.
 
 ### Creating a wrapper template <a name="creating-a-wrapper-template">&nbsp;</a>  
 

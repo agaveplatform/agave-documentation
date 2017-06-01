@@ -4,24 +4,29 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Agave Live Docs</title>
-    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+    <title>Agave Developer Docs</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 
-    <script type="text/javascript">
-      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
-      analytics.load("ahAKHCapavwGo8rmdDxiohHIV8W660mc");
-      analytics.page()
-      }}();
-    </script>
-    <script src="https://use.typekit.net/squ8frf.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
-    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
-    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+
+    <!-- <script src="https://use.typekit.net/squ8frf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script> -->
 
     <link href="../../../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="../../../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- <script src="../../../javascripts/jquery.min.js" type="text/javascript"></script> -->
+
       <script src="../../../javascripts/all_nosearch.js" type="text/javascript"></script>
+    <script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-43163231-12', 'auto');
+ga('require', 'eventTracker');
+ga('require', 'outboundLinkTracker');
+ga('require', 'urlChangeTracker');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script src="../../../javascripts/autotrack.js" type="text/javascript" async="true"></script>
 
     <style>
     .js #fouc { display: none; }
@@ -69,7 +74,7 @@
 <p>The response will be a JSON array of summary system objects. The full system description can get rather verbose, so a summary object is returned with the most critical fields in order to reduce response size when retrieving a user&rsquo;s systems.</p>
 <pre class="highlight javascript"><code><span class="p">[</span>
   <span class="p">{</span>
-    <span class="s2">"id"</span> <span class="p">:</span> <span class="s2">"data.iplantcollaborative.org"</span><span class="p">,</span>
+    <span class="s2">"id"</span> <span class="p">:</span> <span class="s2">"data.agaveapi.co"</span><span class="p">,</span>
     <span class="s2">"name"</span> <span class="p">:</span> <span class="s2">"iPlant Data Store"</span><span class="p">,</span>
     <span class="s2">"type"</span> <span class="p">:</span> <span class="s2">"STORAGE"</span><span class="p">,</span>
     <span class="s2">"description"</span> <span class="p">:</span> <span class="s2">"The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&amp;#039;s technologies."</span><span class="p">,</span>
@@ -78,7 +83,7 @@
     <span class="s2">"default"</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
     <span class="s2">"_links"</span> <span class="p">:</span> <span class="p">{</span>
       <span class="s2">"self"</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+        <span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">},</span>
@@ -153,7 +158,7 @@ systems-list -v -D
 <pre class="highlight javascript"><code><span class="p">{</span>  
    <span class="s2">"default"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
    <span class="s2">"description"</span><span class="err">:</span><span class="s2">"The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&amp;#039;s technologies."</span><span class="p">,</span>
-   <span class="s2">"id"</span><span class="err">:</span><span class="s2">"data.iplantcollaborative.org"</span><span class="p">,</span>
+   <span class="s2">"id"</span><span class="err">:</span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span>
    <span class="s2">"lastModified"</span><span class="err">:</span><span class="s2">"2013-11-12T07:08:30.000-06:00"</span><span class="p">,</span>
    <span class="s2">"name"</span><span class="err">:</span><span class="s2">"iPlant Data Store"</span><span class="p">,</span>
    <span class="s2">"public"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
@@ -165,7 +170,7 @@ systems-list -v -D
          <span class="s2">"type"</span><span class="err">:</span><span class="s2">"PASSWORD"</span>
       <span class="p">},</span>
       <span class="s2">"homeDir"</span><span class="err">:</span><span class="s2">"/"</span><span class="p">,</span>
-      <span class="s2">"host"</span><span class="err">:</span><span class="s2">"data.iplantcollaborative.org"</span><span class="p">,</span>
+      <span class="s2">"host"</span><span class="err">:</span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span>
       <span class="s2">"mirror"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
       <span class="s2">"port"</span><span class="err">:</span><span class="mi">1247</span><span class="p">,</span>
       <span class="s2">"protocol"</span><span class="err">:</span><span class="s2">"IRODS"</span><span class="p">,</span>
@@ -179,16 +184,16 @@ systems-list -v -D
    <span class="s2">"uuid"</span><span class="err">:</span><span class="s2">"0001384260598633-5056a550b8-0001-006"</span><span class="p">,</span>
    <span class="s2">"_links"</span><span class="err">:</span><span class="p">{</span>  
       <span class="s2">"credentials"</span><span class="err">:</span><span class="p">{</span>  
-         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org/credentials"</span>
+         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co/credentials"</span>
       <span class="p">},</span>
       <span class="s2">"metadata"</span><span class="err">:</span><span class="p">{</span>  
          <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/meta/v2/data/?q={"</span><span class="nx">associationIds</span><span class="s2">":"</span><span class="mi">0001384260598633</span><span class="o">-</span><span class="mi">5056</span><span class="nx">a550b8</span><span class="o">-</span><span class="mi">0001</span><span class="o">-</span><span class="mi">006</span><span class="s2">"}"</span>
       <span class="p">},</span>
       <span class="s2">"roles"</span><span class="err">:</span><span class="p">{</span>  
-         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org/roles"</span>
+         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co/roles"</span>
       <span class="p">},</span>
       <span class="s2">"self"</span><span class="err">:</span><span class="p">{</span>  
-         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+         <span class="s2">"href"</span><span class="err">:</span><span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
       <span class="p">}</span>
    <span class="p">}</span>
 <span class="p">}</span>

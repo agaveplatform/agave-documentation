@@ -4,24 +4,29 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Agave Live Docs</title>
-    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+    <title>Agave Developer Docs</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 
-    <script type="text/javascript">
-      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
-      analytics.load("ahAKHCapavwGo8rmdDxiohHIV8W660mc");
-      analytics.page()
-      }}();
-    </script>
-    <script src="https://use.typekit.net/squ8frf.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
-    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
-    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+
+    <!-- <script src="https://use.typekit.net/squ8frf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script> -->
 
     <link href="../../../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="../../../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- <script src="../../../javascripts/jquery.min.js" type="text/javascript"></script> -->
+
       <script src="../../../javascripts/all_nosearch.js" type="text/javascript"></script>
+    <script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-43163231-12', 'auto');
+ga('require', 'eventTracker');
+ga('require', 'outboundLinkTracker');
+ga('require', 'urlChangeTracker');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script src="../../../javascripts/autotrack.js" type="text/javascript" async="true"></script>
 
     <style>
     .js #fouc { display: none; }
@@ -62,12 +67,12 @@
 
 <p>&lt;%= partial &ldquo;includes/tables/22&rdquo; %&gt;</p>
 
-<p>Agave also supports the concept of default systems. Excluding the <code>/system/$SYSTEM_ID</code> tokens from the above URL, the Files service will automatically assume you are referencing your default storage system. Thus, if your default system was <code>data.iplantcollaborative.org</code>,</p>
+<p>Agave also supports the concept of default systems. Excluding the <code>/system/$SYSTEM_ID</code> tokens from the above URL, the Files service will automatically assume you are referencing your default storage system. Thus, if your default system was <code>data.agaveapi.co</code>,</p>
 <pre class="highlight shell"><code>https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/media/shared
 </code></pre>
 
 <p>would behave identically to:</p>
-<pre class="highlight shell"><code>https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/media/system/data.iplantcollaborative.org/shared
+<pre class="highlight shell"><code>https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/media/system/data.agaveapi.co/shared
 </code></pre>
 
 <p>This comes in especially handy when referencing your default system paths in other contexts such as job requests and when interacting with the Agave CLI. A good example of this situation is when you have a global default storage system accessible to all your users. In this case, most users will use that for all of their data staging and archiving needs. These users may find it easier not to even think about the system they are using. The default system support in the Files service allows them to do just that.</p>
@@ -93,9 +98,9 @@
 <p>You may upload data to a remote systems by performing a multipart POST on the FILES service. If you are using the Agave CLI, you can perform recursive directory uploads. If you are manually calling curl or building an app with the Agave SDK, you will need to implement the recursion yourself. You can take a look in the <code>files-upload</code> script to see how this is done. The following is an example of how to upload a file that we will use in the remainder of this tutorial.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST  
     -F <span class="s2">"fileToUpload=@files/picksumipsum.txt"</span>  
-    https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/media/data.iplantcollaborative.org/<span class="nv">$API_USERNAME</span>
+    https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/media/data.agaveapi.co/<span class="nv">$API_USERNAME</span>
 </code></pre>
-<pre class="highlight plaintext"><code>files-upload -v -F files/picksumipsum.txt -S data.iplantcollaborative.org $API_USERNAME
+<pre class="highlight plaintext"><code>files-upload -v -F files/picksumipsum.txt -S data.agaveapi.co $API_USERNAME
 </code></pre>
 
 <p>You will see a progress bar while the file uploads, followed by a response from the server with a description of the uploaded file. Agave does not block during data movement operations, so it may be just a second before the file physically shows up on the remote system.</p>
@@ -108,17 +113,17 @@
     <span class="s2">"path"</span><span class="err">:</span> <span class="s2">"/iplant/home/systest/picksumipsum.txt"</span><span class="p">,</span>
     <span class="s2">"source"</span><span class="err">:</span> <span class="s2">"http://129.114.60.211/picksumipsum.txt"</span><span class="p">,</span>
     <span class="s2">"status"</span><span class="err">:</span> <span class="s2">"STAGING_QUEUED"</span><span class="p">,</span>
-    <span class="s2">"systemId"</span><span class="err">:</span> <span class="s2">"data.iplantcollaborative.org"</span><span class="p">,</span>
+    <span class="s2">"systemId"</span><span class="err">:</span> <span class="s2">"data.agaveapi.co"</span><span class="p">,</span>
     <span class="s2">"uuid"</span><span class="err">:</span> <span class="s2">"0001409758089943-5056a550b8-0001-002"</span><span class="p">,</span>
     <span class="s2">"_links"</span><span class="err">:</span> <span class="p">{</span>
         <span class="s2">"history"</span><span class="err">:</span> <span class="p">{</span>
-            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/files/v2/history/system/data.iplantcollaborative.org/systest/picksumipsum.txt"</span>
+            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/files/v2/history/system/data.agaveapi.co/systest/picksumipsum.txt"</span>
         <span class="p">},</span>
         <span class="s2">"self"</span><span class="err">:</span> <span class="p">{</span>
-            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt"</span>
+            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt"</span>
         <span class="p">},</span>
         <span class="s2">"system"</span><span class="err">:</span> <span class="p">{</span>
-            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -130,13 +135,13 @@
 
 <p>&lt;%= partial &ldquo;includes/tables/23&rdquo; %&gt;</p>
 
-<p>To demonstrate how this works, will import a the README.md file from the <a href="https://bitbucket.org/taccaci/agave-samples" title="Agave Samples" target="_blank">Agave Samples</a> git repository in Bitbucket.</p>
+<p>To demonstrate how this works, will import a the README.md file from the <a href="https://bitbucket.org/agaveapi/science-api-samples" title="Agave Samples" target="_blank">Agave Samples</a> git repository in Bitbucket.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST  
-    -- data &amp;#039;<span class="o">{</span> <span class="s2">"url"</span>:<span class="s2">"https://bitbucket.org/taccaci/agave-samples/raw/master/README.md"</span><span class="o">}</span>&amp;#039;  
-    https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/media/data.iplantcollaborative.org/<span class="nv">$API_USERNAME</span>
+    -- data &amp;#039;<span class="o">{</span> <span class="s2">"url"</span>:<span class="s2">"https://bitbucket.org/agaveapi/science-api-samples/raw/master/README.md"</span><span class="o">}</span>&amp;#039;  
+    https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/media/data.agaveapi.co/<span class="nv">$API_USERNAME</span>
 </code></pre>
-<pre class="highlight plaintext"><code>files-import -v -U "https://bitbucket.org/taccaci/agave-samples/raw/master/README.md"  
-    -S data.iplantcollaborative.org $API_USERNAME
+<pre class="highlight plaintext"><code>files-import -v -U "https://bitbucket.org/agaveapi/science-api-samples/raw/master/README.md"  
+    -S data.agaveapi.co $API_USERNAME
 </code></pre>
 
 <p>Importing data from a third party is done offline as an asynchronous activity, so the response from the server will come right away. The response is given below. One thing worth noting is that the file length given in the response will always be -1. This is because Agave does not know what the actual file size is yet. That will be updated later on, after the transfer has finished.</p>
@@ -146,26 +151,26 @@
     <span class="s2">"owner"</span> <span class="err">:</span> <span class="s2">"systest"</span><span class="p">,</span>
     <span class="s2">"internalUsername"</span> <span class="err">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"lastModified"</span> <span class="err">:</span> <span class="s2">"2014-09-10T20:00:55.266-05:00"</span><span class="p">,</span>
-    <span class="s2">"source"</span> <span class="err">:</span> <span class="s2">"https://bitbucket.org/taccaci/agave-samples/raw/master/README.md"</span><span class="p">,</span>
+    <span class="s2">"source"</span> <span class="err">:</span> <span class="s2">"https://bitbucket.org/agaveapi/science-api-samples/raw/master/README.md"</span><span class="p">,</span>
     <span class="s2">"path"</span> <span class="err">:</span> <span class="s2">"/iplant/home/systest/README.md"</span><span class="p">,</span>
     <span class="s2">"status"</span> <span class="err">:</span> <span class="s2">"STAGING_QUEUED"</span><span class="p">,</span>
-    <span class="s2">"systemId"</span> <span class="err">:</span> <span class="s2">"data.iplantcollaborative.org"</span><span class="p">,</span>
+    <span class="s2">"systemId"</span> <span class="err">:</span> <span class="s2">"data.agaveapi.co"</span><span class="p">,</span>
     <span class="s2">"nativeFormat"</span> <span class="err">:</span> <span class="s2">"raw"</span><span class="p">,</span>
     <span class="s2">"_links"</span> <span class="err">:</span> <span class="p">{</span>
       <span class="s2">"self"</span> <span class="err">:</span> <span class="p">{</span>
-        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/README.md"</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/README.md"</span>
       <span class="p">},</span>
       <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
       <span class="p">},</span>
       <span class="s2">"history"</span> <span class="err">:</span> <span class="p">{</span>
-        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/files/v2/history/system/data.iplantcollaborative.org/systest/README.md"</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/files/v2/history/system/data.agaveapi.co/systest/README.md"</span>
       <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 
-<p>For this exercise, the file we just imported is just a few KB, so you should see it appear in your home folder on <code>data.iplantcollaborative.org</code> almost immediately. If you were importing larger datasets, the transfer could take significantly longer depending on the network quality between Agave and the source location. In this case, you would see the file size continue to increase until it completed. In the event of a failed transfer, Agave will retry several times before canceling the transfer.</p>
+<p>For this exercise, the file we just imported is just a few KB, so you should see it appear in your home folder on <code>data.agaveapi.co</code> almost immediately. If you were importing larger datasets, the transfer could take significantly longer depending on the network quality between Agave and the source location. In this case, you would see the file size continue to increase until it completed. In the event of a failed transfer, Agave will retry several times before canceling the transfer.</p>
 
 <aside class="notice">Agave attempts to make smart decisions about how and when to transfer data. This includes leveraging third-party transfers whenever possible, scaling directory copies out horizontally, and taking advantage of chunked or parallel uploads. As a result, data may arrive in a non-deterministic way on the target system. This is normal and should be expected.</aside>
 
@@ -173,26 +178,26 @@
 
 <p>Much like importing data, Agave can manage the transfer of data between registered systems. This is, in fact, how data is staged prior to running a simulation. Data transfers are fire and forget, so you can simply start a transfer and go about your business. Agave will ensure it completes. If you would like a notification when the transfer completes or reaches a certain stage, you can subscribe for one or more emails and/or <a href="http://webhooks.org" title="Webhooks" target="_blank">webhooks</a> and Agave will process them upon completion. The following table lists the available file events. For more information about Agave&rsquo;s event and notification system, please see the <a href="http://agaveapi.co/documentation/tutorials/notifications-tutorial/" title="Notifications Tutorial" target="_blank">Notifications Tutorial</a> and <a href="http://agaveapi.co/documentation/event-reference/" title="Agave Platform Event Reference" target="_blank">Event Reference</a>.</p>
 
-<p>In the example below, we will transfer a file from <code>stampede.tacc.utexas.edu</code> to <code>data.iplantcollaborative.org</code>. While the request looks pretty basic, there&rsquo;s a lot going on behind the scenes. Agave will authenticate to both systems, check permissions, stream data out of Stampede using SFTP and proxy it into <code>data.iplantcollaborative.org</code> using the IRODS protocol, adjusting the transfer buffer size along the way to optimize throughput. Doing this by hand is both painful and error prone. Doing it with Agave is nearly identical to copying a file from one directory to another on your local system.</p>
+<p>In the example below, we will transfer a file from <code>stampede.tacc.utexas.edu</code> to <code>data.agaveapi.co</code>. While the request looks pretty basic, there&rsquo;s a lot going on behind the scenes. Agave will authenticate to both systems, check permissions, stream data out of Stampede using SFTP and proxy it into <code>data.agaveapi.co</code> using the IRODS protocol, adjusting the transfer buffer size along the way to optimize throughput. Doing this by hand is both painful and error prone. Doing it with Agave is nearly identical to copying a file from one directory to another on your local system.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST  
     -- data &amp;#039;<span class="o">{</span> <span class="s2">"url"</span>:<span class="s2">"agave://stampede.tacc.utexas.edu//etc/motd"</span><span class="o">}</span>&amp;#039;  
-    https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/media/data.iplantcollaborative.org/<span class="nv">$API_USERNAME</span>
+    https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/media/data.agaveapi.co/<span class="nv">$API_USERNAME</span>
 </code></pre>
-<pre class="highlight plaintext"><code>files-import -v -U "agave://stampede.tacc.utexas.edu//etc/motd" -S data.iplantcollaborative.org $API_USERNAME
+<pre class="highlight plaintext"><code>files-import -v -U "agave://stampede.tacc.utexas.edu//etc/motd" -S data.agaveapi.co $API_USERNAME
 </code></pre>
 
 <p>The response from the service will be the same as the one we received importing a file.</p>
 
 <p>One of the benefits of Agave&rsquo;s Files service is that it frees you up to work in parallel and scale as large as your application demands. In the next example we will use Agave&rsquo;s Files to create redundant archives of a shared project directory.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> 
-    -X POST -- data &amp;#039;<span class="o">{</span> <span class="s2">"url"</span>:<span class="s2">"agave://data.iplantcollaborative.org/</span><span class="nv">$API_USERNAME</span><span class="s2">/foo_project"</span><span class="o">}</span>&amp;#039; 
+    -X POST -- data &amp;#039;<span class="o">{</span> <span class="s2">"url"</span>:<span class="s2">"agave://data.agaveapi.co/</span><span class="nv">$API_USERNAME</span><span class="s2">/foo_project"</span><span class="o">}</span>&amp;#039; 
     https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/media/system/<span class="nv">$API_USERNAME</span>.storage1/
 curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> 
-    -X POST -- data &amp;#039;<span class="o">{</span> <span class="s2">"url"</span>:<span class="s2">"agave://data.iplantcollaborative.org/</span><span class="nv">$API_USERNAME</span><span class="s2">/foo_project"</span><span class="o">}</span>&amp;#039; 
+    -X POST -- data &amp;#039;<span class="o">{</span> <span class="s2">"url"</span>:<span class="s2">"agave://data.agaveapi.co/</span><span class="nv">$API_USERNAME</span><span class="s2">/foo_project"</span><span class="o">}</span>&amp;#039; 
     https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/media/system/<span class="nv">$API_USERNAME</span>.storage2/
 </code></pre>
-<pre class="highlight plaintext"><code>files-import -v -U "agave://data.iplantcollaborative.org/$API_USERNAME/foo_project" -S $API_USERNAME.storage1
-files-import -v -U "agave://data.iplantcollaborative.org/$API_USERNAME/foo_project" -S $API_USERNAME.storage2
+<pre class="highlight plaintext"><code>files-import -v -U "agave://data.agaveapi.co/$API_USERNAME/foo_project" -S $API_USERNAME.storage1
+files-import -v -U "agave://data.agaveapi.co/$API_USERNAME/foo_project" -S $API_USERNAME.storage2
 </code></pre>
 
 <aside class="notice">Notice in the above examples that the Files services works identically regardless of whether the source is a file or directory. If the source is a file, it will copy the file. If the source is a directory, it will recursively process the contents until everything has been copied.</aside>
@@ -205,12 +210,12 @@ files-import -v -U "agave://data.iplantcollaborative.org/$API_USERNAME/foo_proje
 
 <p>Obtaining a directory listing, or information about a specific file is done by making a GET request on the <code>/files/$API_VERSION/listings/</code> resource.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span>  
-    https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/listings/data.iplantcollaborative.org/<span class="nv">$API_USERNAME</span>
+    https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/listings/data.agaveapi.co/<span class="nv">$API_USERNAME</span>
 </code></pre>
-<pre class="highlight plaintext"><code>files-list -v -S data.iplantcollaborative.org $API_USERNAME
+<pre class="highlight plaintext"><code>files-list -v -S data.agaveapi.co $API_USERNAME
 </code></pre>
 
-<p>The response to this contains a summary listing of the contents of your home directory on  <code>data.iplantcollaborative.org</code>. Appending a file path to your commands above would give information on a specific file.</p>
+<p>The response to this contains a summary listing of the contents of your home directory on  <code>data.agaveapi.co</code>. Appending a file path to your commands above would give information on a specific file.</p>
 <pre class="highlight javascript"><code><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">"format"</span><span class="p">:</span> <span class="s2">"folder"</span><span class="p">,</span>
@@ -220,14 +225,14 @@ files-import -v -U "agave://data.iplantcollaborative.org/$API_USERNAME/foo_proje
         <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"."</span><span class="p">,</span>
         <span class="s2">"path"</span><span class="p">:</span> <span class="s2">"systest"</span><span class="p">,</span>
         <span class="s2">"permisssions"</span><span class="p">:</span> <span class="s2">"ALL"</span><span class="p">,</span>
-        <span class="s2">"system"</span><span class="p">:</span> <span class="s2">"data.iplantcollaborative.org"</span><span class="p">,</span>
+        <span class="s2">"system"</span><span class="p">:</span> <span class="s2">"data.agaveapi.co"</span><span class="p">,</span>
         <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"dir"</span><span class="p">,</span>
         <span class="s2">"_links"</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">"self"</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">"href"</span><span class="p">:</span> <span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest"</span>
+                <span class="s2">"href"</span><span class="p">:</span> <span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest"</span>
             <span class="p">},</span>
             <span class="s2">"system"</span><span class="err">:</span> <span class="p">{</span>
-                <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+                <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">},</span>
@@ -239,14 +244,14 @@ files-import -v -U "agave://data.iplantcollaborative.org/$API_USERNAME/foo_proje
     <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"picksumipsum.txt"</span><span class="p">,</span>
     <span class="s2">"path"</span><span class="p">:</span> <span class="s2">"systest/picksumipsum.txt"</span><span class="p">,</span>
     <span class="s2">"permissions"</span><span class="p">:</span> <span class="s2">"ALL"</span><span class="p">,</span>
-    <span class="s2">"system"</span><span class="p">:</span> <span class="s2">"data.iplantcollaborative.org"</span><span class="p">,</span>
+    <span class="s2">"system"</span><span class="p">:</span> <span class="s2">"data.agaveapi.co"</span><span class="p">,</span>
     <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"file"</span><span class="p">,</span>
     <span class="s2">"_links"</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">"self"</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">"href"</span><span class="p">:</span> <span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.iplantcollaborative.org/systest/picksumipsum.txt"</span>
+                <span class="s2">"href"</span><span class="p">:</span> <span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt"</span>
         <span class="p">},</span>
         <span class="s2">"system"</span><span class="err">:</span> <span class="p">{</span>
-            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.iplantcollaborative.org"</span>
+            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
         <span class="p">}</span>
     <span class="p">}</span>
     <span class="p">}</span>

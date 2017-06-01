@@ -4,24 +4,29 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Agave Live Docs</title>
-    <link rel="shortcut icon" type="image/x-icon" href="images/fulcrum-favicon.ico">
+    <title>Agave Developer Docs</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 
-    <script type="text/javascript">
-      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
-      analytics.load("ahAKHCapavwGo8rmdDxiohHIV8W660mc");
-      analytics.page()
-      }}();
-    </script>
-    <script src="https://use.typekit.net/squ8frf.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
-    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
-    <script type="text/javascript" src="http://fast.fonts.net/jsapi/c580d838-ab64-4d76-8ca9-80a777f8fdaa.js"></script>
+
+    <!-- <script src="https://use.typekit.net/squ8frf.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script> -->
 
     <link href="../../../../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="../../../../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- <script src="../../../../javascripts/jquery.min.js" type="text/javascript"></script> -->
+
       <script src="../../../../javascripts/all_nosearch.js" type="text/javascript"></script>
+    <script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-43163231-12', 'auto');
+ga('require', 'eventTracker');
+ga('require', 'outboundLinkTracker');
+ga('require', 'urlChangeTracker');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script src="../../../../javascripts/autotrack.js" type="text/javascript" async="true"></script>
 
     <style>
     .js #fouc { display: none; }
@@ -54,7 +59,7 @@
 
 <p>In practice, you will want to add some descriptive information, constraints, and runtime validation checks to reduce the amount of error users can run into when attempting to run your app. The full lists of app input and parameter attributes are provided in their respective sections below. However, before we dive deeper into the next section on app inputs, let&rsquo;s first get a big picture view of what we are doing when we define our app&rsquo;s input and parameters.</p>
 
-<p><img src="http://agaveapi.co/wp-content/uploads/2014/10/App-Job-Information-Flow-1.png" alt="Input and Parameter Information Flow" width="960" height="720" class="aligncenter size-full wp-image-1661" /></p>
+<p><img src="/images/2014/10/App-Job-Information-Flow-1.png" alt="Input and Parameter Information Flow" width="960" height="720" class="aligncenter size-full wp-image-1661" /></p>
 
 <p>When a user submits a job request in step 1, they specify the inputs and parameters needed to run that job. Those attributes are defined in your app description. The Jobs service will use your app description to validate the values in the job request and either reject it with a descriptive error message as in step 2, or accept it as in step 4. Once the job request is accepted, the values provided for the inputs and parameters given in the job request are used to replace their corresponding template placeholder values in the wrapper script. For example, the job request assigned a value of <em>foo</em> for the input with id equal to <em>input1</em>. Before submitting the job request to the remote system, the Jobs service will replace all occurrences of <code>${input1}</code> in the app wrapper script with <em>foo</em>. The same will happen with <em>param1</em> and <em>param2</em>. All occurrences of <code>${param1}</code> will be replaced with <em>bar</em> and all occurrences of <code>${param2}</code> will be replaced with <em>2</em>, just as specified in the job request.</p>
 
