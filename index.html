@@ -7218,7 +7218,7 @@ curl -sk -H <span class="s2">"Authorization: Bearer  </span><span class="nv">$AC
 
 <p>The full list of template variables are listed in the following table.</p>
 
-<table id="notification-macros-jobs" class="notification-macros hidden">
+<table id="notification-macros-jobs" class="notification-macros jobs">
     <thead>
         <tr>
             <th>Variable</th>
@@ -7226,58 +7226,164 @@ curl -sk -H <span class="s2">"Authorization: Bearer  </span><span class="nv">$AC
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>UUID</td>
-            <td>The UUID of the job</td>
-        </tr>
-        <tr>
-            <td>EVENT</td>
-            <td>The event which occurred</td>
-        </tr>
-        <tr>
-            <td>JOB_STATUS</td>
-            <td>The status of the job at the time the event occurs</td>
-        </tr>
-        <tr>
-            <td>JOB_URL</td>
-            <td>The url of the job within the API</td>
-        </tr>
-        <tr>
-            <td>JOB_ID</td>
-            <td>The unique id used to reference the job within Agave.</td>
-        </tr>
-        <tr>
-            <td>JOB_SYSTEM</td>
-            <td>ID of the job execution system (ex. ssh.execute.example.com)</td>
-        </tr>
-        <tr>
-            <td>JOB_NAME</td>
-            <td>The user-supplied name of the job</td>
-        </tr>
-        <tr>
-            <td>JOB_START_TIME</td>
-            <td>The time when the job started running in ISO8601 format.</td>
-        </tr>
-        <tr>
-            <td>JOB_END_TIME</td>
-            <td>The time when the job stopped running in ISO8601 format.</td>
-        </tr>
-        <tr>
-            <td>JOB_SUBMIT_TIME</td>
-            <td>The time when the job was submitted to Agave for execution by the user in ISO8601 format.</td>
-        </tr>
-        <tr>
-            <td>JOB_ARCHIVE_PATH</td>
-            <td>The path on the archive system where the job output will be staged.</td>
-        </tr>
-        <tr>
-            <td>JOB_ARCHIVE_URL</td>
-            <td>The Agave URL for the archived data.</td>
-        </tr>
-        <tr>
-            <td>JOB_ERROR</td>
-            <td>The error message explaining why a job failed. Null if completed successfully.</td>
-        </tr>
+    <tr>
+        <td>UUID</td>
+        <td>The UUID of the job</td>
+    </tr>
+    <tr>
+        <td>EVENT</td>
+        <td>The name of the event which occurred.</td>
+    </tr>
+    <tr>
+        <td>OWNER</td>
+        <td>The username of the user who triggered the event.</td>
+    </tr>
+    <tr>
+        <td>JOB_STATUS</td>
+        <td>The status of the job at the time the event occurs</td>
+    </tr>
+    <tr>
+        <td>JOB_URL</td>
+        <td>The url of the job within the API</td>
+    </tr>
+    <tr>
+        <td>JOB_ID</td>
+        <td>The unique id used to reference the job within Agave.</td>
+    </tr>
+    <tr>
+        <td>JOB_SYSTEM</td>
+        <td>ID of the job execution system (ex. ssh.execute.example.com)</td>
+    </tr>
+    <tr>
+        <td>JOB_NAME</td>
+        <td>The user-supplied name of the job</td>
+    </tr>
+    <tr>
+        <td>JOB_START_TIME</td>
+        <td>The time when the job started running in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_END_TIME</td>
+        <td>The time when the job stopped running in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_SUBMIT_TIME</td>
+        <td>The time when the job was submitted to Agave for execution by the user in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_PATH</td>
+        <td>The path on the archive system where the job output will be staged.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_URL</td>
+        <td>The Agave URL for the archived data.</td>
+    </tr>
+    <tr>
+        <td>JOB_ERROR</td>
+        <td>The error message explaining why a job failed. Null if completed successfully.</td>
+    </tr>
+    <tr>
+        <td>JOB_APP_ID</td>
+        <td>The id of the app being run.</td>
+    </tr>
+    <tr>
+        <td>JOB_BATCH_QUEUE</td>
+        <td>The batch queue of the <span class="code">JOB_EXECUTION_SYSTEM</span> on which the job is assigned.</td>
+    </tr>
+    <tr>
+        <td>JOB_CREATED</td>
+        <td>The time when the job request was initially received in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_EXECUTION_SYSTEM</td>
+        <td>The agave execution system id on which the job will run.</td>
+    </tr>
+    <tr>
+        <td>JOB_INPUTS</td>
+        <td>The serialized JSON object representing the job inputs.</td>
+    </tr>
+    <tr>
+        <td>JOB_LOCAL_ID</td>
+        <td>The id of the job on the <span class="code">JOB_EXECUTION_SYSTEM</span>. This will be the id assigned to the
+            batch scheduler, condor schedd, or sytem PID depending on the system scheduler type.
+        </td>
+    </tr>
+    <tr>
+        <td>JOB_MAX_RUNTIME</td>
+        <td>The max job run from the job request in HH:MM:SS format.</td>
+    </tr>
+    <tr>
+        <td>JOB_MAX_RUNTIME_MILLISECONDS</td>
+        <td>The max job run time from the job request converted to milliseconds.</td>
+    </tr>
+    <tr>
+        <td>JOB_MEMORY_PER_NODE</td>
+        <td>The memory requested per node in the job request in GB.</td>
+    </tr>
+    <tr>
+        <td>JOB_NODE_COUNT</td>
+        <td>The number of nodes from the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_OWNER</td>
+        <td>The username of the user who submitted the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_OUTPUT_PATH</td>
+        <td>The absolute path to the job directory on the remote system.</td>
+    </tr>
+    <tr>
+        <td>JOB_PARAMETERS</td>
+        <td>The serialized JSON object representing the job parameters.</td>
+    </tr>
+    <tr>
+        <td>JOB_PROCESSORS_PER_NODE</td>
+        <td>The processors per node from the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_STATUS</td>
+        <td>The current job status.</td>
+    </tr>
+    <tr>
+        <td>JOB_START_TIME</td>
+        <td>The time when the job moved to a &ldquo;RUNNING&rdquo; status in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_TENANT</td>
+        <td>The code of the tenant to which the job was submitted.</td>
+    </tr>
+    <tr>
+        <td>JOB_URL</td>
+        <td>The canonical Agave URL of the job.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE</td>
+        <td>Whether Agave will attempt to archive the job. Values &ldquo;true&rdquo; or &ldquo;false&rdquo;.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_SYSTEM</td>
+        <td>The Agave storage system id to which the job output will be archived. This will be NULL if the the job is
+            not
+            archived.
+        </td>
+    </tr>
+    <tr>
+        <td>JOB_ERROR/td>
+        <td>The current debug or error message set for the job.</td>
+    </tr>
+    <tr>
+        <td>JOB_JSON</td>
+        <td>The serialized JSON object representing the job. This is identical to what would come back if you made a
+            naked GET request on the job url.
+        </td>
+    </tr>
+    <tr>
+        <td>RAW_JSON</td>
+        <td>The serialized JSON event payload. This is identical to what is sent in the body of a webhook POST
+            callback.
+        </td>
+    </tr>
+
     </tbody>
 </table>
 
@@ -7990,20 +8096,14 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 <blockquote>
 <p>Receive self-describing job status updates</p>
 </blockquote>
-<pre class="highlight html"><code>http://example.com/job/${JOB_ID}?status=${STATUS}<span class="err">&amp;</span>lastUpdated=${LAST_UPDATED}
+<pre class="highlight html"><code>http://example.com/job/${JOB_ID}?status=${JOB_STATUS}<span class="err">&amp;</span>lastUpdated=${JOB_START_TIME}
 </code></pre>
 
 <blockquote>
 <p>Get notified on all jobs going into and out of queues</p>
 </blockquote>
-<pre class="highlight html"><code>http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=add
-http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
-</code></pre>
-
-<blockquote>
-<p>Rerun an analysis when a files finishes staging</p>
-</blockquote>
-<pre class="highlight html"><code>https://$AGAVE_BASE_URL/jobs/v2/a32487q98wasdfa9-09090b0b-007?action=resubmit
+<pre class="highlight html"><code>http://example.com/system/${JOB_EXECUTION_SYSTEM}/queue/${JOB_BATCH_QUEUE}?action=add
+http://example.com/system/${JOB_EXECUTION_SYSTEM}/queue/${JOB_BATCH_QUEUE}?action=subtract
 </code></pre>
 
 <blockquote>
@@ -8015,22 +8115,150 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
 <p>In the context of Agave, a webhook is a URL to which Agave will send a POST request when that event occurs. A webhook can be any web accessible URL. While you cannot customize the POST content that Agave sends (it is unique to the event), you can take advantage of the many template variables that Agave provides to customize the URL at run time. The following tables show the webhook template variables available for each resource. Use the select box to view the macros for different resources.</p>
 
 <p>
-    <select id="notification-macros-selector" name="notification-macros-selector" onChange="$('.notification-macros').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
-        <option value="notification-macros-apps">Apps</option>
-        <option value="notification-macros-jobs">Jobs</option>
-        <option value="notification-macros-files">Files</option>
-        <option value="notification-macros-metadata">Metadata</option>
-        <option value="notification-macros-metadata-schema">Metadata Schema</option>
-        <option value="notification-macros-monitors">Monitors</option>
-        <option value="notification-macros-notifications">Notifications</option>
-        <option value="notification-macros-postits">PostIts</option>
-        <option value="notification-macros-profiles">Profiles</option>
-        <option value="notification-macros-systems">Systems</option>
-        <option value="notification-macros-transforms">Transforms</option>
+    <select id="notification-macros-selector" name="notification-macros-selector" onChange="$('.notification-tables .notification-macros').hide(); $('.notification-tables ' + $(this).val()).show();">
+        <option value=".notification-macros.apps">Apps</option>
+        <option value=".notification-macros.jobs">Jobs</option>
+        <option value=".notification-macros.files">Files</option>
+        <option value=".notification-macros.metadata">Metadata</option>
+        <option value=".notification-macros.metadata-schema">Metadata Schema</option>
+        <option value=".notification-macros.monitors">Monitors</option>
+        <option value=".notification-macros.notifications">Notifications</option>
+        <option value=".notification-macros.postits">PostIts</option>
+        <option value=".notification-macros.profiles">Profiles</option>
+        <option value=".notification-macros.systems">Systems</option>
+        <option value=".notification-macros.tags">Tags</option>
+        <option value=".notification-macros.transforms">Transforms</option>
     </select>
 </p>
 
-<p><table id="notification-macros-apps" class="notification-macros">
+<div class="block-tables notification-tables">
+  <table id="notification-macros-apps" class="notification-macros apps">
+    <thead>
+    <tr>
+        <th>Variable</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>UUID</td>
+        <td>The UUID of the app.</td>
+    </tr>
+    <tr>
+        <td>EVENT</td>
+        <td>The event which occurred</td>
+    </tr>
+    <tr>
+        <td>OWNER</td>
+        <td>The username of the user who triggered the event.</td>
+    </tr>
+    <tr>
+        <td> APP_ID</td>
+        <td> The id of the app.</td>
+    </tr>
+    <tr>
+        <td> APP_NAME</td>
+        <td> The name of the app.</td>
+    </tr>
+    <tr>
+        <td> APP_VERSION</td>
+        <td> The version of the app.</td>
+    </tr>
+    <tr>
+        <td> APP_OWNER</td>
+        <td> The username of the user who created or published the app.</td>
+    </tr>
+    <tr>
+        <td> APP_SHORT_DESCRIPTION</td>
+        <td> The short textual app description.</td>
+    </tr>
+    <tr>
+        <td> APP_UUID</td>
+        <td> The uuid of the app.</td>
+    </tr>
+    <tr>
+        <td> APP_IS_PUBLIC</td>
+        <td> Whether the app is public or private. Values are &ldquo;true&rdquo; and &ldquo;false&rdquo;.</td>
+    </tr>
+    <tr>
+        <td> APP_LABEL</td>
+        <td> The display label of the app.</td>
+    </tr>
+    <tr>
+        <td> APP_LONG_DESCRIPTION</td>
+        <td> The full textual app description.</td>
+    </tr>
+    <tr>
+        <td> APP_AVAILABLE</td>
+        <td> Whether the app is available. Values are &ldquo;true&rdquo; and &ldquo;false&rdquo;.</td>
+    </tr>
+    <tr>
+        <td> APP_CHECKPOINTABLE</td>
+        <td> Whether the app is checkpointable. Values are &ldquo;true&rdquo; and &ldquo;false&rdquo;.</td>
+    </tr>
+    <tr>
+        <td> APP_DEFAULT_MAX_RUN_TIME</td>
+        <td> The default max runtime of a job running this app. This is the value used by the job service if no <span
+                class="code">maxRunTime</span> is specified in the job request.
+        </td>
+    </tr>
+    <tr>
+        <td> APP_DEFAULT_MEMORY_PER_NODE</td>
+        <td> The default memory of a job running this app. This is the value used by the job service if no <span
+                class="code">memoryPerNode</span> is specified in the job request.
+        </td>
+    </tr>
+    <tr>
+        <td> APP_DEFAULT_PROCESSORS_PER_NODE</td>
+        <td> The default processors per node of a job running this app. This is the value used by the job service if no
+            <span class="code">processorsPerNode</span> is specified in the job request.
+        </td>
+    </tr>
+    <tr>
+        <td> APP_DEFAULT_NODE_COUNT</td>
+        <td> The default node count of a job running this app. This is the value used by the job service if no <span
+                class="code">nodeCount</span> is specified in the job request.
+        </td>
+    </tr>
+    <tr>
+        <td> APP_DEFAULT_QUEUE</td>
+        <td> The name of the default batch queue of a job running this app. This is the value used by the job service if
+            no <span class="code">batchQueue</span> is specified in the job request.
+        </td>
+    </tr>
+    <tr>
+        <td> APP_DEPLOYMENT_PATH</td>
+        <td> The default deployment path of the app assets on the remote <span class="code">deploymentSystem</span>.
+        </td>
+    </tr>
+    <tr>
+        <td> APP_DEPLOYMENT_SYSTEM</td>
+        <td> The id of the Agave system on which the app assets are stored.</td>
+    </tr>
+    <tr>
+        <td> APP_HELP_URI</td>
+        <td> The help URL of the app.</td>
+    </tr>
+    <tr>
+        <td> APP_URL</td>
+        <td> The canonical URL of the app.</td>
+    </tr>
+    <tr>
+        <td> APP_JSON</td>
+        <td> The serialized JSON representation of the resource. This is what would be returned if you made a naked GET
+            request to the API for the resource details.
+        </td>
+    </tr>
+    <tr>
+        <td> RAW_JSON</td>
+        <td> The serialized JSON event payload. This is identical to what is sent in the body of a webhook POST
+            callback.
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+  <table id="notification-macros-jobs" class="notification-macros jobs">
     <thead>
         <tr>
             <th>Variable</th>
@@ -8038,85 +8266,167 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>UUID</td>
-            <td>The UUID of the app.</td>
-        </tr>
-        <tr>
-            <td>EVENT</td>
-            <td>The event which occurred</td>
-        </tr>
-        <tr>
-            <td>APP_ID</td>
-            <td>The application id (ex. sabermetrics-2.1)</td>
-        </tr>
-    </tbody>
-</table></p>
+    <tr>
+        <td>UUID</td>
+        <td>The UUID of the job</td>
+    </tr>
+    <tr>
+        <td>EVENT</td>
+        <td>The name of the event which occurred.</td>
+    </tr>
+    <tr>
+        <td>OWNER</td>
+        <td>The username of the user who triggered the event.</td>
+    </tr>
+    <tr>
+        <td>JOB_STATUS</td>
+        <td>The status of the job at the time the event occurs</td>
+    </tr>
+    <tr>
+        <td>JOB_URL</td>
+        <td>The url of the job within the API</td>
+    </tr>
+    <tr>
+        <td>JOB_ID</td>
+        <td>The unique id used to reference the job within Agave.</td>
+    </tr>
+    <tr>
+        <td>JOB_SYSTEM</td>
+        <td>ID of the job execution system (ex. ssh.execute.example.com)</td>
+    </tr>
+    <tr>
+        <td>JOB_NAME</td>
+        <td>The user-supplied name of the job</td>
+    </tr>
+    <tr>
+        <td>JOB_START_TIME</td>
+        <td>The time when the job started running in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_END_TIME</td>
+        <td>The time when the job stopped running in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_SUBMIT_TIME</td>
+        <td>The time when the job was submitted to Agave for execution by the user in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_PATH</td>
+        <td>The path on the archive system where the job output will be staged.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_URL</td>
+        <td>The Agave URL for the archived data.</td>
+    </tr>
+    <tr>
+        <td>JOB_ERROR</td>
+        <td>The error message explaining why a job failed. Null if completed successfully.</td>
+    </tr>
+    <tr>
+        <td>JOB_APP_ID</td>
+        <td>The id of the app being run.</td>
+    </tr>
+    <tr>
+        <td>JOB_BATCH_QUEUE</td>
+        <td>The batch queue of the <span class="code">JOB_EXECUTION_SYSTEM</span> on which the job is assigned.</td>
+    </tr>
+    <tr>
+        <td>JOB_CREATED</td>
+        <td>The time when the job request was initially received in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_EXECUTION_SYSTEM</td>
+        <td>The agave execution system id on which the job will run.</td>
+    </tr>
+    <tr>
+        <td>JOB_INPUTS</td>
+        <td>The serialized JSON object representing the job inputs.</td>
+    </tr>
+    <tr>
+        <td>JOB_LOCAL_ID</td>
+        <td>The id of the job on the <span class="code">JOB_EXECUTION_SYSTEM</span>. This will be the id assigned to the
+            batch scheduler, condor schedd, or sytem PID depending on the system scheduler type.
+        </td>
+    </tr>
+    <tr>
+        <td>JOB_MAX_RUNTIME</td>
+        <td>The max job run from the job request in HH:MM:SS format.</td>
+    </tr>
+    <tr>
+        <td>JOB_MAX_RUNTIME_MILLISECONDS</td>
+        <td>The max job run time from the job request converted to milliseconds.</td>
+    </tr>
+    <tr>
+        <td>JOB_MEMORY_PER_NODE</td>
+        <td>The memory requested per node in the job request in GB.</td>
+    </tr>
+    <tr>
+        <td>JOB_NODE_COUNT</td>
+        <td>The number of nodes from the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_OWNER</td>
+        <td>The username of the user who submitted the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_OUTPUT_PATH</td>
+        <td>The absolute path to the job directory on the remote system.</td>
+    </tr>
+    <tr>
+        <td>JOB_PARAMETERS</td>
+        <td>The serialized JSON object representing the job parameters.</td>
+    </tr>
+    <tr>
+        <td>JOB_PROCESSORS_PER_NODE</td>
+        <td>The processors per node from the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_STATUS</td>
+        <td>The current job status.</td>
+    </tr>
+    <tr>
+        <td>JOB_START_TIME</td>
+        <td>The time when the job moved to a &ldquo;RUNNING&rdquo; status in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_TENANT</td>
+        <td>The code of the tenant to which the job was submitted.</td>
+    </tr>
+    <tr>
+        <td>JOB_URL</td>
+        <td>The canonical Agave URL of the job.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE</td>
+        <td>Whether Agave will attempt to archive the job. Values &ldquo;true&rdquo; or &ldquo;false&rdquo;.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_SYSTEM</td>
+        <td>The Agave storage system id to which the job output will be archived. This will be NULL if the the job is
+            not
+            archived.
+        </td>
+    </tr>
+    <tr>
+        <td>JOB_ERROR/td>
+        <td>The current debug or error message set for the job.</td>
+    </tr>
+    <tr>
+        <td>JOB_JSON</td>
+        <td>The serialized JSON object representing the job. This is identical to what would come back if you made a
+            naked GET request on the job url.
+        </td>
+    </tr>
+    <tr>
+        <td>RAW_JSON</td>
+        <td>The serialized JSON event payload. This is identical to what is sent in the body of a webhook POST
+            callback.
+        </td>
+    </tr>
 
-<p><table id="notification-macros-jobs" class="notification-macros hidden">
-    <thead>
-        <tr>
-            <th>Variable</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>UUID</td>
-            <td>The UUID of the job</td>
-        </tr>
-        <tr>
-            <td>EVENT</td>
-            <td>The event which occurred</td>
-        </tr>
-        <tr>
-            <td>JOB_STATUS</td>
-            <td>The status of the job at the time the event occurs</td>
-        </tr>
-        <tr>
-            <td>JOB_URL</td>
-            <td>The url of the job within the API</td>
-        </tr>
-        <tr>
-            <td>JOB_ID</td>
-            <td>The unique id used to reference the job within Agave.</td>
-        </tr>
-        <tr>
-            <td>JOB_SYSTEM</td>
-            <td>ID of the job execution system (ex. ssh.execute.example.com)</td>
-        </tr>
-        <tr>
-            <td>JOB_NAME</td>
-            <td>The user-supplied name of the job</td>
-        </tr>
-        <tr>
-            <td>JOB_START_TIME</td>
-            <td>The time when the job started running in ISO8601 format.</td>
-        </tr>
-        <tr>
-            <td>JOB_END_TIME</td>
-            <td>The time when the job stopped running in ISO8601 format.</td>
-        </tr>
-        <tr>
-            <td>JOB_SUBMIT_TIME</td>
-            <td>The time when the job was submitted to Agave for execution by the user in ISO8601 format.</td>
-        </tr>
-        <tr>
-            <td>JOB_ARCHIVE_PATH</td>
-            <td>The path on the archive system where the job output will be staged.</td>
-        </tr>
-        <tr>
-            <td>JOB_ARCHIVE_URL</td>
-            <td>The Agave URL for the archived data.</td>
-        </tr>
-        <tr>
-            <td>JOB_ERROR</td>
-            <td>The error message explaining why a job failed. Null if completed successfully.</td>
-        </tr>
     </tbody>
-</table></p>
-
-<p><table id="notification-macros-files" class="notification-macros hidden">
+</table>
+  <table id="notification-macros-files" class="notification-macros files">
     <thead>
         <tr>
             <th>Variable</th>
@@ -8130,125 +8440,249 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
         </tr>
         <tr>
             <td>EVENT</td>
-            <td>The event which occurred</td>
-        </tr>
-        <tr>
-            <td>TYPE</td>
-            <td>The application id (ex. sabermetrics-2.1)</td>
-        </tr>
-        <tr>
-            <td>FORMAT</td>
-            <td>The data format of the file/folder.</td>
-        </tr>
-        <tr>
-            <td>PATH</td>
-            <td>Path to the file/folder on the remote system</td>
-        </tr>
-        <tr>
-            <td>SYSTEM</td>
-            <td>ID of the system on which the file/folder exists (ex. ssh.execute.example.com)</td>
-        </tr>
-    </tbody>
-</table></p>
-
-<p><table id="notification-macros-metadata" class="notification-macros hidden">
-    <thead>
-        <tr>
-            <th>Variable</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>UUID</td>
-            <td>The UUID of the metadata object</td>
-        </tr>
-        <tr>
-            <td>EVENT</td>
-            <td>The event which occurred</td>
-        </tr>
-    </tbody>
-</table></p>
-
-<p><table id="notification-macros-metadata-schema" class="notification-macros hidden">
-    <thead>
-        <tr>
-            <th>Variable</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>UUID</td>
-            <td>The UUID of the schemata object</td>
-        </tr>
-        <tr>
-            <td>EVENT</td>
-            <td>The event which occurred</td>
-        </tr>
-    </tbody>
-</table></p>
-
-<p><table id="notification-macros-monitors" class="notification-macros hidden">
-    <thead>
-        <tr>
-            <th>Variable</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>ID</td>
-            <td>The ID of the monitor</td>
-        </tr>
-        <tr>
-            <td>EVENT</td>
-            <td>The event which occurred</td>
+            <td>The name of the event which occurred.</td>
         </tr>
         <tr>
             <td>OWNER</td>
-            <td>The owner of the monitor</td>
+            <td>The username of the user who triggered the event.</td>
+        </tr>
+        <tr>
+            <td> FILE_UUID</td>
+            <td> The file item UUID.</td>
+        </tr>
+        <tr>
+            <td> FILE_NAME</td>
+            <td> The file item name.</td>
+        </tr>
+        <tr>
+            <td> FILE_OWNER</td>
+            <td> The file item owner.</td>
+        </tr>
+        <tr>
+            <td> FILE_LASTMODIFIED</td>
+            <td> The file item last modified timestamp in ISO8601 format.</td>
+        </tr>
+        <tr>
+            <td> FILE_PATH</td>
+            <td> The agave path of the file item on the agave system.</td>
+        </tr>
+        <tr>
+            <td> FILE_STATUS</td>
+            <td> The status of the file item at the time of the event.</td>
+        </tr>
+        <tr>
+            <td> FILE_SYSTEMID</td>
+            <td> The id of the agave system on which the file item resides.</td>
+        </tr>
+        <tr>
+            <td> FILE_TYPE</td>
+            <td> The agave file type of the file item.</td>
+        </tr>
+        <tr>
+            <td> FILE_PERMISSIONS</td>
+            <td> The native file system permissions of the file item on the remote system.</td>
+        </tr>
+        <tr>
+            <td> FILE_LENGTH</td>
+            <td> The size of the file item in bytes.</td>
+        </tr>
+        <tr>
+            <td> FILE_URL</td>
+            <td> The canonical URL of the file item.</td>
+        </tr>
+        <tr>
+            <td> FILE_MIMETYPE</td>
+            <td> The mimetype of the file item.</td>
+        </tr>
+        <tr>
+            <td> FILE_JSON</td>
+            <td> The serialized JSON representation of the resource. This is what would be returned if you made a naked GET
+                request to the API for the resource details.
+            </td>
+        </tr>
+        <tr>
+            <td> RAW_JSON</td>
+            <td> The serialized JSON event payload. This is identical to what is sent in the body of a webhook POST
+                callback.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+  <table id="notification-macros-metadata" class="notification-macros metadata">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>UUID</td>
+            <td>The UUID of the schemata object.</td>
+        </tr>
+        <tr>
+            <td>EVENT</td>
+            <td>The name of the event which occurred.</td>
+        </tr>
+        <tr>
+            <td>OWNER</td>
+            <td>The username of the user who triggered the event.</td>
+        </tr>
+        <tr>
+            <td>METADATA_ID</td>
+            <td>The id of the metadata item.</td>
+        </tr>
+        <tr>
+            <td>METADATA_SCHEMAID</td>
+            <td>The id of the metadata schema used to validate this metadata item. NULL if none was assigned.</td>
+        </tr>
+        <tr>
+            <td>METADATA_VALUE</td>
+            <td>The raw value of the metadata item.</td>
+        </tr>
+        <tr>
+            <td>METADATA_ASSOCIATIONIDS</td>
+            <td>The serialized JSON array of AGAVE UUID representing resources associated with this metadata item.</td>
+        </tr>
+        <tr>
+            <td>METADATA_LASTUPDATED</td>
+            <td>The last time this metadata item was updated in ISO8601 format.</td>
+        </tr>
+        <tr>
+            <td>METADATA_CREATED</td>
+            <td>The creation timestamp of this metadata item in ISO8601 format.</td>
+        </tr>
+        <tr>
+            <td>RAW_JSON</td>
+            <td>The serialized JSON event payload. This is identical to what is sent in the body of a webhook POST
+                callback.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+  <table id="notification-macros-metadata-schema" class="notification-macros metadata-schema">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>UUID</td>
+            <td>The UUID of the schemata object.</td>
+        </tr>
+        <tr>
+            <td>EVENT</td>
+            <td>The name of the event which occurred.</td>
+        </tr>
+        <tr>
+            <td>OWNER</td>
+            <td>The username of the user who triggered the event.</td>
+        </tr>
+        <tr>
+            <td>METADATA_SCHEMA_ID</td>
+            <td>The id of the metadata item.</td>
+        </tr>
+        <tr>
+            <td>METADATA_SCHEMA_OWNER</td>
+            <td>The username of the user who created the metadata schema.</td>
+        </tr>
+        <tr>
+            <td>METADATA_SCHEMA_SCHEMA</td>
+            <td>The serialized JSON schema definition.</td>
+        </tr>
+        <tr>
+            <td>METADATA_SCHEMA_LASTUPDATED</td>
+            <td>The last time this metadata schema was updated in ISO8601 format.</td>
+        </tr>
+        <tr>
+            <td>METADATA_SCHEMA_CREATED</td>
+            <td>The creation timestamp of this metadata schema in ISO8601 format.</td>
+        </tr>
+        <tr>
+            <td>RAW_JSON</td>
+            <td>The serialized JSON event payload. This is identical to what is sent in the body of a webhook POST
+                callback.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+  <table id="notification-macros-monitors" class="notification-macros monitors">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>UUID</td>
+            <td>The uuid of the monitor.</td>
+        </tr>
+        <tr>
+            <td>EVENT</td>
+            <td>The name of the event which occurred.</td>
+        </tr>
+        <tr>
+            <td>OWNER</td>
+            <td>The owner of the monitor.</td>
+        </tr>
+        <tr>
+            <td>ID</td>
+            <td>The ID of the monitor.</td>
         </tr>
         <tr>
             <td>TARGET</td>
-            <td>The system to which the monitor applies</td>
+            <td>The system to which the monitor applies.</td>
         </tr>
         <tr>
             <td>ACTIVE</td>
-            <td>Whether the monitor is active or inactive</td>
+            <td>Whether the monitor is active or inactive.</td>
         </tr>
         <tr>
             <td>UPDATE_SYSTEM_STATUS</td>
-            <td>Whether the system status will be updated with the check results</td>
+            <td>Whether the system status will be updated with the check results.</td>
         </tr>
         <tr>
             <td>INTERNAL_USERNAME</td>
-            <td>The internal user associated with the status check</td>
+            <td>The internal user associated with the status check.</td>
         </tr>
         <tr>
             <td>CREATED</td>
-            <td>The time the monitor was created in ISO8601 format</td>
+            <td>The time the monitor was created in ISO8601 format.</td>
         </tr>
         <tr>
             <td>LAST_SUCCESS</td>
-            <td>The time the monitor last successfully ran in ISO8601 format</td>
+            <td>The time the monitor last successfully ran in ISO8601 format.</td>
         </tr>
         <tr>
             <td>LAST_UPDATED</td>
-            <td>The time the monitor last ran in ISO8601 format</td>
+            <td>The time the monitor last ran in ISO8601 format.</td>
         </tr>
         <tr>
             <td>NEXT_CHECK</td>
-            <td>The time the monitor will run in ISO8601 format</td>
+            <td>The time the monitor will run in ISO8601 format.</td>
         </tr>
         <tr>
-            <td>FREQUENCY</td>
-            <td>The frequency in minutes that the monitor runs</td>
+            <td>LAST_CHECK_ID</td>
+            <td>The id of the last check. <em>**Only present in monitoring check events fire.</em>.</td>
+        </tr>
+        <tr>
+            <td>LAST_MESSAGE</td>
+            <td>The message returned from the check. <em>**Only present in monitoring check events fire.</em>.</td>
+        </tr>
+        <tr>
+            <td>TYPE</td>
+            <td>Type of the monitoring check run: EXECUTION, STORAGE. <em>**Only present in monitoring check events fire.</em>.</td>
         </tr>
     </tbody>
-</table></p>
+</table>
 
-<p><table id="notification-macros-notification" class="notification-macros hidden">
+  <table id="notification-macros-notifications" class="notification-macros notifications">
     <thead>
         <tr>
             <th>Variable</th>
@@ -8262,7 +8696,11 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
         </tr>
         <tr>
             <td>EVENT</td>
-            <td>The event which caused the notification for this notification resource to be sent.</td>
+            <td>The name of the event which occurred.</td>
+        </tr>
+        <tr>
+            <td>OWNER</td>
+            <td>The username of the user who triggered the event.</td>
         </tr>
         <tr>
             <td>URL</td>
@@ -8291,12 +8729,13 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
         <tr>
             <td>STATUS</td>
             <td>The current status of this notification. eg. ACTIVE, INACTIVE, FAILED, COMPLETE.</td>
-        </tr></p>
+        </tr>
 
-<p></tbody>
-</table></p>
 
-<p><table id="notification-macros-postits" class="notification-macros hidden">
+    </tbody>
+</table>
+
+  <table id="notification-macros-postits" class="notification-macros postits">
     <thead>
         <tr>
             <th>Variable</th>
@@ -8311,6 +8750,10 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
         <tr>
             <td>EVENT</td>
             <td>The event which occurred</td>
+        </tr>
+        <tr>
+            <td>OWNER</td>
+            <td>The username of the user who triggered the event.</td>
         </tr>
         <tr>
             <td>NONCE</td>
@@ -8345,9 +8788,9 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
             <td>Full PostIt URL</td>
         </tr>
     </tbody>
-</table></p>
+</table>
 
-<p><table id="notification-macros-profiles" class="notification-macros hidden">
+  <table id="notification-macros-profiles" class="notification-macros profiles">
     <thead>
         <tr>
             <th>Variable</th>
@@ -8361,76 +8804,117 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
         </tr>
         <tr>
             <td>EVENT</td>
-            <td>The event which occurred</td>
+            <td>The name of the event which occurred.</td>
+        </tr>
+        <tr>
+            <td>OWNER</td>
+            <td>The username of the user who triggered the event.</td>
         </tr>
         <tr>
             <td>USERNAME</td>
             <td>Username of the user</td>
         </tr>
-        <tr>
-            <td>EMAIL</td>
-            <td>Email address of the user</td>
-        </tr>
-        <tr>
-            <td>FIRST_NAME</td>
-            <td>First name of the user</td>
-        </tr>
-        <tr>
-            <td>LAST_NAME</td>
-            <td>Last name of the user</td>
-        </tr>
-        <tr>
-            <td>POSITION</td>
-            <td>Formal job position</td>
-        </tr>
-        <tr>
-            <td>INSTITUTION</td>
-            <td>Institution in which they work</td>
-        </tr>
-        <tr>
-            <td>PHONE</td>
-            <td>Phone number</td>
-        </tr>
-        <tr>
-            <td>FAX</td>
-            <td>Fax number</td>
-        </tr>
-        <tr>
-            <td>RESEARCH_AREA</td>
-            <td>Domain of science</td>
-        </tr>
-        <tr>
-            <td>DEPARTMENT</td>
-            <td>Department in which they work</td>
-        </tr>
-        <tr>
-            <td>CITY</td>
-            <td>City of residence</td>
-        </tr>
-        <tr>
-            <td>STATE</td>
-            <td>State of residence</td>
-        </tr>
-        <tr>
-            <td>COUNTRY</td>
-            <td>Country of residence</td>
-        </tr>
-        <tr>
-            <td>GENDER</td>
-            <td>Male, female or null if unknown</td>
-        </tr>
-        <tr>
-            <td>ACTIVE</td>
-            <td>True if the user is active. False otherwise</td>
-        </tr>
-        <tr>
-            <td>LAST_UPDATED</td>
-            <td>The last time this user was updated in ISO8601 format</td>
-        </tr>
     </tbody>
-</table></p>
+</table>
 
-<p><table id="notification-macros-systems" class="notification-macros hidden">
+  <table id="notification-macros-systems" class="notification-macros systems">
+    <thead>
+    <tr>
+        <th>Variable</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>UUID</td>
+        <td>The UUID of the system</td>
+    </tr>
+    <tr>
+        <td>EVENT</td>
+        <td>The name of the event which occurred.</td>
+    </tr>
+    <tr>
+        <td>OWNER</td>
+        <td>The username of the user who triggered the event.</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_ID</td>
+        <td>ID of the system (ex. ssh.execute.example.com)</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_STATUS</td>
+        <td>Current status of the system: UP, DOWN, UNKNOWN</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_PUBLIC</td>
+        <td>True if the system is publicly available, false otherwise</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_GLOBALDEFAULT</td>
+        <td>True if the system is one of the two default publicly available systems, false otherwise</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_LASTUPDATED</td>
+        <td>The last time this system was updated in ISO8601 format</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_STORAGE_PROTOCOL</td>
+        <td>The protocol used to move data to and from this system</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_STORAGE_HOST</td>
+        <td>The storage host for this sytem</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_STORAGE_PORT</td>
+        <td>The storage port for this system</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_STORAGE_RESOURCE</td>
+        <td>The system resource for iRODS systems</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_STORAGE_ZONE</td>
+        <td>The system zone for iRODS systems</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_STORAGE_CONTAINER</td>
+        <td>
+            The the object store bucket in which the <span class="code">rootDir</span> resides.
+        </td>
+    </tr>
+    <tr>
+        <td>SYSTEM_STORAGE_ROOT_DIR</td>
+        <td>The virtual root directory exposed on this system</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_STORAGE_HOME_DIR</td>
+        <td>The home directory on this system relative to the STORAGE_ROOT_DIR</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_STORAGE_AUTH_TYPE</td>
+        <td>The storage authentication method for this system</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_LOGIN_PROTOCOL</td>
+        <td>The protocol used to establish a session with this system (eg SSH, GSISSH, etc)</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_LOGIN_HOST</td>
+        <td>The login host for this system</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_LOGIN_PORT</td>
+        <td>The login port for this system</td>
+    </tr>
+    <tr>
+        <td>SYSTEM_LOGIN_AUTH_TYPE</td>
+        <td>The login authentication method for this system</td>
+    </tr>
+    </tbody>
+</table>
+
+  <table id="notification-macros-tags" class="notification-macros tags">
     <thead>
         <tr>
             <th>Variable</th>
@@ -8440,88 +8924,71 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
     <tbody>
         <tr>
             <td>UUID</td>
-            <td>The UUID of the system</td>
+            <td>The UUID of the schemata object.</td>
         </tr>
         <tr>
             <td>EVENT</td>
-            <td>The event which occurred</td>
+            <td>The name of the event which occurred.</td>
         </tr>
         <tr>
-            <td>SYSTEM_ID</td>
-            <td>ID of the system (ex. ssh.execute.example.com)</td>
+            <td>OWNER</td>
+            <td>The username of the user who triggered the event.</td>
         </tr>
         <tr>
-            <td>STATUS</td>
-            <td>Current status of the system: UP, DOWN, UNKNOWN</td>
+            <td>TAG_ID</td>
+            <td>The id of the tag.</td>
         </tr>
         <tr>
-            <td>PUBLIC</td>
-            <td>True if the system is publicly available, false otherwise</td>
+            <td>TAG_NAME</td>
+            <td>The name of the tag.</td>
         </tr>
         <tr>
-            <td>GLOBAL_DEFAULT</td>
-            <td>True if the system is one of the two default publicly available systems, false otherwise</td>
+            <td>TAG_OWNER</td>
+            <td>The username of the user who created the tag.</td>
         </tr>
         <tr>
-            <td>LAST_UPDATED</td>
-            <td>The last time this system was updated in ISO8601 format</td>
+            <td>TAG_URL</td>
+            <td>The canonical URL to the tag.</td>
         </tr>
         <tr>
-            <td>STORAGE_PROTOCOL</td>
-            <td>The protocol used to move data to and from this system</td>
+            <td>TAG_ASSOCIATIONIDS</td>
+            <td>The serialized JSON array of AGAVE UUID representing resources associated with this tag.</td>
         </tr>
         <tr>
-            <td>STORAGE_HOST</td>
-            <td>The storage host for this sytem</td>
+            <td>PERMISSION_ID</td>
+            <td>The id of the tag permission. <em>**Only present on tag permission events</em></td>
         </tr>
         <tr>
-            <td>STORAGE_PORT</td>
-            <td>The storage port for this system</td>
+            <td>PERMISSION_PERMISSION</td>
+            <td>The resulting permission after completion of the event. <em>**Only present on tag permission events</em></td>
         </tr>
         <tr>
-            <td>STORAGE_RESOURCE</td>
-            <td>The system resource for iRODS systems</td>
+            <td>PERMISSION_USERNAME</td>
+            <td>The user to whom the permission was applied. <em>**Only present on tag permission events</em></td>
         </tr>
         <tr>
-            <td>STORAGE_ZONE</td>
-            <td>The system zone for iRODS systems</td>
+            <td>PERMISSION_LASTUPDATED</td>
+            <td>The last time this permission was updated in ISO8601 format. <em>**Only present on tag permission events</em></td>
         </tr>
         <tr>
-            <td>STORAGE_CONTAINER</td>
-            <td>The the object store bucket in which the <span class="code">rootDir</span> resides. </td>
+            <td>PERMISSION_JSON</td>
+            <td>The serialized JSON representation of the permission. This is identical to what is returned from a GET request for this permission.
+            </td>
         </tr>
         <tr>
-            <td>STORAGE_ROOT_DIR</td>
-            <td>The virtual root directory exposed on this system</td>
+            <td>TAG_CREATED</td>
+            <td>The creation timestamp of this tag in ISO8601 format.</td>
         </tr>
         <tr>
-            <td>STORAGE_HOME_DIR</td>
-            <td>The home directory on this system relative to the STORAGE_ROOT_DIR</td>
-        </tr>
-        <tr>
-            <td>STORAGE_AUTH_TYPE</td>
-            <td>The storage authentication method for this system</td>
-        </tr>
-        <tr>
-            <td>LOGIN_PROTOCOL</td>
-            <td>The protocol used to establish a session with this system (eg SSH, GSISSH, etc)</td>
-        </tr>
-        <tr>
-            <td>LOGIN_HOST</td>
-            <td>The login host for this system</td>
-        </tr>
-        <tr>
-            <td>LOGIN_PORT</td>
-            <td>The login port for this system</td>
-        </tr>
-        <tr>
-            <td>LOGIN_AUTH_TYPE</td>
-            <td>The login authentication method for this system</td>
+            <td>RAW_JSON</td>
+            <td>The serialized JSON event payload. This is identical to what is sent in the body of a webhook POST
+                callback.
+            </td>
         </tr>
     </tbody>
-</table></p>
+</table>
 
-<p><table id="notification-macros-transforms" class="notification-macros hidden">
+  <table id="notification-macros-transforms" class="notification-macros transforms">
     <thead>
         <tr>
             <th>Variable</th>
@@ -8578,7 +9045,15 @@ http://example.com/system/${EXECUTION_SYSTEM}/queue/${QUEUE}?action=subtract
             <td>Number of attempts made to transfer the SOURCE data</td>
         </tr>
     </tbody>
-</table></p>
+</table>
+
+</div>
+
+<script type="application/javascript">
+    jQuery(document).ready(function() {
+        $('.notification-tables table:not(:first)').hide();
+    });
+</script>
 
 <p>The value of webhook template variables is that they allow you to build custom callbacks using the values of the resource variable at run time. Several commonly used webhooks are shown in the tables above.</p>
 
