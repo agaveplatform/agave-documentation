@@ -389,7 +389,7 @@ input, select {
     clear: both;
   }
 
-  &>h1, &>h2, &>h3, &>h4, &>h5, &>h6, &>p, &>table, &>ul, &>ol, &>aside, &>dl {
+  &>h1, &>h2, &>h3, &>h4, &>h5, &>h6, &>p, &>div.block-tables, &>table, &>ul, &>ol, &>aside, &>dl {
     margin-right: $examples-width;
     padding: 0 $main-padding;
     box-sizing: border-box;
@@ -403,7 +403,7 @@ input, select {
   }
 
   // the div is the tocify hidden div for placeholding stuff
-  &>h1, &>h2, &>div {
+  &>h1, &>h2, &>div:not(.block-tables) {
     clear:both;
   }
 
@@ -527,7 +527,7 @@ input, select {
     margin-left: 15px;
   }
 
-  p, li, dt, dd {
+  p, li, dt, dd, div.block-tables {
     line-height: 1.6;
     margin-top: 0;
     a {

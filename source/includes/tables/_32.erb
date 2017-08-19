@@ -1,4 +1,4 @@
-<table id="notification-macros-metadata" class="notification-macros hidden">
+<table id="notification-macros-metadata" class="notification-macros metadata">
 	<thead>
 		<tr>
 			<th>Variable</th>
@@ -7,12 +7,46 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td>UUID</td>
-			<td>The UUID of the metadata object</td>
-		</tr>
-		<tr>
-			<td>EVENT</td>
-			<td>The event which occurred</td>
-		</tr>
+            <td>UUID</td>
+            <td>The UUID of the schemata object.</td>
+        </tr>
+        <tr>
+            <td>EVENT</td>
+            <td>The name of the event which occurred.</td>
+        </tr>
+        <tr>
+            <td>OWNER</td>
+            <td>The username of the user who triggered the event.</td>
+        </tr>
+        <tr>
+            <td>METADATA_ID</td>
+            <td>The id of the metadata item.</td>
+        </tr>
+        <tr>
+            <td>METADATA_SCHEMAID</td>
+            <td>The id of the metadata schema used to validate this metadata item. NULL if none was assigned.</td>
+        </tr>
+        <tr>
+            <td>METADATA_VALUE</td>
+            <td>The raw value of the metadata item.</td>
+        </tr>
+        <tr>
+            <td>METADATA_ASSOCIATIONIDS</td>
+            <td>The serialized JSON array of AGAVE UUID representing resources associated with this metadata item.</td>
+        </tr>
+        <tr>
+            <td>METADATA_LASTUPDATED</td>
+            <td>The last time this metadata item was updated in ISO8601 format.</td>
+        </tr>
+        <tr>
+            <td>METADATA_CREATED</td>
+            <td>The creation timestamp of this metadata item in ISO8601 format.</td>
+        </tr>
+        <tr>
+            <td>RAW_JSON</td>
+            <td>The serialized JSON event payload. This is identical to what is sent in the body of a webhook POST
+                callback.
+            </td>
+        </tr>
 	</tbody>
 </table>

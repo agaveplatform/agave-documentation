@@ -1,4 +1,4 @@
-<table id="notification-macros-files" class="notification-macros hidden">
+<table id="notification-macros-files" class="notification-macros files">
 	<thead>
 		<tr>
 			<th>Variable</th>
@@ -6,29 +6,77 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
+	    <tr>
 			<td>UUID</td>
 			<td>The UUID of the file</td>
 		</tr>
 		<tr>
 			<td>EVENT</td>
-			<td>The event which occurred</td>
+			<td>The name of the event which occurred.</td>
 		</tr>
+        <tr>
+            <td>OWNER</td>
+            <td>The username of the user who triggered the event.</td>
+        </tr>
 		<tr>
-			<td>TYPE</td>
-			<td>The application id (ex. sabermetrics-2.1)</td>
-		</tr>
-		<tr>
-			<td>FORMAT</td>
-			<td>The data format of the file/folder.</td>
-		</tr>
-		<tr>
-			<td>PATH</td>
-			<td>Path to the file/folder on the remote system</td>
-		</tr>
-		<tr>
-			<td>SYSTEM</td>
-			<td>ID of the system on which the file/folder exists (ex. ssh.execute.example.com)</td>
-		</tr>
+            <td> FILE_UUID</td>
+            <td> The file item UUID.</td>
+        </tr>
+        <tr>
+            <td> FILE_NAME</td>
+            <td> The file item name.</td>
+        </tr>
+        <tr>
+            <td> FILE_OWNER</td>
+            <td> The file item owner.</td>
+        </tr>
+        <tr>
+            <td> FILE_LASTMODIFIED</td>
+            <td> The file item last modified timestamp in ISO8601 format.</td>
+        </tr>
+        <tr>
+            <td> FILE_PATH</td>
+            <td> The agave path of the file item on the agave system.</td>
+        </tr>
+        <tr>
+            <td> FILE_STATUS</td>
+            <td> The status of the file item at the time of the event.</td>
+        </tr>
+        <tr>
+            <td> FILE_SYSTEMID</td>
+            <td> The id of the agave system on which the file item resides.</td>
+        </tr>
+        <tr>
+            <td> FILE_TYPE</td>
+            <td> The agave file type of the file item.</td>
+        </tr>
+        <tr>
+            <td> FILE_PERMISSIONS</td>
+            <td> The native file system permissions of the file item on the remote system.</td>
+        </tr>
+        <tr>
+            <td> FILE_LENGTH</td>
+            <td> The size of the file item in bytes.</td>
+        </tr>
+        <tr>
+            <td> FILE_URL</td>
+            <td> The canonical URL of the file item.</td>
+        </tr>
+        <tr>
+            <td> FILE_MIMETYPE</td>
+            <td> The mimetype of the file item.</td>
+        </tr>
+        <tr>
+            <td> FILE_JSON</td>
+            <td> The serialized JSON representation of the resource. This is what would be returned if you made a naked GET
+                request to the API for the resource details.
+            </td>
+        </tr>
+        <tr>
+            <td> RAW_JSON</td>
+            <td> The serialized JSON event payload. This is identical to what is sent in the body of a webhook POST
+                callback.
+            </td>
+        </tr>
 	</tbody>
 </table>

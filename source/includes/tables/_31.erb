@@ -1,4 +1,4 @@
-<table id="notification-macros-metadata-schema" class="notification-macros hidden">
+<table id="notification-macros-metadata-schema" class="notification-macros metadata-schema">
 	<thead>
 		<tr>
 			<th>Variable</th>
@@ -8,11 +8,41 @@
 	<tbody>
 		<tr>
 			<td>UUID</td>
-			<td>The UUID of the schemata object</td>
+			<td>The UUID of the schemata object.</td>
 		</tr>
 		<tr>
 			<td>EVENT</td>
-			<td>The event which occurred</td>
+			<td>The name of the event which occurred.</td>
 		</tr>
+        <tr>
+            <td>OWNER</td>
+            <td>The username of the user who triggered the event.</td>
+        </tr>
+        <tr>
+            <td>METADATA_SCHEMA_ID</td>
+            <td>The id of the metadata item.</td>
+        </tr>
+        <tr>
+            <td>METADATA_SCHEMA_OWNER</td>
+            <td>The username of the user who created the metadata schema.</td>
+        </tr>
+        <tr>
+            <td>METADATA_SCHEMA_SCHEMA</td>
+            <td>The serialized JSON schema definition.</td>
+        </tr>
+        <tr>
+            <td>METADATA_SCHEMA_LASTUPDATED</td>
+            <td>The last time this metadata schema was updated in ISO8601 format.</td>
+        </tr>
+        <tr>
+            <td>METADATA_SCHEMA_CREATED</td>
+            <td>The creation timestamp of this metadata schema in ISO8601 format.</td>
+        </tr>
+        <tr>
+            <td>RAW_JSON</td>
+            <td>The serialized JSON event payload. This is identical to what is sent in the body of a webhook POST
+                callback.
+            </td>
+        </tr>
 	</tbody>
 </table>

@@ -1,62 +1,168 @@
-<table id="notification-macros-jobs" class="notification-macros hidden">
-	<thead>
-		<tr>
-			<th>Variable</th>
-			<th>Description</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>UUID</td>
-			<td>The UUID of the job</td>
-		</tr>
-		<tr>
-			<td>EVENT</td>
-			<td>The event which occurred</td>
-		</tr>
-		<tr>
-			<td>JOB_STATUS</td>
-			<td>The status of the job at the time the event occurs</td>
-		</tr>
-		<tr>
-			<td>JOB_URL</td>
-			<td>The url of the job within the API</td>
-		</tr>
-		<tr>
-			<td>JOB_ID</td>
-			<td>The unique id used to reference the job within Agave.</td>
-		</tr>
-		<tr>
-			<td>JOB_SYSTEM</td>
-			<td>ID of the job execution system (ex. ssh.execute.example.com)</td>
-		</tr>
-		<tr>
-			<td>JOB_NAME</td>
-			<td>The user-supplied name of the job</td>
-		</tr>
-		<tr>
-			<td>JOB_START_TIME</td>
-			<td>The time when the job started running in ISO8601 format.</td>
-		</tr>
-		<tr>
-			<td>JOB_END_TIME</td>
-			<td>The time when the job stopped running in ISO8601 format.</td>
-		</tr>
-		<tr>
-			<td>JOB_SUBMIT_TIME</td>
-			<td>The time when the job was submitted to Agave for execution by the user in ISO8601 format.</td>
-		</tr>
-		<tr>
-			<td>JOB_ARCHIVE_PATH</td>
-			<td>The path on the archive system where the job output will be staged.</td>
-		</tr>
-		<tr>
-			<td>JOB_ARCHIVE_URL</td>
-			<td>The Agave URL for the archived data.</td>
-		</tr>
-		<tr>
-			<td>JOB_ERROR</td>
-			<td>The error message explaining why a job failed. Null if completed successfully.</td>
-		</tr>
-	</tbody>
+<table id="notification-macros-jobs" class="notification-macros jobs">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>UUID</td>
+        <td>The UUID of the job</td>
+    </tr>
+    <tr>
+        <td>EVENT</td>
+        <td>The name of the event which occurred.</td>
+    </tr>
+    <tr>
+        <td>OWNER</td>
+        <td>The username of the user who triggered the event.</td>
+    </tr>
+    <tr>
+        <td>JOB_STATUS</td>
+        <td>The status of the job at the time the event occurs</td>
+    </tr>
+    <tr>
+        <td>JOB_URL</td>
+        <td>The url of the job within the API</td>
+    </tr>
+    <tr>
+        <td>JOB_ID</td>
+        <td>The unique id used to reference the job within Agave.</td>
+    </tr>
+    <tr>
+        <td>JOB_SYSTEM</td>
+        <td>ID of the job execution system (ex. ssh.execute.example.com)</td>
+    </tr>
+    <tr>
+        <td>JOB_NAME</td>
+        <td>The user-supplied name of the job</td>
+    </tr>
+    <tr>
+        <td>JOB_START_TIME</td>
+        <td>The time when the job started running in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_END_TIME</td>
+        <td>The time when the job stopped running in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_SUBMIT_TIME</td>
+        <td>The time when the job was submitted to Agave for execution by the user in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_PATH</td>
+        <td>The path on the archive system where the job output will be staged.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_URL</td>
+        <td>The Agave URL for the archived data.</td>
+    </tr>
+    <tr>
+        <td>JOB_ERROR</td>
+        <td>The error message explaining why a job failed. Null if completed successfully.</td>
+    </tr>
+    <tr>
+        <td>JOB_APP_ID</td>
+        <td>The id of the app being run.</td>
+    </tr>
+    <tr>
+        <td>JOB_BATCH_QUEUE</td>
+        <td>The batch queue of the <span class="code">JOB_EXECUTION_SYSTEM</span> on which the job is assigned.</td>
+    </tr>
+    <tr>
+        <td>JOB_CREATED</td>
+        <td>The time when the job request was initially received in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_EXECUTION_SYSTEM</td>
+        <td>The agave execution system id on which the job will run.</td>
+    </tr>
+    <tr>
+        <td>JOB_INPUTS</td>
+        <td>The serialized JSON object representing the job inputs.</td>
+    </tr>
+    <tr>
+        <td>JOB_LOCAL_ID</td>
+        <td>The id of the job on the <span class="code">JOB_EXECUTION_SYSTEM</span>. This will be the id assigned to the
+            batch scheduler, condor schedd, or sytem PID depending on the system scheduler type.
+        </td>
+    </tr>
+    <tr>
+        <td>JOB_MAX_RUNTIME</td>
+        <td>The max job run from the job request in HH:MM:SS format.</td>
+    </tr>
+    <tr>
+        <td>JOB_MAX_RUNTIME_MILLISECONDS</td>
+        <td>The max job run time from the job request converted to milliseconds.</td>
+    </tr>
+    <tr>
+        <td>JOB_MEMORY_PER_NODE</td>
+        <td>The memory requested per node in the job request in GB.</td>
+    </tr>
+    <tr>
+        <td>JOB_NODE_COUNT</td>
+        <td>The number of nodes from the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_OWNER</td>
+        <td>The username of the user who submitted the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_OUTPUT_PATH</td>
+        <td>The absolute path to the job directory on the remote system.</td>
+    </tr>
+    <tr>
+        <td>JOB_PARAMETERS</td>
+        <td>The serialized JSON object representing the job parameters.</td>
+    </tr>
+    <tr>
+        <td>JOB_PROCESSORS_PER_NODE</td>
+        <td>The processors per node from the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_STATUS</td>
+        <td>The current job status.</td>
+    </tr>
+    <tr>
+        <td>JOB_START_TIME</td>
+        <td>The time when the job moved to a "RUNNING" status in ISO8601 format.</td>
+    </tr>
+    <tr>
+        <td>JOB_TENANT</td>
+        <td>The code of the tenant to which the job was submitted.</td>
+    </tr>
+    <tr>
+        <td>JOB_URL</td>
+        <td>The canonical Agave URL of the job.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE</td>
+        <td>Whether Agave will attempt to archive the job. Values "true" or "false".</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_SYSTEM</td>
+        <td>The Agave storage system id to which the job output will be archived. This will be NULL if the the job is
+            not
+            archived.
+        </td>
+    </tr>
+    <tr>
+        <td>JOB_ERROR/td>
+        <td>The current debug or error message set for the job.</td>
+    </tr>
+    <tr>
+        <td>JOB_JSON</td>
+        <td>The serialized JSON object representing the job. This is identical to what would come back if you made a
+            naked GET request on the job url.
+        </td>
+    </tr>
+    <tr>
+        <td>RAW_JSON</td>
+        <td>The serialized JSON event payload. This is identical to what is sent in the body of a webhook POST
+            callback.
+        </td>
+    </tr>
+
+    </tbody>
 </table>

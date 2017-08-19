@@ -1,22 +1,125 @@
-<table id="notification-macros-apps" class="notification-macros">
-	<thead>
-		<tr>
-			<th>Variable</th>
-			<th>Description</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>UUID</td>
-			<td>The UUID of the app.</td>
-		</tr>
-		<tr>
-			<td>EVENT</td>
-			<td>The event which occurred</td>
-		</tr>
-		<tr>
-			<td>APP_ID</td>
-			<td>The application id (ex. sabermetrics-2.1)</td>
-		</tr>
-	</tbody>
+<table id="notification-macros-apps" class="notification-macros apps">
+    <thead>
+    <tr>
+        <th>Variable</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>UUID</td>
+        <td>The UUID of the app.</td>
+    </tr>
+    <tr>
+        <td>EVENT</td>
+        <td>The event which occurred</td>
+    </tr>
+    <tr>
+        <td>OWNER</td>
+        <td>The username of the user who triggered the event.</td>
+    </tr>
+    <tr>
+        <td> APP_ID</td>
+        <td> The id of the app.</td>
+    </tr>
+    <tr>
+        <td> APP_NAME</td>
+        <td> The name of the app.</td>
+    </tr>
+    <tr>
+        <td> APP_VERSION</td>
+        <td> The version of the app.</td>
+    </tr>
+    <tr>
+        <td> APP_OWNER</td>
+        <td> The username of the user who created or published the app.</td>
+    </tr>
+    <tr>
+        <td> APP_SHORT_DESCRIPTION</td>
+        <td> The short textual app description.</td>
+    </tr>
+    <tr>
+        <td> APP_UUID</td>
+        <td> The uuid of the app.</td>
+    </tr>
+    <tr>
+        <td> APP_IS_PUBLIC</td>
+        <td> Whether the app is public or private. Values are "true" and "false".</td>
+    </tr>
+    <tr>
+        <td> APP_LABEL</td>
+        <td> The display label of the app.</td>
+    </tr>
+    <tr>
+        <td> APP_LONG_DESCRIPTION</td>
+        <td> The full textual app description.</td>
+    </tr>
+    <tr>
+        <td> APP_AVAILABLE</td>
+        <td> Whether the app is available. Values are "true" and "false".</td>
+    </tr>
+    <tr>
+        <td> APP_CHECKPOINTABLE</td>
+        <td> Whether the app is checkpointable. Values are "true" and "false".</td>
+    </tr>
+    <tr>
+        <td> APP_DEFAULT_MAX_RUN_TIME</td>
+        <td> The default max runtime of a job running this app. This is the value used by the job service if no <span
+                class="code">maxRunTime</span> is specified in the job request.
+        </td>
+    </tr>
+    <tr>
+        <td> APP_DEFAULT_MEMORY_PER_NODE</td>
+        <td> The default memory of a job running this app. This is the value used by the job service if no <span
+                class="code">memoryPerNode</span> is specified in the job request.
+        </td>
+    </tr>
+    <tr>
+        <td> APP_DEFAULT_PROCESSORS_PER_NODE</td>
+        <td> The default processors per node of a job running this app. This is the value used by the job service if no
+            <span class="code">processorsPerNode</span> is specified in the job request.
+        </td>
+    </tr>
+    <tr>
+        <td> APP_DEFAULT_NODE_COUNT</td>
+        <td> The default node count of a job running this app. This is the value used by the job service if no <span
+                class="code">nodeCount</span> is specified in the job request.
+        </td>
+    </tr>
+    <tr>
+        <td> APP_DEFAULT_QUEUE</td>
+        <td> The name of the default batch queue of a job running this app. This is the value used by the job service if
+            no <span class="code">batchQueue</span> is specified in the job request.
+        </td>
+    </tr>
+    <tr>
+        <td> APP_DEPLOYMENT_PATH</td>
+        <td> The default deployment path of the app assets on the remote <span class="code">deploymentSystem</span>.
+        </td>
+    </tr>
+    <tr>
+        <td> APP_DEPLOYMENT_SYSTEM</td>
+        <td> The id of the Agave system on which the app assets are stored.</td>
+    </tr>
+    <tr>
+        <td> APP_HELP_URI</td>
+        <td> The help URL of the app.</td>
+    </tr>
+    <tr>
+        <td> APP_URL</td>
+        <td> The canonical URL of the app.</td>
+    </tr>
+    <tr>
+        <td> APP_JSON</td>
+        <td> The serialized JSON representation of the resource. This is what would be returned if you made a naked GET
+            request to the API for the resource details.
+        </td>
+    </tr>
+    <tr>
+        <td> RAW_JSON</td>
+        <td> The serialized JSON event payload. This is identical to what is sent in the body of a webhook POST
+            callback.
+        </td>
+    </tr>
+    </tbody>
 </table>
