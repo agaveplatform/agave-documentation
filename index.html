@@ -12548,6 +12548,43 @@ tags-pems-delete 3042501574756462105-242ac113-0001-048
 
 <!-- End Metadata Events -->
 
+<h4 id="metadata-schema">Metadata Schema</h4>
+
+<!-- Begin Metadata Schema Events -->
+
+<table>
+    <thead>
+        <tr>
+            <th>Event</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CREATED</td>
+            <td>The schema was updated</td>
+        </tr>
+        <tr>
+            <td>UPDATED</td>
+            <td>The schema was updated</td>
+        </tr>
+        <tr>
+            <td>DELETED</td>
+            <td>The schema was deleted</td>
+        </tr>
+        <tr>
+            <td>PERMISSION_GRANT</td>
+            <td>User permission was granted</td>
+        </tr>
+        <tr>
+            <td>PERMISSION_REVOKE</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- End Metadata Schema Events -->
+
 <h4 id="monitors">Monitors</h4>
 
 <table><thead>
@@ -12610,9 +12647,9 @@ tags-pems-delete 3042501574756462105-242ac113-0001-048
 </tr>
 </tbody></table>
 
-<h4 id="schema">Schema</h4>
+<h4 id="notifications">Notifications</h4>
 
-<!-- Begin Metadata Schema Events -->
+<!-- Begin Notification API Events -->
 
 <table>
     <thead>
@@ -12624,28 +12661,56 @@ tags-pems-delete 3042501574756462105-242ac113-0001-048
     <tbody>
         <tr>
             <td>CREATED</td>
-            <td>The schema was updated</td>
+            <td>Notification was created</td>
         </tr>
         <tr>
             <td>UPDATED</td>
-            <td>The schema was updated</td>
+            <td>Notification was updated</td>
         </tr>
         <tr>
             <td>DELETED</td>
-            <td>The schema was deleted</td>
+            <td>Notification was deleted</td>
         </tr>
         <tr>
-            <td>PERMISSION_GRANT</td>
-            <td>User permission was granted</td>
+            <td>DISABLED</td>
+             <td>Notification was diabled</td>
+        </tr>
+        <tr>
+            <td>ENABLED</td>
+            <td>Notification was enabled</td>
+        </tr>
+        <tr>
+            <td>FAILURE</td>
+            <td>Notificaiton delivery failed</td>
+        </tr>
+        <tr>
+            <td>SUCCESS</td>
+            <td>Notification was successfully delivered</td>
+        </tr>
+        <tr>
+            <td>SEND_ERROR</td>
+            <td>Notification attempt was unsuccessful</td>
+        </tr>
+        <tr>
+            <td>RETRY_ERROR</td>
+            <td>Notification retry attempt was unsuccessful</td>
         </tr>
         <tr>
             <td>PERMISSION_REVOKE</td>
-            <td></td>
+            <td>One or more user permissions were revoked on this tag</td>
+        </tr>
+        <tr>
+            <td>PERMISSION_GRANT</td>
+            <td>One or more user permissions were granted on this tag</td>
+        </tr>
+        <tr>
+            <td>FORCED_ATTEMPT</td>
+            <td>Notification attempt was forced by user</td>
         </tr>
     </tbody>
 </table>
 
-<!-- End Metadata Schema Events -->
+<!-- End Notification API Events -->
 
 <h4 id="postits">PostIts</h4>
 
