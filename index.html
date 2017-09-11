@@ -729,42 +729,6 @@ computing (HPC), high throughput computing (HTC), Cloud, and Big Data resources 
 
 <aside class="notice"><b>Additional Help:</b> You can read our <a href="/tools/web-application-tutorial" title="Agave Web Application Tutorial">step-by-step tutorial</a> where we explain how to run an example application using these flows. In addition, we have a list of <a href="/tools/" title="Tools">handy wrappers and tools</a> for your language of choice.</aside>
 
-<h3 id="token-lifetimes">Token lifetimes</h3>
-
-<p>There are two kinds of tokens you will obtained: access and refresh. Access token lifetimes are configured by the organization operating each tenant and vary based on the flow used to obtain them. By default, access tokens are valid for 4 hours.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Authorization Flow</th>
-      <th>Access Token Lifetime</th>
-      <th>Refresh Token Lifetime</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Authorization</td>
-      <td>4 hours</td>
-      <td>infinite</td>
-    </tr>
-    <tr>
-      <td>Implicit</td>
-      <td>1 hour</td>
-      <td>n/a</td>
-    </tr>
-    <tr>
-      <td>User Credential Password</td>
-      <td>4 hours</td>
-      <td>infinite</td>
-    </tr>
-    <tr>
-      <td>Client Credentials</td>
-      <td>4 hours</td>
-      <td>n/a</td>
-    </tr>
-  </tbody>
-</table>
-
 <h3 id="authorization-code">Authorization Code</h3>
 
 <p>The method is suitable for long-running applications in which the user logs in once and the access token can be refreshed. Since the token exchange involves sending your secret key, this should happen on a secure location, like a backend service, not from a client like a browser or mobile apps. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>. This flow is also the authorization flow used in our REST API Tutorial.</p>
@@ -1505,6 +1469,68 @@ refresh_token </td>
 </span></code></pre>
 
 <p>The access token allows you to make requests to any of the Agave REST APIs on behalf of the authenticated user.</p>
+
+              <h3 id="token-lifetimes">Token lifetimes</h3>
+
+<p>There are two kinds of tokens you will obtained: access and refresh. Access token lifetimes are configured by the organization operating each tenant and vary based on the flow used to obtain them. By default, access tokens are valid for 4 hours.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Authorization Flow</th>
+      <th>Access Token Lifetime</th>
+      <th>Refresh Token Lifetime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Authorization</td>
+      <td>4 hours</td>
+      <td>infinite</td>
+    </tr>
+    <tr>
+      <td>Implicit</td>
+      <td>1 hour</td>
+      <td>n/a</td>
+    </tr>
+    <tr>
+      <td>User Credential Password</td>
+      <td>4 hours</td>
+      <td>infinite</td>
+    </tr>
+    <tr>
+      <td>Client Credentials</td>
+      <td>4 hours</td>
+      <td>n/a</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="token-management">Token management</h3>
+
+<p>Agave will return a unique access token for each <a href="#clients-and-api-keys">Client Application</a> used to authenticate a user with a specific OAuth flow.</p>
+
+<p>This means that a client application authenticating a user using an Implicit flow will receive a different access token than if it authenticated the same user using a Client Credentials flow.</p>
+
+<p>It also means that a client application repeatedly authenticating a user with the same OAuth flow will receive the same access token (an refresh, if applicable for the flow) in the response until the token expires or is manually revoked.</p>
+
+<p>One implication of this behavior is that, if you have a distributed application that requires different parts to interact with Agave on behalf of a user, then it is important that you abstract out management of user tokens to a separate service to avoid refreshing the token in one of your services and simultaneously invaliding it all the others.</p>
+
+<aside class="notice">In addition to the many security concerns associated with reusing client keys across applications, doing so will introduce a race condition into your applications any time you attempt to refresh the token. It would be better to abstract out the token management into a separate service with its own keys, and let other parts of your application query it for the users credential.</aside>
+
+<h3 id="revoking-tokens">Revoking Tokens</h3>
+<pre class="highlight shell"><code>curl -sku <span class="s2">"</span><span class="nv">$API_KEY</span><span class="s2">:</span><span class="nv">$API_SECRET</span><span class="s2">"</span> -XPOST -d <span class="s2">"token=61e6...Mc96"</span> https://public.tenants.agaveapi.co/revoke
+</code></pre>
+<pre class="highlight plaintext"><code>auth-tokens-revoke
+</code></pre>
+
+<blockquote>
+<p>An empty response will be returned.</p>
+</blockquote>
+
+<p>Access tokens will automatically expire after <a href="#token-lifetimes">a predetermined amount of time</a>. You may also manually revoke a token by making a POST request to the token revocation service using the same client key and secret used to obtain the token. After revocation, both the access and refresh token (if applicable) are instantly invalidated. All attempts to use them from that moment on will return a 401 response.</p>
+
+<aside class="notice">A token can only be revoked by the same client keys used to obtain it.</aside>
 
               <h2 id="clients-and-api-keys">Clients and API Keys</h2>
 <pre class="highlight json"><code><span class="w">  </span><span class="err">/$$$$$$</span><span class="w">  </span><span class="err">/$$</span><span class="w"> </span><span class="err">/$$</span><span class="w">                       </span><span class="err">/$$</span><span class="w">
