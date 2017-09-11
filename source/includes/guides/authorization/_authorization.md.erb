@@ -11,12 +11,6 @@ The Agave REST APIs currently supports four authorization flows:
 
 <aside class="notice"><b>Additional Help:</b> You can read our <a href="/tools/web-application-tutorial" title="Agave Web Application Tutorial">step-by-step tutorial</a> where we explain how to run an example application using these flows. In addition, we have a list of <a href="/tools/" title="Tools">handy wrappers and tools</a> for your language of choice.</aside>
 
-### Token lifetimes
-
-There are two kinds of tokens you will obtained: access and refresh. Access token lifetimes are configured by the organization operating each tenant and vary based on the flow used to obtain them. By default, access tokens are valid for 4 hours.
-
-<%= partial "includes/tables/token-lifetimes" %>
-
 ### Authorization Code
 
 The method is suitable for long-running applications in which the user logs in once and the access token can be refreshed. Since the token exchange involves sending your secret key, this should happen on a secure location, like a backend service, not from a client like a browser or mobile apps. This flow is described in <a href="http://tools.ietf.org/html/rfc6749#section-4.4" title="RFC-6749">RFC-6749</a>. This flow is also the authorization flow used in our REST API Tutorial.

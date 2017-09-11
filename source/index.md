@@ -23,6 +23,7 @@ includes:
 - guides/_introduction
 - guides/authorization/_introduction
 - guides/authorization/_authorization.md.erb
+- guides/authorization/_revokation.md.erb
 - guides/clients/_introduction.md.erb
 - guides/systems/_introduction.md.erb
 - guides/systems/_systems-storage.md.erb

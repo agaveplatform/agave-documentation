@@ -1,0 +1,35 @@
+### Token lifetimes
+
+There are two kinds of tokens you will obtained: access and refresh. Access token lifetimes are configured by the organization operating each tenant and vary based on the flow used to obtain them. By default, access tokens are valid for 4 hours.
+
+<%= partial "includes/tables/token-lifetimes" %>
+
+
+### Token management
+
+Agave will return a unique access token for each <a href="#clients-and-api-keys">Client Application</a> used to authenticate a user with a specific OAuth flow.
+
+This means that a client application authenticating a user using an Implicit flow will receive a different access token than if it authenticated the same user using a Client Credentials flow.
+
+It also means that a client application repeatedly authenticating a user with the same OAuth flow will receive the same access token (an refresh, if applicable for the flow) in the response until the token expires or is manually revoked.
+
+One implication of this behavior is that, if you have a distributed application that requires different parts to interact with Agave on behalf of a user, then it is important that you abstract out management of user tokens to a separate service to avoid refreshing the token in one of your services and simultaneously invaliding it all the others.
+
+<aside class="notice">In addition to the many security concerns associated with reusing client keys across applications, doing so will introduce a race condition into your applications any time you attempt to refresh the token. It would be better to abstract out the token management into a separate service with its own keys, and let other parts of your application query it for the users credential.</aside>
+
+
+### Revoking Tokens
+
+```bash
+curl -sku "$API_KEY:$API_SECRET" -XPOST -d "token=61e6...Mc96" https://public.tenants.agaveapi.co/revoke
+```
+
+```plaintext
+auth-tokens-revoke
+```
+
+> An empty response will be returned.
+
+Access tokens will automatically expire after <a href="#token-lifetimes">a predetermined amount of time</a>. You may also manually revoke a token by making a POST request to the token revocation service using the same client key and secret used to obtain the token. After revocation, both the access and refresh token (if applicable) are instantly invalidated. All attempts to use them from that moment on will return a 401 response.
+
+<aside class="notice">A token can only be revoked by the same client keys used to obtain it.</aside>
