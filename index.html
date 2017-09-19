@@ -5999,6 +5999,12 @@ cp <span class="nv">$IPLANT_SDK_HOME</span>/examples/samtools-0.1.19/stampede/sa
   <td>When automatically generated a UI, should this field be visible to end users?</td>
 </tr>
 <tr>
+    <td>value.enquote</td>
+    <td></td>
+    <td>boolean</td>
+    <td>Should the value be surrounded in quotation marks prior to injecting into the wrapper template at job runtime.</td>
+</tr>
+<tr>
   <td>semantics.ontology</td>
   <td></td>
   <td>array[string]</td>
@@ -6041,10 +6047,16 @@ cp <span class="nv">$IPLANT_SDK_HOME</span>/examples/samtools-0.1.19/stampede/sa
   <td>The command-line argument associated with specifying this input at run time</td>
 </tr>
 <tr>
-  <td>details.showArgument</td>
-  <td></td>
-  <td>boolean</td>
-  <td>Include the argument in the substitution done by Agave when a run script is generated</td>
+    <td>details.showArgument</td>
+    <td></td>
+    <td>boolean</td>
+    <td>Whether to include the argument value for this input when performing the template variable replacement during job submission. If true, the <code>details.argument</code> value will be prepended, without spaces, to the actual output value(s).</td>
+</tr>
+<tr>
+    <td>details.repeatArgument</td>
+    <td></td>
+    <td>boolean</td>
+    <td>When multiple values are provided for this output, this attribute determines whether to include the argument value  before each user-supplied value when performing the template variable replacement during job submission. The <code>details.showArgument</code> value must be <i>true</i> for this value to be applied.</td>
 </tr>
 </tbody>
 </table>
@@ -6133,6 +6145,12 @@ cp <span class="nv">$IPLANT_SDK_HOME</span>/examples/samtools-0.1.19/stampede/sa
   <td>When automatically generated a UI, should this field be visible to end users?</td>
 </tr>
 <tr>
+    <td>value.enquote</td>
+    <td></td>
+    <td>boolean</td>
+    <td>Should the value be surrounded in quotation marks prior to injecting into the wrapper template at job runtime.</td>
+</tr>
+<tr>
   <td>semantics.ontology</td>
   <td></td>
   <td>array[string]</td>
@@ -6157,10 +6175,16 @@ cp <span class="nv">$IPLANT_SDK_HOME</span>/examples/samtools-0.1.19/stampede/sa
   <td>The command-line argument associated with specifying this parameter at run time</td>
 </tr>
 <tr>
-  <td>details.showArgument</td>
-  <td></td>
-  <td>boolean</td>
-  <td>Include the argument in the substitution done by Agave when a run script is generated</td>
+    <td>details.showArgument</td>
+    <td></td>
+    <td>boolean</td>
+    <td>Whether to include the argument value for this input when performing the template variable replacement during job submission. If true, the <code>details.argument</code> value will be prepended, without spaces, to the actual output value(s).</td>
+</tr>
+<tr>
+    <td>details.repeatArgument</td>
+    <td></td>
+    <td>boolean</td>
+    <td>When multiple values are provided for this output, this attribute determines whether to include the argument value  before each user-supplied value when performing the template variable replacement during job submission. The <code>details.showArgument</code> value must be <i>true</i> for this value to be applied.</td>
 </tr>
 </tbody>
 </table>
