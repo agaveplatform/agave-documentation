@@ -2808,11 +2808,11 @@ refresh_token </td>
     <tbody>
         <tr>
             <td>HPC</td>
-            <td>LSF, LOADLEVELER, PBS, SGE, COBALT, TORQUE, MOAB, SLURM</td>
+            <td>LSF, LOADLEVELER, PBS, SGE, TORQUE, MOAB, SLURM, CUSTOM_LSF, CUSTOM_LOADLEVELER, CUSTOM_PBS, CUSTOM_GRIDENGINE, CUSTOM_SLURM</td>
             <td>Jobs will be submitted to the local scheduler using the appropriate scheduler commands. Systems with this execution type will not allow forked jobs.</td>
         </tr>
         <tr>
-            <td>CONDOR</td>
+            <td>CONDOR, CUSTOM_CONDOR</td>
             <td>CONDOR</td>
             <td>Jobs will be submitted to the condor scheduler running locally on the remote system. Agave will not do any installation for you, so the setup and administration of the Condor server is up to you.</td>
         </tr>
@@ -2826,7 +2826,7 @@ refresh_token </td>
 
 <aside class="notice">When you are describing your system, consider the policies put in place by your system administrators. If the system you are defining has a scheduler, chances are they want you to use it.</aside>
 
-<h4 id="defining-batch-queues-nbsp">Defining batch queues <a name="defining-batch-queues">&nbsp;</a></h4>
+<h3 id="defining-system-queues">Defining system queues</h3>
 
 <p>Agave supports the notion of multiple submit queues. On HPC systems, queues should map to actual batch scheduler queues on the target server. Additionally, queues are used by Agave as a mechanism for implementing quotas on job throughput in a given queue or across an entire system. Queues are defined as a JSON array of objects assigned to the <code class="prettyprint">queues</code> attribute. The following table summarizes all supported queue parameters.</p>
 
@@ -2889,24 +2889,9 @@ refresh_token </td>
 
 <h4 id="configuring-quotas">Configuring quotas</h4>
 
-<p>In the batch queues table above, several attributes exist to specify limits on the number of total jobs and user jobs in a given queue. Corresponding attributes exist in the execution system to specify limits on the number of total and user jobs across an entire system. These attributes, when used appropriately, can be used to tell Agave how to enforce limits on the concurrent activity of any given user. They can also ensure that Agave will not unfairly monopolize your systems as your application usage grows.</p>
-
-<p>If you have ever used a shared HPC system before, you should be familiar with batch queue quotas. If not, the important thing to understand is that they are a critical tool to ensure fair usage of any shared resource. As the owner/administrator for your registered system, you can use the batch queues you define to enforce whatever usage policy you deem appropriate.</p>
-
-<p>Consider one example where you are using a VM to run image analysis routines on demand through Agave, your server will become memory bound and experience performance degradation if too many processes are running at once. To avoid this, you can set a limit using a batch queue configuration that limits the number of simultaneous tasks that can run at once on your server.</p>
-
-<p>Another example where quotas can be helpful is to help you properly partitioning your system resources. Consider a user analyzing unstructured data. The problem is computationally and memory intensive. To preserve resources, you could create one queue with a moderate value of <code class="prettyprint">maxJobs</code> and conservative <code class="prettyprint">maxMemoryPerNode</code>, <code class="prettyprint">maxProcessorsPerNode</code>, and <code class="prettyprint">maxNodes</code> values to allow good throughput of small job. You could then create another queue with large <code class="prettyprint">maxMemoryPerNode</code>, <code class="prettyprint">maxProcessorsPerNode</code>, and <code class="prettyprint">maxNodes</code> values while only allowing a single job to run at a time. This gives you both high throughput and high capacity on a single system.</p>
-
-<p>The following sample queue definitions illustrate some other interesting use cases.</p>
-
-<p>
-    <select id="queue-config-selector" name="queue-config-selector" onChange="$('.queue-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
-        <option value="queue-short-job">Short Jobs</option>
-        <option value="queue-small-queues">Restrited Usage</option>
-        <option value="queue-single-node">Single Node Jobs</option>
-        <option value="queue-dedicated">Dedicated Usage</option>
-    </select>
-</p>
+<blockquote>
+<p>Sample batch queue definitions specifying various use cases.</p>
+</blockquote>
 
 <pre id="queue-short-job" class="json queue-config">
 <code>{
@@ -2922,7 +2907,6 @@ refresh_token </td>
     "default":true
 }
 </code></pre>
-
 
 <pre id="queue-small-queues" class="json queue-config hidden">
 <code># Restrict the queue to having at most 10 total jobs in it at once. Jobs may run for no more than an hour.
@@ -2990,22 +2974,243 @@ refresh_token </td>
 ]
 </code></pre>
 
-#### System login protocols
+<p>In the batch queues table above, several attributes exist to specify limits on the number of total jobs and user jobs in a given queue. Corresponding attributes exist in the execution system to specify limits on the number of total and user jobs across an entire system. These attributes, when used appropriately, can be used to tell Agave how to enforce limits on the concurrent activity of any given user. They can also ensure that Agave will not unfairly monopolize your systems as your application usage grows.</p>
 
-As with storage systems, Agave supports several different protocols and mechanisms for job submission. We already covered scheduler and queue support. Here we illustrate the different login configurations possible. For brevity, only the value of the `login` JSON object is shown.
+<p>If you have ever used a shared HPC system before, you should be familiar with batch queue quotas. If not, the important thing to understand is that they are a critical tool to ensure fair usage of any shared resource. As the owner/administrator for your registered system, you can use the batch queues you define to enforce whatever usage policy you deem appropriate.</p>
+
+<p>Consider one example where you are using a VM to run image analysis routines on demand through Agave, your server will become memory bound and experience performance degradation if too many processes are running at once. To avoid this, you can set a limit using a batch queue configuration that limits the number of simultaneous tasks that can run at once on your server.</p>
+
+<p>Another example where quotas can be helpful is to help you properly partitioning your system resources. Consider a user analyzing unstructured data. The problem is computationally and memory intensive. To preserve resources, you could create one queue with a moderate value of `maxJobs` and conservative `maxMemoryPerNode`, `maxProcessorsPerNode`, and `maxNodes` values to allow good throughput of small job. You could then create another queue with large `maxMemoryPerNode`, `maxProcessorsPerNode`, and `maxNodes` values while only allowing a single job to run at a time. This gives you both high throughput and high capacity on a single system.</p>
+
+<p>The following sample queue definitions illustrate some other interesting use cases.</p>
+
+<p><select id="queue-config-selector" name="queue-config-selector" onChange="$('.queue-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
+    <option value="queue-short-job">Short Jobs</option>
+    <option value="queue-small-queues">Restrited Usage</option>
+    <option value="queue-single-node">Single Node Jobs</option>
+    <option value="queue-dedicated">Dedicated Usage</option>
+</select></p>
+
+<h4> Customizing custom scheduler directives </h4>  
+
+<blockquote> Pseudocode for generating scheduler directives for each scheduler type</blockquote>    
+
+<pre id="batch-submit-lsf" class="json batch-submit">
+<code>
+#!/bin/bash
+#BSUB -J <& Slug.slugify(job.name) &>
+#BSUB -oo <& Slug.slugify(job.name) + "-" + job.uuid &>.out
+#BSUB -e <& Slug.slugify(job.name) + "-" + job.uuid &>.err
+#BSUB -W <& roundToMinute(job.maxRunTime) &>
+#BSUB -q <& job.batchQueue.mappedName &>
+#BSUB -L bash
+
+<& if (job.app.parallelism == ParallelismType.PTHREAD) { &>
+  <& "#BSUB -n " + job.nodeCount &>
+  <& "#BSUB -R 'span[ptile=1]'" &>
+<& } else if (job.app.parallelism == ParallelismType.SERIAL) { &>
+  <& "#BSUB -n " + job.nodeCount &>
+  <& "#BSUB -R 'span[ptile=1]'" &>
+<& } else { &>
+  <& "#BSUB -n " + (job.nodeCount * job.processorsPerNode) &>
+  <& "#BSUB -R 'span[ptile=" + job.processorsPerNode + "]'" &>
+<& } &>
+
+#BSUB <& job.batchQueue.customDirectives &>
+</code></pre>
+
+<pre id="batch-submit-pbs" class="json batch-submit hidden">
+<code>
+#!/bin/bash
+#PBS -N <& Slug.slugify(job.name) &>
+#PBS -o <& Slug.slugify(job.name) + "-" + job.uuid &>.out
+#PBS -e <& Slug.slugify(job.name) + "-" + job.uuid &>.err
+#PBS -l cput=<& job.maxRunTime &>
+#PBS -l walltime=<& job.maxRunTime &>
+#PBS -q <& job.batchQueue.mappedName &>
+#PBS -l nodes=<& job.nodeCount &>:ppn=<& job.processorsPerNode &>
+#PBS <& job.batchQueue.customDirectives &>
+</code></pre>
+
+<pre id="batch-submit-ll" class="json batch-submit hidden">
+<code>
+#!/bin/bash
+#@ - <& Slug.slugify(job.name) &>
+#@ environment = COPY_ALL
+#@ output = <& Slug.slugify(job.name) + "-" + job.uuid &>.out
+#@ error = <& Slug.slugify(job.name) + "-" + job.uuid &>.err
+#@ class = NORMAL
+#@ acct_no = NONE
+#@ wall_cock_limit = <& job.maxRunTime &>
+
+<& if (job.app.parallelism == ParallelismType.PTHREAD) { &>
+  #@ job_type = MPICH
+  #@ nodes = 1
+  #@ tasks_per_node = <& job.processorsPerNode &>
+<& } else if (job.app.parallelism == ParallelismType.SERIAL) { &>
+  #@ job_type = MPICH
+  #@ nodes = 1
+  #@ tasks_per_node = <& job.processorsPerNode &>
+<& } else { &>
+  <& "#@ -n " + (job.nodeCount * job.processorsPerNode) &>
+  <& "#@ -R 'span[ptile=" + job.processorsPerNode + "]'" &>
+<& } &>
+
+#BSUB <& job.batchQueue.customDirectives &>
+</code></pre>
+
+<pre id="batch-submit-torque" class="json batch-submit hidden">
+<code>
+#!/bin/bash
+#PBS -N <& Slug.slugify(job.name) &>
+#PBS -o <& Slug.slugify(job.name) + "-" + job.uuid &>.out
+#PBS -e <& Slug.slugify(job.name) + "-" + job.uuid &>.err
+#PBS -l cput=<& job.maxRunTime &>
+#PBS -l walltime=<& job.maxRunTime &>
+#PBS -q <& job.batchQueue.mappedName &>
+#PBS -l nodes=<& job.nodeCount &>:ppn=<& job.processorsPerNode &>
+#PBS <& job.batchQueue.customDirectives &>
+</code></pre>
+
+<pre id="batch-submit-ge" class="json batch-submit hidden">
+<code>
+#!/bin/bash
+#$ -N <& Slug.slugify(job.name) &>
+#$ -cwd
+#$ -V
+#$ -o <& Slug.slugify(job.name) + "-" + job.uuid &>.out
+#$ -e <& Slug.slugify(job.name) + "-" + job.uuid &>.err
+#$ -l h_rt=<& job.maxRunTime &>
+#$ -pe <& job.nodeCount &> way <& job.processorsPerNode &>
+#$ -q <& job.batchQueue.mappedName &>
+#$ <& job.batchQueue.customDirectives &>
+</code></pre>
+
+<pre id="batch-submit-slurm" class="json batch-submit hidden">
+<code>
+#!/bin/bash
+#SBATCH -J <& Slug.slugify(job.name) &>
+#SBATCH -o <& Slug.slugify(job.name) + "-" + job.uuid &>.out
+#SBATCH -e <& Slug.slugify(job.name) + "-" + job.uuid &>.err
+#SBATCH -t <& job.maxRunTime &>
+#SBATCH -q <& job.batchQueue.mappedName &>
+#SBATCH -N <& job.nodeCount &> -p <& job.processorsPerNode &>
+#SBATCH <& job.batchQueue.customDirectives $>
+</code></pre>
+
+<p>If your system definition is configured to use a scheduler, Agave will automatically inject the appropirate default scheduler directives into the header of your wrapper template prior to submission. Pseudocode for how the headers are generated for each scheduler type are defined below.</p>
 
 <p>
-    <select id="login-config-selector" name="login-config-selector" onChange="$('.login-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
-        <option value="login-ssh-password">SSH</option>
-        <option value="login-ssh-sshkeys">SSH w/ SSH Keys</option>
-        <option value="login-ssh-tunnel">SSH w/ tunnel</option>
-        <option value="login-gsissh">GSI OpenSSH</option>
-        <option value="login-gsissh-myproxy">GSI OpenSSH w/ MyProxy</option>
-        <option value="login-gsissh-mpg">GSI OpenSSH w/ MyProxy Gateway</option>
-        <option value="login-local">Local</option>
+    <select id="batch-submit-selector" name="batch-submit-selector" onChange="$('.batch-submit').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
+        <option value="batch-submit-ge">GridEngine</option>
+        <option value="batch-submit-ll">LoadLeveler</option>
+        <option value="batch-submit-lsf">LSF</option>
+        <option value="batch-submit-pbs">PBS</option>
+        <option value="batch-submit-slurm">Slurm</option>
+        <option value="batch-submit-torque">Torque & MOAB</option>
     </select>
 </p>
 
+<p>You may add additional scheduler directives on a queue-by-queue basis in your system definition. If you need a higher degree of customization, update your system definition prefixing your existing schedulerType value with &ldquo;CUSTOM_&rdquo;. This will tell Agave to use a minimal set of scheduler directives any time it finds a value defined for the queue&rsquo;s customDirectives. To allow you the highest degree of customization, the customDirectives value will be filtered, resolving the following macros with the runtime values for the job.</p>
+
+<table id="notification-macros-jobs" class="notification-macros jobs">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>JOB_APP_ID</td>
+        <td>The id of the app being run.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE</td>
+        <td>Whether Agave will attempt to archive the job. Values &ldquo;true&rdquo; or &ldquo;false&rdquo;.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_PATH</td>
+        <td>The path on the archive system where the job output will be staged.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_SYSTEM</td>
+        <td>The Agave storage system id to which the job output will be archived. This will be NULL if the the job is
+            not
+            archived.
+        </td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_URL</td>
+        <td>The Agave URL for the archived data.</td>
+    </tr>
+    <tr>
+        <td>JOB_BATCH_QUEUE</td>
+        <td>The batch queue of the <span class="code">JOB_EXECUTION_SYSTEM</span> on which the job is assigned.</td>
+    </tr>
+    <tr>
+        <td>JOB_ID</td>
+        <td>The unique id used to reference the job within Agave.</td>
+    </tr>
+    <tr>
+        <td>JOB_EXECUTION_SYSTEM</td>
+        <td>The agave execution system id on which the job will run.</td>
+    </tr>
+    <tr>
+        <td>JOB_MAX_RUNTIME</td>
+        <td>The max job run from the job request in HH:MM:SS format.</td>
+    </tr>
+    <tr>
+        <td>JOB_MAX_RUNTIME_MILLISECONDS</td>
+        <td>The max job run time from the job request converted to milliseconds.</td>
+    </tr>
+    <tr>
+        <td>JOB_MAX_RUNTIME_SECONDS</td>
+        <td>The max job run time from the job request converted to seconds.</td>
+    </tr>
+    <tr>
+        <td>JOB_MEMORY_PER_NODE</td>
+        <td>The memory requested per node in the job request in GB.</td>
+    </tr>
+    <tr>
+        <td>JOB_NAME</td>
+        <td>The job name converted to a slug</td>
+    </tr>
+    <tr>
+        <td>JOB_NAME_RAW</td>
+        <td>The user-supplied name of the job</td>
+    </tr>
+    <tr>
+        <td>JOB_NODE_COUNT</td>
+        <td>The number of nodes from the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_OWNER</td>
+        <td>The username of the user who submitted the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_PARAMETERS</td>
+        <td>The serialized JSON object representing the job parameters.</td>
+    </tr>
+    <tr>
+        <td>JOB_PROCESSORS_PER_NODE</td>
+        <td>The processors per node from the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_SYSTEM</td>
+        <td>ID of the job execution system (ex. ssh.execute.example.com)</td>
+    </tr>
+    <tr>
+        <td>JOB_TENANT</td>
+        <td>The code of the tenant to which the job was submitted.</td>
+    </tr>
+    </tbody>
+</table>
+
+
+<h3> Supported login protocols</h3>
+
+> Sample execution system login configurations for supported authentication mechansims.
 
 <pre id="login-ssh-password" class="json login-config">
 <code>{
@@ -3113,7 +3318,19 @@ As with storage systems, Agave supports several different protocols and mechanis
 }</code>
 </pre>
 
-<p>The full list of login configuration options is given in the following table. We omit the <code class="prettyprint">login.auth</code> and <code class="prettyprint">login.proxy</code> attributes as they are identical to those used in the storage config.</p>
+<p>As with storage systems, Agave supports several different protocols and mechanisms for job submission. We already covered scheduler and queue support. Here we illustrate the different login configurations possible. For brevity, only the value of the <code class="prettyprint">login</code> JSON object is shown.</p></p>
+
+<p><select id="login-config-selector" name="login-config-selector" onChange="$('.login-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
+    <option value="login-ssh-password">SSH</option>
+    <option value="login-ssh-sshkeys">SSH w/ SSH Keys</option>
+    <option value="login-ssh-tunnel">SSH w/ tunnel</option>
+    <option value="login-gsissh">GSI OpenSSH</option>
+    <option value="login-gsissh-myproxy">GSI OpenSSH w/ MyProxy</option>
+    <option value="login-gsissh-mpg">GSI OpenSSH w/ MyProxy Gateway</option>
+    <option value="login-local">Local</option>
+</select></p>
+
+<p>The full list of login configuration options is given in the following table. We omit the `login.auth` and `login.proxy` attributes as they are identical to those used in the storage config.</p>
 
 <table>
     <thead>
@@ -3152,9 +3369,9 @@ As with storage systems, Agave supports several different protocols and mechanis
     </tbody>
 </table>
 
-<h4 id="scratch-and-work-directories">Scratch and work directories</h4>
+<h4> Scratch and work directories</h4>
 
-<p>In the Job Management tutorial we will dive into how Agave manages the end-to-end lifecycle of running a job. Here we point out two relevant attributes that control where data is staged and where your job will physically run. The <code class="prettyprint">scratchDir</code> and <code class="prettyprint">workDir</code> attributes control where the working directories for each job will be created on an execution system. The following table summarizes the decision making process Agave uses to determine where the working directories should be created.</p>
+<p>In the Job Management tutorial we will dive into how Agave manages the end-to-end lifecycle of running a job. Here we point out two relevant attributes that control where data is staged and where your job will physically run. The `scratchDir` and `workDir` attributes control where the working directories for each job will be created on an execution system. The following table summarizes the decision making process Agave uses to determine where the working directories should be created.</p>
 
 <table>
     <thead>
@@ -3241,13 +3458,13 @@ As with storage systems, Agave supports several different protocols and mechanis
     </tbody>
 </table>
 
-<p>While it is not required, it is a best practice to always specify <code class="prettyprint">scratchDir</code> and <code class="prettyprint">workDir</code> values for your execution systems and, whenever possible, place them outside of the system <code class="prettyprint">homeDir</code> to ensure data privacy. The reason for this is that the file system available on many servers is actually made up of a combination of physically attached storage, mounted volumes, and network mounts. Often times, your home directory will have a very conservative quota while the mounted storage will essentially be quota free. As the above table shows, when you do not specify a <code class="prettyprint">scratchDir</code> or <code class="prettyprint">workDir</code>, Agave will attempt to create your job work directories in your system <code class="prettyprint">homeDir</code>. It is very likely that, in the course of running simulations, you will reach the quota on your home directory, thereby causing that job and all future jobs to fail on the system until you clear up more space. To avoid this, we recommend specifying a location with sufficient available space to handle the work you want to do.</p>
+<p>While it is not required, it is a best practice to always specify `scratchDir` and `workDir` values for your execution systems and, whenever possible, place them outside of the system `homeDir` to ensure data privacy. The reason for this is that the file system available on many servers is actually made up of a combination of physically attached storage, mounted volumes, and network mounts. Often times, your home directory will have a very conservative quota while the mounted storage will essentially be quota free. As the above table shows, when you do not specify a `scratchDir` or `workDir`, Agave will attempt to create your job work directories in your system `homeDir`. It is very likely that, in the course of running simulations, you will reach the quota on your home directory, thereby causing that job and all future jobs to fail on the system until you clear up more space. To avoid this, we recommend specifying a location with sufficient available space to handle the work you want to do.</p>
 
-<p>Another common error that arises from not specifying thoughtful <code class="prettyprint">scratchDir</code> and <code class="prettyprint">workDir</code> values for your execution systems is jobs failing due to &ldquo;permission denied&rdquo; errors. This often happens when your <code class="prettyprint">scratchDir</code> and/or <code class="prettyprint">workDir</code> resolve to the actual system root. Usually the account you are using to access the system will not have permission to write to <code class="prettyprint">/</code>, so all attempts to create a job working directory fail, accurately, due to a &ldquo;permission denied&rdquo; error.</p>
+<p>Another common error that arises from not specifying thoughtful `scratchDir` and `workDir` values for your execution systems is jobs failing due to &ldquo;permission denied&rdquo; errors. This often happens when your `scratchDir` and/or `workDir` resolve to the actual system root. Usually the account you are using to access the system will not have permission to write to `/`, so all attempts to create a job working directory fail, accurately, due to a &ldquo;permission denied&rdquo; error.</p>
 
 <aside class="notice">While it is not required, it is a best practice to always specify `scratchDir` and `workDir` values for your execution systems and, whenever possible, place them outside of the system `homeDir` to ensure data privacy.</aside>
 
-<h4 id="creating-a-new-execution-system">Creating a new execution system</h4>
+<h4> Creating a new execution system </h4>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -F <span class="s2">"fileToUpload=@ssh-password.json"</span> https://public.tenants.agaveapi.co/systems/v2
 </code></pre>
 <pre class="highlight plaintext"><code>systems-addupdate -v -F ssh-password.json
@@ -3322,7 +3539,7 @@ As with storage systems, Agave supports several different protocols and mechanis
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-              <h3 id="disabling">Disabling</h3>
+              <h3 id="disabling-a-system">Disabling a system</h3>
 
 <blockquote>
 <p>Disable a system</p>
@@ -4988,9 +5205,7 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 
 <p>The Apps service is the central registry for all Agave apps. The Apps service provides permissions, validation, archiving, and revision information about each app in addition to the usual discovery capability. The rest of this tutorial explains in detail how to register an app to the Apps service, how to manage and share apps, and what the different application scopes mean.</p>
 
-              <h3 id="app-history">App History</h3>
-
-              <h3 id="inputs-and-parameters">Inputs and Parameters</h3>
+              <h3 id="defining-apps">Defining apps</h3>
 
 <p>In this section we take a detailed look at the <code class="prettyprint">inputs</code> and <code class="prettyprint">parameters</code> sections of your app descriptions. Each of these sections takes an array of JSON objects. Each JSON object represents either a data source that needs staging in prior to job execution or a primary value passed into your app as a parameter. In either case, the JSON object only requires an <code class="prettyprint">id</code> by which to reference the object in a job request, and a <code class="prettyprint">type</code> field indicating primary type if the object represents a parameter.</p>
 
@@ -5004,17 +5219,21 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 
 <p>As we look at how to define inputs and parameters for your app, keep this big picture in mind. The purpose of inputs is to specify data that need to be staged prior to your job running and to tell your wrapper script about them. The purpose of parameters is to specify variables that need to be passed to your wrapper script. To do this, we only need a simple id by which to reference the values in a job request. The rest of what we will discuss in this tutorial is the mechanism that Agave provides for you to validate, describe, discover, and restrict application inputs and parameters to provider better user and developer experiences using your app.</p>
 
-<h4 id="inputs">Inputs</h4>
+<h3 id="app-inputs">App inputs</h3>
+
+<blockquote>
+<p>Minimal app input definition</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"input1"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <p>The <code class="prettyprint">inputs</code> attribute of your app description contains a JSON array of input objects. An input represents one or more pieces of data that your app will use at runtime. That data can be a single file, a directory, or a response from a web service. It can reside on a system that Agave knows about, or at a publicly accessible URL. Regardless of where it lives and what it is, Agave will grab the data (recursively if need be) and copy it to your job&rsquo;s working directory just before execution.</p>
 
 <aside class="notice">In the Job management tutorial, we talk in detail about the job lifecycle. Here we simply point out that Agave will handle the staging of your app&rsquo;s <span class="code">deploymentPath</span> separately from the staging of your assets. Thus, as a best practice, it is preferable to include all of the assets your app needs to run in your <span class="code">deploymentPath</span> rather than defining them as inputs. This will allow Agave to make better caching decisions and reduce the overall throughput when running a job.</aside>
 
 <p>A minimal input object contains a single <code class="prettyprint">inputs.[].id</code> attribute that uniquely identifies it within the context of your app. Any alphanumeric value under 64 characters can be an identifier, but it must be unique among all the inputs and parameters in that app.</p>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"input1"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
 
 <p>Most of the time, such a minimal definition is not helpful. At the very least, you would want some descriptive information, a restriction on the cardinality, and potentially a default value. This can be achieved with the <code class="prettyprint">details</code>, <code class="prettyprint">semantics</code>, and <code class="prettyprint">value</code> objects. The full list of input attributes is shown in the following table. We cover each attribute in the corresponding section below.</p>
 
@@ -5220,11 +5439,11 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 
 <p>Once an input passes these tests, Agave will check that it exists and that the user has permission to access the data. Assuming everything passes, the input is accepted and scheduled for staging.</p>
 
-<h4 id="parameters">Parameters</h4>
+<h3 id="app-parameters">App parameters</h3>
 
-<p>The <code class="prettyprint">parameters</code> attribute of your app description contains a JSON array of parameter objects. A parameter represents one or more arguments that your app will use at runtime. Those arguments can be more or less anything you want them to be. If, for some reason, your app handles data staging on its own and you do not want Agave to move the data on your behalf, but you do need a data reference passed in, you can define it as a parameter rather than an input.</p>
-
-<p>A minimal parameter object contains a single <code class="prettyprint">id</code> attribute that uniquely identifies it within the context of your app and a <code class="prettyprint">value.type</code> attribute specifying the primary type of the parameter. Any alphanumeric value under 64 characters can be an identifier, but it must be unique among all the inputs and parameters in that app. The parameter type is restricted to a handful of primary types listed in the table below.</p>
+<blockquote>
+<p>Minimal app parameter definition</p>
+</blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"parameter1"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -5232,6 +5451,10 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+
+<p>The <code class="prettyprint">parameters</code> attribute of your app description contains a JSON array of parameter objects. A parameter represents one or more arguments that your app will use at runtime. Those arguments can be more or less anything you want them to be. If, for some reason, your app handles data staging on its own and you do not want Agave to move the data on your behalf, but you do need a data reference passed in, you can define it as a parameter rather than an input.</p>
+
+<p>A minimal parameter object contains a single <code class="prettyprint">id</code> attribute that uniquely identifies it within the context of your app and a <code class="prettyprint">value.type</code> attribute specifying the primary type of the parameter. Any alphanumeric value under 64 characters can be an identifier, but it must be unique among all the inputs and parameters in that app. The parameter type is restricted to a handful of primary types listed in the table below.</p>
 
 <p>In most situations you will want some descriptive information and validation of the user-supplied values for this parameter. As with your app inputs, app parameters have <code class="prettyprint">details</code>, <code class="prettyprint">semantics</code>, and <code class="prettyprint">value</code> objects that allow you to do just that. The full list of parameter attributes is shown in the following table. We cover each attribute in the corresponding section below.</p>
 
@@ -5357,6 +5580,28 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 
 <h4 id="parameter-value-section">Parameter value section</h4>
 
+<blockquote>
+<p>Example enumValue definition specifying just values for the enumeration.  </p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="s2">"red"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"white"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"green"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"black"</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Example enumValue definition specifying both a value and label for enumerated parameter.  </p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w"> </span><span class="nt">"red"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deep Cherry Red"</span><span class="w"> </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w"> </span><span class="nt">"white"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bright White"</span><span class="w"> </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w"> </span><span class="nt">"green"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Black Forest Green"</span><span class="w"> </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w"> </span><span class="nt">"black"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Brilliant Black Crystal Pearl"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
 <p>The <code class="prettyprint">parameters.[].value</code> object contains the information needed to validate user-supplied parameter values in a job request. The <code class="prettyprint">type</code> attribute defines the primary type of this parameter&rsquo;s values. The available types are:</p>
 
 <ul>
@@ -5366,20 +5611,6 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 <li><em>flag</em>: true or false. Identical to boolean, but only the `argument` value will be inserted into the wrapper template.</li>
 <li><em>enumeration</em>: a JSON array of strings values or JSON objects representing the acceptable values for this parameter. If an array of JSON objects is given, each object should have a single attribute with the key being a desired enumeration value, and the value being a human readable descriptive name for the enumerated value. The value of using objects vs strings is that object values provide a way to create more descriptive user interfaces by customizing both the content and value of a HTML select box&rsquo;s option elements. An example of both is given below.</li>
 </ul>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="s2">"red"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"white"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"green"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"black"</span><span class="w">
-</span><span class="p">]</span><span class="w">
-
-</span><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w"> </span><span class="nt">"red"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deep Cherry Red"</span><span class="w"> </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w"> </span><span class="nt">"white"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bright White"</span><span class="w"> </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w"> </span><span class="nt">"green"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Black Forest Green"</span><span class="w"> </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w"> </span><span class="nt">"black"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Brilliant Black Crystal Pearl"</span><span class="w"> </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
 
 <p>The <code class="prettyprint">validator</code> attribute accepts a Perl regular expression which will be applied to the input value(s). Any submissions that do not match the <code class="prettyprint">validator</code> expression will be rejected. This attribute is available both to parameters of type <em>number</em> and <em>string</em>. It is not available to <em>bool</em> or <em>flag</em> parameter types, or to <em>enumeration</em> parameters as they require the <code class="prettyprint">enumValues</code> attribute instead.</p>
 
@@ -5404,7 +5635,160 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 <li>validator / enumValues</li>
 </ol>
 
-              <h3 id="wrapper-templates">Wrapper Templates</h3>
+<h3 id="app-outputs">App outputs</h3>
+
+<p>App outputs are not currently supported as first class objects in the app or job lifecycle. Their primary purpose is as metadata for  use in client-side workflows and post-processing tasks. While not required, it is considered a best practice to define a list of the outputs expected when running the app. In doing so, an app can &ldquo;advertise&rdquo; to its consumers what it expect as the result of a run, thereby allowing apps to be chained together in a machine-readable fashion. </p>
+
+<aside class="info">Note that unlike inputs and parameters, output &ldquo;id&quot;s are NOT passed to the template file. If you must specify an output filename in the application json, do it as a parameter!</aside>  
+
+<p>Outputs are defined similarly to inputs. The full list of output attributes is shown in the following table. </p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>id</td>
+            <td>String</td>
+            <td><em>Required</em>: The textual id of this output. </td>
+        </tr>
+        <tr>
+            <td>details</td>
+            <td>JSON object</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>details.argument</td>
+            <td>string</td>
+            <td>A command line argument or flag to be prepended before the output value.</td>
+        </tr>
+        <tr>
+            <td>details.description</td>
+            <td>string</td>
+            <td>Human-readable description of the output. Often used to create contextual help in automatically generated UI.</td>
+        </tr>
+        <tr>
+            <td>details.label</td>
+            <td>string</td>
+            <td>Human-readable label for the output. Often implemented as text label next to the field in automatically generated UI.</td>
+        </tr>
+        <tr>
+            <td>details.showArgument</td>
+            <td>boolean</td>
+            <td>Whether to include the argument value for this input when performing the template variable replacement during job submission. If true, the <code>details.argument</code> value will be prepended, without spaces, to the actual output value(s).</td>
+        </tr>
+        <tr>
+            <td>details.repeatArgument</td>
+            <td>boolean</td>
+            <td>When multiple values are provided for this output, this attribute determines whether to include the argument value  before each user-supplied value when performing the template variable replacement during job submission. The <code>details.showArgument</code> value must be <i>true</i> for this value to be applied.</td>
+        </tr>
+        <tr>
+            <td>semantics</td>
+            <td>JSON object</td>
+            <td>Describes the semantic definition of this output and the filetypes it represents. Multiple ontologies and values are supported.</td>
+        </tr>
+        <tr>
+            <td>semantics.fileTypes</td>
+            <td>JSON array</td>
+            <td>Array of string values describing the file types represented by this output. The types correspond to values from the Transforms service. Use &quot;raw-0&rdquo; for the time being</td>
+        </tr>
+        <tr>
+            <td>semantics.minCardinality</td>
+            <td>integer</td>
+            <td>Minimum number of values this output must have. </td>
+        </tr>
+        <tr>
+            <td>semantics.maxCardinality</td>
+            <td>integer</td>
+            <td>Maximum number of values this output can have. A null value or value of -1 indicates no limit.</td>
+        </tr>
+        <tr>
+            <td>semantics.ontology</td>
+            <td>JSON array</td>
+            <td>List of ontology terms (or URIs pointing to ontology terms) applicable to the output. We recommend at least specifying an <a href="http://www.schemacentral.com/sc/xsd/s-datatypes.xsd.html">XSL Schema Simple Type</a>.</td>
+        </tr>
+        <tr>
+            <td>value</td>
+            <td>JSON object</td>
+            <td>A description of the anticipated value and the situations when it is required.</td>
+        </tr>
+        <tr>
+            <td>value.default</td>
+            <td>string, JSON array</td>
+            <td>The default value for this output. This value is optional except when <code>value.required</code> is <i>true</i> and <code>value.visible</code> is <i>false</i>. Values may be absolute or relative paths on the user&rsquo;s default storage sytem, an agave URI, or any valid URL with a supported schema.</td>
+        </tr>
+        <tr>
+            <td>value.order</td>
+            <td>integer</td>
+            <td>The order in which this output should appear when auto-generating a command line invocation.</td>
+        </tr>
+        <tr>
+            <td>value.required</td>
+            <td>boolean</td>
+            <td><em>Required</em>: Is specification of this output mandatory to run a job?</td>
+        </tr>
+        <tr>
+            <td>value.validator</td>
+            <td>string</td>
+            <td><a href="Perl-formatted regular expression to restrict valid values">Perl-formatted regular expression</a> to restrict valid values.</td>
+        </tr>
+        <tr>
+            <td>value.visible</td>
+            <td>boolean</td>
+            <td>When automatically generated a UI, should this field be visible to end users? If <i>false</i>, users will not be able to set this value in their job request.</td>
+        </tr>
+        <tr>
+            <td>value.enquote</td>
+            <td>boolean</td>
+            <td>Should the value be surrounded in quotation marks prior to injecting into the wrapper template at job runtime.</td>
+        </tr>
+    </tbody>
+</table>
+
+              <h3 id="defining-app-wrapper-templates">Defining app wrapper templates</h3>
+
+<blockquote>
+<p>Example wrapper script that prints out all of Agave&rsquo;s available runtime job macros and runs a user-suppled string defined as the <code class="prettyprint">command</code> argument in the app description.  </p>
+</blockquote>
+<pre class="highlight html"><code>date
+
+echo "Printing Agave job template variables..."
+
+echo 'IPLANT_JOB_NAME="${IPLANT_JOB_NAME}"'
+echo 'AGAVE_JOB_NAME="${AGAVE_JOB_NAME}"'
+echo 'AGAVE_JOB_ID="${AGAVE_JOB_ID}"'
+echo 'AGAVE_JOB_APP_ID="${AGAVE_JOB_APP_ID}"'
+echo 'AGAVE_JOB_EXECUTION_SYSTEM="${AGAVE_JOB_EXECUTION_SYSTEM}"'
+echo 'AGAVE_JOB_BATCH_QUEUE="${AGAVE_JOB_BATCH_QUEUE}"'
+echo 'AGAVE_JOB_SUBMIT_TIME="${AGAVE_JOB_SUBMIT_TIME}"'
+echo 'AGAVE_JOB_ARCHIVE_SYSTEM="${AGAVE_JOB_ARCHIVE_SYSTEM}"'
+echo 'AGAVE_JOB_ARCHIVE_PATH="${AGAVE_JOB_ARCHIVE_PATH}"'
+echo 'AGAVE_JOB_NODE_COUNT="${AGAVE_JOB_NODE_COUNT}"'
+echo 'IPLANT_CORES_REQUESTED="${IPLANT_CORES_REQUESTED}"'
+echo 'AGAVE_JOB_PROCESSORS_PER_NODE="${AGAVE_JOB_PROCESSORS_PER_NODE}"'
+echo 'AGAVE_JOB_MEMORY_PER_NODE="${AGAVE_JOB_MEMORY_PER_NODE}"'
+echo 'AGAVE_JOB_ARCHIVE_URL="${AGAVE_JOB_ARCHIVE_URL}"'
+echo 'AGAVE_JOB_OWNER="${AGAVE_JOB_OWNER}"'
+echo 'AGAVE_JOB_TENANT="${AGAVE_JOB_TENANT}"'
+echo 'AGAVE_JOB_ARCHIVE="${AGAVE_JOB_ARCHIVE}"'
+echo 'AGAVE_JOB_MAX_RUNTIME="${AGAVE_JOB_MAX_RUNTIME}"'
+echo 'AGAVE_JOB_MAX_RUNTIME_MILLISECONDS="${AGAVE_JOB_MAX_RUNTIME_MILLISECONDS}"'
+echo "Printing runtime environment..."
+
+env
+
+CALLBACK=$(${command})
+
+${AGAVE_JOB_CALLBACK_NOTIFICATION|CALLBACK}
+
+sleep 3
+
+</code></pre>
 
 <p>In order to run your application, you will need to create a wrapper template that calls your executable code. The wrapper template is a simple script that Agave will filter and execute to start your app. The filtering Agave applies to your wrapper script is to inject runtime values from a job request into the script to replace the template variables representing the inputs and parameters of your app.</p>
 
@@ -5437,11 +5821,11 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 
 <p>Comes from the system definition. Handle in your script if you cannot change the system definition to suite your needs. Ship whatever you need with your app&rsquo;s assets.</p>
 
-<h4 id="modules">Modules</h4>
+<h4 id="using-modules-in-wrapper-templates">Using modules in wrapper templates</h4>
 
 <p>See more about <a href="http://modules.sourceforge.net/" title="The Environment Modules Project" target="_blank">Modules</a> and <a href="https://github.com/TACC/Lmod" title="Lmod: An Environment Module System based on Lua" target="_blank">Lmod</a>. Can be used to customize your environment, locate your application, and improve portability between systems. Agave does not install or manage the module installation on a particular system, however it does know how to interact with it. Specifying the modules needed to run your app either in your wrapper template or in your system definition can greatly help you during the development process.</p>
 
-<h4 id="default-job-macros">Default job macros</h4>
+<h4 id="available-wrapper-template-runtime-macros">Available wrapper template runtime macros</h4>
 
 <p>Agave provides information about the job, system, and user as predefined macros you can use in your wrapper templates. The full list of  runtime job macros are give in the following table.</p>
 
@@ -5485,6 +5869,14 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
         <tr>
             <td>AGAVE_JOB_ID</td>
             <td>The unique identifier of the job.</td>
+        </tr>
+        <tr>
+            <td>JOB_MAX_RUNTIME</td>
+            <td>The max job run from the job request in HH:MM:SS format.</td>
+        </tr>
+        <tr>
+            <td>JOB_MAX_RUNTIME_MILLISECONDS</td>
+            <td>The max job run time from the job request converted to milliseconds.</td>
         </tr>
         <tr>
             <td>AGAVE_JOB_MEMORY_PER_NODE</td>
@@ -5545,831 +5937,29 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
     </tbody>
 </table>
 
-<h4 id="input-data">Input data</h4>
+<h4 id="handling-app-inputs">Handling app inputs</h4>
 
 <p>Agave will stage the files and folders you specify as inputs to your app. These will be available in the top level of your job directory at runtime. Additionally, the names of each of the inputs will be injected into your wrapper template for you to use in your application logic. Please be aware that Agave will not attempt to resolve namespace conflicts between your app inputs. That means that if a job specifies two inputs with the same name, one will overwrite the other during the input staging phase of the job and, though the variable names will be correctly injected to the wrapper script, your job will most likely fail due to missing data.</p>
 
-<h4 id="variable-injection">Variable injection</h4>
+<h4 id="handling-app-parameters">Handling app parameters</h4>
 
 <p>If you refer back to the app definition we used in the App Management Tutorial, you will see there are multiple inputs and parameters defined for that app. Each input and parameter object had an <code class="prettyprint">id</code> attribute. That <code class="prettyprint">id</code> value is the attribute name you use to associate runtime values with app inputs and parameters. When a job is submitted to Agave, prior to physically running the wrapper template, all instances of that <code class="prettyprint">id</code> are replaced with the actual value from the job request. The example below shows our app description, a job request, and the resulting wrapper template at run time.</p>
 
-<h4 id="type-declarations">Type declarations</h4>
+<h4 id="variable-type-casting">Variable type casting</h4>
 
 <p>During the jobs submission process, Agave will store your inputs and parameters as serialized JSON. At the point that variable injection occurs, Agave will replace all occurrences of your input and parameter with their value provided in the job request. In order for Agave to properly identify your input and parameter ids, wrap them in brackets and prepend a dollar sign. For example, if you have a parameter with id <code class="prettyprint">param1</code>, you would include it in your wrapper script as <code class="prettyprint">${param1}</code>. Case sensitivity is honored at all times.</p>
 
-<h4 id="boolean-values">Boolean values</h4>
+<h4 id="handling-boolean-values">Handling boolean values</h4>
 
-<p>Boolean values are passed in as truthy values. true = 1, false is empty.</p>
+<p>Boolean values are passed in as truthy values. true = 1, false is empty. </p>
 
-<h4 id="cardinality">Cardinality</h4>
-
-<p>Cardinality is not used in resolving wrapper template variables.</p>
-
-<h4 id="validation">Validation</h4>
-
-<p>Cardinality is not used in resolving wrapper template variables.</p>
-
-<h4 id="parameter-flags">Parameter Flags</h4>
+<h4 id="using-flag-parameters">Using flag parameters</h4>
 
 <p>If your parameter was of type &ldquo;flag&rdquo;, Agave will replace all occurences of the template variable with the value you provided for the <code class="prettyprint">argument</code> field.</p>
 
-<h3 id="app-packaging">App packaging</h3>
+<aside class="info">The cardinality and validation fields in an app&rsquo;s input and parameter definitions are not used in resolving wrapper template variables. The constraints imposed by each of these fields are already satisfied before the job is accepted. In your wrapper script, you can safely operate under the assumption that your inputs and parameters have been validated to the degree specified in your app definition.</aside>
 
-<p>Agave API apps have a generalized structure that allows them to carry dependencies around with them. In the case below, <em>package-name-version.dot.dot</em> is a folder that you build on your local system, then store in your Agave Cloud Storage in a designated location (we recommend /home/<username>/applications/<app folder name>). It contains binaries, support scripts, test data, etc. all in one package. Agave basically uses a very rough form of containerized applications (more on this later). We suggest you set your apps up to look something like the following:</p>
-<pre class="highlight plaintext"><code>package-name-version.dot.dot
-|--system_name
-|----bin.tgz (optional)
-|----lib.tgz (optional)
-|----include.tgz (optional)
-|----test.sh
-|----script.template
-|----test_data (optional)
-|----app.json
-</code></pre>
-
-<p>Agave runs a job by first transferring a copy of this directory into temporary directory on the target executionSystem. Then, the input data files (we&rsquo;ll show you how to specify those are later) are staged into place automatically. Next, Agave writes a scheduler submit script (using a template you provide i.e. script.template) and puts it in the queue on the target system. The Agave service then monitors progress of the job and, assuming it completes, copies all newly-created files to the location specified when the job was submitted. Along the way, critical milestones and metadata are recorded in the job&rsquo;s history.</p>
-
-<p><em>Agave app development proceeds via the following steps:</em></p>
-
-<ol>
-<li>Build the application locally on the executionSystem</li>
-<li>Ensure that you are able to run it directly on the executionSystem</li>
-<li>Describe the application using an Agave app description</li>
-<li>Create a shell template for running the app</li>
-<li>Upload the application directory to a storageSystem</li>
-<li>Post the app description to the Agave apps service</li>
-<li>Debug your app by running jobs and updating the app until it works as intended</li>
-<li>(Optional) Share the app with some friends to let them test it</li>
-</ol>
-
-<h3 id="build-a-samtools-application-bundle">Build a samtools application bundle</h3>
-<pre class="highlight shell"><code><span class="c"># Log into Stampede</span>
-ssh stampede.tacc.utexas.edu
-
-<span class="c"># Unload system&amp;#039;s samtools module if it happens to be loaded by default</span>
-module unload samtools
-
-<span class="c"># All TACC systems have a directory than can be accessed as $WORK</span>
-<span class="nb">cd</span> <span class="nv">$WORK</span>
-
-<span class="c"># Set up a project directory</span>
-mkdir iPlant
-mkdir iPlant/src
-mkdir -p iPlant/samtools-0.1.19/stampede/bin
-mkdir -p iPlant/samtools-0.1.19/stampede/test
-
-<span class="c"># Build samtools using the Intel C Compiler</span>
-<span class="c"># If you don&amp;#039;t have icc, gcc will work but icc usually gives more efficient binaries</span>
-<span class="nb">cd </span>iPlant/src
-wget <span class="s2">"http://downloads.sourceforge.net/project/samtools/samtools/0.1.19/samtools-0.1.19.tar.bz2"</span>
-tar -jxvf samtools-0.1.19.tar.bz2
-<span class="nb">cd </span>samtools-0.1.19
-make <span class="nv">CC</span><span class="o">=</span>icc
-
-<span class="c"># Copy the samtools binary and support scripts to the project bin directory</span>
-cp -R samtools bcftools misc ../../samtools-0.1.19/stampede/bin/
-<span class="nb">cd</span> ../../samtools-0.1.19/stampede
-
-<span class="c"># Test that samtools will launch</span>
-bin/samtools
-
-  Program: samtools <span class="o">(</span>Tools <span class="k">for </span>alignments <span class="k">in </span>the SAM format<span class="o">)</span>
-  Version: 0.1.19-44428cd
-
-  Usage:   samtools &amp;lt;command&amp;gt; <span class="o">[</span>options]
-
-  Command: view        SAM&amp;lt;-&amp;gt;BAM conversion
-           sort        sort alignment file
-           mpileup     multi-way pileup...
-
-<span class="c"># Package up the bin directory as an compressed archive</span>
-<span class="c"># and remove the original. This preserves the execute bit</span>
-<span class="c"># and other permissions and consolidates movement of all</span>
-<span class="c"># bundled dependencies in bin to a single operation. You</span>
-<span class="c"># can adopt a similar approach with lib and include.</span>
-tar -czf bin.tgz bin &amp;amp;&amp;amp; rm -rf bin
-</code></pre>
-
-<h3 id="run-samtools-sort-locally">Run samtools sort locally</h3>
-
-<p>Your first objective is to create a script that you know will run to completion under the Stampede scheduler and environment (or whatever executionSystem you&rsquo;re working on). It will serve as a model for the template file you create later. In our case, we need to write a script that can be submitted to the Slurm scheduler. The standard is to use Bash for such scripts. You have five main objectives in your script:
-* Unpack binaries from bin.tgz
-* Extend your PATH to contain bin
-* Craft some option-handling logic to accept parameters from Agave
-* Craft a command line invocation of the application you will run
-* Clean up when you&rsquo;re done</p>
-
-<p>First, you will need some test data in your current directory (i.e., $WORK/iPlant/samtools-0.1.19/stampede/ ). You can use this test file</p>
-<pre class="highlight shell"><code>files-get -S data.agaveapi.co /shared/datasets/example_data/Samtools_mpileup/ex1.bam
-</code></pre>
-
-<p>or you can any other BAM file for your testing purposes. Make sure if you use another file to change the filename in your test script accordingly!</p>
-
-<p>Now, author your script. You can paste the following code into a file called <em>test-sort.sh</em> or you can copy it from $IPLANT_SDK_HOME/examples/samtools-0.1.19/stampede/test-sort.sh</p>
-<pre class="highlight shell"><code><span class="c">#!/bin/bash</span>
-
-<span class="c"># Agave automatically writes these scheduler</span>
-<span class="c"># directives when you submit a job but we have to</span>
-<span class="c"># do it by hand when writing our test</span>
-
-<span class="c">#SBATCH -p development</span>
-<span class="c">#SBATCH -t 00:30:00</span>
-<span class="c">#SBATCH -n 16</span>
-<span class="c">#SBATCH -A iPlant-Collabs</span>
-<span class="c">#SBATCH -J test-samtools</span>
-<span class="c">#SBATCH -o test-samtools.o%j</span>
-
-<span class="c"># Set up inputs and parameters</span>
-<span class="c"># We&amp;#039;re emulating passing these in from Agave</span>
-<span class="c"># inputBam is the name of the file to be sorted</span>
-<span class="nv">inputBam</span><span class="o">=</span><span class="s2">"ex1.bam"</span>
-<span class="c"># outputPrefix is a parameter that establishes</span>
-<span class="c"># the prefix for the final sorted file</span>
-<span class="nv">outputPrefix</span><span class="o">=</span><span class="s2">"sorted"</span>
-<span class="c"># Parameter for memory used in sort operation, in bytes</span>
-<span class="nv">maxMemSort</span><span class="o">=</span>500000000
-<span class="c"># Boolean: Sort by name instead of coordinate</span>
-<span class="nv">nameSort</span><span class="o">=</span>0
-
-<span class="c"># Unpack the bin.tgz file containing samtools binaries</span>
-<span class="c"># If you are relying entirely on system-supplied binaries</span>
-<span class="c"># you don&amp;#039;t need this bit</span>
-tar -xvf bin.tgz
-<span class="c"># Extend PATH to include binaries in bin</span>
-<span class="c"># If you need to extend lib, include, etc</span>
-<span class="c"># the same approach is applicable</span>
-<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/bin"</span>
-
-<span class="c"># Dynamically construct a command line</span>
-<span class="c"># by building an ARGS string then</span>
-<span class="c"># adding the command, file specifications, etc</span>
-<span class="c">#</span>
-<span class="c"># We&amp;#039;re doing this in a way familar to Agave V1 users</span>
-<span class="c"># first. Later, we&amp;#039;ll illustrate how to make use of</span>
-<span class="c"># Agave V2&amp;#039;s new parameter passing functions</span>
-<span class="c">#</span>
-<span class="c"># Start with empty ARGS...</span>
-<span class="nv">ARGS</span><span class="o">=</span><span class="s2">""</span>
-<span class="c"># Add -m flag if maxMemSort was specified</span>
-<span class="c"># You might want to add a constraint for how large maxMemSort</span>
-<span class="c"># can be based on the available memory on your executionSystem</span>
-<span class="k">if</span> <span class="o">[</span> <span class="k">${</span><span class="nv">maxMemSort</span><span class="k">}</span> -gt 0 <span class="o">]</span>; <span class="k">then </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">ARGS</span><span class="k">}</span><span class="s2"> -m </span><span class="nv">$maxMemSort</span><span class="s2">"</span>; <span class="k">fi</span>
-
-<span class="c"># Boolean handler for -named sort</span>
-<span class="k">if</span> <span class="o">[</span> <span class="k">${</span><span class="nv">nameSort</span><span class="k">}</span> -eq 1 <span class="o">]</span>; <span class="k">then </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">ARGS</span><span class="k">}</span><span class="s2"> -n "</span>; <span class="k">fi</span>
-
-<span class="c"># Run the actual program</span>
-samtools sort <span class="k">${</span><span class="nv">ARGS</span><span class="k">}</span> <span class="k">${</span><span class="nv">inputBam</span><span class="k">}</span> <span class="k">${</span><span class="nv">outputPrefix</span><span class="k">}</span>
-
-<span class="c"># Now, delete the bin/ directory</span>
-rm -rf bin
-</code></pre>
-
-<h3 id="submit-the-job-to-the-queue-on-stampede">Submit the job to the queue on Stampede&hellip;</h3>
-<pre class="highlight shell"><code>chmod 700 <span class="nb">test</span>-sort.sh
-sbatch <span class="nb">test</span>-sort.sh
-</code></pre>
-
-<p>You can monitor your jobs in the queue using</p>
-<pre class="highlight shell"><code>showq -u your_tacc_username
-</code></pre>
-
-<p>Assuming all goes according to plan, you&rsquo;ll end up with a sorted BAM called <em>sorted.bam</em>, and your bin directory (but not the bin.tgz file) should be erased. Congratulations, you&rsquo;re in the home stretch: it&rsquo;s time to turn the test script into an Agave app.</p>
-
-<h3 id="craft-an-agave-app-description">Craft an Agave app description</h3>
-
-<p>In order for Agave to know how to run an instance of the application, we need to provide quite a bit of metadata about the application. This includes a unique name and version, the location of the application bundle, the identities of the execution system and destination system for results, whether its an HPC or other kind of job, the default number of processors and memory it needs to run, and of course, all the inputs and parameters for the actual program. It seems a bit over-complicated, but only because you&rsquo;re comfortable with the command line already. Your goal here is to allow your applications to be portable across systems and present a web-enabled, rationalized interface for your code to consumers.</p>
-
-<p>Rather than have you write a description for &ldquo;samtools sort&rdquo; from scratch, let&rsquo;s systematically dissect an existing file provided with the SDK. Go ahead and copy the file into place and open it in your text editor of choice. If you don&rsquo;t have the SDK installed, you can <a href="../examples/samtools-0.1.19/stampede/samtools-sort.json">grab it here</a>.</p>
-<pre class="highlight shell"><code><span class="nb">cd</span> <span class="nv">$WORK</span>/iPlant/samtools-0.1.19/stampede/
-cp <span class="nv">$IPLANT_SDK_HOME</span>/examples/samtools-0.1.19/stampede/samtools-sort.json .
-</code></pre>
-
-<p>Open up samtools-sort.json in a text editor or <a href="../examples/samtools-0.1.19/stampede/samtools-sort.json">in your web browser</a> and follow along below.</p>
-
-<h3 id="overview">Overview</h3>
-
-<p>Your file <em>samtools-sort.json</em> is written in <a href="http://www.json.org/">JSON</a>, and conforms to an Agave-specific data model. You can find fully fleshed out details about all fields under <em>Parameters -&gt; Data Type -&gt; Model</em> at the <a href="http://agaveapi.co/live-docs/#!/apps/add_post_1">Agave API live docs on the /apps service</a>. We will dive into key elements here:</p>
-
-<p>To make this file work for you, you will be, at a minimum, editting:</p>
-
-<ol>
-<li>Its <em>executionSystem</em> to match your private instance of Stampede.</li>
-<li>Its <em>deploymentPath</em> to match your iPlant applications path</li>
-<li>The <em>name</em> of the app to something besides &ldquo;samtools-sort&rdquo;. We recommend &ldquo;$IPLANTUSERNAME-samtools-sort&rdquo;.</li>
-</ol>
-
-<p>Instructions for making these changes will follow.</p>
-
-<p>All Agave application descriptions have the following structure:</p>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">   </span><span class="nt">"application_metadata"</span><span class="p">:</span><span class="s2">"value"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"inputs"</span><span class="p">:[],</span><span class="w">
-  </span><span class="nt">"parameters"</span><span class="p">:[],</span><span class="w">
-  </span><span class="nt">"outputs"</span><span class="p">:[]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>There is a defined list of application metadata fields, some of which are mandatory. Inputs, parameters, and outputs are specified as an array of simple data structures, which will be described below.</p>
-
-<h3 id="application-metadata">Application metadata</h3>
-
-<table>
-<thead>
-<tr>
-  <th>Field</th>
-  <th>Mandatory</th>
-  <th>Type</th>
-  <th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td>checkpointable</td>
-  <td>X</td>
-  <td>boolean</td>
-  <td>Application supports checkpointing</td>
-</tr>
-<tr>
-  <td>defaultMemoryPerNode</td>
-  <td></td>
-  <td>integer</td>
-  <td>Default RAM (GB) to request per compute node</td>
-</tr>
-<tr>
-  <td>defaultProcessorsPerNode</td>
-  <td></td>
-  <td>integer</td>
-  <td>Default processor count to request per compute node</td>
-</tr>
-<tr>
-  <td>defaultMaxRunTime</td>
-  <td></td>
-  <td>integer</td>
-  <td>Default maximum run time (hours:minutes:seconds) to request per compute node</td>
-</tr>
-<tr>
-  <td>defaultNodeCount</td>
-  <td></td>
-  <td>integer</td>
-  <td>Default number of compute nodes per job</td>
-</tr>
-<tr>
-  <td>defaultQueue</td>
-  <td></td>
-  <td>string</td>
-  <td>On HPC systems, default batch queue for jobs</td>
-</tr>
-<tr>
-  <td>deploymentPath</td>
-  <td>X</td>
-  <td>string</td>
-  <td>Path relative to homeDir on deploymentSystem where application bundle will reside</td>
-</tr>
-<tr>
-  <td>deployementSystem</td>
-  <td>X</td>
-  <td>string</td>
-  <td>The Agave-registered STORAGE system upon which you have write permissions where the app bundle resides</td>
-</tr>
-<tr>
-  <td>executionSystem</td>
-  <td>X</td>
-  <td>string</td>
-  <td>An Agave-registered EXECUTION system upon which you have execute and app registration permissions where jobs will run</td>
-</tr>
-<tr>
-  <td>helpURI</td>
-  <td>X</td>
-  <td>string</td>
-  <td>A URL pointing to help or description for the app you are deploying</td>
-</tr>
-<tr>
-  <td>label</td>
-  <td>X</td>
-  <td>string</td>
-  <td>Human-readable title for the app</td>
-</tr>
-<tr>
-  <td>longDescription</td>
-  <td></td>
-  <td>string</td>
-  <td>A short paragraph describing the functionality of the app</td>
-</tr>
-<tr>
-  <td>modules</td>
-  <td></td>
-  <td>array[string]</td>
-  <td>Ordered list of modules on systems that use lmod or modules</td>
-</tr>
-<tr>
-  <td>name</td>
-  <td>X</td>
-  <td>string</td>
-  <td>unique, URL-compatible (no special chars or spaces) name for the app</td>
-</tr>
-<tr>
-  <td>ontology</td>
-  <td>X</td>
-  <td>array[string]</td>
-  <td>List of ontology terms (or URIs pointing to ontology terms) associated with the app</td>
-</tr>
-<tr>
-  <td>parallelism</td>
-  <td>X</td>
-  <td>string</td>
-  <td>Is your application capable of using more than a single compute node? (SERIAL or PARALLEL)</td>
-</tr>
-<tr>
-  <td>shortDescription</td>
-  <td>X</td>
-  <td>string</td>
-  <td>Brief description of the app</td>
-</tr>
-<tr>
-  <td>storageSystem</td>
-  <td>X</td>
-  <td>string</td>
-  <td>The Agave-registered STORAGE system upon which you have write permissions. Default source of and destination for data consumed and emitted by the app</td>
-</tr>
-<tr>
-  <td>tags</td>
-  <td></td>
-  <td>array[string]</td>
-  <td>List of human-readable tags for the app</td>
-</tr>
-<tr>
-  <td>templatePath</td>
-  <td>X</td>
-  <td>string</td>
-  <td>Path to the shell template file, relative to deploymentPath</td>
-</tr>
-<tr>
-  <td>testPath</td>
-  <td>X</td>
-  <td>string</td>
-  <td>Path to the shell test file, relative to deploymentPath</td>
-</tr>
-<tr>
-  <td>version</td>
-  <td>X</td>
-  <td>string</td>
-  <td>Preferred format: Major.minor.point integer values for app</td>
-</tr>
-</tbody>
-</table>
-
-<aside class="alert">Note *: The combination of <em>name</em> and <em>version</em> must be unique the entire iPlant API namespace.</aside>
-
-<h3 id="inputs">Inputs</h3>
-
-<p>To tell Agave what files to stage into place before job execution, you need to define the app&rsquo;s inputs in a JSON array. To implement the SAMtools sort app, you need to tell Agave that a BAM file is needed to act as the subject of our sort:</p>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">  
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"inputBam"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"value"</span><span class="p">:{</span><span class="w">  
-    </span><span class="nt">"default"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"order"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"required"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"validator"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"visible"</span><span class="p">:</span><span class="kc">true</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"semantics"</span><span class="p">:{</span><span class="w">  
-    </span><span class="nt">"ontology"</span><span class="p">:[</span><span class="w">  
-      </span><span class="s2">"http://sswapmeet.sswap.info/mime/application/X-bam"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nt">"minCardinality"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fileTypes"</span><span class="p">:[</span><span class="w">  
-      </span><span class="s2">"raw-0"</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"details"</span><span class="p">:{</span><span class="w">  
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"label"</span><span class="p">:</span><span class="s2">"The BAM file to sort"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"argument"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"showArgument"</span><span class="p">:</span><span class="kc">false</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>Here&rsquo;s a walkthrough of what these fields mean:</p>
-
-<table>
-<thead>
-<tr>
-  <th>Field</th>
-  <th>Mandatory</th>
-  <th>Type</th>
-  <th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td>id</td>
-  <td>X</td>
-  <td>string</td>
-  <td>This is the &ldquo;name&rdquo; of the file. You will use this in your wrapper script later whenever you need to refer to the BAM file being sorted</td>
-</tr>
-<tr>
-  <td>value.default</td>
-  <td></td>
-  <td>string</td>
-  <td>The path, relative to X, of the default value for the input</td>
-</tr>
-<tr>
-  <td>value.order</td>
-  <td></td>
-  <td>integer</td>
-  <td>Ignore for now</td>
-</tr>
-<tr>
-  <td>value.required</td>
-  <td>X</td>
-  <td>boolean</td>
-  <td>Is specification of this input mandatory to run a job?</td>
-</tr>
-<tr>
-  <td>value.validator</td>
-  <td></td>
-  <td>string</td>
-  <td><a href="https://www.cs.tut.fi/~jkorpela/perl/regexp.html">Perl-format regular expression</a> to restrict valid values</td>
-</tr>
-<tr>
-  <td>value.visible</td>
-  <td></td>
-  <td>boolean</td>
-  <td>When automatically generated a UI, should this field be visible to end users?</td>
-</tr>
-<tr>
-    <td>value.enquote</td>
-    <td></td>
-    <td>boolean</td>
-    <td>Should the value be surrounded in quotation marks prior to injecting into the wrapper template at job runtime.</td>
-</tr>
-<tr>
-  <td>semantics.ontology</td>
-  <td></td>
-  <td>array[string]</td>
-  <td>List of ontology terms (or URIs pointing to ontology terms) applicable to the input format</td>
-</tr>
-<tr>
-  <td>semantics.minCardinality</td>
-  <td></td>
-  <td>integer</td>
-  <td>Minimum number of values accepted for this input</td>
-</tr>
-<tr>
-  <td>semantics.maxCardinality</td>
-  <td></td>
-  <td>integer</td>
-  <td>Maximum number of values accepted for this input</td>
-</tr>
-<tr>
-  <td>semantics.fileTypes</td>
-  <td>X</td>
-  <td>array[string]</td>
-  <td>List of Agave file types accepted. Always use &ldquo;raw-0&rdquo; for the time being</td>
-</tr>
-<tr>
-  <td>details.description</td>
-  <td></td>
-  <td>string</td>
-  <td>Human-readable description of the input. Often implemented as contextual help in automatically generated UI</td>
-</tr>
-<tr>
-  <td>details.label</td>
-  <td></td>
-  <td>string</td>
-  <td>Human-readable label for the input. Often implemented as text label next to the field in automatically generated UI</td>
-</tr>
-<tr>
-  <td>details.argument</td>
-  <td></td>
-  <td>string</td>
-  <td>The command-line argument associated with specifying this input at run time</td>
-</tr>
-<tr>
-    <td>details.showArgument</td>
-    <td></td>
-    <td>boolean</td>
-    <td>Whether to include the argument value for this input when performing the template variable replacement during job submission. If true, the <code>details.argument</code> value will be prepended, without spaces, to the actual output value(s).</td>
-</tr>
-<tr>
-    <td>details.repeatArgument</td>
-    <td></td>
-    <td>boolean</td>
-    <td>When multiple values are provided for this output, this attribute determines whether to include the argument value  before each user-supplied value when performing the template variable replacement during job submission. The <code>details.showArgument</code> value must be <i>true</i> for this value to be applied.</td>
-</tr>
-</tbody>
-</table>
-
-<p><em>A note on paths</em>: In this iPlant-oriented tutorial, we assume you will stage data to and from &ldquo;data.agaveapi.co&rdquo;, the default storage system for iPlant users. In this case, you can use relative paths relative to homeDir on that system (i.e. vaughn/analyses/foobar). To add portability, marshal data from other storageSystems, or import from public servers, you can also specify fully qualified URIs as follows:
-* storageSystem namespace: agave://storage-system-name/path/to/file
-* public URI namespace: https://www.cnn.com/index.html</p>
-
-<h3 id="parameters">Parameters</h3>
-
-<p>Parameters are specified in a JSON array, and are broadly similar to inputs. Here&rsquo;s an example of the parameter we will define allowing users to specify how much RAM to use in a &ldquo;samtools sort&rdquo; operation.</p>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">  
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"maxMemSort"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"value"</span><span class="p">:{</span><span class="w">  
-    </span><span class="nt">"default"</span><span class="p">:</span><span class="s2">"500000000"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"order"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"required"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"number"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"validator"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"visible"</span><span class="p">:</span><span class="kc">true</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"semantics"</span><span class="p">:{</span><span class="w">  
-    </span><span class="nt">"ontology"</span><span class="p">:[</span><span class="w">  
-      </span><span class="s2">"xs:integer"</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"details"</span><span class="p">:{</span><span class="w">  
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"label"</span><span class="p">:</span><span class="s2">"Maxiumum memory in bytes, used for sorting"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"argument"</span><span class="p">:</span><span class="s2">"-m"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"showArgument"</span><span class="p">:</span><span class="kc">false</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<table>
-<thead>
-<tr>
-  <th>Field</th>
-  <th>Mandatory</th>
-  <th>Type</th>
-  <th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td>id</td>
-  <td>X</td>
-  <td>string</td>
-  <td>This is the &ldquo;name&rdquo; of the parameter. At runtime, it will be replaced in your script template based on the value passed as part of the job specification</td>
-</tr>
-<tr>
-  <td>value.default</td>
-  <td></td>
-  <td>string</td>
-  <td>If your app has a fixed-name output, specify it here</td>
-</tr>
-<tr>
-  <td>value.order</td>
-  <td></td>
-  <td>integer</td>
-  <td>Ignore for now. Supports automatic generation of command lines.</td>
-</tr>
-<tr>
-  <td>value.required</td>
-  <td></td>
-  <td>boolean</td>
-  <td>Is specification of this parameter mandatory to run a job?</td>
-</tr>
-<tr>
-  <td>value.type</td>
-  <td></td>
-  <td>string</td>
-  <td>JSON type for this parameter (used to generate and validate UI). Valid values: &ldquo;string&rdquo;, &ldquo;number&rdquo;, &ldquo;enumeration&rdquo;, &ldquo;bool&rdquo;, &ldquo;flag&rdquo;</td>
-</tr>
-<tr>
-  <td>value.validator</td>
-  <td></td>
-  <td>string</td>
-  <td><a href="https://www.cs.tut.fi/~jkorpela/perl/regexp.html">Perl-formatted regular expression</a> to restrict valid values</td>
-</tr>
-<tr>
-  <td>value.visible</td>
-  <td></td>
-  <td>boolean</td>
-  <td>When automatically generated a UI, should this field be visible to end users?</td>
-</tr>
-<tr>
-    <td>value.enquote</td>
-    <td></td>
-    <td>boolean</td>
-    <td>Should the value be surrounded in quotation marks prior to injecting into the wrapper template at job runtime.</td>
-</tr>
-<tr>
-  <td>semantics.ontology</td>
-  <td></td>
-  <td>array[string]</td>
-  <td>List of ontology terms (or URIs pointing to ontology terms) applicable to the parameter. We recommend at least specifying an <a href="http://www.schemacentral.com/sc/xsd/s-datatypes.xsd.html">XSL Schema Simple Type</a>.</td>
-</tr>
-<tr>
-  <td>details.description</td>
-  <td></td>
-  <td>string</td>
-  <td>Human-readable description of the parameter. Often used to create contextual help in automatically generated UI</td>
-</tr>
-<tr>
-  <td>details.label</td>
-  <td></td>
-  <td>string</td>
-  <td>Human-readable label for the parameter. Often implemented as text label next to the field in automatically generated UI</td>
-</tr>
-<tr>
-  <td>details.argument</td>
-  <td></td>
-  <td>string</td>
-  <td>The command-line argument associated with specifying this parameter at run time</td>
-</tr>
-<tr>
-    <td>details.showArgument</td>
-    <td></td>
-    <td>boolean</td>
-    <td>Whether to include the argument value for this input when performing the template variable replacement during job submission. If true, the <code>details.argument</code> value will be prepended, without spaces, to the actual output value(s).</td>
-</tr>
-<tr>
-    <td>details.repeatArgument</td>
-    <td></td>
-    <td>boolean</td>
-    <td>When multiple values are provided for this output, this attribute determines whether to include the argument value  before each user-supplied value when performing the template variable replacement during job submission. The <code>details.showArgument</code> value must be <i>true</i> for this value to be applied.</td>
-</tr>
-</tbody>
-</table>
-
-<h3 id="outputs">Outputs</h3>
-
-<p>While we don&rsquo;t support outputs 100% yet, Agave apps are designed to participate in workflows. Thus, just as we define the list of valid and required inputs to an app, we also must (when we know them) define a list of its outputs. This allows it to &ldquo;advertise&rdquo; to consumers of Agave services what it expects to emit, allowing apps to be chained together. Note that unlike inputs and parameters, output &ldquo;id&quot;s are NOT passed to the template file.  If you must specify an output filename in the application json, do it as a parameter!  Outputs are defined basically the same way as inputs:</p>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">  
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"bam"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"value"</span><span class="p">:{</span><span class="w">  
-    </span><span class="nt">"default"</span><span class="p">:</span><span class="s2">"sorted.bam"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"order"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"required"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"validator"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"visible"</span><span class="p">:</span><span class="kc">true</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"semantics"</span><span class="p">:{</span><span class="w">  
-    </span><span class="nt">"ontology"</span><span class="p">:[</span><span class="w">  
-      </span><span class="s2">"http://sswapmeet.sswap.info/mime/application/X-bam"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nt">"minCardinality"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fileTypes"</span><span class="p">:[</span><span class="w">  
-      </span><span class="s2">"raw-0"</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"details"</span><span class="p">:{</span><span class="w">  
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"label"</span><span class="p">:</span><span class="s2">"Sorted BAM file"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"argument"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"showArgument"</span><span class="p">:</span><span class="kc">false</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>Obligatory field walk-through:</p>
-
-<table>
-<thead>
-<tr>
-  <th>Field</th>
-  <th>Mandatory</th>
-  <th>Type</th>
-  <th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td>id</td>
-  <td>X</td>
-  <td>string</td>
-  <td>This is the &quot;name&rdquo; of the output. It is not currently used by the wrapper script but may be in the future</td>
-</tr>
-<tr>
-  <td>value.default</td>
-  <td></td>
-  <td>string</td>
-  <td>If your app has a fixed-name output, specify it here</td>
-</tr>
-<tr>
-  <td>value.order</td>
-  <td></td>
-  <td>integer</td>
-  <td>Ignore for now</td>
-</tr>
-<tr>
-  <td>value.required</td>
-  <td>X</td>
-  <td>boolean</td>
-  <td>Is specification of this input mandatory to run a job?</td>
-</tr>
-<tr>
-  <td>value.validator</td>
-  <td></td>
-  <td>string</td>
-  <td><a href="https://www.cs.tut.fi/~jkorpela/perl/regexp.html">Perl-format regular expression</a> used to match output files</td>
-</tr>
-<tr>
-  <td>value.visible</td>
-  <td></td>
-  <td>boolean</td>
-  <td>When automatically generated a UI, should this field be visible to end users?</td>
-</tr>
-<tr>
-  <td>semantics.ontology</td>
-  <td></td>
-  <td>array[string]</td>
-  <td>List of ontology terms (or URIs pointing to ontology terms) applicable to the output format</td>
-</tr>
-<tr>
-  <td>semantics.minCardinality</td>
-  <td></td>
-  <td>integer</td>
-  <td>Minimum number of values expected for this output</td>
-</tr>
-<tr>
-  <td>semantics.maxCardinality</td>
-  <td></td>
-  <td>integer</td>
-  <td>Maximum number of values expected for this output</td>
-</tr>
-<tr>
-  <td>semantics.fileTypes</td>
-  <td>X</td>
-  <td>array[string]</td>
-  <td>List of Agave file types that may apply to the output. Always use &ldquo;raw-0&rdquo; for the time being</td>
-</tr>
-<tr>
-  <td>details.description</td>
-  <td></td>
-  <td>string</td>
-  <td>Human-readable description of the output</td>
-</tr>
-<tr>
-  <td>details.label</td>
-  <td></td>
-  <td>string</td>
-  <td>Human-readable label for the output</td>
-</tr>
-<tr>
-  <td>details.argument</td>
-  <td></td>
-  <td>string</td>
-  <td>The command-line argument associated with specifying this output at run time (not currently used)</td>
-</tr>
-<tr>
-  <td>details.showArgument</td>
-  <td></td>
-  <td>boolean</td>
-  <td>Include the argument in the substitution done by Agave when a run script is generated (not currently used)</td>
-</tr>
-</tbody>
-</table>
-
-<p><em>Note</em>: If the app you are working on doesn&rsquo;t natively produce output with a predictable name, one thing you can do is add extra logic to your script to take the existing output and rename it to something you can control or predict.</p>
-
-<h3 id="tools-and-utilities">Tools and Utilities</h3>
-
-<ol>
-<li>Stumped for ontology terms to apply to your Agave app inputs, outputs, and parameters? SSWAPmeet has many URI-format terms for <a href="http://sswapmeet.sswap.info/mime/">MIME</a> types, and BioPortal can provide links to <a href="http://bioportal.bioontology.org/ontologies/EDAM">EDAM</a>.
-<li>Need to validate JSON files? Try <a href="http://jsonlint.com/">JSONlint</a> or <a href="http://json.parser.online.fr/">JSONparser</a>
-</ol>
-
-<h4 id="craft-a-shell-script-template">Craft a shell script template</h4>
-
-<p>Create sort.template using your test-sort.sh script as the starting point.</p>
-<pre class="highlight shell"><code>cp <span class="nb">test</span>-sort.sh sort.template
-</code></pre>
-
-<p>Now, open sort.template in the text editor of your choice. Delete the bash shebang line and the SLURM pragmas. Replace the hard-coded values for inputs and parameters with variables defined by your app description.</p>
-<pre class="highlight shell"><code><span class="c"># Set up inputs...</span>
-<span class="c"># Since we don&amp;#039;t check these when constructing the</span>
-<span class="c"># command line later, these will be marked as required</span>
-<span class="nv">inputBam</span><span class="o">=</span><span class="k">${</span><span class="nv">inputBam</span><span class="k">}</span>
-<span class="c"># and parameters</span>
-<span class="nv">outputPrefix</span><span class="o">=</span><span class="k">${</span><span class="nv">outputPrefix</span><span class="k">}</span>
-<span class="c"># Maximum memory for sort, in bytes</span>
-<span class="c"># Be careful, Neither Agave nor scheduler will</span>
-<span class="c"># check that this is a reasonable value. In production</span>
-<span class="c"># you might want to code min/max for this value</span>
-<span class="nv">maxMemSort</span><span class="o">=</span><span class="k">${</span><span class="nv">maxMemSort</span><span class="k">}</span>
-<span class="c"># Boolean: Sort by name instead of coordinate</span>
-<span class="nv">nameSort</span><span class="o">=</span><span class="k">${</span><span class="nv">nameSort</span><span class="k">}</span>
-
-<span class="c"># Unpack the bin.tgz file containing samtools binaries</span>
-tar -xvf bin.tgz
-<span class="c"># Set the PATH to include binaries in bin</span>
-<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/bin"</span>
-
-<span class="c"># Build up an ARGS string for the program</span>
-<span class="c"># Start with empty ARGS...</span>
-<span class="nv">ARGS</span><span class="o">=</span><span class="s2">""</span>
-<span class="c"># Add -m flag if maxMemSort was specified</span>
-<span class="k">if</span> <span class="o">[</span> <span class="k">${</span><span class="nv">maxMemSort</span><span class="k">}</span> -gt 0 <span class="o">]</span>; <span class="k">then </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">ARGS</span><span class="k">}</span><span class="s2"> -m </span><span class="nv">$maxMemSort</span><span class="s2">"</span>; <span class="k">fi</span>
-
-<span class="c"># Boolean handler for -named sort</span>
-<span class="k">if</span> <span class="o">[</span> <span class="k">${</span><span class="nv">nameSort</span><span class="k">}</span> -eq 1 <span class="o">]</span>; <span class="k">then </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">ARGS</span><span class="k">}</span><span class="s2"> -n "</span>; <span class="k">fi</span>
-
-<span class="c"># Run the actual program</span>
-samtools sort <span class="k">${</span><span class="nv">ARGS</span><span class="k">}</span> <span class="nv">$inputBam</span> <span class="k">${</span><span class="nv">outputPrefix</span><span class="k">}</span>
-
-<span class="c"># Now, delete the bin/ directory</span>
-rm -rf bin
-</code></pre>
-
-              <h3 id="permissions">Permissions</h3>
+              <h3 id="app-permissions">App permissions</h3>
 
 <p>Apps have fine grained permissions similar to those found in the <a title="Job Management" href="#permissions-and-sharing129">Jobs</a> and <a title="File Management" href="#data-permissions">Files</a> services. Using these, you can share your app other Agave users. App permissions are private by default, so when you first POST your app to the Apps service, you are the only one who can see it. You may share your app with other users by granting them varying degrees of permissions. The full list of app permission values are listed in the following table.</p>
 
@@ -6414,7 +6004,7 @@ rm -rf bin
 
 <p>App permissions are distinct from all other roles and permissions and do not have implications outside the Apps service. This means that if you want to allow someone to run a job using your app, it is not sufficient to grant them READ_EXECUTE permissions on your app. They must also have an appropriate user role on the execution system on which the app will run. Similarly, if you do not have the right to publish on the <code class="prettyprint">executionSystem</code> or access the <code class="prettyprint">deploymentPath</code> on the <code class="prettyprint">deploymentSystem</code> in your app description, you will not be able to publish your app.</p>
 
-<h3 id="listing-permissions">Listing permissions</h3>
+<h3 id="listing-app-permissions">Listing app permissions</h3>
 
 <p>App permissions are managed through a set of URLs consistent with the permission operations elsewhere in the API. To query for a user&rsquo;s permission for an app, perform a GET on the user&rsquo;s unique app permissions url.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
@@ -6475,7 +6065,7 @@ rm -rf bin
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
-<h3 id="adding-and-updating-permissions">Adding and updating permissions</h3>
+<h3 id="adding-and-updating-app-permissions">Adding and updating app permissions</h3>
 
 <p>Setting permissions is done by posting a JSON object containing a permission and username. Alternatively, you can POST just the permission and append the username to the URL.</p>
 <pre class="highlight shell"><code><span class="c"># Standard syntax to grant permissions to a specific user</span>
@@ -6509,7 +6099,7 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<h3 id="deleting-permissions">Deleting permissions</h3>
+<h3 id="deleting-app-permissions">Deleting app permissions</h3>
 
 <p>Permissions can be deleted on a user-by-user basis, or all at once. To delete an individual user permission, make a DELETE request on the user&rsquo;s app permission URL.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X DELETE https://public.tenants.agaveapi.co/apps/v2/<span class="nv">$APP_ID</span>/bgibson
@@ -6762,6 +6352,173 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 <p>Often times you will want to copy an existing app for use on another system, or simply to obtain a private copy of the app for your own use. This can be done using the clone functionality in the Apps service. The following tabs show how to do this using the unix <code class="prettyprint">curl</code> command as well as with the Agave CLI.</p>
 
 <aside class="notice">When cloning public apps, the entire app bundle will be recreated on the `deploymentSystem` you specify or your default storage system. The same is not true for private apps. Cloning a private app will copy the job description, but not the app bundle. This is to honor the original ownership of the assets and prevent them from leaking out to the public space without the owner&rsquo;s permission. If you need direct access to the app&rsquo;s assets, request that the owner give you read access to the folder listed as the deploymentPath in the app description.</aside>
+
+              <h3 id="app-history">App history</h3>
+
+<p>A full history of changes to an app&rsquo;s definition, permissions, and availability is recorded for every app. The recorded history events represent a subset of the events thrown by the Apps API. Generally speaking, the events saved in an app&rsquo;s history represent mutations to the app&rsquo;s definition and state, not its assets. For further details about history associated with file items, see the section on <a href="#file-history">File history</a>.</p>
+
+<h4 id="direct-vs-indirect-events">Direct vs indirect events</h4>
+
+<p>Agave will record all the direct events related to an app. Examples of direct events are enabling and updating an app. Indirect events such as submitting a job, or deleting a system to which the app is associated, will not be recorded.</p>
+
+<h4 id="publishing-history">Publishing history</h4>
+
+<blockquote>
+<p>App is published for the first time</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -X PUT --data-binary <span class="s1">'{"action":"publish","name":"demo-pyplot-demo"}'</span> <span class="se">\</span>
+    https://public.agaveapi.co/apps/v2/demo-pyplot-demo-basic-0.1.0
+
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -X PUT --data-binary <span class="s1">'{"action":"publish","name":"demo-pyplot-demo"}'</span> <span class="se">\</span>
+    https://public.agaveapi.co/apps/v2/demo-pyplot-demo-intermediate-0.1.0
+
+curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    -X PUT --data-binary <span class="s1">'{"action":"publish","name":"demo-pyplot-demo"}'</span> <span class="se">\</span>
+    https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0
+</code></pre>
+<pre class="highlight plaintext"><code>apps-publish -v -N demo-pyplot-demo demo-pyplot-demo-basic-0.1.0
+apps-publish -v -N demo-pyplot-demo demo-pyplot-demo-intermediate-0.1.0
+apps-publish -v -N demo-pyplot-demo demo-pyplot-demo-advanced-0.1.0
+</code></pre>
+
+<blockquote>
+<p>The following (appreviated) entries are written to the app histories as follows</p>
+
+<p>Original app demo-pyplot-demo-basic-0.1.0  </p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PUBLISHED"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"App was published by nryan as demo-pyplot-demo-0.1.0u1. The published asset checksum is 6aea5f80fa7c1af9a945fc5d1cfc8c95"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+   </span><span class="err">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Original app demo-pyplot-demo-intermediate-0.1.0  </p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PUBLISHED"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"App was published by nryan as demo-pyplot-demo-0.1.0u1. The published asset checksum is 6aea5f80fa7c1af9a945fc5d1cfc8c95"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+   </span><span class="err">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Original app demo-pyplot-demo-advanced-0.1.0  </p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PUBLISHED"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"App was published by nryan as demo-pyplot-demo-0.1.0u3. The published asset checksum is f4193325b37b879e7218dcd81c81c614"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+   </span><span class="err">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Published app demo-pyplot-demo-0.1.0u1  </p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"App was created by nryan as a result of publishing demo-pyplot-demo-basic-0.1.0. The asset checksum is 6aea5f80fa7c1af9a945fc5d1cfc8c95"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="err">}</span><span class="p">,</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REPUBLISHED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A new version of this app, demo-pyplot-demo-0.1.0u2, was created by nryan as a result of publishing demo-pyplot-demo-intermediate-0.1.0. The published asset checksum is 9b7f72f279ad41a993fe9b1eaca87e3a"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="err">}</span><span class="p">,</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REPUBLISHED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A new version of this app, demo-pyplot-demo-0.1.0u3, was created by nryan as a result of publishing demo-pyplot-demo-advanced-0.1.0. The published asset checksum is f4193325b37b879e7218dcd81c81c614"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="err">}</span><span class="p">,</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Published app demo-pyplot-demo-0.1.0u2  </p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"App was created by nryan as a result of publishing demo-pyplot-demo-intermediate-0.1.0. The asset checksum is 9b7f72f279ad41a993fe9b1eaca87e3a"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="err">}</span><span class="p">,</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REPUBLISHED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A new version of this app, demo-pyplot-demo-0.1.0u3, was created by nryan as a result of publishing demo-pyplot-demo-advanced-0.1.0. The published asset checksum is f4193325b37b879e7218dcd81c81c614"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="err">}</span><span class="w"> 
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Published app demo-pyplot-demo-0.1.0u3  </p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"App was created by nryan as a result of publishing demo-pyplot-demo-advanced-0.1.0. The asset checksum is f4193325b37b879e7218dcd81c81c614"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+   </span><span class="err">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>When publishing an app, the published name and the original name may not be the same. Thus, there may be multiple apps from which a public app was created over time. Further, since every app publication results in a new public app id, there may not be any outwardly apparent relationship between the current and previous versions of a published app. To help track the changes of a published app over time, Agave will propagate and record publication <code class="prettyprint">REPUBLISHED</code> events through the entire ancestry of a published app. Take the following example using our pyplot app to illustrate this behavior. </p>
+
+<p>We see that republishing an app records the change in the history of every app in the published app&rsquo;s ancestry. This makes it easy to track down changes that occur both in the past and future of a given published app.  </p>
+
+<h4 id="listing-app-history">Listing app history</h4>
+
+<blockquote>
+<p>List the history of an app</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+    https://public.agaveapi.co/apps/v2/history/demo-pyplot-demo-advanced-0.1.0
+</code></pre>
+<pre class="highlight plaintext"><code>app-history -v demo-pyplot-demo-advanced-0.1.0
+</code></pre>
+
+<blockquote>
+<p>The response to this contains a summary listing all recorded events in the app history</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DOWNLOAD"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-20T19:47:56.000-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"public"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"File was downloaded"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STAGING_QUEUED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-20T19:48:12.000-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"File/folder queued for staging"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STAGING_COMPLETED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-20T19:48:16.000-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Staging completed successfully"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TRANSFORMING_COMPLETED"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-20T19:48:17.000-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nryan"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Your scheduled transfer of http://129.114.97.92/picksumipsum.txt completed staging. You can access the raw file on iPlant Data Store at /home/nryan/picksumipsum.txt or via the API at https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co//nryan/picksumipsum.txt."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Basic paginated listing of app history events is available as shown in the example. Currently, the app history service is readonly. The only way to erase the history on an app is to delete the app through the API.</p>
 
               <h2 id="jobs">Jobs</h2>
 <pre class="highlight json"><code><span class="w">    </span><span class="err">/$$$$$</span><span class="w">         </span><span class="err">/$$</span><span class="w">
@@ -7365,6 +7122,10 @@ curl -sk -H <span class="s2">"Authorization: Bearer  </span><span class="nv">$AC
     <tr>
         <td>JOB_MAX_RUNTIME_MILLISECONDS</td>
         <td>The max job run time from the job request converted to milliseconds.</td>
+    </tr>
+    <tr>
+        <td>JOB_MAX_RUNTIME_SECONDS</td>
+        <td>The max job run time from the job request converted to seconds.</td>
     </tr>
     <tr>
         <td>JOB_MEMORY_PER_NODE</td>
@@ -8400,6 +8161,10 @@ http://example.com/system/${JOB_EXECUTION_SYSTEM}/queue/${JOB_BATCH_QUEUE}?actio
     <tr>
         <td>JOB_MAX_RUNTIME_MILLISECONDS</td>
         <td>The max job run time from the job request converted to milliseconds.</td>
+    </tr>
+    <tr>
+        <td>JOB_MAX_RUNTIME_SECONDS</td>
+        <td>The max job run time from the job request converted to seconds.</td>
     </tr>
     <tr>
         <td>JOB_MEMORY_PER_NODE</td>
