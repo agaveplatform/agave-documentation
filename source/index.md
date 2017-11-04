@@ -18,6 +18,7 @@ includes:
 - introduction/_conventions-response-customization.md
 - introduction/_status-codes.md.erb
 - sdk/_introduction
+- sdk/_languages
 - documentation/_introduction
 #- tutorials/_introduction
 - guides/_introduction
@@ -131,10 +132,12 @@ includes:
 #  - examples/profiles/password-reset
 #  - examples/profiles/new-user-automation
 #  - examples/profiles/new-user-automation
-- tooling/introduction
-- tooling/agave-togo
-- tooling/jupyter-hub
-- tooling/command-line-interface
+- tooling/_introduction
+- tooling/_cli
+- tooling/_agave-togo
+- tooling/_microsites
+- tooling/_jupyter-hub
+- tooling/_integrations
 
 search: true
 ---

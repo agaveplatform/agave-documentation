@@ -1,0 +1,3 @@
+## Microsites
+
+[Agave Microsites](https://github.com/agaveplatform/microsites) are reference single-purpose web applications focused on delivering a specific solution to a target audience. Current microsite implementations focus on providing execution and management of a single app to a group of users. Upcoming microsites will focus on data management, automation, and data collection. All the Agave Microsites are white labeled and completely open source. You can view the latest [Microsite Demo](https://agaveplatform.github.io/microsites/web/) in our [Github repository]((https://github.com/agaveplatform/microsites).
