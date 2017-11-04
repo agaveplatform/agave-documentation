@@ -9,11 +9,11 @@
 	<tbody>
 		<tr>
 			<td>HPC</td>
-			<td>LSF, LOADLEVELER, PBS, SGE, COBALT, TORQUE, MOAB, SLURM</td>
+			<td>LSF, LOADLEVELER, PBS, SGE, TORQUE, MOAB, SLURM, CUSTOM_LSF, CUSTOM_LOADLEVELER, CUSTOM_PBS, CUSTOM_GRIDENGINE, CUSTOM_SLURM</td>
 			<td>Jobs will be submitted to the local scheduler using the appropriate scheduler commands. Systems with this execution type will not allow forked jobs.</td>
 		</tr>
 		<tr>
-			<td>CONDOR</td>
+			<td>CONDOR, CUSTOM_CONDOR</td>
 			<td>CONDOR</td>
 			<td>Jobs will be submitted to the condor scheduler running locally on the remote system. Agave will not do any installation for you, so the setup and administration of the Condor server is up to you.</td>
 		</tr>

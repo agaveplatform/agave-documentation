@@ -1,0 +1,93 @@
+<table id="notification-macros-jobs" class="notification-macros jobs">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>JOB_APP_ID</td>
+        <td>The id of the app being run.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE</td>
+        <td>Whether Agave will attempt to archive the job. Values "true" or "false".</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_PATH</td>
+        <td>The path on the archive system where the job output will be staged.</td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_SYSTEM</td>
+        <td>The Agave storage system id to which the job output will be archived. This will be NULL if the the job is
+            not
+            archived.
+        </td>
+    </tr>
+    <tr>
+        <td>JOB_ARCHIVE_URL</td>
+        <td>The Agave URL for the archived data.</td>
+    </tr>
+    <tr>
+        <td>JOB_BATCH_QUEUE</td>
+        <td>The batch queue of the <span class="code">JOB_EXECUTION_SYSTEM</span> on which the job is assigned.</td>
+    </tr>
+    <tr>
+        <td>JOB_ID</td>
+        <td>The unique id used to reference the job within Agave.</td>
+    </tr>
+    <tr>
+        <td>JOB_EXECUTION_SYSTEM</td>
+        <td>The agave execution system id on which the job will run.</td>
+    </tr>
+    <tr>
+        <td>JOB_MAX_RUNTIME</td>
+        <td>The max job run from the job request in HH:MM:SS format.</td>
+    </tr>
+    <tr>
+        <td>JOB_MAX_RUNTIME_MILLISECONDS</td>
+        <td>The max job run time from the job request converted to milliseconds.</td>
+    </tr>
+    <tr>
+        <td>JOB_MAX_RUNTIME_SECONDS</td>
+        <td>The max job run time from the job request converted to seconds.</td>
+    </tr>
+    <tr>
+        <td>JOB_MEMORY_PER_NODE</td>
+        <td>The memory requested per node in the job request in GB.</td>
+    </tr>
+    <tr>
+        <td>JOB_NAME</td>
+        <td>The job name converted to a slug</td>
+    </tr>
+    <tr>
+        <td>JOB_NAME_RAW</td>
+        <td>The user-supplied name of the job</td>
+    </tr>
+    <tr>
+        <td>JOB_NODE_COUNT</td>
+        <td>The number of nodes from the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_OWNER</td>
+        <td>The username of the user who submitted the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_PARAMETERS</td>
+        <td>The serialized JSON object representing the job parameters.</td>
+    </tr>
+    <tr>
+        <td>JOB_PROCESSORS_PER_NODE</td>
+        <td>The processors per node from the job request.</td>
+    </tr>
+    <tr>
+        <td>JOB_SYSTEM</td>
+        <td>ID of the job execution system (ex. ssh.execute.example.com)</td>
+    </tr>
+    <tr>
+        <td>JOB_TENANT</td>
+        <td>The code of the tenant to which the job was submitted.</td>
+    </tr>
+    </tbody>
+</table>
