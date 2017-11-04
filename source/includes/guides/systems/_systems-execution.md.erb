@@ -26,7 +26,7 @@ Thankfully, picking the right combination is pretty simple. The following table 
 
 <aside class="notice">When you are describing your system, consider the policies put in place by your system administrators. If the system you are defining has a scheduler, chances are they want you to use it.</aside>
 
-#### Defining batch queues <a name="defining-batch-queues">&nbsp;</a>
+### Defining system queues
 
 Agave supports the notion of multiple submit queues. On HPC systems, queues should map to actual batch scheduler queues on the target server. Additionally, queues are used by Agave as a mechanism for implementing quotas on job throughput in a given queue or across an entire system. Queues are defined as a JSON array of objects assigned to the `queues` attribute. The following table summarizes all supported queue parameters.
 
@@ -34,24 +34,7 @@ Agave supports the notion of multiple submit queues. On HPC systems, queues shou
 
 #### Configuring quotas
 
-In the batch queues table above, several attributes exist to specify limits on the number of total jobs and user jobs in a given queue. Corresponding attributes exist in the execution system to specify limits on the number of total and user jobs across an entire system. These attributes, when used appropriately, can be used to tell Agave how to enforce limits on the concurrent activity of any given user. They can also ensure that Agave will not unfairly monopolize your systems as your application usage grows.
-
-If you have ever used a shared HPC system before, you should be familiar with batch queue quotas. If not, the important thing to understand is that they are a critical tool to ensure fair usage of any shared resource. As the owner/administrator for your registered system, you can use the batch queues you define to enforce whatever usage policy you deem appropriate.
-
-Consider one example where you are using a VM to run image analysis routines on demand through Agave, your server will become memory bound and experience performance degradation if too many processes are running at once. To avoid this, you can set a limit using a batch queue configuration that limits the number of simultaneous tasks that can run at once on your server.
-
-Another example where quotas can be helpful is to help you properly partitioning your system resources. Consider a user analyzing unstructured data. The problem is computationally and memory intensive. To preserve resources, you could create one queue with a moderate value of `maxJobs` and conservative `maxMemoryPerNode`, `maxProcessorsPerNode`, and `maxNodes` values to allow good throughput of small job. You could then create another queue with large `maxMemoryPerNode`, `maxProcessorsPerNode`, and `maxNodes` values while only allowing a single job to run at a time. This gives you both high throughput and high capacity on a single system.
-
-The following sample queue definitions illustrate some other interesting use cases.
-
-<p>
-    <select id="queue-config-selector" name="queue-config-selector" onChange="$('.queue-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
-        <option value="queue-short-job">Short Jobs</option>
-        <option value="queue-small-queues">Restrited Usage</option>
-        <option value="queue-single-node">Single Node Jobs</option>
-        <option value="queue-dedicated">Dedicated Usage</option>
-    </select>
-</p>
+> Sample batch queue definitions specifying various use cases.
 
 <pre id="queue-short-job" class="json queue-config">
 <code>{
@@ -67,7 +50,6 @@ The following sample queue definitions illustrate some other interesting use cas
     "default":true
 }
 </code></pre>
-
 
 <pre id="queue-small-queues" class="json queue-config hidden">
 <code># Restrict the queue to having at most 10 total jobs in it at once. Jobs may run for no more than an hour.
@@ -135,22 +117,27 @@ The following sample queue definitions illustrate some other interesting use cas
 ]
 </code></pre>
 
-#### System login protocols
+<p>In the batch queues table above, several attributes exist to specify limits on the number of total jobs and user jobs in a given queue. Corresponding attributes exist in the execution system to specify limits on the number of total and user jobs across an entire system. These attributes, when used appropriately, can be used to tell Agave how to enforce limits on the concurrent activity of any given user. They can also ensure that Agave will not unfairly monopolize your systems as your application usage grows.</p>
 
-As with storage systems, Agave supports several different protocols and mechanisms for job submission. We already covered scheduler and queue support. Here we illustrate the different login configurations possible. For brevity, only the value of the `login` JSON object is shown.
+<p>If you have ever used a shared HPC system before, you should be familiar with batch queue quotas. If not, the important thing to understand is that they are a critical tool to ensure fair usage of any shared resource. As the owner/administrator for your registered system, you can use the batch queues you define to enforce whatever usage policy you deem appropriate.</p>
 
-<p>
-    <select id="login-config-selector" name="login-config-selector" onChange="$('.login-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
-        <option value="login-ssh-password">SSH</option>
-        <option value="login-ssh-sshkeys">SSH w/ SSH Keys</option>
-        <option value="login-ssh-tunnel">SSH w/ tunnel</option>
-        <option value="login-gsissh">GSI OpenSSH</option>
-        <option value="login-gsissh-myproxy">GSI OpenSSH w/ MyProxy</option>
-        <option value="login-gsissh-mpg">GSI OpenSSH w/ MyProxy Gateway</option>
-        <option value="login-local">Local</option>
-    </select>
-</p>
+<p>Consider one example where you are using a VM to run image analysis routines on demand through Agave, your server will become memory bound and experience performance degradation if too many processes are running at once. To avoid this, you can set a limit using a batch queue configuration that limits the number of simultaneous tasks that can run at once on your server.</p>
 
+<p>Another example where quotas can be helpful is to help you properly partitioning your system resources. Consider a user analyzing unstructured data. The problem is computationally and memory intensive. To preserve resources, you could create one queue with a moderate value of `maxJobs` and conservative `maxMemoryPerNode`, `maxProcessorsPerNode`, and `maxNodes` values to allow good throughput of small job. You could then create another queue with large `maxMemoryPerNode`, `maxProcessorsPerNode`, and `maxNodes` values while only allowing a single job to run at a time. This gives you both high throughput and high capacity on a single system.</p>
+
+<p>The following sample queue definitions illustrate some other interesting use cases.</p>
+
+<p><select id="queue-config-selector" name="queue-config-selector" onChange="$('.queue-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
+    <option value="queue-short-job">Short Jobs</option>
+    <option value="queue-small-queues">Restrited Usage</option>
+    <option value="queue-single-node">Single Node Jobs</option>
+    <option value="queue-dedicated">Dedicated Usage</option>
+</select></p>
+
+
+<h3> Supported login protocols</h3>
+
+> Sample execution system login configurations for supported authentication mechansims.
 
 <pre id="login-ssh-password" class="json login-config">
 <code>{
@@ -258,23 +245,36 @@ As with storage systems, Agave supports several different protocols and mechanis
 }</code>
 </pre>
 
-The full list of login configuration options is given in the following table. We omit the `login.auth` and `login.proxy` attributes as they are identical to those used in the storage config.
+As with storage systems, Agave supports several different protocols and mechanisms for job submission. We already covered scheduler and queue support. Here we illustrate the different login configurations possible. For brevity, only the value of the `login` JSON object is shown.</p>
+
+<p><select id="login-config-selector" name="login-config-selector" onChange="$('.login-config').addClass('hidden'); $('#' + $(this).val()).removeClass('hidden');">
+    <option value="login-ssh-password">SSH</option>
+    <option value="login-ssh-sshkeys">SSH w/ SSH Keys</option>
+    <option value="login-ssh-tunnel">SSH w/ tunnel</option>
+    <option value="login-gsissh">GSI OpenSSH</option>
+    <option value="login-gsissh-myproxy">GSI OpenSSH w/ MyProxy</option>
+    <option value="login-gsissh-mpg">GSI OpenSSH w/ MyProxy Gateway</option>
+    <option value="login-local">Local</option>
+</select></p>
+
+
+<p>The full list of login configuration options is given in the following table. We omit the `login.auth` and `login.proxy` attributes as they are identical to those used in the storage config.</p>
 
 <%= partial "includes/tables/62" %>
 
-#### Scratch and work directories
+<h4> Scratch and work directories</h4>
 
-In the Job Management tutorial we will dive into how Agave manages the end-to-end lifecycle of running a job. Here we point out two relevant attributes that control where data is staged and where your job will physically run. The `scratchDir` and `workDir` attributes control where the working directories for each job will be created on an execution system. The following table summarizes the decision making process Agave uses to determine where the working directories should be created.
+<p>In the Job Management tutorial we will dive into how Agave manages the end-to-end lifecycle of running a job. Here we point out two relevant attributes that control where data is staged and where your job will physically run. The `scratchDir` and `workDir` attributes control where the working directories for each job will be created on an execution system. The following table summarizes the decision making process Agave uses to determine where the working directories should be created.</p>
 
 <%= partial "includes/tables/52" %>
 
-While it is not required, it is a best practice to always specify `scratchDir` and `workDir` values for your execution systems and, whenever possible, place them outside of the system `homeDir` to ensure data privacy. The reason for this is that the file system available on many servers is actually made up of a combination of physically attached storage, mounted volumes, and network mounts. Often times, your home directory will have a very conservative quota while the mounted storage will essentially be quota free. As the above table shows, when you do not specify a `scratchDir` or `workDir`, Agave will attempt to create your job work directories in your system `homeDir`. It is very likely that, in the course of running simulations, you will reach the quota on your home directory, thereby causing that job and all future jobs to fail on the system until you clear up more space. To avoid this, we recommend specifying a location with sufficient available space to handle the work you want to do.
+<p>While it is not required, it is a best practice to always specify `scratchDir` and `workDir` values for your execution systems and, whenever possible, place them outside of the system `homeDir` to ensure data privacy. The reason for this is that the file system available on many servers is actually made up of a combination of physically attached storage, mounted volumes, and network mounts. Often times, your home directory will have a very conservative quota while the mounted storage will essentially be quota free. As the above table shows, when you do not specify a `scratchDir` or `workDir`, Agave will attempt to create your job work directories in your system `homeDir`. It is very likely that, in the course of running simulations, you will reach the quota on your home directory, thereby causing that job and all future jobs to fail on the system until you clear up more space. To avoid this, we recommend specifying a location with sufficient available space to handle the work you want to do.</p>
 
-Another common error that arises from not specifying thoughtful `scratchDir` and `workDir` values for your execution systems is jobs failing due to "permission denied" errors. This often happens when your `scratchDir` and/or `workDir` resolve to the actual system root. Usually the account you are using to access the system will not have permission to write to `/`, so all attempts to create a job working directory fail, accurately, due to a "permission denied" error.
+<p>Another common error that arises from not specifying thoughtful `scratchDir` and `workDir` values for your execution systems is jobs failing due to "permission denied" errors. This often happens when your `scratchDir` and/or `workDir` resolve to the actual system root. Usually the account you are using to access the system will not have permission to write to `/`, so all attempts to create a job working directory fail, accurately, due to a "permission denied" error.</p>
 
 <aside class="notice">While it is not required, it is a best practice to always specify `scratchDir` and `workDir` values for your execution systems and, whenever possible, place them outside of the system `homeDir` to ensure data privacy.</aside>
 
-#### Creating a new execution system
+<h4> Creating a new execution system </h4>
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -F "fileToUpload=@ssh-password.json" https://public.tenants.agaveapi.co/systems/v2

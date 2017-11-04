@@ -1,2 +1,172 @@
-### App History
+### App history
+
+A full history of changes to an app's definition, permissions, and availability is recorded for every app. The recorded history events represent a subset of the events thrown by the Apps API. Generally speaking, the events saved in an app's history represent mutations to the app's definition and state, not its assets. For further details about history associated with file items, see the section on <a href="#file-history">File history</a>.
+
+#### Direct vs indirect events
+
+Agave will record all the direct events related to an app. Examples of direct events are enabling and updating an app. Indirect events such as submitting a job, or deleting a system to which the app is associated, will not be recorded.
+
+#### Publishing history
+
+> App is published for the first time
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
+    -X PUT --data-binary '{"action":"publish","name":"demo-pyplot-demo"}' \
+    https://public.agaveapi.co/apps/v2/demo-pyplot-demo-basic-0.1.0
+    
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
+    -X PUT --data-binary '{"action":"publish","name":"demo-pyplot-demo"}' \
+    https://public.agaveapi.co/apps/v2/demo-pyplot-demo-intermediate-0.1.0
+    
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
+    -X PUT --data-binary '{"action":"publish","name":"demo-pyplot-demo"}' \
+    https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0
+```  
+
+```plaintext
+apps-publish -v -N demo-pyplot-demo demo-pyplot-demo-basic-0.1.0
+apps-publish -v -N demo-pyplot-demo demo-pyplot-demo-intermediate-0.1.0
+apps-publish -v -N demo-pyplot-demo demo-pyplot-demo-advanced-0.1.0
+```
+
+> The following (appreviated) entries are written to the app histories as follows
+
+> Original app demo-pyplot-demo-basic-0.1.0  
+
+```json
+[
+  {
+      "status": "PUBLISHED",
+      "description": "App was published by nryan as demo-pyplot-demo-0.1.0u1. The published asset checksum is 6aea5f80fa7c1af9a945fc5d1cfc8c95",
+      ...
+   }
+]
+```  
+
+> Original app demo-pyplot-demo-intermediate-0.1.0  
+
+```json 
+[
+  {
+      "status": "PUBLISHED",
+      "description": "App was published by nryan as demo-pyplot-demo-0.1.0u1. The published asset checksum is 6aea5f80fa7c1af9a945fc5d1cfc8c95",
+      ...
+   }
+]
+```
+
+> Original app demo-pyplot-demo-advanced-0.1.0  
+
+```json 
+[
+  {
+      "status": "PUBLISHED",
+      "description": "App was published by nryan as demo-pyplot-demo-0.1.0u3. The published asset checksum is f4193325b37b879e7218dcd81c81c614",
+      ...
+   }
+]
+```  
+
+> Published app demo-pyplot-demo-0.1.0u1  
+
+```json
+[
+  {
+    "status": "CREATED",
+    "description": "App was created by nryan as a result of publishing demo-pyplot-demo-basic-0.1.0. The asset checksum is 6aea5f80fa7c1af9a945fc5d1cfc8c95",
+    ...
+  },
+  {
+    "status": "REPUBLISHED",
+    "description": "A new version of this app, demo-pyplot-demo-0.1.0u2, was created by nryan as a result of publishing demo-pyplot-demo-intermediate-0.1.0. The published asset checksum is 9b7f72f279ad41a993fe9b1eaca87e3a",
+    ...
+  },
+  {
+    "status": "REPUBLISHED",
+    "description": "A new version of this app, demo-pyplot-demo-0.1.0u3, was created by nryan as a result of publishing demo-pyplot-demo-advanced-0.1.0. The published asset checksum is f4193325b37b879e7218dcd81c81c614",
+    ...
+  },
+]
+```
+
+> Published app demo-pyplot-demo-0.1.0u2  
+
+```json   
+[
+  {
+    "status": "CREATED",
+    "description": "App was created by nryan as a result of publishing demo-pyplot-demo-intermediate-0.1.0. The asset checksum is 9b7f72f279ad41a993fe9b1eaca87e3a",
+    ...
+  },
+  {
+    "status": "REPUBLISHED",
+    "description": "A new version of this app, demo-pyplot-demo-0.1.0u3, was created by nryan as a result of publishing demo-pyplot-demo-advanced-0.1.0. The published asset checksum is f4193325b37b879e7218dcd81c81c614",
+    ...
+  } 
+]
+```
+
+> Published app demo-pyplot-demo-0.1.0u3  
+
+```json
+[
+  {
+    "status": "CREATED",
+    "description": "App was created by nryan as a result of publishing demo-pyplot-demo-advanced-0.1.0. The asset checksum is f4193325b37b879e7218dcd81c81c614",
+    ...
+   }
+]
+```
+
+When publishing an app, the published name and the original name may not be the same. Thus, there may be multiple apps from which a public app was created over time. Further, since every app publication results in a new public app id, there may not be any outwardly apparent relationship between the current and previous versions of a published app. To help track the changes of a published app over time, Agave will propagate and record publication `REPUBLISHED` events through the entire ancestry of a published app. Take the following example using our pyplot app to illustrate this behavior. 
+
+We see that republishing an app records the change in the history of every app in the published app's ancestry. This makes it easy to track down changes that occur both in the past and future of a given published app.  
+
+ 
+#### Listing app history
+
+> List the history of an app
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
+    https://public.agaveapi.co/apps/v2/history/demo-pyplot-demo-advanced-0.1.0
+```
+
+```plaintext
+app-history -v demo-pyplot-demo-advanced-0.1.0
+```
+
+> The response to this contains a summary listing all recorded events in the app history
+
+```json
+[
+  {
+    "status": "DOWNLOAD",
+    "created": "2016-09-20T19:47:56.000-05:00",
+    "createdBy": "public",
+    "description": "File was downloaded"
+  },
+  {
+    "status": "STAGING_QUEUED",
+    "created": "2016-09-20T19:48:12.000-05:00",
+    "createdBy": "nryan",
+    "description": "File/folder queued for staging"
+  },
+  {
+    "status": "STAGING_COMPLETED",
+    "created": "2016-09-20T19:48:16.000-05:00",
+    "createdBy": "nryan",
+    "description": "Staging completed successfully"
+  },
+  {
+    "status": "TRANSFORMING_COMPLETED",
+    "created": "2016-09-20T19:48:17.000-05:00",
+    "createdBy": "nryan",
+    "description": "Your scheduled transfer of http://129.114.97.92/picksumipsum.txt completed staging. You can access the raw file on iPlant Data Store at /home/nryan/picksumipsum.txt or via the API at https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co//nryan/picksumipsum.txt."
+  }
+]
+```
+
+Basic paginated listing of app history events is available as shown in the example. Currently, the app history service is readonly. The only way to erase the history on an app is to delete the app through the API.
 

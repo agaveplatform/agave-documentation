@@ -1,4 +1,4 @@
-### Permissions
+### App permissions
 
 Apps have fine grained permissions similar to those found in the <a title="Job Management" href="#permissions-and-sharing129">Jobs</a> and <a title="File Management" href="#data-permissions">Files</a> services. Using these, you can share your app other Agave users. App permissions are private by default, so when you first POST your app to the Apps service, you are the only one who can see it. You may share your app with other users by granting them varying degrees of permissions. The full list of app permission values are listed in the following table.
 
@@ -6,7 +6,7 @@ Apps have fine grained permissions similar to those found in the <a title="Job M
 
 App permissions are distinct from all other roles and permissions and do not have implications outside the Apps service. This means that if you want to allow someone to run a job using your app, it is not sufficient to grant them READ_EXECUTE permissions on your app. They must also have an appropriate user role on the execution system on which the app will run. Similarly, if you do not have the right to publish on the `executionSystem` or access the `deploymentPath` on the `deploymentSystem` in your app description, you will not be able to publish your app.
 
-### Listing permissions
+### Listing app permissions
 
 App permissions are managed through a set of URLs consistent with the permission operations elsewhere in the API. To query for a user's permission for an app, perform a GET on the user's unique app permissions url.
 
@@ -82,7 +82,7 @@ This time the service will respond with a JSON array of permission objects.
 ]
 ```
 
-### Adding and updating permissions
+### Adding and updating app permissions
 
 Setting permissions is done by posting a JSON object containing a permission and username. Alternatively, you can POST just the permission and append the username to the URL.
 
@@ -123,7 +123,7 @@ The response will contain a JSON object representing the permission that was jus
 }
 ```
 
-### Deleting permissions
+### Deleting app permissions
 
 Permissions can be deleted on a user-by-user basis, or all at once. To delete an individual user permission, make a DELETE request on the user's app permission URL.
 
