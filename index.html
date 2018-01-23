@@ -11146,7 +11146,7 @@ http://example.com/system/${JOB_EXECUTION_SYSTEM}/queue/${JOB_BATCH_QUEUE}?actio
                   </span><span class="err">\______/</span><span class="w">
 </span></code></pre>
 
-<p>The Agave Tags service provides free form tagging of any addressable resource in the platform. A Tag is similiar to a <a href="#metadata" title="Tags Guide">Metadata</a> object in that it has <code class="prettyprint">name</code> and <code class="prettyprint">associatedIds</code> fields, but Tags do not contain any other data. Tags have permissions just like tags, but unlike the Tags service, Tag names must be unique for a given user or group. That means you can only have one tag with a given name, but multiple users may create tags with the same name.</p>
+<p>The Agave Tags service provides free form tagging of any addressable resource in the platform. A Tag is similiar to a <a href="#metadata" title="Tags Guide">Metadata</a> object in that it has <code class="prettyprint">name</code> and <code class="prettyprint">associatedIds</code> fields, but Tags do not contain any other data. Tags have permissions just like metadata, but unlike the Metadata service, Tag names must be unique for a given user or group. That means you can only have one tag with a given name, but multiple users may create tags with the same name.</p>
 
 <h3 id="tag-structure">Tag Structure</h3>
 
@@ -11638,7 +11638,7 @@ tags-resources-delete 3042501574756462105-242ac113-0001-048
 
               <h3 id="tag-permissions">Tag Permissions</h3>
 
-<p>The Tags service supports permissions fconsistent with that of a number of other Agave services. If no permissions are explicitly set, only the owner of the Tag and tenant administrators can access it.</p>
+<p>The Tags service supports permissions consistent with that of a number of other Agave services. If no permissions are explicitly set, only the owner of the Tag and tenant administrators can access it.</p>
 
 <p>The permissions available for Tags listed in the following table. Please note that a user must have WRITE permissions to grant or revoke permissions on a tag.</p>
 
