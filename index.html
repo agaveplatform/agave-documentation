@@ -1715,7 +1715,7 @@ refresh_token </td>
 
 <p>Over time you may develop several client applications. Managing several sets of API keys can become tricky. You can see which applications you have created by querying the Clients service.</p>
 
-<aside class="notice">In the last response you will notice that the client secret was not returned as part of the response objects. If you need to recover your client secret, just recreate the client app. Your client keys will not change, but the response will include your secret key.</aside>
+<aside class="notice">In the last response you will notice that the client secret was not returned as part of the response objects. If you need to recover your client secret, you will need to recreate your client by first deleting it, then creating a new client with the same name. Both your client key and secret will change when you do this, so make note and keep them in a secure place.</aside>
 
 <h3 id="deleting-client-registrations">Deleting client registrations</h3>
 <pre class="highlight shell"><code>curl -sku <span class="s2">"</span><span class="nv">$API_USERNAME</span><span class="s2">:</span><span class="nv">$API_PASSWORD</span><span class="s2">"</span> -X DELETE https://public.tenants.agaveapi.co/clients/v2/my_cli_app
