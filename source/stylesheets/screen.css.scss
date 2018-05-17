@@ -36,6 +36,7 @@ html, body {
   background-color: $main-bg;
   height: 100%;
   -webkit-text-size-adjust: none; /* Never autoresize text */
+  font-display: auto;
 }
 
 input, select {
