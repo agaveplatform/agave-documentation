@@ -1880,7 +1880,7 @@ refresh_token </td>
 
 <p>System description can get rather verbose, so a summary object is returned when listing a resource collection. The summary object contains the most critical fields in order to reduce response size when retrieving a user&rsquo;s systems. You can customize this behavior using the <code class="prettyprint">filter</code> query parameter.</p>
 
-<aside class="notice">The above response my vary depending on who administers Agave for your organization. To customize this tutorial for your specific account, login.</aside>
+<aside class="notice">The above response my vary depending on who administers Agave for your organization.</aside>
 
 <h3 id="filtering-results">Filtering results</h3>
 
@@ -5294,6 +5294,344 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 
 <p>The Apps service is the central registry for all Agave apps. The Apps service provides permissions, validation, archiving, and revision information about each app in addition to the usual discovery capability. The rest of this tutorial explains in detail how to register an app to the Apps service, how to manage and share apps, and what the different application scopes mean.</p>
 
+<h3 id="discovering-apps">Discovering apps</h3>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/apps/v2/
+</code></pre>
+<pre class="highlight plaintext"><code>apps-list -v
+</code></pre>
+
+<blockquote>
+<p>The response will be something like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo-pyplot-demo-0.1.0u3"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo-pyplot-demo"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"executionSystem"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker.tacc.utexas.edu"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"shortDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Advanced demo plotting app"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"isPublic"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PyPlot Demo Advanced"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"lastModified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-03T18:05:33.000-05:00"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/apps/v2/demo-pyplot-demo-0.1.0u3"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cloud-runner-0.1.0u1"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cloud-runner"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"executionSystem"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker.tacc.utexas.edu"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"shortDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generic template for running arbitrary code in Agave's Dockerized cloud."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"isPublic"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Run your code in the cloud"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"lastModified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-01T02:07:22.000-05:00"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/apps/v2/cloud-runner-0.1.0u1"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>The Apps service allows you to list and search for apps you have registered and apps that have been shared with you. To get a list of all your apps, make a GET request on the Apps collection.</p>
+
+<aside class="notice">The above response my vary depending on who administers Agave for your organization.</aside>
+
+<h3 id="filtering-apps">Filtering apps</h3>
+
+<blockquote>
+<p>List apps returning only the app id</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/apps/v2/?filter<span class="o">=</span>id,shortDescription,executionType
+</code></pre>
+<pre class="highlight plaintext"><code>apps-list -v
+
+</code></pre>
+
+<blockquote>
+<p>The response will be something like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo-pyplot-demo-0.1.0u3"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"executionType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CLI"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"shortDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Advanced demo plotting app"</span><span class="w">
+  </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cloud-runner-0.1.0u1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"executionType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CLI"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"shortDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generic template for running arbitrary code in Agave's Dockerized cloud."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>App description can get rather verbose, so a summary object is returned when listing the apps collection. The summary object contains the most critical fields in order to reduce response size when retrieving a user&rsquo;s apps. You can customize this behavior using the <code class="prettyprint">filter</code> query parameter.</p>
+
+<aside class="notice">If you do want to get the full app details in a listing request, specify a wildcard character as the filter value, <span class="code">filter=*</span>.</aside>
+
+<h3 id="searching-apps">Searching apps</h3>
+
+<blockquote>
+<p>Only public apps</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/apps/v2/?public<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+<pre class="highlight plaintext"><code>apps-search -v public=true
+</code></pre>
+
+<blockquote>
+<p>Only private apps</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/apps/v2/?public<span class="o">=</span><span class="nb">false</span>
+</code></pre>
+<pre class="highlight plaintext"><code>apps-search -v public=false
+</code></pre>
+
+<blockquote>
+<p>Only apps with &ldquo;plot&rdquo; in the name</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/apps/v2/?name.like<span class="o">=</span><span class="k">*</span>plot<span class="k">*</span>
+</code></pre>
+<pre class="highlight plaintext"><code>apps-search -v name.like=*plot*
+</code></pre>
+
+<blockquote>
+<p>Only apps that run on execution system &ldquo;docker.tacc.utexas.edu&rdquo;</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/apps/v2/?executionSystem.eq<span class="o">=</span>docker.tacc.utexas.edu
+</code></pre>
+<pre class="highlight plaintext"><code>apps-search -v executionSystem.eq=docker.tacc.utexas.edu
+</code></pre>
+
+<p>You can directly search the app collection by any field in the app description using Agave&rsquo;s search syntax. Multiple fields can be included to further refine the query. See the section on <a href="#search">Search</a> for more details.</p>
+
+<h3 id="app-details">App details</h3>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://public.tenants.agaveapi.co/apps/v2/cloud-runner-0.1.0u1
+</code></pre>
+<pre class="highlight plaintext"><code>apps-list -v cloud-runner-0.1.0u1
+</code></pre>
+
+<blockquote>
+<p>The response will be something like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cloud-runner-0.1.0u1"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cloud-runner"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"icon"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3058779360820391450-242ac115-0001-005"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"parallelism"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SERIAL"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"defaultProcessorsPerNode"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"defaultMemoryPerNode"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"defaultNodeCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"defaultMaxRunTime"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"defaultQueue"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"isPublic"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"helpURI"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://agaveapi.co/contact-us"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Run your code in the cloud"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dooley"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"shortDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generic template for running arbitrary code in Agave's Dockerized cloud."</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"longDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generic template for running an arbitrary application in Agave's hosted Docker cloud. Apps should be a gzipped archive."</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"docker"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"demo"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"awesome"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"ontology"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nt">"executionType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CLI"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"executionSystem"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker.tacc.utexas.edu"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"deploymentPath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/apps/cloud-runner-0.1.0u1.zip"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"deploymentSystem"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data.agaveapi.co"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"templatePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wrapper.sh"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"testPath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test/test.sh"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"checkpointable"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"lastModified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-11-01T02:07:22.000-05:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"modules"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nt">"available"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"inputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dockerFile"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"validator"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"order"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"enquote"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dockerfile"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dockerfile to build the container that will be run as the executable. This is optional. Only include if you need to build a new container that is not present in the Docker central index and your app bundle does not already have a Dockerfile in it."</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"argument"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"showArgument"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"repeatArgument"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"semantics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"minCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"maxCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ontology"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nt">"fileTypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"appBundle"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"validator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"([^\s]+(\.(?i)(zip|gz|tgz|tar.gz|bz2|rar))$)"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"order"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"enquote"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Application bundle"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Compressed work folder containing application and binaries to be run in the Docker container. zip, gz."</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"argument"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"showArgument"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"repeatArgument"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"semantics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"minCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"maxCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ontology"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nt">"fileTypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"command"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"order"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"enquote"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"validator"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Command to run"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is the actual executable needed to run your program in the Docker container. ex. Rscript, python, java, mvn, php, sh"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"argument"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"showArgument"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"repeatArgument"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"semantics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"minCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"maxCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ontology"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unpackInputs"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flag"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"order"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"enquote"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"validator"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unpack input files"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"If true, any compressed input files will be expanded prior to execution on the remote system."</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"argument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"showArgument"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"repeatArgument"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"semantics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"minCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"maxCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ontology"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"commandArgs"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"order"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"enquote"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main.py"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"validator"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Command arguments"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is a string reprsenting the command line needed to run your code. ex. main.r, main.py, -cp $CLASSPATH:lib, exec:java, -f main.php, -c main.sh "</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"argument"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"showArgument"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"repeatArgument"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"semantics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"minCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"maxCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ontology"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dockerImage"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"order"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"enquote"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"agaveapi/scipy-matplot-2.7"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"validator"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Image name"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Container image from the Docker central repo or name of the image created by building the dockerFile"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"argument"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"showArgument"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"repeatArgument"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"semantics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"minCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"maxCardinality"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ontology"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"outputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/apps/v2/cloud-runner-0.1.0u1"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"executionSystem"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/docker.tacc.utexas.edu"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"storageSystem"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"history"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/apps/v2/cloud-runner-0.1.0u1/history"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/meta/v2/data/?q=%7B%22associationIds%22%3A%223058779360820391450-242ac115-0001-005%22%7D"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/profiles/v2/dooley"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public.agaveapi.co/apps/v2/cloud-runner-0.1.0u1/pems"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>To query for detailed information about a specific app, add the app id to the base collection url and make another GET request.</p>
+
+<p>This time, the response will be a JSON object with a full app description. The following is the description of the public <code class="prettyprint">cloud-runner-0.1.0u1</code> app. In the next section we talk more about the different parts of an app definition and how to register one of your own.</p>
+
               <h3 id="defining-apps">Defining apps</h3>
 
 <p>In this section we take a detailed look at the <code class="prettyprint">inputs</code> and <code class="prettyprint">parameters</code> sections of your app descriptions. Each of these sections takes an array of JSON objects. Each JSON object represents either a data source that needs staging in prior to job execution or a primary value passed into your app as a parameter. In either case, the JSON object only requires an <code class="prettyprint">id</code> by which to reference the object in a job request, and a <code class="prettyprint">type</code> field indicating primary type if the object represents a parameter.</p>
@@ -6441,6 +6779,37 @@ curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACC
 <p>Often times you will want to copy an existing app for use on another system, or simply to obtain a private copy of the app for your own use. This can be done using the clone functionality in the Apps service. The following tabs show how to do this using the unix <code class="prettyprint">curl</code> command as well as with the Agave CLI.</p>
 
 <aside class="notice">When cloning public apps, the entire app bundle will be recreated on the `deploymentSystem` you specify or your default storage system. The same is not true for private apps. Cloning a private app will copy the job description, but not the app bundle. This is to honor the original ownership of the assets and prevent them from leaking out to the public space without the owner&rsquo;s permission. If you need direct access to the app&rsquo;s assets, request that the owner give you read access to the folder listed as the deploymentPath in the app description.</aside>
+
+              <h3 id="disabling-an-app">Disabling an app</h3>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+     -X PUT -d <span class="nv">action</span><span class="o">=</span>disable my-pyplot-demo-2.2
+</code></pre>
+<pre class="highlight plaintext"><code>apps-disable -v my-pyplot-demo-2.2
+</code></pre>
+
+<p>Disabling an app make it unavailable for use. This means new job requests will fail due to the app being disabled. Existing jobs queued up to run will be held until the app becomes available. Running jobs will continue as normal, but any retries will be held until the app is reenabled. </p>
+
+<p>To disable an app, make a PUT request on the app&rsquo;s URL with <code class="prettyprint">action=disable</code> as the body. </p>
+
+<h3 id="enabling-an-app">Enabling an app</h3>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+     -X PUT -d <span class="nv">action</span><span class="o">=</span><span class="nb">enable </span>my-pyplot-demo-2.2
+</code></pre>
+<pre class="highlight plaintext"><code>apps-enable -v my-pyplot-demo-2.2
+</code></pre>
+
+<p>Enabling an app instantly returns it to service. Any pending jobs will immediately start processing according to the queuing policy and quotas in place when the app is enabled. </p>
+
+<p>To enable an app, make a PUT request on the app URL with <code class="prettyprint">action=enable</code> as the body. </p>
+
+              <h3 id="deleting-an-app">Deleting an app</h3>
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> <span class="se">\</span>
+     -X DELETE my-pyplot-demo-2.2
+</code></pre>
+<pre class="highlight plaintext"><code>apps-delete -v my-pyplot-demo-2.2
+</code></pre>
+
+<p>Deleting an app is done by calling a HTTP DELETE on an app&rsquo;s URL. Note that deleting an app does not make its id available for reuse.</p>
 
               <h3 id="app-history">App history</h3>
 
