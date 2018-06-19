@@ -43,6 +43,8 @@ includes:
 - guides/apps/_app-permissions-tutorial.md.erb
 - guides/apps/_app-scope.md.erb
 - guides/apps/_app-cloning.md.erb
+- guides/apps/_app-enabling_and_disabling.md.erb
+- guides/apps/_app-deleting.md.erb
 - guides/apps/_app-history.md.erb
 - guides/jobs/_introduction.md.erb
 - guides/jobs/_job-submission.md.erb

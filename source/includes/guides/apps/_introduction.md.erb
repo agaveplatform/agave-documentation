@@ -19,3 +19,355 @@ An app, in the context of Agave, is an executable code available for invocation 
 Apps are language agnostic and may or may not carry with them their own dependencies. (More on bundling your app in a moment.) Any code that can be forked at the command line or submitted to a batch scheduler can be registered as an Agave app and run through the Jobs service.
 
 The Apps service is the central registry for all Agave apps. The Apps service provides permissions, validation, archiving, and revision information about each app in addition to the usual discovery capability. The rest of this tutorial explains in detail how to register an app to the Apps service, how to manage and share apps, and what the different application scopes mean.
+
+
+### Discovering apps
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/apps/v2/
+```
+
+```plaintext
+apps-list -v
+```
+
+> The response will be something like this:
+
+```json
+[
+  {
+      "id": "demo-pyplot-demo-0.1.0u3",
+      "name": "demo-pyplot-demo",
+      "version": "0.1.0",
+      "revision": 3,
+      "executionSystem": "docker.tacc.utexas.edu",
+      "shortDescription": "Advanced demo plotting app",
+      "isPublic": true,
+      "label": "PyPlot Demo Advanced",
+      "lastModified": "2017-11-03T18:05:33.000-05:00",
+      "_links": {
+        "self": {
+          "href": "https://public.agaveapi.co/apps/v2/demo-pyplot-demo-0.1.0u3"
+        }
+      }
+    }, {
+      "id": "cloud-runner-0.1.0u1",
+      "name": "cloud-runner",
+      "version": "0.1.0",
+      "revision": 1,
+      "executionSystem": "docker.tacc.utexas.edu",
+      "shortDescription": "Generic template for running arbitrary code in Agave's Dockerized cloud.",
+      "isPublic": true,
+      "label": "Run your code in the cloud",
+      "lastModified": "2016-11-01T02:07:22.000-05:00",
+      "_links": {
+        "self": {
+          "href": "https://public.agaveapi.co/apps/v2/cloud-runner-0.1.0u1"
+        }
+      }
+    }
+]
+```
+
+The Apps service allows you to list and search for apps you have registered and apps that have been shared with you. To get a list of all your apps, make a GET request on the Apps collection.
+
+<aside class="notice">The above response my vary depending on who administers Agave for your organization.</aside>
+
+
+### Filtering apps
+
+> List apps returning only the app id
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/apps/v2/?filter=id,shortDescription,executionType
+```
+```plaintext
+apps-list -v
+
+```
+
+> The response will be something like this:
+
+```json
+[
+  {
+    "id": "demo-pyplot-demo-0.1.0u3",
+    "executionType": "CLI",
+    "shortDescription": "Advanced demo plotting app"
+  }, {
+    "id": "cloud-runner-0.1.0u1",
+    "executionType": "CLI",
+    "shortDescription": "Generic template for running arbitrary code in Agave's Dockerized cloud."
+  }
+]
+```
+
+App description can get rather verbose, so a summary object is returned when listing the apps collection. The summary object contains the most critical fields in order to reduce response size when retrieving a user's apps. You can customize this behavior using the `filter` query parameter.
+
+<aside class="notice">If you do want to get the full app details in a listing request, specify a wildcard character as the filter value, <span class="code">filter=*</span>.</aside>
+
+### Searching apps
+
+> Only public apps
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/apps/v2/?public=true
+```
+```plaintext
+apps-search -v public=true
+```
+
+> Only private apps
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/apps/v2/?public=false
+```
+```plaintext
+apps-search -v public=false
+```
+
+> Only apps with "plot" in the name
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/apps/v2/?name.like=*plot*
+```
+```plaintext
+apps-search -v name.like=*plot*
+```
+
+> Only apps that run on execution system "docker.tacc.utexas.edu"
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/apps/v2/?executionSystem.eq=docker.tacc.utexas.edu
+```
+```plaintext
+apps-search -v executionSystem.eq=docker.tacc.utexas.edu
+```
+
+You can directly search the app collection by any field in the app description using Agave's search syntax. Multiple fields can be included to further refine the query. See the section on <a href="#search">Search</a> for more details.
+
+
+### App details
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/apps/v2/cloud-runner-0.1.0u1
+```
+```plaintext
+apps-list -v cloud-runner-0.1.0u1
+```
+> The response will be something like this:
+
+```json
+{
+  "id": "cloud-runner-0.1.0u1",
+  "name": "cloud-runner",
+  "icon": null,
+  "uuid": "3058779360820391450-242ac115-0001-005",
+  "parallelism": "SERIAL",
+  "defaultProcessorsPerNode": 1,
+  "defaultMemoryPerNode": 1,
+  "defaultNodeCount": 1,
+  "defaultMaxRunTime": null,
+  "defaultQueue": null,
+  "version": "0.1.0",
+  "revision": 1,
+  "isPublic": true,
+  "helpURI": "https://agaveapi.co/contact-us",
+  "label": "Run your code in the cloud",
+  "owner": "dooley",
+  "shortDescription": "Generic template for running arbitrary code in Agave's Dockerized cloud.",
+  "longDescription": "Generic template for running an arbitrary application in Agave's hosted Docker cloud. Apps should be a gzipped archive.",
+  "tags": [
+    "docker",
+    "demo",
+    "awesome"
+  ],
+  "ontology": [],
+  "executionType": "CLI",
+  "executionSystem": "docker.tacc.utexas.edu",
+  "deploymentPath": "/apps/cloud-runner-0.1.0u1.zip",
+  "deploymentSystem": "data.agaveapi.co",
+  "templatePath": "wrapper.sh",
+  "testPath": "test/test.sh",
+  "checkpointable": false,
+  "lastModified": "2016-11-01T02:07:22.000-05:00",
+  "modules": [],
+  "available": true,
+  "inputs": [
+    {
+      "id": "dockerFile",
+      "value": {
+        "validator": null,
+        "visible": true,
+        "required": false,
+        "order": 0,
+        "enquote": false,
+        "default": null
+      },
+      "details": {
+        "label": "Dockerfile",
+        "description": "Dockerfile to build the container that will be run as the executable. This is optional. Only include if you need to build a new container that is not present in the Docker central index and your app bundle does not already have a Dockerfile in it.",
+        "argument": null,
+        "showArgument": false,
+        "repeatArgument": false
+      },
+      "semantics": {
+        "minCardinality": 0,
+        "maxCardinality": 1,
+        "ontology": [],
+        "fileTypes": []
+      }
+    },
+    {
+      "id": "appBundle",
+      "value": {
+        "validator": "([^\s]+(\.(?i)(zip|gz|tgz|tar.gz|bz2|rar))$)",
+        "visible": true,
+        "required": false,
+        "order": 0,
+        "enquote": false,
+        "default": null
+      },
+      "details": {
+        "label": "Application bundle",
+        "description": "Compressed work folder containing application and binaries to be run in the Docker container. zip, gz.",
+        "argument": null,
+        "showArgument": false,
+        "repeatArgument": false
+      },
+      "semantics": {
+        "minCardinality": 0,
+        "maxCardinality": 1,
+        "ontology": [],
+        "fileTypes": []
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "command",
+      "value": {
+        "visible": true,
+        "required": false,
+        "type": "string",
+        "order": 0,
+        "enquote": false,
+        "default": "python",
+        "validator": null
+      },
+      "details": {
+        "label": "Command to run",
+        "description": "This is the actual executable needed to run your program in the Docker container. ex. Rscript, python, java, mvn, php, sh",
+        "argument": null,
+        "showArgument": false,
+        "repeatArgument": false
+      },
+      "semantics": {
+        "minCardinality": 0,
+        "maxCardinality": 1,
+        "ontology": []
+      }
+    },
+    {
+      "id": "unpackInputs",
+      "value": {
+        "visible": true,
+        "required": false,
+        "type": "flag",
+        "order": 0,
+        "enquote": false,
+        "default": true,
+        "validator": null
+      },
+      "details": {
+        "label": "Unpack input files",
+        "description": "If true, any compressed input files will be expanded prior to execution on the remote system.",
+        "argument": "1",
+        "showArgument": true,
+        "repeatArgument": false
+      },
+      "semantics": {
+        "minCardinality": 0,
+        "maxCardinality": 1,
+        "ontology": []
+      }
+    },
+    {
+      "id": "commandArgs",
+      "value": {
+        "visible": true,
+        "required": false,
+        "type": "string",
+        "order": 0,
+        "enquote": false,
+        "default": "main.py",
+        "validator": null
+      },
+      "details": {
+        "label": "Command arguments",
+        "description": "This is a string reprsenting the command line needed to run your code. ex. main.r, main.py, -cp $CLASSPATH:lib, exec:java, -f main.php, -c main.sh ",
+        "argument": null,
+        "showArgument": false,
+        "repeatArgument": false
+      },
+      "semantics": {
+        "minCardinality": 0,
+        "maxCardinality": 1,
+        "ontology": []
+      }
+    },
+    {
+      "id": "dockerImage",
+      "value": {
+        "visible": true,
+        "required": true,
+        "type": "string",
+        "order": 0,
+        "enquote": false,
+        "default": "agaveapi/scipy-matplot-2.7",
+        "validator": null
+      },
+      "details": {
+        "label": "Image name",
+        "description": "Container image from the Docker central repo or name of the image created by building the dockerFile",
+        "argument": null,
+        "showArgument": false,
+        "repeatArgument": false
+      },
+      "semantics": {
+        "minCardinality": 1,
+        "maxCardinality": 1,
+        "ontology": []
+      }
+    }
+  ],
+  "outputs": [],
+  "_links": {
+    "self": {
+      "href": "https://public.agaveapi.co/apps/v2/cloud-runner-0.1.0u1"
+    },
+    "executionSystem": {
+      "href": "https://public.agaveapi.co/systems/v2/docker.tacc.utexas.edu"
+    },
+    "storageSystem": {
+      "href": "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+    },
+    "history": {
+      "href": "https://public.agaveapi.co/apps/v2/cloud-runner-0.1.0u1/history"
+    },
+    "metadata": {
+      "href": "https://public.agaveapi.co/meta/v2/data/?q=%7B%22associationIds%22%3A%223058779360820391450-242ac115-0001-005%22%7D"
+    },
+    "owner": {
+      "href": "https://public.agaveapi.co/profiles/v2/dooley"
+    },
+    "permissions": {
+      "href": "https://public.agaveapi.co/apps/v2/cloud-runner-0.1.0u1/pems"
+    }
+  }
+}
+```
+
+To query for detailed information about a specific app, add the app id to the base collection url and make another GET request.
+
+This time, the response will be a JSON object with a full app description. The following is the description of the public `cloud-runner-0.1.0u1` app. In the next section we talk more about the different parts of an app definition and how to register one of your own.

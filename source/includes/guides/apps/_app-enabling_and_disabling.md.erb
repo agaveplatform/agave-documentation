@@ -1,0 +1,30 @@
+### Disabling an app
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
+     -X PUT -d action=disable my-pyplot-demo-2.2
+```
+
+```plaintext
+apps-disable -v my-pyplot-demo-2.2
+```
+
+Disabling an app make it unavailable for use. This means new job requests will fail due to the app being disabled. Existing jobs queued up to run will be held until the app becomes available. Running jobs will continue as normal, but any retries will be held until the app is reenabled. 
+
+To disable an app, make a PUT request on the app's URL with `action=disable` as the body. 
+
+
+### Enabling an app
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
+     -X PUT -d action=enable my-pyplot-demo-2.2
+```
+
+```plaintext
+apps-enable -v my-pyplot-demo-2.2
+```
+
+Enabling an app instantly returns it to service. Any pending jobs will immediately start processing according to the queuing policy and quotas in place when the app is enabled. 
+
+To enable an app, make a PUT request on the app URL with `action=enable` as the body. 

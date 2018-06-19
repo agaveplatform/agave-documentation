@@ -1,0 +1,12 @@
+### Deleting an app
+
+```shell
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
+     -X DELETE my-pyplot-demo-2.2
+```
+
+```plaintext
+apps-delete -v my-pyplot-demo-2.2
+```
+
+Deleting an app is done by calling a HTTP DELETE on an app's URL. Note that deleting an app does not make its id available for reuse.
