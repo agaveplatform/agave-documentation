@@ -60,7 +60,7 @@ ga('send', 'pageview');
 
 <p>A PostIt is a pre-authenticated, disposable URL, similar to a Bit.ly URL that you can share with others. You have control over the lifetime and number of times the URL can be redeemed and can expire it at any time. Let&rsquo;s create a PostIt for our &ldquo;project&rdquo; metadata that will expire after two requests.</p>
 <pre class="highlight javascript"><code><span class="p">{</span>
-  <span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/meta/v2/data/0001409792924730-5056a550b8-0001-012"</span><span class="p">,</span>
+  <span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/meta/v2/data/0001409792924730-5056a550b8-0001-012"</span><span class="p">,</span>
   <span class="s2">"maxUses"</span><span class="err">:</span> <span class="mi">2</span><span class="p">,</span>
   <span class="s2">"method"</span><span class="err">:</span> <span class="s2">"GET"</span>
 <span class="p">}</span>
@@ -71,7 +71,7 @@ ga('send', 'pageview');
 <p>To create a PostIt, send a POST request with the above JSON object to the PostIts service.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST -F <span class="s2">"fileToUpload=@postit.json"</span> https://<span class="nv">$API_BASE_URL</span>/postits/<span class="nv">$API_VERSION</span>/
 </code></pre>
-<pre class="highlight plaintext"><code>postits-create -v -m 2 https://public.agaveapi.co/meta/v2/data/0001409792924730-5056a550b8-0001-012
+<pre class="highlight plaintext"><code>postits-create -v -m 2 https://sandbox.agaveplatform.org/meta/v2/data/0001409792924730-5056a550b8-0001-012
 </code></pre>
 
 <p>This will return a JSON object with a reference to the URL we are sharing and PostIt URL we can hand out to others. Notice that, in this example, the PostIt we created is valid for two uses. You can verify this limit with your browser if you&rsquo;re following along. Visit the URL, refresh your browser. That should max out the request limit. The next time you refresh your browser, you will get a permission denied error.</p>
@@ -85,13 +85,13 @@ ga('send', 'pageview');
     <span class="s2">"noauth"</span><span class="err">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="s2">"postit"</span><span class="err">:</span> <span class="s2">"a6804886706aec2cf5a9fb51cb52e016"</span><span class="p">,</span>
     <span class="s2">"remainingUses"</span><span class="err">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/meta/v2/data/0001409792924730-5056a550b8-0001-012"</span><span class="p">,</span>
+    <span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/meta/v2/data/0001409792924730-5056a550b8-0001-012"</span><span class="p">,</span>
     <span class="s2">"_links"</span><span class="err">:</span> <span class="p">{</span>
         <span class="s2">"profile"</span><span class="err">:</span> <span class="p">{</span>
-            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/systest"</span>
+            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/profiles/v2/systest"</span>
         <span class="p">},</span>
         <span class="s2">"self"</span><span class="err">:</span> <span class="p">{</span>
-            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/postits/v2/a6804886706aec2cf5a9fb51cb52e016"</span>
+            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/postits/v2/a6804886706aec2cf5a9fb51cb52e016"</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -99,14 +99,14 @@ ga('send', 'pageview');
 
 <p>Let&rsquo;s also create a PostIt of our output data that we can email to our colleague so they can download the file directly from our email message. The following JSON object will do the trick.</p>
 <pre class="highlight javascript"><code><span class="p">{</span>
-  <span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt"</span><span class="p">,</span>
+  <span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/systest/picksumipsum.txt"</span><span class="p">,</span>
   <span class="s2">"maxUses"</span><span class="err">:</span> <span class="mi">2</span><span class="p">,</span>
   <span class="s2">"method"</span><span class="err">:</span> <span class="s2">"GET"</span>
 <span class="p">}</span>
 </code></pre>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X POST -F <span class="s2">"fileToUpload=@output.json"</span> https://<span class="nv">$API_BASE_URL</span>/postits/<span class="nv">$API_VERSION</span>/
 </code></pre>
-<pre class="highlight plaintext"><code>postits-create -v -m 2 https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt
+<pre class="highlight plaintext"><code>postits-create -v -m 2 https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/systest/picksumipsum.txt
 </code></pre>
 <pre class="highlight javascript"><code><span class="p">{</span>
     <span class="s2">"authenticated"</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -118,13 +118,13 @@ ga('send', 'pageview');
     <span class="s2">"noauth"</span><span class="err">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="s2">"postit"</span><span class="err">:</span> <span class="s2">"14e86bb1a039a03a2463e6e0f0a4421f"</span><span class="p">,</span>
     <span class="s2">"remainingUses"</span><span class="err">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt"</span><span class="p">,</span>
+    <span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/systest/picksumipsum.txt"</span><span class="p">,</span>
     <span class="s2">"_links"</span><span class="err">:</span> <span class="p">{</span>
         <span class="s2">"profile"</span><span class="err">:</span> <span class="p">{</span>
-            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/systest"</span>
+            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/profiles/v2/systest"</span>
         <span class="p">},</span>
         <span class="s2">"self"</span><span class="err">:</span> <span class="p">{</span>
-            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f"</span>
+            <span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f"</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -135,7 +135,7 @@ ga('send', 'pageview');
 <p>Now that you have created these URLs, you can share them freely with whoever you wish. If, at any time, you need to delete them before they expire, you can do so by issuing a DELETE on the URL.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X DELETE https://<span class="nv">$API_BASE_URL</span>/postits/<span class="nv">$API_VERSION</span>/14e86bb1a039a03a2463e6e0f0a4421f
 </code></pre>
-<pre class="highlight plaintext"><code>postits-delete -v https://public.agaveapi.co/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f
+<pre class="highlight plaintext"><code>postits-delete -v https://sandbox.agaveplatform.org/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f
 </code></pre>
 
           </div>

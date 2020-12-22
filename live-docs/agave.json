@@ -1,15 +1,15 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2.1.11",
+    "version": "2.1.27",
     "title": "Agave Platform Science API",
     "description": "Power your digital lab and reduce the time from theory to discovery using the Agave Science-as-a-Service API Platform. Agave provides hosted services that allow researchers to manage data, conduct experiments, and publish and share results from anywhere at any time.",
     "license": {
-      "name": "BSD 2-Clause",
-      "url": "https://opensource.org/licenses/BSD-2-Clause"
+      "name": "BSD 3-Clause",
+      "url": "https://opensource.org/licenses/BSD-3-Clause"
     }
   },
-  "host": "public.agaveapi.co",
+  "host": "sandbox.agaveplatform.org",
   "schemes": ["https"],
   "basePath": "/",
   "consumes": ["application/json"],
@@ -17,7 +17,7 @@
   "securityDefinitions": {
     "agaveImplicit": {
       "type": "oauth2",
-      "authorizationUrl": "https://public.agaveapi.co/authorization",
+      "authorizationUrl": "https://sandbox.agaveplatform.org/authorization",
       "flow": "implicit",
       "scopes": {
         "PRODUCTION": "catchall scope for all core apis"
@@ -25,7 +25,7 @@
     },
     "agaveApplication": {
       "type": "oauth2",
-      "tokenUrl": "https://public.agaveapi.co/token",
+      "tokenUrl": "https://sandbox.agaveplatform.org/token",
       "flow": "application",
       "scopes": {
         "PRODUCTION": "catchall scope for all core apis"
@@ -33,7 +33,7 @@
     },
     "agavePassword": {
       "type": "oauth2",
-      "tokenUrl": "https://public.agaveapi.co/token",
+      "tokenUrl": "https://sandbox.agaveplatform.org/token",
       "flow": "password",
       "scopes": {
         "PRODUCTION": "catchall scope for all core apis"
@@ -7274,7 +7274,7 @@
     },
     "Application": {
       "title": "Application",
-      "description": "Applications are a self-describing representation of an executable software item. See the <a href=\"http://agaveapi.co/documentation/tutorials/app-management-tutorial/\">App Management Tutorial</a> for more information.",
+      "description": "Applications are a self-describing representation of an executable software item. See the <a href=\"https://agaveplatform.org/documentation/tutorials/app-management-tutorial/\">App Management Tutorial</a> for more information.",
       "type": "object",
       "properties": {
         "available": {
@@ -7418,7 +7418,7 @@
     },
     "ApplicationInput": {
       "title": "ApplicationInput",
-      "description": "App inputs describe data inputs supported by your app. Each input can represent one or more files or folders. Inptus can be optional or required and may physically reside anywhere accessible using any of the data protocols supported by Agave.  <a href=\"http://agaveapi.co/documentation/tutorials/app-management-tutorial/#app-inputs\">Read more.</a>",
+      "description": "App inputs describe data inputs supported by your app. Each input can represent one or more files or folders. Inptus can be optional or required and may physically reside anywhere accessible using any of the data protocols supported by Agave.  <a href=\"https://agaveplatform.org/documentation/tutorials/app-management-tutorial/#app-inputs\">Read more.</a>",
       "type": "object",
       "properties": {
         "semantics": {
@@ -9479,7 +9479,7 @@
     },
     "ApplicationArgumentSemantics": {
       "title": "ApplicationArgumentSemantics",
-      "description": "Describes the semantic definition of this input/output and the filetypes it represents. Multiple ontologies and values are supported. <a href=\"http://agaveapi.co/documentation/tutorials/app-management-tutorial/#app-outputs\">Read more.</a>",
+      "description": "Describes the semantic definition of this input/output and the filetypes it represents. Multiple ontologies and values are supported. <a href=\"https://agaveplatform.org/documentation/tutorials/app-management-tutorial/#app-outputs\">Read more.</a>",
       "type": "object",
       "properties": {
         "fileTypes": {
@@ -9510,7 +9510,7 @@
     },
     "ApplicationOutput": {
       "title": "ApplicationOutput",
-      "description": "In addition to describing the inputs and parameters that your wrapper script requires, it is often helpful to provide the expected outputs when running your app. This is the purpose of the outputs attribute. App outputs specify an array of JSON objects describing the data that should be present when your app completes. It is entirely optional and provided, at this point in time, for reference purpose only.  <a href=\"http://agaveapi.co/documentation/tutorials/app-management-tutorial/#app-outputs\">Read more.</a>",
+      "description": "In addition to describing the inputs and parameters that your wrapper script requires, it is often helpful to provide the expected outputs when running your app. This is the purpose of the outputs attribute. App outputs specify an array of JSON objects describing the data that should be present when your app completes. It is entirely optional and provided, at this point in time, for reference purpose only.  <a href=\"https://agaveplatform.org/documentation/tutorials/app-management-tutorial/#app-outputs\">Read more.</a>",
       "type": "object",
       "properties": {
         "semantics": {
@@ -9524,7 +9524,7 @@
     },
     "ApplicationParameter": {
       "title": "ApplicationParameter",
-      "description": "App parameters define the command-line arguments (flags, arguments, etc.) needed by your wrapper script in order to properly run your application code. <a href=\"http://agaveapi.co/documentation/tutorials/app-management-tutorial/#app-parameters\">Read more.</a>",
+      "description": "App parameters define the command-line arguments (flags, arguments, etc.) needed by your wrapper script in order to properly run your application code. <a href=\"https://agaveplatform.org/documentation/tutorials/app-management-tutorial/#app-parameters\">Read more.</a>",
       "type": "object",
       "properties": {
         "value": {

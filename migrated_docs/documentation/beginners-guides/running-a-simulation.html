@@ -56,17 +56,17 @@ ga('send', 'pageview');
         <div class="page-wrapper">
           <div class="dark-box"></div>
           <div class="content">
-            <p>In the previous lesson on <a title="App Discovery" href="http://agaveapi.co/documentation/beginners-guides/app-discovery/">Discovering Apps</a>, we learned how to identify the inputs and parameters needed to run an app from its app description. Using that knowledge, we can craft a JSON description of our public app, <code>wc-osg-1.00u1</code>.</p>
+            <p>In the previous lesson on <a title="App Discovery" href="https://agaveplatform.org/documentation/beginners-guides/app-discovery/">Discovering Apps</a>, we learned how to identify the inputs and parameters needed to run an app from its app description. Using that knowledge, we can craft a JSON description of our public app, <code>wc-osg-1.00u1</code>.</p>
 <pre class="highlight javascript"><code><span class="p">{</span>
 <span class="s2">"name"</span><span class="err">:</span><span class="s2">"wordcount demo"</span><span class="p">,</span>
 <span class="s2">"appId"</span><span class="err">:</span><span class="s2">"wc-osg-1.00u1"</span><span class="p">,</span>
 <span class="s2">"inputs"</span><span class="err">:</span><span class="p">{</span>
-<span class="s2">"query1"</span><span class="err">:</span><span class="s2">"agave://data.agaveapi.co/systest/picksumipsum.txt"</span>
+<span class="s2">"query1"</span><span class="err">:</span><span class="s2">"agave://data.agaveplatform.org/systest/picksumipsum.txt"</span>
 <span class="p">},</span>
 <span class="s2">"parameters"</span><span class="err">:</span> <span class="p">{},</span>
 <span class="s2">"notifications"</span><span class="err">:</span><span class="p">[</span>
 <span class="p">{</span>
-<span class="s2">"url"</span><span class="p">:</span><span class="s2">"http://postbin.agaveapi.co/ad3a9dz?job_status=${JOB_STATUS}&amp;amp;job_id=${JOB_ID}"</span><span class="p">,</span>
+<span class="s2">"url"</span><span class="p">:</span><span class="s2">"http://requestbin.docs.agaveplatform.org/ad3a9dz?job_status=${JOB_STATUS}&amp;amp;job_id=${JOB_ID}"</span><span class="p">,</span>
 <span class="s2">"event"</span><span class="p">:</span><span class="s2">"*"</span><span class="p">,</span>
 <span class="s2">"persistent"</span><span class="p">:</span><span class="kc">true</span>
 <span class="p">}</span>
@@ -74,7 +74,7 @@ ga('send', 'pageview');
 <span class="p">}</span>
 </code></pre>
 
-<p>You should recognize the attributes in this object from the app description in the <a title="App Discovery" href="http://agaveapi.co/documentation/beginners-guides/app-discovery/">Discovering Apps</a> guide. Additionally we add two new attributes: <code>name</code> and <code>notifications</code>. The <code>name</code> attribute is a mandatory descriptive name for the job. The <code>notifications</code> attribute is an optional array of notification objects used to send you alerts of various job events. We cover notifications more in a couple sections.</p>
+<p>You should recognize the attributes in this object from the app description in the <a title="App Discovery" href="https://agaveplatform.org/documentation/beginners-guides/app-discovery/">Discovering Apps</a> guide. Additionally we add two new attributes: <code>name</code> and <code>notifications</code>. The <code>name</code> attribute is a mandatory descriptive name for the job. The <code>notifications</code> attribute is an optional array of notification objects used to send you alerts of various job events. We cover notifications more in a couple sections.</p>
 
 <h2 id="submitting-a-job-request">Submitting a job request</h2>
 
@@ -89,13 +89,13 @@ ga('send', 'pageview');
 <span class="s2">"appId"</span><span class="err">:</span> <span class="s2">"wc-osg-1.00u1"</span><span class="p">,</span>
 <span class="s2">"archive"</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
 <span class="s2">"archivePath"</span><span class="err">:</span> <span class="s2">"systest/archive/jobs/job-0001409784588509-5056a550b8-0001-007"</span><span class="p">,</span>
-<span class="s2">"archiveSystem"</span><span class="err">:</span> <span class="s2">"data.agaveapi.co"</span><span class="p">,</span>
+<span class="s2">"archiveSystem"</span><span class="err">:</span> <span class="s2">"data.agaveplatform.org"</span><span class="p">,</span>
 <span class="s2">"batchQueue"</span><span class="err">:</span> <span class="s2">"condorqueue"</span><span class="p">,</span>
 <span class="s2">"endTime"</span><span class="err">:</span> <span class="kc">null</span><span class="p">,</span>
 <span class="s2">"executionSystem"</span><span class="err">:</span> <span class="s2">"condor.opensciencegrid.org"</span><span class="p">,</span>
 <span class="s2">"id"</span><span class="err">:</span> <span class="s2">"0001409784588509-5056a550b8-0001-007"</span><span class="p">,</span>
 <span class="s2">"inputs"</span><span class="err">:</span> <span class="p">{</span>
-<span class="s2">"query1"</span><span class="err">:</span> <span class="s2">"agave://data.agaveapi.co/systest/picksumipsum.txt"</span>
+<span class="s2">"query1"</span><span class="err">:</span> <span class="s2">"agave://data.agaveplatform.org/systest/picksumipsum.txt"</span>
 <span class="p">},</span>
 <span class="s2">"localId"</span><span class="err">:</span> <span class="kc">null</span><span class="p">,</span>
 <span class="s2">"maxRunTime"</span><span class="err">:</span> <span class="s2">"999:59:59"</span><span class="p">,</span>
@@ -112,34 +112,34 @@ ga('send', 'pageview');
 <span class="s2">"submitTime"</span><span class="err">:</span> <span class="s2">"2014-09-03T17:49:48.568-05:00"</span><span class="p">,</span>
 <span class="s2">"_links"</span><span class="err">:</span> <span class="p">{</span>
 <span class="s2">"app"</span><span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1"</span>
+<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/apps/v2/wc-osg-1.00u1"</span>
 <span class="p">},</span>
 <span class="s2">"archiveData"</span><span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/listings"</span>
+<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/listings"</span>
 <span class="p">},</span>
 <span class="s2">"archiveSystem"</span><span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
+<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"</span>
 <span class="p">},</span>
 <span class="s2">"executionSystem"</span><span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/condor.opensciencegrid.org"</span>
+<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/systems/v2/condor.opensciencegrid.org"</span>
 <span class="p">},</span>
 <span class="s2">"history"</span><span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/history"</span>
+<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/history"</span>
 <span class="p">},</span>
 <span class="s2">"metadata"</span><span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/meta/v2/data/?q={"</span><span class="nx">associationIds</span><span class="s2">":"</span><span class="mi">0001409784588509</span><span class="o">-</span><span class="mi">5056</span><span class="nx">a550b8</span><span class="o">-</span><span class="mi">0001</span><span class="o">-</span><span class="mi">007</span><span class="s2">"}"</span>
+<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/meta/v2/data/?q={"</span><span class="nx">associationIds</span><span class="s2">":"</span><span class="mi">0001409784588509</span><span class="o">-</span><span class="mi">5056</span><span class="nx">a550b8</span><span class="o">-</span><span class="mi">0001</span><span class="o">-</span><span class="mi">007</span><span class="s2">"}"</span>
 <span class="p">},</span>
 <span class="s2">"notifications"</span><span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/notifications/v2/?associatedUuid=0001409784588509-5056a550b8-0001-007"</span>
+<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=0001409784588509-5056a550b8-0001-007"</span>
 <span class="p">},</span>
 <span class="s2">"owner"</span><span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/profiles/v2/systest"</span>
+<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/profiles/v2/systest"</span>
 <span class="p">},</span>
 <span class="s2">"permissions"</span><span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/pems"</span>
+<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/pems"</span>
 <span class="p">},</span>
 <span class="s2">"self"</span><span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
+<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
 <span class="p">}</span>
 <span class="p">}</span>
 <span class="p">}</span>
@@ -161,7 +161,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"status"</span><span class="err">:</span> <span class="s2">"FINISHED"</span><span class="p">,</span>
 <span class="s2">"_links"</span><span class="err">:</span> <span class="p">{</span>
 <span class="s2">"self"</span><span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
+<span class="s2">"href"</span><span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
 <span class="p">}</span>
 <span class="p">}</span>
 <span class="p">}</span>
@@ -171,7 +171,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 
 <p>When we described our job in the first section, we pointed out a <code>notifications</code> attribute. The preferred way to track the status of your jobs is to subscribe to receive asynchronous notifications on job events of interest such as FINISHED, RUNNING, and FAILED. In our job request above, we used the wildcard event <code>&quot;*&quot;</code> to indicate that we want to receive notifications about every event that occurs in our job&rsquo;s lifecycle. We provide a url where the notification should be sent, and we specify that we want the notification to persist between invocations rather than expire the first time it is sent.</p>
 <pre class="highlight javascript"><code><span class="p">{</span>
-<span class="s2">"url"</span><span class="err">:</span><span class="s2">"http://agaveapi.co/requestbin/ad3a9dz?job_status=${JOB_STATUS}&amp;amp;job_id=${JOB_ID}"</span><span class="p">,</span>
+<span class="s2">"url"</span><span class="err">:</span><span class="s2">"https://agaveplatform.org/requestbin/ad3a9dz?job_status=${JOB_STATUS}&amp;amp;job_id=${JOB_ID}"</span><span class="p">,</span>
 <span class="s2">"event"</span><span class="err">:</span><span class="s2">"*"</span><span class="p">,</span>
 <span class="s2">"persistent"</span><span class="err">:</span><span class="kc">true</span>
 <span class="p">}</span>
@@ -179,7 +179,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 
 <p>Agave supports two kinds of notifications: <a title="Webhooks" href="http://webhooks.org" target="_blank">webhooks</a> and email. In the job notification we created, we specified a webhook. Webhooks are just HTTP endpoints that will receive a POST from Agave&rsquo;s Notification service when the desired event occurs. Agave supports a rich set of template variables that allow you to craft informative, custom URLS to suite your particular application needs. Our URL will be resolved at run time to include the job&rsquo;s id, <code>${JOB_ID}</code>, and status, <code>${JOB_STATUS}</code> before being called.</p>
 
-<aside class="notice">There are several good services available online for testing webhooks. Runscope&rsquo;s <a title="Request Bin by Runscope" href="http://requestb.in" target="_blank">RequestBin</a> is a good, free hosted service. A simple, self-hosted node listener is available <a href="https://github.com/deardooley/node-http-post-listener">here</a>. You can also create a <a title="Agave Request Bin" href="http://requestbin.agaveapi.co" target="_blank">request bin</a> on this site to use in your development.</aside>
+<aside class="notice">There are several good services available online for testing webhooks. Runscope&rsquo;s <a title="Request Bin by Runscope" href="http://requestb.in" target="_blank">RequestBin</a> is a good, free hosted service. A simple, self-hosted node listener is available <a href="https://github.com/deardooley/node-http-post-listener">here</a>. You can also create a <a title="Agave Request Bin" href="http://requestbin.agaveplatform.org" target="_blank">request bin</a> on this site to use in your development.</aside>
 
 <h2 id="job-history">Job history</h2>
 
@@ -209,7 +209,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="p">},</span>
 <span class="p">{</span>
 <span class="s2">"created"</span><span class="p">:</span> <span class="s2">"2014-09-03T17:49:51.000-05:00"</span><span class="p">,</span>
-<span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Staging agave://data.agaveapi.co/systest/picksumipsum.txt to remote job directory"</span><span class="p">,</span>
+<span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Staging agave://data.agaveplatform.org/systest/picksumipsum.txt to remote job directory"</span><span class="p">,</span>
 <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"STAGING_INPUTS"</span>
 <span class="p">},</span>
 <span class="p">{</span>
@@ -217,7 +217,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Copy in progress"</span><span class="p">,</span>
 <span class="s2">"progress"</span><span class="p">:</span> <span class="p">{</span>
 <span class="s2">"averageRate"</span><span class="p">:</span> <span class="mi">3235</span><span class="p">,</span>
-<span class="s2">"source"</span><span class="p">:</span> <span class="s2">"agave://data.agaveapi.co/systest/picksumipsum.txt"</span><span class="p">,</span>
+<span class="s2">"source"</span><span class="p">:</span> <span class="s2">"agave://data.agaveplatform.org/systest/picksumipsum.txt"</span><span class="p">,</span>
 <span class="s2">"totalActiveTransfers"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 <span class="s2">"totalBytes"</span><span class="p">:</span> <span class="mi">3235</span><span class="p">,</span>
 <span class="s2">"totalBytesTransferred"</span><span class="p">:</span> <span class="mi">3235</span><span class="p">,</span>
@@ -272,7 +272,7 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="p">},</span>
 <span class="p">{</span>
 <span class="s2">"created"</span><span class="p">:</span> <span class="s2">"2014-09-03T17:51:03.000-05:00"</span><span class="p">,</span>
-<span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Archiving agave://condor.opensciencegrid.org//condor/scratch/systest/job-0001409784588509-5056a550b8-0001-007-wordcount-demo to agave://data.agaveapi.co/systest/archive/jobs/job-0001409784588509-5056a550b8-0001-007"</span><span class="p">,</span>
+<span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Archiving agave://condor.opensciencegrid.org//condor/scratch/systest/job-0001409784588509-5056a550b8-0001-007-wordcount-demo to agave://data.agaveplatform.org/systest/archive/jobs/job-0001409784588509-5056a550b8-0001-007"</span><span class="p">,</span>
 <span class="s2">"progress"</span><span class="p">:</span> <span class="p">{</span>
 <span class="s2">"averageRate"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"agave://condor.opensciencegrid.org//condor/scratch/systest/job-0001409784588509-5056a550b8-0001-007-wordcount-demo"</span><span class="p">,</span>
@@ -322,13 +322,13 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"type"</span> <span class="p">:</span> <span class="s2">"file"</span><span class="p">,</span>
 <span class="s2">"_links"</span> <span class="p">:</span> <span class="p">{</span>
 <span class="s2">"self"</span> <span class="p">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/condorSubmit"</span>
+<span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/condorSubmit"</span>
 <span class="p">},</span>
 <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"</span>
 <span class="p">},</span>
 <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
 <span class="p">}</span>
 <span class="p">}</span>
 <span class="p">},</span> <span class="p">{</span>
@@ -342,13 +342,13 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"type"</span> <span class="p">:</span> <span class="s2">"file"</span><span class="p">,</span>
 <span class="s2">"_links"</span> <span class="p">:</span> <span class="p">{</span>
 <span class="s2">"self"</span> <span class="p">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.err"</span>
+<span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.err"</span>
 <span class="p">},</span>
 <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"</span>
 <span class="p">},</span>
 <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
 <span class="p">}</span>
 <span class="p">}</span>
 <span class="p">},</span> <span class="p">{</span>
@@ -362,13 +362,13 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"type"</span> <span class="p">:</span> <span class="s2">"file"</span><span class="p">,</span>
 <span class="s2">"_links"</span> <span class="p">:</span> <span class="p">{</span>
 <span class="s2">"self"</span> <span class="p">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.out"</span>
+<span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.out"</span>
 <span class="p">},</span>
 <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"</span>
 <span class="p">},</span>
 <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
 <span class="p">}</span>
 <span class="p">}</span>
 <span class="p">},</span> <span class="p">{</span>
@@ -382,13 +382,13 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"type"</span> <span class="p">:</span> <span class="s2">"file"</span><span class="p">,</span>
 <span class="s2">"_links"</span> <span class="p">:</span> <span class="p">{</span>
 <span class="s2">"self"</span> <span class="p">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/output.txt"</span>
+<span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/output.txt"</span>
 <span class="p">},</span>
 <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"</span>
 <span class="p">},</span>
 <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
 <span class="p">}</span>
 <span class="p">}</span>
 <span class="p">},</span> <span class="p">{</span>
@@ -402,13 +402,13 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"type"</span> <span class="p">:</span> <span class="s2">"file"</span><span class="p">,</span>
 <span class="s2">"_links"</span> <span class="p">:</span> <span class="p">{</span>
 <span class="s2">"self"</span> <span class="p">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/picksumipsum.txt"</span>
+<span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/picksumipsum.txt"</span>
 <span class="p">},</span>
 <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"</span>
 <span class="p">},</span>
 <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
 <span class="p">}</span>
 <span class="p">}</span>
 <span class="p">},</span> <span class="p">{</span>
@@ -422,13 +422,13 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"type"</span> <span class="p">:</span> <span class="s2">"file"</span><span class="p">,</span>
 <span class="s2">"_links"</span> <span class="p">:</span> <span class="p">{</span>
 <span class="s2">"self"</span> <span class="p">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/runtime.log"</span>
+<span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/runtime.log"</span>
 <span class="p">},</span>
 <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"</span>
 <span class="p">},</span>
 <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
 <span class="p">}</span>
 <span class="p">}</span>
 <span class="p">},</span> <span class="p">{</span>
@@ -442,13 +442,13 @@ jobs-status -v 0001409784588509-5056a550b8-0001-007
 <span class="s2">"type"</span> <span class="p">:</span> <span class="s2">"file"</span><span class="p">,</span>
 <span class="s2">"_links"</span> <span class="p">:</span> <span class="p">{</span>
 <span class="s2">"self"</span> <span class="p">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/transfer.tar.gz"</span>
+<span class="s2">"href"</span> <span class="p">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/transfer.tar.gz"</span>
 <span class="p">},</span>
 <span class="s2">"system"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/systems/v2/data.agaveapi.co"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"</span>
 <span class="p">},</span>
 <span class="s2">"parent"</span> <span class="err">:</span> <span class="p">{</span>
-<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
+<span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"</span>
 <span class="p">}</span>
 <span class="p">}</span>
 <span class="p">}</span>

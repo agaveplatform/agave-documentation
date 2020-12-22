@@ -86,7 +86,7 @@ ga('send', 'pageview');
 <h3 id="1-your-application-requests-authorization">1. Your application requests authorization</h3>
 
 <p>The authorization process starts with your application sending a request to the Agave authorization service. (The reason your application sends this request can vary: it may be a step in the initialization of your application or in response to some user action, like a button click.) The request is sent to the /authorize endpoint of the Authorization service:</p>
-<pre class="highlight shell"><code>GET https://public.agaveapi.co/authorize
+<pre class="highlight shell"><code>GET https://sandbox.agaveplatform.org/authorize
 </code></pre>
 
 <p>The request will include parameters in the query string:</p>
@@ -94,7 +94,7 @@ ga('send', 'pageview');
 <p>&lt;%= partial &ldquo;includes/tables/17&rdquo; %&gt;</p>
 
 <p>A typical request looks like this:</p>
-<pre class="highlight shell"><code>GET https://public.agaveapi.co/authorize/?client_id<span class="o">=</span>gTgp...SV8a&amp;amp;response_type<span class="o">=</span>code&amp;amp;redirect_uri<span class="o">=</span>https%3A%2F%2Fexample.com%2Fcallback&amp;amp;scope<span class="o">=</span>PRODUCTION&amp;amp;state<span class="o">=</span>866
+<pre class="highlight shell"><code>GET https://sandbox.agaveplatform.org/authorize/?client_id<span class="o">=</span>gTgp...SV8a&amp;amp;response_type<span class="o">=</span>code&amp;amp;redirect_uri<span class="o">=</span>https%3A%2F%2Fexample.com%2Fcallback&amp;amp;scope<span class="o">=</span>PRODUCTION&amp;amp;state<span class="o">=</span>866
 </code></pre>
 
 <h3 id="2-the-user-is-asked-to-authorize-access-within-the-scopes">2. The user is asked to authorize access within the scopes</h3>
@@ -128,7 +128,7 @@ ga('send', 'pageview');
 <h3 id="4-your-application-requests-refresh-and-access-tokens">4. Your application requests refresh and access tokens</h3>
 
 <p>When the authorization code has been received, you will need to exchange it with an access token by making a POST request to the Agave Authorization service, this time to its <code>/token</code> endpoint:</p>
-<pre class="highlight shell"><code>POST https://public.agaveapi.co/token
+<pre class="highlight shell"><code>POST https://sandbox.agaveplatform.org/token
 </code></pre>
 
 <p>The body of this POST request must contain the following parameters:</p>
@@ -146,7 +146,7 @@ ga('send', 'pageview');
     -d <span class="s2">"code=Pq3S..M4sY"</span>
     -d <span class="s2">"client_id=gTgp...SV8a"</span>
     -d <span class="s2">"client_secret=hZ_z3f...BOD6"</span>
-    <span class="s2">"redirect_uri=https%3A%2F%2Fwww.foo.com%2Fauth"</span> https://public.agaveapi.co/token
+    <span class="s2">"redirect_uri=https%3A%2F%2Fwww.foo.com%2Fauth"</span> https://sandbox.agaveplatform.org/token
 </code></pre>
 <pre class="highlight javascript"><code><span class="p">{</span>
     <span class="s2">"access_token"</span><span class="err">:</span> <span class="s2">"a742...12d2"</span><span class="p">,</span>
@@ -159,7 +159,7 @@ ga('send', 'pageview');
 <h3 id="6-use-the-access-token-to-access-the-agave-rest-apis">6. Use the access token to access the Agave REST APIs</h3>
 
 <p>The access token allows you to make requests to the Agave REST APIs on a behalf of a user, for example:</p>
-<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer a742...12d2"</span> https://public.agaveapi.co/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer a742...12d2"</span> https://sandbox.agaveplatform.org/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="p">{</span>
     <span class="s2">"create_time"</span><span class="err">:</span> <span class="s2">"20140905072223Z"</span><span class="p">,</span>
@@ -180,7 +180,7 @@ ga('send', 'pageview');
 <p>Access tokens are deliberately set to expire after a short time, usually 4 hours, after which new tokens may be granted by supplying the refresh token originally obtained during the authorization code exchange.</p>
 
 <p>The request is sent to the token endpoint of the Agave Authorization service:</p>
-<pre class="highlight shell"><code>POST https://public.agaveapi.co/token
+<pre class="highlight shell"><code>POST https://sandbox.agaveplatform.org/token
 </code></pre>
 
 <p>The body of this POST request must contain the following parameters:</p>
@@ -194,7 +194,7 @@ ga('send', 'pageview');
 <p>For example:</p>
 <pre class="highlight shell"><code>curl -sku <span class="s2">"Authorization: Basic Qt3c...Rm1y="</span>
     -d <span class="nv">grant_type</span><span class="o">=</span>refresh_token
-    -d <span class="nv">refresh_token</span><span class="o">=</span>d77c...Sacf https://public.agaveapi.co/token
+    -d <span class="nv">refresh_token</span><span class="o">=</span>d77c...Sacf https://sandbox.agaveplatform.org/token
 </code></pre>
 <pre class="highlight javascript"><code><span class="p">{</span>
     <span class="s2">"access_token"</span><span class="err">:</span> <span class="s2">"61e6...Mc96"</span><span class="p">,</span>
@@ -212,7 +212,7 @@ ga('send', 'pageview');
 <h3 id="1-your-application-requests-authorization">1. Your application requests authorization</h3>
 
 <p>Redirect the user to the /authorize endpoint of the Accounts service:</p>
-<pre class="highlight shell"><code>GET https://public.agaveapi.co/authorize
+<pre class="highlight shell"><code>GET https://sandbox.agaveplatform.org/authorize
 </code></pre>
 
 <p>The request will include parameters in the query string:</p>
@@ -220,7 +220,7 @@ ga('send', 'pageview');
 <p>&lt;%= partial &ldquo;includes/tables/16&rdquo; %&gt;</p>
 
 <p>For example you would redirect the user to</p>
-<pre class="highlight shell"><code>https://public.agaveapi.co/authorize?client_id<span class="o">=</span>gTgp...SV8a&amp;amp;redirect_uri<span class="o">=</span>http:%2F%2Fexample.com%2Fcallback&amp;amp;scope<span class="o">=</span>PRODUCTION&amp;amp;response_type<span class="o">=</span>token&amp;amp;state<span class="o">=</span>867
+<pre class="highlight shell"><code>https://sandbox.agaveplatform.org/authorize?client_id<span class="o">=</span>gTgp...SV8a&amp;amp;redirect_uri<span class="o">=</span>http:%2F%2Fexample.com%2Fcallback&amp;amp;scope<span class="o">=</span>PRODUCTION&amp;amp;response_type<span class="o">=</span>token&amp;amp;state<span class="o">=</span>867
 </code></pre>
 
 <h3 id="2-the-user-is-asked-to-authorize-access-within-the-scopes">2. The user is asked to authorize access within the scopes</h3>
@@ -260,7 +260,7 @@ ga('send', 'pageview');
 <h3 id="1-your-application-requests-authorization">1. Your application requests authorization</h3>
 
 <p>The request is sent to the <code>/token</code> endpoint of the Agave Authentication service.</p>
-<pre class="highlight shell"><code>POST https://public.agaveapi.co/token
+<pre class="highlight shell"><code>POST https://sandbox.agaveplatform.org/token
 </code></pre>
 
 <p>The request will include the following parameters in the request body:</p>
@@ -276,7 +276,7 @@ ga('send', 'pageview');
     -d <span class="nv">grant_type</span><span class="o">=</span>password
     -d <span class="nv">username</span><span class="o">=</span>rjohnson
     -d <span class="nv">password</span><span class="o">=</span>password
-    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION https://public.agaveapi.co/token
+    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION https://sandbox.agaveplatform.org/token
 </code></pre>
 <pre class="highlight javascript"><code><span class="p">{</span>
     <span class="s2">"access_token"</span><span class="err">:</span> <span class="s2">"3Dsr...pv21"</span><span class="p">,</span>
@@ -295,7 +295,7 @@ ga('send', 'pageview');
 <h3 id="2-use-the-access-token-to-access-the-agave-rest-apis">2. Use the access token to access the Agave REST APIs</h3>
 
 <p>The access token allows you to make requests to any of the Agave REST APIs on behalf of the authenticated user.</p>
-<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer 3Dsr...pv21"</span> https://public.agaveapi.co/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer 3Dsr...pv21"</span> https://sandbox.agaveplatform.org/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="p">{</span>
     <span class="s2">"create_time"</span><span class="err">:</span> <span class="s2">"20140905072223Z"</span><span class="p">,</span>
@@ -316,7 +316,7 @@ ga('send', 'pageview');
 <p>Access tokens are deliberately set to expire after a short time, usually 4 hours, after which new tokens may be granted by supplying the refresh token obtained during original request.</p>
 
 <p>The request is sent to the token endpoint of the Agave Authorization service:</p>
-<pre class="highlight shell"><code>POST https://public.agaveapi.co/token
+<pre class="highlight shell"><code>POST https://sandbox.agaveplatform.org/token
 </code></pre>
 
 <p>The body of this POST request must contain the following parameters:</p>
@@ -331,7 +331,7 @@ ga('send', 'pageview');
 <pre class="highlight shell"><code>curl -sku <span class="s2">"Authorization: Basic Qt3c...Rm1y="</span>
     -d <span class="nv">grant_type</span><span class="o">=</span>refresh_token
     -d <span class="nv">refresh_token</span><span class="o">=</span>dyVa...MqR0
-    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION https://public.agaveapi.co/token
+    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION https://sandbox.agaveplatform.org/token
 </code></pre>
 <pre class="highlight javascript"><code><span class="p">{</span>
     <span class="s2">"access_token"</span><span class="err">:</span> <span class="s2">"8erF...NGly"</span><span class="p">,</span>
@@ -349,7 +349,7 @@ ga('send', 'pageview');
 <h3 id="1-your-application-requests-authorization">1. Your application requests authorization</h3>
 
 <p>The request is sent to the <code>/token</code> endpoint of the Agave Authentication service:</p>
-<pre class="highlight shell"><code>POST https://public.agaveapi.co/token
+<pre class="highlight shell"><code>POST https://sandbox.agaveplatform.org/token
 </code></pre>
 
 <p>The request will include parameters in the request body:</p>
@@ -363,7 +363,7 @@ ga('send', 'pageview');
 <p>For example:</p>
 <pre class="highlight shell"><code>curl -sku <span class="s2">"Authorization: Basic Qt3c...Rm1y="</span>
     -d <span class="nv">grant_type</span><span class="o">=</span>client_credentials
-    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION https://public.agaveapi.co/token
+    -d <span class="nv">scope</span><span class="o">=</span>PRODUCTION https://sandbox.agaveplatform.org/token
 </code></pre>
 <pre class="highlight javascript"><code><span class="p">{</span>
     <span class="s2">"access_token"</span><span class="err">:</span> <span class="s2">"61e6...Mc96"</span><span class="p">,</span>
@@ -375,7 +375,7 @@ ga('send', 'pageview');
 <h3 id="2-use-the-access-token-to-access-the-agave-rest-apis">2. Use the access token to access the Agave REST APIs</h3>
 
 <p>Agave REST APIs that do not require user authorization or which are owned by user who registered the client application:</p>
-<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer 61e6...Mc96"</span> https://public.agaveapi.co/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Bearer 61e6...Mc96"</span> https://sandbox.agaveplatform.org/profiles/v2/me?pretty<span class="o">=</span><span class="nb">true</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="p">{</span>
     <span class="s2">"create_time"</span><span class="err">:</span> <span class="s2">"20140905072223Z"</span><span class="p">,</span>

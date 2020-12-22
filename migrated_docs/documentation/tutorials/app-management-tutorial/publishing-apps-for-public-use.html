@@ -58,7 +58,7 @@ ga('send', 'pageview');
           <div class="content">
             <h2 id="overview">Overview</h2>
 
-<p>In the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a> you learned about how to register apps for your own personal use and share them with other users to enable collaborative research. In this section, we will learn about the concept of app publication and what it means to promote an app into the public space.</p>
+<p>In the <a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a> you learned about how to register apps for your own personal use and share them with other users to enable collaborative research. In this section, we will learn about the concept of app publication and what it means to promote an app into the public space.</p>
 
 <p>In addition to traditional permissions, Agave also has a concept of scope. By default, every app you personally register with Agave has a private scope. For individual users, this is usually sufficient for all your needs. At an organizational level, however, it is a very common requirement to provide a curated collection of apps that are publicly available to everyone. Such a collection of apps would reside in the public scope. The process of moving an app from the (default) private scope into the public scope is called <strong><em>publishing</em></strong>.</p>
 
@@ -88,7 +88,7 @@ ga('send', 'pageview');
 
 <h5 id="admins-create-a-public-version-of-the-app-nbsp">Admins create a public version of the app <a name="admins-create-a-public-version-of-the-app">&nbsp;</a></h5>
 
-<p>Once the app is vetted, your tenant admins will tell Agave to publish the app. This can be done with a single call the the Apps API. An example of publishing the <code>demo-pyplot-demo-advanced-0.1.0</code> app from our <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a> is shown below.</p>
+<p>Once the app is vetted, your tenant admins will tell Agave to publish the app. This can be done with a single call the the Apps API. An example of publishing the <code>demo-pyplot-demo-advanced-0.1.0</code> app from our <a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a> is shown below.</p>
 <pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> -X PUT -d <span class="s2">"action=publish"</span> https://<span class="nv">$API_BASE_URL</span>/apps/<span class="nv">$API_VERSION</span>/demo-pyplot-demo-advanced-0.1.0?pretty<span class="o">=</span><span class="nb">true</span>
 </code></pre>
 <pre class="highlight plaintext"><code>apps-publish -v demo-pyplot-demo-advanced-0.1.0
@@ -122,7 +122,7 @@ ga('send', 'pageview');
     &ldquo;executionType&rdquo; : &ldquo;CLI&rdquo;,
     &ldquo;executionSystem&rdquo; : &ldquo;docker.iplantcollaborative.org&rdquo;,
     &ldquo;deploymentPath&rdquo; : &ldquo;/api/v2/apps/demo-pyplot-demo-advanced-0.1.0u1.zip&rdquo;,
-    &ldquo;deploymentSystem&rdquo; : &ldquo;data.agaveapi.co&rdquo;,
+    &ldquo;deploymentSystem&rdquo; : &ldquo;data.agaveplatform.org&rdquo;,
     &ldquo;templatePath&rdquo; : &ldquo;wrapper.sh&rdquo;,
     &ldquo;testPath&rdquo; : &ldquo;test/test.sh&rdquo;,
     &ldquo;checkpointable&rdquo; : false,
@@ -414,22 +414,22 @@ ga('send', 'pageview');
     &ldquo;outputs&rdquo; : [ ],
     &ldquo;<em>links&rdquo; : {
       &ldquo;self&rdquo; : {
-        &ldquo;href&rdquo; : &ldquo;https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0u1&rdquo;
+        &ldquo;href&rdquo; : &ldquo;https://sandbox.agaveplatform.org/apps/v2/demo-pyplot-demo-advanced-0.1.0u1&rdquo;
       },
       &ldquo;executionSystem&rdquo; : {
-        &ldquo;href&rdquo; : &ldquo;https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org&rdquo;
+        &ldquo;href&rdquo; : &ldquo;https://sandbox.agaveplatform.org/systems/v2/docker.iplantcollaborative.org&rdquo;
       },
       &ldquo;storageSystem&rdquo; : {
-        &ldquo;href&rdquo; : &ldquo;https://public.agaveapi.co/systems/v2/data.agaveapi.co&rdquo;
+        &ldquo;href&rdquo; : &ldquo;https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org&rdquo;
       },
       &ldquo;owner&rdquo; : {
-        &ldquo;href&rdquo; : &ldquo;https://public.agaveapi.co/profiles/v2/api</em>sample_user&rdquo;
+        &ldquo;href&rdquo; : &ldquo;https://sandbox.agaveplatform.org/profiles/v2/api</em>sample_user&rdquo;
       },
       &ldquo;permissions&rdquo; : {
-        &ldquo;href&rdquo; : &ldquo;https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0u1/pems&rdquo;
+        &ldquo;href&rdquo; : &ldquo;https://sandbox.agaveplatform.org/apps/v2/demo-pyplot-demo-advanced-0.1.0u1/pems&rdquo;
       },
       &ldquo;metadata&rdquo; : {
-        &ldquo;href&rdquo; : &ldquo;https://public.agaveapi.co/meta/v2/data/?q={\&quot;associationIds\&rdquo;:\&ldquo;0001414144637043-5056a550b8-0001-005\&rdquo;}&ldquo;
+        &ldquo;href&rdquo; : &ldquo;https://sandbox.agaveplatform.org/meta/v2/data/?q={\&quot;associationIds\&rdquo;:\&ldquo;0001414144637043-5056a550b8-0001-005\&rdquo;}&ldquo;
       }
     }
   }
@@ -483,7 +483,7 @@ ga('send', 'pageview');
     &ldquo;executionType&rdquo; : &ldquo;CLI&rdquo;,
     &ldquo;executionSystem&rdquo; : &ldquo;docker.iplantcollaborative.org&rdquo;,
     &ldquo;deploymentPath&rdquo; : &ldquo;/api/v2/apps/demo-pyplot-demo-advanced-0.1.0u2.zip&rdquo;,
-    &ldquo;deploymentSystem&rdquo; : &ldquo;data.agaveapi.co&rdquo;,
+    &ldquo;deploymentSystem&rdquo; : &ldquo;data.agaveplatform.org&rdquo;,
     &ldquo;templatePath&rdquo; : &ldquo;wrapper.sh&rdquo;,
     &ldquo;testPath&rdquo; : &ldquo;test/test.sh&rdquo;,
     &ldquo;checkpointable&rdquo; : false,
@@ -498,7 +498,7 @@ ga('send', 'pageview');
         &ldquo;required&rdquo; : true,
         &ldquo;order&rdquo; : 0,
         &ldquo;enquote&rdquo; : false,
-        &ldquo;default&rdquo; : [ &ldquo;agave://data.agaveapi.co/datasets/tutorials/apps/demo-pyplot-demo-advanced-0.1.0/testdata.csv&rdquo; ]
+        &ldquo;default&rdquo; : [ &ldquo;agave://data.agaveplatform.org/datasets/tutorials/apps/demo-pyplot-demo-advanced-0.1.0/testdata.csv&rdquo; ]
       },
       &ldquo;details&rdquo; : {
         &ldquo;label&rdquo; : &ldquo;Dataset&rdquo;,
@@ -775,22 +775,22 @@ ga('send', 'pageview');
     &ldquo;outputs&rdquo; : [ ],
     &ldquo;<em>links&rdquo; : {
       &ldquo;self&rdquo; : {
-        &ldquo;href&rdquo; : &ldquo;https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0u2&rdquo;
+        &ldquo;href&rdquo; : &ldquo;https://sandbox.agaveplatform.org/apps/v2/demo-pyplot-demo-advanced-0.1.0u2&rdquo;
       },
       &ldquo;executionSystem&rdquo; : {
-        &ldquo;href&rdquo; : &ldquo;https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org&rdquo;
+        &ldquo;href&rdquo; : &ldquo;https://sandbox.agaveplatform.org/systems/v2/docker.iplantcollaborative.org&rdquo;
       },
       &ldquo;storageSystem&rdquo; : {
-        &ldquo;href&rdquo; : &ldquo;https://public.agaveapi.co/systems/v2/data.agaveapi.co&rdquo;
+        &ldquo;href&rdquo; : &ldquo;https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org&rdquo;
       },
       &ldquo;owner&rdquo; : {
-        &ldquo;href&rdquo; : &ldquo;https://public.agaveapi.co/profiles/v2/api</em>sample_user&rdquo;
+        &ldquo;href&rdquo; : &ldquo;https://sandbox.agaveplatform.org/profiles/v2/api</em>sample_user&rdquo;
       },
       &ldquo;permissions&rdquo; : {
-        &ldquo;href&rdquo; : &ldquo;https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0u2/pems&rdquo;
+        &ldquo;href&rdquo; : &ldquo;https://sandbox.agaveplatform.org/apps/v2/demo-pyplot-demo-advanced-0.1.0u2/pems&rdquo;
       },
       &ldquo;metadata&rdquo; : {
-        &ldquo;href&rdquo; : &ldquo;https://public.agaveapi.co/meta/v2/data/?q={&quot;associationIds&rdquo;:&ldquo;0001414144632114-5056a550b8-0001-005&rdquo;}&ldquo;
+        &ldquo;href&rdquo; : &ldquo;https://sandbox.agaveplatform.org/meta/v2/data/?q={&quot;associationIds&rdquo;:&ldquo;0001414144632114-5056a550b8-0001-005&rdquo;}&ldquo;
       }
     }
   }

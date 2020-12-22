@@ -66,7 +66,7 @@ ga('send', 'pageview');
 
 <p>In addition to the web service, there is also a basic front-end web application providing user sign up. The web application will suffice for basic user profiles and can be used as a starting point for more advanced use cases.</p>
 
-<aside class="notice">This service should **NOT** be used for authenticating users. For details on using OAuth for authentication, see the <a href="http://agaveapi.co/?p=1161">Authorization Guide</a></aside>
+<aside class="notice">This service should **NOT** be used for authenticating users. For details on using OAuth for authentication, see the <a href="https://agaveplatform.org/?p=1161">Authorization Guide</a></aside>
 
 <h2 id="creating-users">Creating Users</h2>
 
@@ -106,7 +106,7 @@ ga('send', 'pageview');
 
 <h3 id="extending-the-basic-profile-with-the-metadata-service">Extending the Basic Profile with the Metadata Service</h3>
 
-<p>We do not expect the fields above to provide full support for anything but the most basic profiles. The recommended strategy is to use the profiles service in combination with the metadata service (see <a href="http://agaveapi.co/?p=1274" title="Metadata Management">Metadata Management</a> for more details) to store additional information. The metadata service allows you to create custom types using JSON schema, making it more flexible than standard LDAP from within a self-service model. Additionally, the metadata service includes a rich query interface for retrieving users based on arbitrary JSON queries.</p>
+<p>We do not expect the fields above to provide full support for anything but the most basic profiles. The recommended strategy is to use the profiles service in combination with the metadata service (see <a href="https://agaveplatform.org/?p=1274" title="Metadata Management">Metadata Management</a> for more details) to store additional information. The metadata service allows you to create custom types using JSON schema, making it more flexible than standard LDAP from within a self-service model. Additionally, the metadata service includes a rich query interface for retrieving users based on arbitrary JSON queries.</p>
 
 <p>The general approach used by existing tenants has been to create a single entry per user where the entry contains all additional profile data for the user. Every metadata item representing a user profile can be identified using a fixed string for the &ldquo;name&rdquo; attribute (e.g., &ldquo;user_profile&rsquo;). The value of the metadata item contains a unique identifier for the user (e.g. username or email address) along with all the additional fields you wish to track on the profile. One benefit of this approach is that it cleanly delineates multiple classes of profiles, for example &quot;admin_profile&rdquo;, &ldquo;developer_profile&rdquo;, &ldquo;mathematician_profile&rdquo;, etc. When consuming this information in a web interface, such user-type grouping makes presentation significantly easier.</p>
 
@@ -132,7 +132,7 @@ ga('send', 'pageview');
 
 <p>And here&rsquo;s a call to the Metadata service:
 <code class="prettyprint">shell
-curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; -X POST -F &quot;fileToUpload=@profile_ex&quot; https://public.agaveapi.co/meta/v2/data/?pretty=true
+curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; -X POST -F &quot;fileToUpload=@profile_ex&quot; https://sandbox.agaveplatform.org/meta/v2/data/?pretty=true
 </code></p>
 <pre class="highlight plaintext"><code>metadata-addupdate -v -F profile_ex 
 </code></pre>
@@ -165,14 +165,14 @@ curl -sk -H &quot;Authorization: Bearer $ACCESS_TOKEN&quot; -X POST -F &quot;fil
     <span class="s2">"created"</span> <span class="err">:</span> <span class="s2">"2015-04-22T12:34:03.698-05:00"</span><span class="p">,</span>
     <span class="s2">"_links"</span> <span class="err">:</span> <span class="p">{</span>
       <span class="s2">"self"</span> <span class="err">:</span> <span class="p">{</span>
-        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://public.agaveapi.co/meta/v2/data/0001429724043699-5056a550b8-0001-012"</span>
+        <span class="s2">"href"</span> <span class="err">:</span> <span class="s2">"https://sandbox.agaveplatform.org/meta/v2/data/0001429724043699-5056a550b8-0001-012"</span>
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 
-<aside class="notice">For even quicker access, you can associate the metadata record with the UUID of the user through the associationIds attribute. See the <a href="http://agaveapi.co/documentation/tutorials/metadata-management-tutorial/" title="Metadata Management Tutorial">Metadata Tutorial</a> for more information about efficient storing and searching of metadata.</aside>
+<aside class="notice">For even quicker access, you can associate the metadata record with the UUID of the user through the associationIds attribute. See the <a href="https://agaveplatform.org/documentation/tutorials/metadata-management-tutorial/" title="Metadata Management Tutorial">Metadata Tutorial</a> for more information about efficient storing and searching of metadata.</aside>
 
 <h2 id="updating-users">Updating Users</h2>
 

@@ -97,9 +97,9 @@ ga('send', 'pageview');
 <h3 id="file-history">File history</h3>
 
 <h4 id="listing-history-events">Listing history events</h4>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/hisotry/data.agaveapi.co/<span class="nv">$API_USERNAME</span>/picksumipsum.txt
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/hisotry/data.agaveplatform.org/<span class="nv">$API_USERNAME</span>/picksumipsum.txt
 </code></pre>
-<pre class="highlight plaintext"><code>files-history -v -S data.agaveapi.co $API_USERNAME/picksumipsum.txt
+<pre class="highlight plaintext"><code>files-history -v -S data.agaveplatform.org $API_USERNAME/picksumipsum.txt
 </code></pre>
 
 <p>The response to this contains a summary listing all permissions on the</p>
@@ -107,9 +107,9 @@ ga('send', 'pageview');
 </code></pre>
 
 <h3 id="searching-for-events">Searching for events</h3>
-<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/hisotry/data.agaveapi.co/<span class="nv">$API_USERNAME</span>/picksumipsum.txt?agent<span class="o">=</span>rjohnson
+<pre class="highlight shell"><code>curl -sk -H <span class="s2">"Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">"</span> https://<span class="nv">$API_BASE_URL</span>/files/<span class="nv">$API_VERSION</span>/hisotry/data.agaveplatform.org/<span class="nv">$API_USERNAME</span>/picksumipsum.txt?agent<span class="o">=</span>rjohnson
 </code></pre>
-<pre class="highlight plaintext"><code>files-history -v -S data.agaveapi.co -U rjohnson $API_USERNAME/picksumipsum.txt
+<pre class="highlight plaintext"><code>files-history -v -S data.agaveplatform.org -U rjohnson $API_USERNAME/picksumipsum.txt
 </code></pre>
 
 <p>The response to this contains a JSON array of every action performed on the file by the user rjohnson.</p>
