@@ -43,7 +43,7 @@ To add a metadata schema to the repository:
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
     -X POST -H "Content-Type: application/json"
     --data-binary '{ "title": "Example Schema", "type": "object", "properties": { "species": { "type": "string" } },"required": ["species"] }'
-    https://public.tenants.agaveapi.co/meta/v2/schemas/
+    https://sandbox.agaveplatform.org/meta/v2/schemas/
 ```
 
 ```plaintext
@@ -73,13 +73,13 @@ metadata-schema-addupdate -v -F schema.json
   "owner": "nryan",
   "_links": {
     "self": {
-      "href": "https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013"
+      "href": "https://sandbox.agaveplatform.org/meta/v2/schemas/4736020169528054246-242ac11f-0001-013"
     },
     "permissions": {
-      "href": "https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013/pems"
+      "href": "https://sandbox.agaveplatform.org/meta/v2/schemas/4736020169528054246-242ac11f-0001-013/pems"
     },
     "owner": {
-      "href": "https://public.agaveapi.co/profiles/v2/nryan"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
     }
   }
 }
@@ -87,7 +87,7 @@ metadata-schema-addupdate -v -F schema.json
 
 To create a new metadata schema that can be used to validate metadata items upon addition or updating, POST a JSON Schema document to the service.
 
-More JSON Schema examples can be found in the [Agave Samples](https://bitbucket.org/agaveapi/science-api-samples) project.
+More JSON Schema examples can be found in the [Agave Samples](https://github.com/agavetraining/science-api-samples) project.
 
 ### Updating schema
 
@@ -97,7 +97,7 @@ More JSON Schema examples can be found in the [Agave Samples](https://bitbucket.
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST
     -H 'Content-Type: application/json'
     --data-binary '{ "title": "Example Schema", "type": "object", "properties": { "species": { "type": "string" }, "description": {"type":"string"} },"required": ["species"] }'
-    https://public.tenants.agaveapi.co/meta/v2/data/4736020169528054246-242ac11f-0001-013
+    https://sandbox.agaveplatform.org/meta/v2/data/4736020169528054246-242ac11f-0001-013
 ```
 
 ```plaintext
@@ -127,13 +127,13 @@ metadata-addupdate -v -F - 4736020169528054246-242ac11f-0001-013 <<< '{ "title":
   "owner": "nryan",
   "_links": {
     "self": {
-      "href": "https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013"
+      "href": "https://sandbox.agaveplatform.org/meta/v2/schemas/4736020169528054246-242ac11f-0001-013"
     },
     "permissions": {
-      "href": "https://public.agaveapi.co/meta/v2/schemas/4736020169528054246-242ac11f-0001-013/pems"
+      "href": "https://sandbox.agaveplatform.org/meta/v2/schemas/4736020169528054246-242ac11f-0001-013/pems"
     },
     "owner": {
-      "href": "https://public.agaveapi.co/profiles/v2/nryan"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
     }
   }
 }
@@ -148,7 +148,7 @@ Updating metadata schema is done by POSTing an updated schema object to the exis
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
     -X DELETE
-    https://public.tenants.agaveapi.co/meta/v2/data/4736020169528054246-242ac11f-0001-013
+    https://sandbox.agaveplatform.org/meta/v2/data/4736020169528054246-242ac11f-0001-013
 ```
 
 ```plaintext

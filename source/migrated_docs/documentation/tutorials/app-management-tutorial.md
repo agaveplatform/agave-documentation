@@ -8,9 +8,9 @@ The Apps service is the central registry for all Agave apps. The Apps service pr
 
 ## Registering an app  
 
-Registering an app with the Apps service is conceptually simple. Just describe your app as a JSON document and POST it to the Apps service. Historically, this has actually been the hardest part for new users to figure out. So, to ease the process, we've created a couple tools that you can use to define your apps. The first is the <a href="http://togo.agaveapi.co/app/" title="App Builder">App Builder</a> page. On this page you will find a form-driven wizard that you can fill out generate the JSON description for your app. Once created, you can POST the JSON directly to the Apps service. If you are new to app registration, this is a great place to start because it shrinks the learning curve involved in defining your app.
+Registering an app with the Apps service is conceptually simple. Just describe your app as a JSON document and POST it to the Apps service. Historically, this has actually been the hardest part for new users to figure out. So, to ease the process, we've created a couple tools that you can use to define your apps. The first is the <a href="https://togo.agaveplatform.org/app/" title="App Builder">App Builder</a> page. On this page you will find a form-driven wizard that you can fill out generate the JSON description for your app. Once created, you can POST the JSON directly to the Apps service. If you are new to app registration, this is a great place to start because it shrinks the learning curve involved in defining your app.
 
-The second tool is the <a href="https://bitbucket.org/agaveapi/science-api-samples/" title="Agave Samples Repository" target="_blank">Agave Samples</a> project. The Agave Samples project is a set of sample data used throughout these tutorials. The project contains several app definitions ranging in complexity from a trivial no-parameter, no-argument hello world, to a complex multi-input application with multiple parameter types. The Agave Samples project is a great place to start when building your app by hand because it draws on the experiences of many successful application publishers. You can check out the Agave Samples project from Bitbucket by cloning the Git repository:
+The second tool is the <a href="https://github.com/agavetraining/science-api-samples/" title="Agave Samples Repository" target="_blank">Agave Samples</a> project. The Agave Samples project is a set of sample data used throughout these tutorials. The project contains several app definitions ranging in complexity from a trivial no-parameter, no-argument hello world, to a complex multi-input application with multiple parameter types. The Agave Samples project is a great place to start when building your app by hand because it draws on the experiences of many successful application publishers. You can check out the Agave Samples project from Bitbucket by cloning the Git repository:
 
 ```shell
 git clone https://bitbucket.org/taccaci/agave-apps-boilerplate
@@ -56,7 +56,7 @@ The resulting minimal app bundle would look something like the following:
 |- wrapper.sh
 </code></pre>
 
-For other examples of more complicated app bundles, consult the <a title="Agave Samples project" href="https://bitbucket.org/agaveapi/science-api-samples">Agave Samples</a> repository.
+For other examples of more complicated app bundles, consult the <a title="Agave Samples project" href="https://github.com/agavetraining/science-api-samples">Agave Samples</a> repository.
 
 ### Creating a wrapper template <a name="creating-a-wrapper-template">&nbsp;</a>  
 
@@ -262,7 +262,7 @@ In the following sections we cover each argument type in detail.
 
 #### App inputs <a name="app-inputs">&nbsp;</a>  
 
-App inputs describe data inputs supported by your app. Each input can represent one or more files or folders. Inptus can be optional or required and may physically reside anywhere accessible using any of the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/" title="Data Management Tutorial">data protocols</a> supported by Agave. Table 2 lists the attributes of a JSON app input description.
+App inputs describe data inputs supported by your app. Each input can represent one or more files or folders. Inptus can be optional or required and may physically reside anywhere accessible using any of the <a href="https://agaveplatform.org/documentation/tutorials/data-management-tutorial/" title="Data Management Tutorial">data protocols</a> supported by Agave. Table 2 lists the attributes of a JSON app input description.
 
 <%= partial "includes/tables/66" %>
 
@@ -274,7 +274,7 @@ The semantics section contains fields to specify the number of minimum number of
 
 The value section contains fields to specify the default value for this input, whether it is required, whether it is visible, and a regular expression to validate the file name. The default value is optional unless the field is marked as hidden.
 
-<aside class="notice">For a deeper dive into app inputs, please see the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/app-inputs-and-parameters-tutorial/" title="App Inputs and Parameters Tutorial">App Inputs and Parameters Tutorial</a></aside>
+<aside class="notice">For a deeper dive into app inputs, please see the <a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/app-inputs-and-parameters-tutorial/" title="App Inputs and Parameters Tutorial">App Inputs and Parameters Tutorial</a></aside>
 
 #### App parameters <a name="app-parameters">&nbsp;</a>  
 
@@ -290,7 +290,7 @@ The semantics section contains a single optional field to specify the ontologica
 
 The value section contains fields to specify the default value for this parameter, the type of the variable, whether it is required, whether it is visible, and a regular expression to validate the parameter. The parameter type can be one of number, string, boolean, or enumeration. Enumeration parameters can specify an enum_values array that contains all the possible enumerated values for that parameter. The default value is optional unless the field is marked as hidden. When specifying a validation regex, all default, and enumerated values must validate against the regex.
 
-<aside class="notice">For a deeper dive into app inputs, please see the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/app-inputs-and-parameters-tutorial/" title="App Inputs and Parameters Tutorial">App Inputs and Parameters Tutorial</a></aside>
+<aside class="notice">For a deeper dive into app inputs, please see the <a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/app-inputs-and-parameters-tutorial/" title="App Inputs and Parameters Tutorial">App Inputs and Parameters Tutorial</a></aside>
 
 ### App outputs <a name="app-outputs">&nbsp;</a>  
 
@@ -306,7 +306,7 @@ The structure of a JSON app output description is identical to a JSON app input 
 
 ### Registering an apps  
 
-Now that we understand what goes into an app and how to describe it, let's register it with Agave by issuing a POST request to the Apps service. The following tabs show how to do this using the unix <code>curl</code> command as well as with the Agave CLI. For reference, we will be using the app description from our <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/advanced-app-example/" title="Advanced App Example">PyPlot example</a>.
+Now that we understand what goes into an app and how to describe it, let's register it with Agave by issuing a POST request to the Apps service. The following tabs show how to do this using the unix <code>curl</code> command as well as with the Agave CLI. For reference, we will be using the app description from our <a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/advanced-app-example/" title="Advanced App Example">PyPlot example</a>.
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "fileToUpload=@app.json" https://$API_BASE_URL/apps/$API_VERSION/?pretty=true

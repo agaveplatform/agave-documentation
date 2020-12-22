@@ -51,7 +51,7 @@ Each tag also has an optional `associationIds` field. This field contains a JSON
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST  
     -H 'Content-Type: application/json'
     --data-binary '{"name": "demo"}'
-    https://public.tenants.agaveapi.co/tags/v2
+    https://sandbox.agaveplatform.org/tags/v2
 ```
 
 ```plaintext
@@ -69,16 +69,16 @@ tags-addupdate -v -F - <<<'{"name": "demo"}'
   "created": "2017-03-13T12:38:14.000-05:00",
   "_links": {
     "self": {
-      "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"
+      "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048"
     },
     "associationIds": {
-      "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/associations"
+      "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/associations"
     },
     "permissions": {
-      "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems"
+      "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/pems"
     },
     "owner": {
-      "href": "https://public.agaveapi.co/profiles/v2/nryan"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
     }
   }
 }
@@ -94,12 +94,12 @@ New Tags are created by making a POST request to the Tags collection. As we ment
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST
     -H 'Content-Type: application/json'
     --data-binary '{"name": "demo", "associationIds":["576158795084066330-242ac119-0001-007","1557538007895839206-242ac119-0001-007"]}'
-    https://public.tenants.agaveapi.co/tags/v2/demo
+    https://sandbox.agaveplatform.org/tags/v2/demo
 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST
     -H 'Content-Type: application/json'
     --data-binary '{"name": "demo", "associationIds":["576158795084066330-242ac119-0001-007","1557538007895839206-242ac119-0001-007"]}'
-    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048
+    https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048
 ```
 
 ```plaintext
@@ -122,16 +122,16 @@ tags-addupdate -v -F - 3042501574756462105-242ac113-0001-048 <<<'{"name": "demo"
   "created": "2017-03-13T12:38:14.000-05:00",
   "_links": {
     "self": {
-      "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"
+      "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048"
     },
     "associationIds": {
-      "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/associations"
+      "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/associations"
     },
     "permissions": {
-      "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems"
+      "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/pems"
     },
     "owner": {
-      "href": "https://public.agaveapi.co/profiles/v2/nryan"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
     }
   }
 }
@@ -146,11 +146,11 @@ Updating tags is done by POSTing an updated tag object to the existing resource.
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
     -X DELETE
-    https://public.tenants.agaveapi.co/tags/v2/demo
+    https://sandbox.agaveplatform.org/tags/v2/demo
 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
     -X DELETE
-    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048
+    https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048
 ```
 
 ```plaintext

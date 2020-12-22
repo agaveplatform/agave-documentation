@@ -21,7 +21,7 @@ The Agave Monitors API provides a familiar paradigm for monitoring the use abili
 curl -sk -H "Authorization: Bearer $AUTH_TOKEN" \
      -H "Content-Type: application-json" \
      -X POST --data-binary '{"target": "storage.example.com"}' \
-     https://public.agaveapi.co/monitors/v2/
+     https://sandbox.agaveplatform.org/monitors/v2/
 ```  
 
 ```plaintext  
@@ -46,19 +46,19 @@ monitors-addupdate -S storage.example.com
     "updateSystemStatus": false,
     "_links": {
         "checks": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
         },
         "notifications": {
-            "href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
         },
         "owner": {
-            "href": "https://public.agaveapi.co/profiles/v2/nryan"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
         },
         "self": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
         }
     }
 }
@@ -76,7 +76,7 @@ The only piece of information needed to monitor a system is the system ID. Sendi
 curl -sk -H "Authorization: Bearer $AUTH_TOKEN" \
      -H "Content-Type: application-json" \
      -X POST --data-binary '{"target": "storage.example.com","frequency":15}' \
-     https://public.agaveapi.co/monitors/v2/
+     https://sandbox.agaveplatform.org/monitors/v2/
 ```
 
 ```plaintext
@@ -89,19 +89,19 @@ monitors-addupdate -S storage.example.com -I 15
 {
     "_links": {
         "checks": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
         },
         "notifications": {
-            "href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
         },
         "owner": {
-            "href": "https://public.agaveapi.co/profiles/v2/nryan"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
         },
         "self": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
         }
     },
     "active": true,
@@ -134,7 +134,7 @@ curl -sk -H "Authorization: Bearer $AUTH_TOKEN" \
      -H "Content-Type: application-json" \
      -X POST \
      --data-binary '{"target": "storage.example.com","frequency":15,"updateSystemStatus"=true}' \
-     https://public.agaveapi.co/monitors/v2/
+     https://sandbox.agaveplatform.org/monitors/v2/
 ```
 
 ```plaintext
@@ -159,19 +159,19 @@ monitors-addupdate -S storage.example.com -I 15 -U true
     "updateSystemStatus": true,
     "_links": {
         "checks": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
         },
         "notifications": {
-            "href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
         },
         "owner": {
-            "href": "https://public.agaveapi.co/profiles/v2/nryan"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
         },
         "self": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
         }
     }
 }
@@ -190,7 +190,7 @@ curl -sk -H "Authorization: Bearer $AUTH_TOKEN" \
      -H "Content-Type: application-json" \
      -X POST \
      --data-binary '{"target": "storage.example.com","frequency":5,"updateSystemStatus"=false}' \
-     https://public.agaveapi.co/monitors/v2/5024717285821443610-242ac11f-0001-014
+     https://sandbox.agaveplatform.org/monitors/v2/5024717285821443610-242ac11f-0001-014
 ```
 
 ```plaintext
@@ -215,19 +215,19 @@ monitors-addupdate -S storage.example.com -I 5 -U false 5024717285821443610-242a
     "updateSystemStatus": false,
     "_links": {
         "checks": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
         },
         "notifications": {
-            "href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
         },
         "owner": {
-            "href": "https://public.agaveapi.co/profiles/v2/nryan"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
         },
         "self": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
         }
     }
 }
@@ -243,7 +243,7 @@ Monitors can be managed by making traditional GET, POST, and DELETE operations. 
 curl -sk -H "Authorization: Bearer $AUTH_TOKEN"
     -H "Content-Type: application/json"
     -X PUT --data-binary '{"action": "disable"}'
-    https://public.agaveapi.co/monitors/v2/5024717285821443610-242ac11f-0001-014
+    https://sandbox.agaveplatform.org/monitors/v2/5024717285821443610-242ac11f-0001-014
 ```
 
 ```plaintext
@@ -268,19 +268,19 @@ monitors-disable 5024717285821443610-242ac11f-0001-014
     "updateSystemStatus": false,
     "_links": {
         "checks": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
         },
         "notifications": {
-            "href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
         },
         "owner": {
-            "href": "https://public.agaveapi.co/profiles/v2/nryan"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
         },
         "self": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
         }
     }
 }
@@ -297,7 +297,7 @@ There may be times when you need to pause a monitor. If your system has schedule
 curl -sk -H "Authorization: Bearer $AUTH_TOKEN"
     -H "Content-Type: application/json"
     -X PUT --data-binary '{"action": "enable"}'
-    https://public.agaveapi.co/monitors/v2/5024717285821443610-242ac11f-0001-014
+    https://sandbox.agaveplatform.org/monitors/v2/5024717285821443610-242ac11f-0001-014
 ```
 
 ```plaintext
@@ -320,19 +320,19 @@ monitors-enable 5024717285821443610-242ac11f-0001-014
     "updateSystemStatus": false,
     "_links": {
         "checks": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
         },
         "notifications": {
-            "href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
         },
         "owner": {
-            "href": "https://public.agaveapi.co/profiles/v2/nryan"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
         },
         "self": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
         }
     }
 }
@@ -348,7 +348,7 @@ Similarly, to enable a monitor, make a PUT request with the a field name `action
 curl -sk -H "Authorization: Bearer $AUTH_TOKEN"
     -H "Content-Type: application/json"
     -X DELETE
-    https://public.agaveapi.co/monitors/v2/5024717285821443610-242ac11f-0001-014
+    https://sandbox.agaveplatform.org/monitors/v2/5024717285821443610-242ac11f-0001-014
 ```
 
 ```plaintext
@@ -367,7 +367,7 @@ To delete a monitor, simply make a DELETE request on the monitor.
 
 ```shell
 curl -sk -H "Authorization: Bearer $AUTH_TOKEN"
-    'https://public.agaveapi.co/monitors/v2/5024717285821443610-242ac11f-0001-014/checks?limit=1'
+    'https://sandbox.agaveplatform.org/monitors/v2/5024717285821443610-242ac11f-0001-014/checks?limit=1'
 ```
 
 ```plaintext
@@ -387,13 +387,13 @@ monitors-checks-list -v -l 1
         "type": "STORAGE",
         "_links": {
             "monitor": {
-                "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+                "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
             },
             "self": {
-                "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks/4035070921477123610-242ac11f-0001-015"
+                "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks/4035070921477123610-242ac11f-0001-015"
             },
             "system": {
-                "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+                "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
             }
         }
     }
@@ -411,7 +411,7 @@ Each monitor check has a unique ID and represents a formal, addressable resource
 
 ```shell
 curl -sk -H "Authorization: Bearer $AUTH_TOKEN" \   
-    'https://public.agaveapi.co/monitors/v2/5024717285821443610-242ac11f-0001-014/checks?limit=1&result.eq=PASSED'
+    'https://sandbox.agaveplatform.org/monitors/v2/5024717285821443610-242ac11f-0001-014/checks?limit=1&result.eq=PASSED'
 ```  
 
 ```plaintext
@@ -432,13 +432,13 @@ monitors-checks-search -v -l 1 \
         "type": "STORAGE",
         "_links": {
             "monitor": {
-                "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+                "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
             },
             "self": {
-                "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks/4035070921477123610-242ac11f-0001-015"
+                "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks/4035070921477123610-242ac11f-0001-015"
             },
             "system": {
-                "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+                "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
             }
         }
     }
@@ -455,7 +455,7 @@ Long-running monitor checks can build up a large history which can become prohib
 curl -sk -H "Authorization: Bearer $AUTH_TOKEN" \
      -H "Content-Type: application-json" \
      -X POST --data-binary '{}' \
-    https://public.agaveapi.co/monitors/v2/5024717285821443610-242ac11f-0001-014/checks
+    https://sandbox.agaveplatform.org/monitors/v2/5024717285821443610-242ac11f-0001-014/checks
 ```
 
 ```plaintext  
@@ -473,13 +473,13 @@ monitors-fire -v 5024717285821443610-242ac11f-0001-014
     "type": "STORAGE",
     "_links": {
         "monitor": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
         },
         "self": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks/5314048891498786330-242ac11f-0001-015"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks/5314048891498786330-242ac11f-0001-015"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
         }
     }
 }
@@ -501,7 +501,7 @@ At this time, monitors do not have permissions associated with them.
 curl -sk -H "Authorization: Bearer $AUTH_TOKEN" \
      -H "Content-Type: application-json" \
      -X POST --data-binary '{}' \
-    https://public.agaveapi.co/monitors/v2/5024717285821443610-242ac11f-0001-014/history
+    https://sandbox.agaveplatform.org/monitors/v2/5024717285821443610-242ac11f-0001-014/history
 ```
 
 ```plaintext
@@ -520,10 +520,10 @@ monitors-history -v 5024717285821443610-242ac11f-0001-014
     "id": "5705275956568068582-242ac11f-0001-035",
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/history/5705275956568068582-242ac11f-0001-035"
+        "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/history/5705275956568068582-242ac11f-0001-035"
       },
       "monitor_event": {
-        "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+        "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
       }
     }
   }

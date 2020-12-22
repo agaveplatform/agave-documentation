@@ -19,7 +19,7 @@ The Agave UUID service resolves the type and representation of one or more Agave
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
-    https://public.tenants.agaveapi.co/uuid/v2/0001409758089943-5056a550b8-0001-002
+    https://sandbox.agaveplatform.org/uuid/v2/0001409758089943-5056a550b8-0001-002
 ```
 
 ```plaintext
@@ -34,7 +34,7 @@ uuid-lookup -v 0001409758089943-5056a550b8-0001-002
   "type":"FILE",
   "_links":{
     "file":{
-      "href":"https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/picksumipsum.txt"
+      "href":"https://sandbox.agaveplatform.org/files/v2/history/system/data.agaveplatform.org/nryan/picksumipsum.txt"
     }
   }
 }
@@ -48,7 +48,7 @@ A single UUID can be resolved by making a GET request on the UUID resource. The 
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
-    https://public.tenants.agaveapi.co/uuid/v2/0001409758089943-5056a550b8-0001-002?expand=true&pretty=true
+    https://sandbox.agaveplatform.org/uuid/v2/0001409758089943-5056a550b8-0001-002?expand=true&pretty=true
 ```
 
 ```plaintext
@@ -67,17 +67,17 @@ uuid-lookup -v -e 0001409758089943-5056a550b8-0001-002
   "path":"/home/nryan/picksumipsum.txt",
   "source":"http://127.0.0.1/picksumipsum.txt",
   "status":"STAGING_QUEUED",
-  "systemId":"data.agaveapi.co",
+  "systemId":"data.agaveplatform.org",
   "uuid":"0001409758089943-5056a550b8-0001-002",
   "_links":{
     "history":{
-      "href":"https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/picksumipsum.txt"
+      "href":"https://sandbox.agaveplatform.org/files/v2/history/system/data.agaveplatform.org/nryan/picksumipsum.txt"
     },
     "self":{
-      "href":"https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"
+      "href":"https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/nryan/picksumipsum.txt"
     },
     "system":{
-      "href":"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"
+      "href":"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
     }
   }
 }
@@ -94,7 +94,7 @@ Often times you need more information about the resource associated with the UUI
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
-    https://public.tenants.agaveapi.co/uuid/v2/?uuids.eq=0001409758089943-5056a550b8-0001-002,0001414144065563-5056a550b8-0001-007?expand=true&pretty=true
+    https://sandbox.agaveplatform.org/uuid/v2/?uuids.eq=0001409758089943-5056a550b8-0001-002,0001414144065563-5056a550b8-0001-007?expand=true&pretty=true
 ```
 
 ```plaintext
@@ -108,20 +108,20 @@ uuid-lookup -v -E 0001409758089943-5056a550b8-0001-002 0001414144065563-5056a550
   {
     "uuid":"0001409758089943-5056a550b8-0001-002",
     "type":"FILE",
-    "url":"https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/picksumipsum.txt",
+    "url":"https://sandbox.agaveplatform.org/files/v2/history/system/data.agaveplatform.org/nryan/picksumipsum.txt",
     "_links":{
       "file":{
-        "href":"https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/picksumipsum.txt"
+        "href":"https://sandbox.agaveplatform.org/files/v2/history/system/data.agaveplatform.org/nryan/picksumipsum.txt"
       }
     }
   },
   {
     "uuid":"0001414144065563-5056a550b8-0001-007",
     "type":"JOB",
-    "url":"https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007",
+    "url":"https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007",
     "_links":{
       "file":{
-        "href":"https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007"
+        "href":"https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007"
       }
     }
   }
@@ -137,7 +137,7 @@ To resolve multiple UUID, make a GET request on the uuids collection and pass th
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
-    https://public.tenants.agaveapi.co/uuid/v2/?uuids.eq=0001409758089943-5056a550b8-0001-002,0001414144065563-5056a550b8-0001-007?expand=true&pretty=true
+    https://sandbox.agaveplatform.org/uuid/v2/?uuids.eq=0001409758089943-5056a550b8-0001-002,0001414144065563-5056a550b8-0001-007?expand=true&pretty=true
 ```
 
 ```plaintext
@@ -185,31 +185,31 @@ uuid-lookup -v -e 0001409758089943-5056a550b8-0001-002 0001414144065563-5056a550
     },
     "_links":{
       "self":{
-        "href":"https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007"
+        "href":"https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007"
       },
       "app":{
-        "href":"https://public.tenants.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0"
+        "href":"https://sandbox.agaveplatform.org/apps/v2/demo-pyplot-demo-advanced-0.1.0"
       },
       "executionSystem":{
-        "href":"https://public.tenants.agaveapi.co/systems/v2/$PUBLIC_EXECUTION_SYSTEM"
+        "href":"https://sandbox.agaveplatform.org/systems/v2/$PUBLIC_EXECUTION_SYSTEM"
       },
       "archiveData":{
-        "href":"https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/outputs/listings"
+        "href":"https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007/outputs/listings"
       },
       "owner":{
-        "href":"https://public.tenants.agaveapi.co/profiles/v2/$API_USERNAME"
+        "href":"https://sandbox.agaveplatform.org/profiles/v2/$API_USERNAME"
       },
       "permissions":{
-        "href":"https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/pems"
+        "href":"https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007/pems"
       },
       "history":{
-        "href":"https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/history"
+        "href":"https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007/history"
       },
       "metadata":{
-        "href":"https://public.tenants.agaveapi.co/meta/v2/data/?q=%7b%22associationIds%22%3a%220001414144065563-5056a550b8-0001-007%22%7d"
+        "href":"https://sandbox.agaveplatform.org/meta/v2/data/?q=%7b%22associationIds%22%3a%220001414144065563-5056a550b8-0001-007%22%7d"
       },
       "notifications":{
-        "href":"https://public.tenants.agaveapi.co/notifications/v2/?associatedUuid=0001414144065563-5056a550b8-0001-007"
+        "href":"https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=0001414144065563-5056a550b8-0001-007"
       }
     }
   },
@@ -222,17 +222,17 @@ uuid-lookup -v -e 0001409758089943-5056a550b8-0001-002 0001414144065563-5056a550
     "path":"/home/nryan/picksumipsum.txt",
     "source":"http://127.0.0.1/picksumipsum.txt",
     "status":"STAGING_QUEUED",
-    "systemId":"data.agaveapi.co",
+    "systemId":"data.agaveplatform.org",
     "uuid":"0001409758089943-5056a550b8-0001-002",
     "_links":{
       "history":{
-        "href":"https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/picksumipsum.txt"
+        "href":"https://sandbox.agaveplatform.org/files/v2/history/system/data.agaveplatform.org/nryan/picksumipsum.txt"
       },
       "self":{
-        "href":"https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"
+        "href":"https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/nryan/picksumipsum.txt"
       },
       "system":{
-        "href":"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"
+        "href":"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
       }
     }
   }

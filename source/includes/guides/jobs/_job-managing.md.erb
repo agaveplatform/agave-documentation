@@ -3,7 +3,7 @@
 Once your job is submitted, you have the ability to stop the job. This will kill the job on the system on which it is running.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "action=kill" https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "action=kill" https://sandbox.agaveplatform.org/jobs/v2/$JOB_ID
 ```
 ```plaintext
 jobs-stop $JOB_ID
@@ -47,31 +47,31 @@ jobs-stop $JOB_ID
   },
   "_links" : {
     "self" : {
-      "href" : "https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007"
+      "href" : "https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007"
     },
     "app" : {
-      "href" : "https://public.tenants.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0"
+      "href" : "https://sandbox.agaveplatform.org/apps/v2/demo-pyplot-demo-advanced-0.1.0"
     },
     "executionSystem" : {
-      "href" : "https://public.tenants.agaveapi.co/systems/v2/$PUBLIC_EXECUTION_SYSTEM"
+      "href" : "https://sandbox.agaveplatform.org/systems/v2/$PUBLIC_EXECUTION_SYSTEM"
     },
     "archiveData" : {
-      "href" : "https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/outputs/listings"
+      "href" : "https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007/outputs/listings"
     },
     "owner" : {
-      "href" : "https://public.tenants.agaveapi.co/profiles/v2/$API_USERNAME"
+      "href" : "https://sandbox.agaveplatform.org/profiles/v2/$API_USERNAME"
     },
     "permissions" : {
-      "href" : "https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/pems"
+      "href" : "https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007/pems"
     },
     "history" : {
-      "href" : "https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/history"
+      "href" : "https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007/history"
     },
     "metadata" : {
-      "href" : "https://public.tenants.agaveapi.co/meta/v2/data/?q={"associationIds":"0001414144065563-5056a550b8-0001-007"}"
+      "href" : "https://sandbox.agaveplatform.org/meta/v2/data/?q={"associationIds":"0001414144065563-5056a550b8-0001-007"}"
     },
     "notifications" : {
-      "href" : "https://public.tenants.agaveapi.co/notifications/v2/?associatedUuid=0001414144065563-5056a550b8-0001-007"
+      "href" : "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=0001414144065563-5056a550b8-0001-007"
     }
   }
 }
@@ -82,7 +82,7 @@ jobs-stop $JOB_ID
 > Deleting a job  
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://sandbox.agaveplatform.org/jobs/v2/$JOB_ID
 ```
 ```plaintext
 jobs-delete $JOB_ID
@@ -98,7 +98,7 @@ Over time the number of jobs you have run can grow rather large. You can delete 
 > Resubmitting a job  
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "action=resubmit" https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "action=resubmit" https://sandbox.agaveplatform.org/jobs/v2/$JOB_ID
 ```  
 
 ```

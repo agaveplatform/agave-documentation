@@ -34,15 +34,15 @@ You can list, add, update, and remove data permissions by making requests on the
 
 ### Viewing permissions  
 
-Let's start by listing the permissions on our sample file from the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/" title="Data Management Tutorial">Data Management tutorial</a>.
+Let's start by listing the permissions on our sample file from the <a href="https://agaveplatform.org/documentation/tutorials/data-management-tutorial/" title="Data Management Tutorial">Data Management tutorial</a>.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/files/v2/pems/data.agaveapi.co/$API_USERNAME/picksumipsum.txt
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/files/v2/pems/data.agaveplatform.org/$API_USERNAME/picksumipsum.txt
 ```
 
 
 ```plaintext
-files-list -v -S data.agaveapi.co $API_USERNAME
+files-list -v -S data.agaveplatform.org $API_USERNAME
 ``` 
 
 
@@ -66,8 +66,8 @@ The response to this contains a summary listing all permissions on the
 
 Publishing data on Agave does open up the opportunity for you to turn any storage system into a web server. This is particularly handy for datasets that are centrally located or too large to copy to traditional hosting servers.
 
-Agave does not currently have any policy restricting this behavior, however we reserve the right to change this policy in part or whole in the future in light of abuse or excessive strain on the system. We should also point out that in many situations, using Agave to serve up data from remote storage systems is not ideal from a performance perspective. Specifically when serving up many small files such as web assets, thumbnail images, or configuration files. In this situation, when end-to-end response time matters and the data is not prohibitively large, you are better served having Agave push your data to a cloud storage system like Dropbox, Amazon S3, Azure Storage, or Box and mirroring the public permissions to take advantage of their global CDN. For more information on interacting with these service providers through Agave, see the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/leveraging-cloud-storage-tutorial/" title="Leveraging Cloud Storage Tutorial">Leveraging Cloud Storage</a> tutorial.
+Agave does not currently have any policy restricting this behavior, however we reserve the right to change this policy in part or whole in the future in light of abuse or excessive strain on the system. We should also point out that in many situations, using Agave to serve up data from remote storage systems is not ideal from a performance perspective. Specifically when serving up many small files such as web assets, thumbnail images, or configuration files. In this situation, when end-to-end response time matters and the data is not prohibitively large, you are better served having Agave push your data to a cloud storage system like Dropbox, Amazon S3, Azure Storage, or Box and mirroring the public permissions to take advantage of their global CDN. For more information on interacting with these service providers through Agave, see the <a href="https://agaveplatform.org/documentation/tutorials/data-management-tutorial/leveraging-cloud-storage-tutorial/" title="Leveraging Cloud Storage Tutorial">Leveraging Cloud Storage</a> tutorial.
 
 ## Permission provenance  
 
-As with all data management operations, a full provenance record is kept of every permission grant, revocation, and update made to a file and folder touched by Agave. You can read more about how Agave tracks these things in the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/data-provenance-tutorial/" title="Data Provenance Tutorial">Data Provenance Tutorial</a>.
+As with all data management operations, a full provenance record is kept of every permission grant, revocation, and update made to a file and folder touched by Agave. You can read more about how Agave tracks these things in the <a href="https://agaveplatform.org/documentation/tutorials/data-management-tutorial/data-provenance-tutorial/" title="Data Provenance Tutorial">Data Provenance Tutorial</a>.

@@ -12,10 +12,10 @@ The permissions available for Tags listed in the following table. Please note th
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
-    https://public.tenants.agaveapi.co/tags/v2/demo/pems/rclemens
+    https://sandbox.agaveplatform.org/tags/v2/demo/pems/rclemens
 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
-    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems/rclemens
+    https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/pems/rclemens
 ```
 
 ```plaintext
@@ -37,13 +37,13 @@ tags-pems-list -u rclemens \
     },
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems/nryan"
+        "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/pems/nryan"
       },
       "parent": {
-        "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"
+        "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048"
       },
       "profile": {
-        "href": "https://public.agaveapi.co/tags/v2/nryan"
+        "href": "https://sandbox.agaveplatform.org/tags/v2/nryan"
       }
     }
   }
@@ -58,7 +58,7 @@ To list all permissions for a tag, make a GET request on the tag's permission co
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
-    https://public.tenants.agaveapi.co/tags/v2/data/3042501574756462105-242ac113-0001-048/pems/nryan
+    https://sandbox.agaveplatform.org/tags/v2/data/3042501574756462105-242ac113-0001-048/pems/nryan
 ```
 
 ```plaintext
@@ -77,13 +77,13 @@ tags-pems-list -u rclemens \
   },
   "_links":{
     "self":{
-      "href":"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems/nryan"
+      "href":"https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/pems/nryan"
     },
     "parent":{
-      "href":"https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"
+      "href":"https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048"
     },
     "profile":{
-      "href":"https://public.agaveapi.co/tags/v2/nryan"
+      "href":"https://sandbox.agaveplatform.org/tags/v2/nryan"
     }
   }
 }
@@ -98,7 +98,7 @@ Checking permissions for a single user is simply a matter of adding the username
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST
     --data '{"permission":"READ"}'
-    https://public.tenants.agaveapi.co/tags/v2/data/3042501574756462105-242ac113-0001-048/pems/rclemens
+    https://sandbox.agaveplatform.org/tags/v2/data/3042501574756462105-242ac113-0001-048/pems/rclemens
 ```
 
 ```plaintext
@@ -111,7 +111,7 @@ tags-pems-addupdate -u rclemens \
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST
     --data '{"permission":"READ_WRITE"}'
-    https://public.tenants.agaveapi.co/tags/v2/data/3042501574756462105-242ac113-0001-048/pems/rclemens
+    https://sandbox.agaveplatform.org/tags/v2/data/3042501574756462105-242ac113-0001-048/pems/rclemens
 ```
 
 ```plaintext
@@ -130,13 +130,13 @@ tags-pems-addupdate -u rclemens \
   },
   "_links": {
     "self": {
-      "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems/rclemens"
+      "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/pems/rclemens"
     },
     "parent": {
-      "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"
+      "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048"
     },
     "profile": {
-      "href": "https://public.agaveapi.co/tags/v2/jstubbs"
+      "href": "https://sandbox.agaveplatform.org/tags/v2/jstubbs"
     }
   }
 }
@@ -151,7 +151,7 @@ To grant another user read access to your tag, assign them `READ` permission. To
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
     -X DELETE
-    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems/rclemens
+    https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/pems/rclemens
 ```
 
 ```plaintext
@@ -172,11 +172,11 @@ Permissions may be deleted for a single user by making a DELETE request on the t
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
     -X DELETE
-    https://public.tenants.agaveapi.co/tags/v2/demo/pems
+    https://sandbox.agaveplatform.org/tags/v2/demo/pems
 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
     -X DELETE
-    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems
+    https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/pems
 ```
 
 ```plaintext

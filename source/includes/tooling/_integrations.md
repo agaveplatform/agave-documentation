@@ -1,10 +1,10 @@
 ## Integrations
 
-Several integrations exist out of the box to help you integrate Agave functinality into your favorite framework. If you'd like to see a integration into a framework not included here, [let us know](https://agaveapi.co/contact-us/).
+Several integrations exist out of the box to help you integrate Agave functinality into your favorite framework. If you'd like to see a integration into a framework not included here, [let us know](https://agaveplatform.org/contact-us/).
 
 ### AngularJS
 
-* [oauth-ng](https://bitbucket.org/agaveapi/oauth-ng): A custom multitenant fork of the popular oauth-ng module preconfigured to authenticate against the Agave Platform.  
+* [oauth-ng](https://github.com/agaveplatform/oauth-ng): A custom multitenant fork of the popular oauth-ng module preconfigured to authenticate against the Agave Platform.  
 * [Agave Filemanager](https://github.com/agaveplatform/agave-angular-filemanager): A fork of the angular-filemanager project customized to interact with the Agave Platform. Available as a standalone app, modal, and directive.  
 
 ### Elm  

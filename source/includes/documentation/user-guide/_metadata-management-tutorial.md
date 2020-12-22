@@ -7,13 +7,13 @@ The Agave Metadata service allows you to manage metadata and associate it with A
 All metadata and schemata referenced through the Metadata service have canonical URIs defined via their identifying UUIDs:
 
 ```shell
-https://public.tenants.agaveapi.co/meta/v2/data/$UUID
+https://sandbox.agaveplatform.org/meta/v2/data/$UUID
 ```
 
 and
 
 ```shell
-https://public.tenants.agaveapi.co/meta/v2/schemas/$UUID
+https://sandbox.agaveplatform.org/meta/v2/schemas/$UUID
 ```
 
 Both Metadata and Schemata with a given UUID can be retrieved, updated or deleted via a GET, POST or DELETE operation respectively upon the appropriate endpoint. Please see the Quick Start guide for more information and examples.
@@ -21,13 +21,13 @@ Both Metadata and Schemata with a given UUID can be retrieved, updated or delete
 New Metadata or Schemata are created in the repository via a POST to either
 
 ```shell
-https://public.tenants.agaveapi.co/meta/v2/data/
+https://sandbox.agaveplatform.org/meta/v2/data/
 ```
 
 or
 
 ```shell
-https://public.tenants.agaveapi.co/meta/v2/schemas/
+https://sandbox.agaveplatform.org/meta/v2/schemas/
 ```
 
 Adding new Metadata or Schemata to the system results in the Metadata service generating a new UUID for the object and returning it to the client, for example:
@@ -36,7 +36,7 @@ Adding new Metadata or Schemata to the system results in the Metadata service ge
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST  
     -H &#039;Content-Type: application/x-www-form-urlencoded&#039;  
     --data &#039;{"value": {"title": "Example Metadata", "properties": {"species": "arabidopsis", "description": "A model organism..."}}, "name": "some metadata"}&#039;  
-    https://public.tenants.agaveapi.co/meta/v2/data
+    https://sandbox.agaveplatform.org/meta/v2/data
 ```
 
 
@@ -67,7 +67,7 @@ Submitting the above will result in a message like the following:
    "created":"2013-10-11T15:19:27.822-05:00",
    "_links":{  
       "self":{  
-         "href":"https://public.tenants.agaveapi.co/meta/v2/0001381522769680-8002797ffffddcd-0001-012"
+         "href":"https://sandbox.agaveplatform.org/meta/v2/0001381522769680-8002797ffffddcd-0001-012"
       }
    }
 }
@@ -87,7 +87,7 @@ To add a metadata schema to the repository:
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST  
     -H &#039;Content-Type: application/x-www-form-urlencoded&#039;  
     --data &#039;{ "title": "Example Schema", "type": "object", "properties": { "species": { "type": "string" } }, "required": ["species"] }&#039; 
-https://public.tenants.agaveapi.co/meta/v2/schemas/
+https://sandbox.agaveplatform.org/meta/v2/schemas/
 ```
 
 
@@ -126,7 +126,7 @@ Submitting the above will result in the following sort of message from the Metad
       "_links":[
          {
             "self":{
-               "href":"https://public.tenants.agaveapi.co/meta/v2/schemas/0001381781874558-8002797ffffddcd-0001-013"
+               "href":"https://sandbox.agaveplatform.org/meta/v2/schemas/0001381781874558-8002797ffffddcd-0001-013"
             }
          }
       ]
@@ -203,7 +203,7 @@ q={"name": "mustard plant"}
 To use with curl, the query must be url-encoded. Then you can send a request something like the following:
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/meta/v2/data?q=%7B%22name%22%3A%22mustard+plant%22%7D
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/meta/v2/data?q=%7B%22name%22%3A%22mustard+plant%22%7D
 ```
 
 
@@ -234,7 +234,7 @@ And this will find all metadata with name, "mustard plant" that you have permiss
          "_links":[
             {
                "self":{
-                  "href":"https://public.tenants.agaveapi.co/meta/v2/0001378482703225-8002797ffffddcd-0001-metadata-"
+                  "href":"https://sandbox.agaveplatform.org/meta/v2/0001378482703225-8002797ffffddcd-0001-metadata-"
                }
             }
          ]
@@ -250,7 +250,7 @@ The metadata service supports permissions for both Metadata and Schemata consist
 To list the permissions on Metadata for a given user:
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/meta/v2/data/0001381781409939-8002797ffffddcd-0001-012/pems/$USER_TO_SHARE_METADATA_WITH
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/meta/v2/data/0001381781409939-8002797ffffddcd-0001-012/pems/$USER_TO_SHARE_METADATA_WITH
 ```
 
 The following response confirms that the user does not have permissions on that Metadata:
@@ -268,13 +268,13 @@ To share Metadata with that user:
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST  
     --data "permission=READ"  
-        https://public.tenants.agaveapi.co/meta/v2/data/0001381781409939-8002797ffffddcd-0001-012/pems/$USER_TO_SHARE_METADATA_WITH
+        https://sandbox.agaveplatform.org/meta/v2/data/0001381781409939-8002797ffffddcd-0001-012/pems/$USER_TO_SHARE_METADATA_WITH
 ```
 
 To delete all permissions on a Metadata object:
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/meta/v2/data/0001381781409939-8002797ffffddcd-0001-012/pems/
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://sandbox.agaveplatform.org/meta/v2/data/0001381781409939-8002797ffffddcd-0001-012/pems/
 ```
 
 Please note that the above will delete all permissions for Metadata, such that only the owner will be able to access it. To remove a specific user, send a POST with permissions set to "NONE" for that user.
@@ -282,5 +282,5 @@ Please note that the above will delete all permissions for Metadata, such that o
 Permissions are supported for schemata in a similar manner:
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/meta/v2/schemas/0001381781409939-8002797ffffddcd-0001-012/pems/$USER_TO_SHARE_METADATA_WITH
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/meta/v2/schemas/0001381781409939-8002797ffffddcd-0001-012/pems/$USER_TO_SHARE_METADATA_WITH
 ```

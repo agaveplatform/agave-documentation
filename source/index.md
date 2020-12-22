@@ -6,11 +6,11 @@ language_tabs:
   - plaintext: CLI
 
 toc_footers:
-  - <a href='https://public.agaveapi.co/create_account' target='_blank'>Create an Account</a>
-  - <a href='https://bitbucket.org/agaveapi/agave-flat/src/master/CHANGELOG.md' target='_blank'>CHANGELOG</a>
-  - <a href='http://status.agaveapi.co' target='_blank'>Status Page</a>
-  - <a href='http://support.agaveapi.co' target='_blank'>Issues</a>
-  - <a href='http://support.agaveapi.co' target='_blank'>Knowledge Base</a>
+  - <a href='https://sandbox.agaveplatform.org/create_account' target='_blank'>Create an Account</a>
+  - <a href='https://github.com/agaveplatform/science-apis/src/master/CHANGELOG.md' target='_blank'>CHANGELOG</a>
+  - <a href='https://status.agaveplatform.org' target='_blank'>Status Page</a>
+  - <a href='https://support.agaveplatform.org' target='_blank'>Issues</a>
+  - <a href='https://support.agaveplatform.org' target='_blank'>Knowledge Base</a>
 
 includes:
 - introduction/introduction

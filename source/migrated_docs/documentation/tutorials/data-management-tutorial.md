@@ -14,7 +14,7 @@ The following table defines each component:
 
 <%= partial "includes/tables/22" %>
 
-Agave also supports the concept of default systems. Excluding the <code>/system/$SYSTEM_ID</code> tokens from the above URL, the Files service will automatically assume you are referencing your default storage system. Thus, if your default system was <code>data.agaveapi.co</code>,
+Agave also supports the concept of default systems. Excluding the <code>/system/$SYSTEM_ID</code> tokens from the above URL, the Files service will automatically assume you are referencing your default storage system. Thus, if your default system was <code>data.agaveplatform.org</code>,
 
 ```shell
 https://$API_BASE_URL/files/$API_VERSION/media/shared
@@ -23,12 +23,12 @@ https://$API_BASE_URL/files/$API_VERSION/media/shared
 would behave identically to:
 
 ```shell
-https://$API_BASE_URL/files/$API_VERSION/media/system/data.agaveapi.co/shared
+https://$API_BASE_URL/files/$API_VERSION/media/system/data.agaveplatform.org/shared
 ```
 
 This comes in especially handy when referencing your default system paths in other contexts such as job requests and when interacting with the Agave CLI. A good example of this situation is when you have a global default storage system accessible to all your users. In this case, most users will use that for all of their data staging and archiving needs. These users may find it easier not to even think about the system they are using. The default system support in the Files service allows them to do just that.
 
-<aside class="notice">When building applications against the Files service, it is considered a best practice to always specify the intended system ID when constructing URL paths to avoid situations where users change their default systems. This will also provide long-term stability to your data references and make debugging much easier. You can read more about default systems in the <a href="http://agaveapi.co/documentation/tutorials/system-management/" title="System Management">System Management</a> tutorial.</aside>
+<aside class="notice">When building applications against the Files service, it is considered a best practice to always specify the intended system ID when constructing URL paths to avoid situations where users change their default systems. This will also provide long-term stability to your data references and make debugging much easier. You can read more about default systems in the <a href="https://agaveplatform.org/documentation/tutorials/system-management/" title="System Management">System Management</a> tutorial.</aside>
 
 ## Understanding Agave file paths vs actual system paths <a name="understanding-agave-file-paths-vs-actual-system-paths"></a>  
 
@@ -36,7 +36,7 @@ One potentially confusing feature of Agave is its support for virtualizing syste
 
 <%= partial "includes/tables/21" %>
 
-<code>homeDir</code> specifies the path, relative to <code>rootDir</code>, that Agave should use for relative paths. Since Agave is stateless, there is no concept of a current working directory. Thus, when you specify a path to Agave that does not begin with a <code>/</code>, Agave will always prefix the path with the value of <code>homeDir</code>. The following table gives several examples of how different combinations of <code>rootDir</code>, <code>homeDir</code>, and URL paths will be resolved by Agave. For a deeper dive into this subject, please see the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/understanding-agave-file-paths/" title="Understanding Agave File Paths">Understanding Agave File Paths</a> tutorial.
+<code>homeDir</code> specifies the path, relative to <code>rootDir</code>, that Agave should use for relative paths. Since Agave is stateless, there is no concept of a current working directory. Thus, when you specify a path to Agave that does not begin with a <code>/</code>, Agave will always prefix the path with the value of <code>homeDir</code>. The following table gives several examples of how different combinations of <code>rootDir</code>, <code>homeDir</code>, and URL paths will be resolved by Agave. For a deeper dive into this subject, please see the <a href="https://agaveplatform.org/documentation/tutorials/data-management-tutorial/understanding-agave-file-paths/" title="Understanding Agave File Paths">Understanding Agave File Paths</a> tutorial.
 
 <%= partial "includes/tables/20" %>
 
@@ -51,13 +51,13 @@ You may upload data to a remote systems by performing a multipart POST on the FI
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST  
     -F "fileToUpload=@files/picksumipsum.txt"  
-    https://$API_BASE_URL/files/$API_VERSION/media/data.agaveapi.co/$API_USERNAME
+    https://$API_BASE_URL/files/$API_VERSION/media/data.agaveplatform.org/$API_USERNAME
 ```
 
 
 
 ```plaintext
-files-upload -v -F files/picksumipsum.txt -S data.agaveapi.co $API_USERNAME
+files-upload -v -F files/picksumipsum.txt -S data.agaveplatform.org $API_USERNAME
 ``` 
 
 
@@ -73,17 +73,17 @@ You will see a progress bar while the file uploads, followed by a response from 
     "path": "/iplant/home/systest/picksumipsum.txt",
     "source": "http://129.114.60.211/picksumipsum.txt",
     "status": "STAGING_QUEUED",
-    "systemId": "data.agaveapi.co",
+    "systemId": "data.agaveplatform.org",
     "uuid": "0001409758089943-5056a550b8-0001-002",
     "_links": {
         "history": {
-            "href": "https://public.agaveapi.co/files/v2/history/system/data.agaveapi.co/systest/picksumipsum.txt"
+            "href": "https://sandbox.agaveplatform.org/files/v2/history/system/data.agaveplatform.org/systest/picksumipsum.txt"
         },
         "self": {
-            "href": "https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt"
+            "href": "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/systest/picksumipsum.txt"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
         }
     }
 }
@@ -95,18 +95,18 @@ You can also import data from an external URL. Rather than making a multipart fi
 
 <%= partial "includes/tables/23" %>
 
-To demonstrate how this works, will import a the README.md file from the <a href="https://bitbucket.org/agaveapi/science-api-samples" title="Agave Samples" target="_blank">Agave Samples</a> git repository in Bitbucket.
+To demonstrate how this works, will import a the README.md file from the <a href="https://github.com/agavetraining/science-api-samples" title="Agave Samples" target="_blank">Agave Samples</a> git repository in Bitbucket.
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST  
-    -- data &#039;{ "url":"https://bitbucket.org/agaveapi/science-api-samples/raw/master/README.md"}&#039;  
-    https://$API_BASE_URL/files/$API_VERSION/media/data.agaveapi.co/$API_USERNAME
+    -- data &#039;{ "url":"https://github.com/agavetraining/science-api-samples/raw/master/README.md"}&#039;  
+    https://$API_BASE_URL/files/$API_VERSION/media/data.agaveplatform.org/$API_USERNAME
 ```
 
 
 ```plaintext
-files-import -v -U "https://bitbucket.org/agaveapi/science-api-samples/raw/master/README.md"  
-    -S data.agaveapi.co $API_USERNAME
+files-import -v -U "https://github.com/agavetraining/science-api-samples/raw/master/README.md"  
+    -S data.agaveplatform.org $API_USERNAME
 ``` 
 
 
@@ -119,44 +119,44 @@ Importing data from a third party is done offline as an asynchronous activity, s
     "owner" : "systest",
     "internalUsername" : null,
     "lastModified" : "2014-09-10T20:00:55.266-05:00",
-    "source" : "https://bitbucket.org/agaveapi/science-api-samples/raw/master/README.md",
+    "source" : "https://github.com/agavetraining/science-api-samples/raw/master/README.md",
     "path" : "/iplant/home/systest/README.md",
     "status" : "STAGING_QUEUED",
-    "systemId" : "data.agaveapi.co",
+    "systemId" : "data.agaveplatform.org",
     "nativeFormat" : "raw",
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/README.md"
+        "href" : "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/systest/README.md"
       },
       "system" : {
-        "href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
       },
       "history" : {
-        "href" : "https://public.agaveapi.co/files/v2/history/system/data.agaveapi.co/systest/README.md"
+        "href" : "https://sandbox.agaveplatform.org/files/v2/history/system/data.agaveplatform.org/systest/README.md"
       }
     }
 }
 ```
 
-For this exercise, the file we just imported is just a few KB, so you should see it appear in your home folder on <code>data.agaveapi.co</code> almost immediately. If you were importing larger datasets, the transfer could take significantly longer depending on the network quality between Agave and the source location. In this case, you would see the file size continue to increase until it completed. In the event of a failed transfer, Agave will retry several times before canceling the transfer.
+For this exercise, the file we just imported is just a few KB, so you should see it appear in your home folder on <code>data.agaveplatform.org</code> almost immediately. If you were importing larger datasets, the transfer could take significantly longer depending on the network quality between Agave and the source location. In this case, you would see the file size continue to increase until it completed. In the event of a failed transfer, Agave will retry several times before canceling the transfer.
 
 <aside class="notice">Agave attempts to make smart decisions about how and when to transfer data. This includes leveraging third-party transfers whenever possible, scaling directory copies out horizontally, and taking advantage of chunked or parallel uploads. As a result, data may arrive in a non-deterministic way on the target system. This is normal and should be expected.</aside>
 
 ### Transferring data  
 
-Much like importing data, Agave can manage the transfer of data between registered systems. This is, in fact, how data is staged prior to running a simulation. Data transfers are fire and forget, so you can simply start a transfer and go about your business. Agave will ensure it completes. If you would like a notification when the transfer completes or reaches a certain stage, you can subscribe for one or more emails and/or <a href="http://webhooks.org" title="Webhooks" target="_blank">webhooks</a> and Agave will process them upon completion. The following table lists the available file events. For more information about Agave's event and notification system, please see the <a href="http://agaveapi.co/documentation/tutorials/notifications-tutorial/" title="Notifications Tutorial" target="_blank">Notifications Tutorial</a> and <a href="http://agaveapi.co/documentation/event-reference/" title="Agave Platform Event Reference" target="_blank">Event Reference</a>.
+Much like importing data, Agave can manage the transfer of data between registered systems. This is, in fact, how data is staged prior to running a simulation. Data transfers are fire and forget, so you can simply start a transfer and go about your business. Agave will ensure it completes. If you would like a notification when the transfer completes or reaches a certain stage, you can subscribe for one or more emails and/or <a href="http://webhooks.org" title="Webhooks" target="_blank">webhooks</a> and Agave will process them upon completion. The following table lists the available file events. For more information about Agave's event and notification system, please see the <a href="https://agaveplatform.org/documentation/tutorials/notifications-tutorial/" title="Notifications Tutorial" target="_blank">Notifications Tutorial</a> and <a href="https://agaveplatform.org/documentation/event-reference/" title="Agave Platform Event Reference" target="_blank">Event Reference</a>.
 
-In the example below, we will transfer a file from <code>stampede.tacc.utexas.edu</code> to <code>data.agaveapi.co</code>. While the request looks pretty basic, there's a lot going on behind the scenes. Agave will authenticate to both systems, check permissions, stream data out of Stampede using SFTP and proxy it into <code>data.agaveapi.co</code> using the IRODS protocol, adjusting the transfer buffer size along the way to optimize throughput. Doing this by hand is both painful and error prone. Doing it with Agave is nearly identical to copying a file from one directory to another on your local system.
+In the example below, we will transfer a file from <code>stampede.tacc.utexas.edu</code> to <code>data.agaveplatform.org</code>. While the request looks pretty basic, there's a lot going on behind the scenes. Agave will authenticate to both systems, check permissions, stream data out of Stampede using SFTP and proxy it into <code>data.agaveplatform.org</code> using the IRODS protocol, adjusting the transfer buffer size along the way to optimize throughput. Doing this by hand is both painful and error prone. Doing it with Agave is nearly identical to copying a file from one directory to another on your local system.
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST  
     -- data &#039;{ "url":"agave://stampede.tacc.utexas.edu//etc/motd"}&#039;  
-    https://$API_BASE_URL/files/$API_VERSION/media/data.agaveapi.co/$API_USERNAME
+    https://$API_BASE_URL/files/$API_VERSION/media/data.agaveplatform.org/$API_USERNAME
 ```
 
 
 ```plaintext
-files-import -v -U "agave://stampede.tacc.utexas.edu//etc/motd" -S data.agaveapi.co $API_USERNAME
+files-import -v -U "agave://stampede.tacc.utexas.edu//etc/motd" -S data.agaveplatform.org $API_USERNAME
 ``` 
 
 
@@ -166,17 +166,17 @@ One of the benefits of Agave's Files service is that it frees you up to work in 
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" 
-    -X POST -- data &#039;{ "url":"agave://data.agaveapi.co/$API_USERNAME/foo_project"}&#039; 
+    -X POST -- data &#039;{ "url":"agave://data.agaveplatform.org/$API_USERNAME/foo_project"}&#039; 
     https://$API_BASE_URL/files/$API_VERSION/media/system/$API_USERNAME.storage1/
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" 
-    -X POST -- data &#039;{ "url":"agave://data.agaveapi.co/$API_USERNAME/foo_project"}&#039; 
+    -X POST -- data &#039;{ "url":"agave://data.agaveplatform.org/$API_USERNAME/foo_project"}&#039; 
     https://$API_BASE_URL/files/$API_VERSION/media/system/$API_USERNAME.storage2/
 ```
 
 
 ```plaintext
-files-import -v -U "agave://data.agaveapi.co/$API_USERNAME/foo_project" -S $API_USERNAME.storage1
-files-import -v -U "agave://data.agaveapi.co/$API_USERNAME/foo_project" -S $API_USERNAME.storage2
+files-import -v -U "agave://data.agaveplatform.org/$API_USERNAME/foo_project" -S $API_USERNAME.storage1
+files-import -v -U "agave://data.agaveplatform.org/$API_USERNAME/foo_project" -S $API_USERNAME.storage2
 ``` 
 
 
@@ -192,16 +192,16 @@ Obtaining a directory listing, or information about a specific file is done by m
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"  
-    https://$API_BASE_URL/files/$API_VERSION/listings/data.agaveapi.co/$API_USERNAME
+    https://$API_BASE_URL/files/$API_VERSION/listings/data.agaveplatform.org/$API_USERNAME
 ```
 
 
 ```plaintext
-files-list -v -S data.agaveapi.co $API_USERNAME
+files-list -v -S data.agaveplatform.org $API_USERNAME
 ``` 
 
 
-The response to this contains a summary listing of the contents of your home directory on  <code>data.agaveapi.co</code>. Appending a file path to your commands above would give information on a specific file.
+The response to this contains a summary listing of the contents of your home directory on  <code>data.agaveplatform.org</code>. Appending a file path to your commands above would give information on a specific file.
 
 ```javascript
 [
@@ -213,14 +213,14 @@ The response to this contains a summary listing of the contents of your home dir
         "name": ".",
         "path": "systest",
         "permisssions": "ALL",
-        "system": "data.agaveapi.co",
+        "system": "data.agaveplatform.org",
         "type": "dir",
         "_links": {
             "self": {
-                "href": "https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest"
+                "href": "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/systest"
             },
             "system": {
-                "href": "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+                "href": "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
             }
         }
     },
@@ -232,14 +232,14 @@ The response to this contains a summary listing of the contents of your home dir
     "name": "picksumipsum.txt",
     "path": "systest/picksumipsum.txt",
     "permissions": "ALL",
-    "system": "data.agaveapi.co",
+    "system": "data.agaveplatform.org",
     "type": "file",
     "_links": {
             "self": {
-                "href": "https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt"
+                "href": "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/systest/picksumipsum.txt"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
         }
     }
     }
@@ -357,12 +357,12 @@ files-delete -S $SYSTEM_ID $PATH
 
 ## Metadata management  
 
-In many systems, the concept of metadata is directly tied to the notion of a file system. Agave takes a broader view of metadata and supports it as its own first class resource in the REST API. For more information on how to leverage metadata in Agave, please consult the <a href="http://agaveapi.co/documentation/tutorials/metadata-tutorial/" title="Metadata Tutorial">Metadata Tutorial</a>. In there we cover all aspects of how to manage, search, validate, and associate metadata across your entire digital lab.
+In many systems, the concept of metadata is directly tied to the notion of a file system. Agave takes a broader view of metadata and supports it as its own first class resource in the REST API. For more information on how to leverage metadata in Agave, please consult the <a href="https://agaveplatform.org/documentation/tutorials/metadata-tutorial/" title="Metadata Tutorial">Metadata Tutorial</a>. In there we cover all aspects of how to manage, search, validate, and associate metadata across your entire digital lab.
 
 ## Data permissions  
 
-Agave has a fine-grained permission model supporting use cases from creating and expositing readonly storage systems to sharing individual files and folders with one or more users. To learn more about the data permission model and how you can use it to meet your needs, consult the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/data-permissions-tutorial/" title="Data Permissions Tutorial">Data Permissions Tutorial</a>.
+Agave has a fine-grained permission model supporting use cases from creating and expositing readonly storage systems to sharing individual files and folders with one or more users. To learn more about the data permission model and how you can use it to meet your needs, consult the <a href="https://agaveplatform.org/documentation/tutorials/data-management-tutorial/data-permissions-tutorial/" title="Data Permissions Tutorial">Data Permissions Tutorial</a>.
 
 ## Data provenance  
 
-Agave keeps a full provenance record of every action it takes or observes on a a file and folder. You can read more about how Agave tracks these things as well as how to access provenance information in the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/data-provenance-tutorial/" title="Data Provenance Tutorial">Data Provenance Tutorial</a>.
+Agave keeps a full provenance record of every action it takes or observes on a a file and folder. You can read more about how Agave tracks these things as well as how to access provenance information in the <a href="https://agaveplatform.org/documentation/tutorials/data-management-tutorial/data-provenance-tutorial/" title="Data Provenance Tutorial">Data Provenance Tutorial</a>.

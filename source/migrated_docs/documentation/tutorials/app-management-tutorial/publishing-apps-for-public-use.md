@@ -1,6 +1,6 @@
 ## Overview  
 
-In the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a> you learned about how to register apps for your own personal use and share them with other users to enable collaborative research. In this section, we will learn about the concept of app publication and what it means to promote an app into the public space.
+In the <a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a> you learned about how to register apps for your own personal use and share them with other users to enable collaborative research. In this section, we will learn about the concept of app publication and what it means to promote an app into the public space.
 
 In addition to traditional permissions, Agave also has a concept of scope. By default, every app you personally register with Agave has a private scope. For individual users, this is usually sufficient for all your needs. At an organizational level, however, it is a very common requirement to provide a curated collection of apps that are publicly available to everyone. Such a collection of apps would reside in the public scope. The process of moving an app from the (default) private scope into the public scope is called <strong><em>publishing</em></strong>.
 
@@ -30,7 +30,7 @@ Once you have a working app that you have verified runs correctly, you contact y
 
 ##### Admins create a public version of the app <a name="admins-create-a-public-version-of-the-app">&nbsp;</a>  
 
-Once the app is vetted, your tenant admins will tell Agave to publish the app. This can be done with a single call the the Apps API. An example of publishing the <code>demo-pyplot-demo-advanced-0.1.0</code> app from our <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a> is shown below.
+Once the app is vetted, your tenant admins will tell Agave to publish the app. This can be done with a single call the the Apps API. An example of publishing the <code>demo-pyplot-demo-advanced-0.1.0</code> app from our <a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a> is shown below.
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=publish" https://$API_BASE_URL/apps/$API_VERSION/demo-pyplot-demo-advanced-0.1.0?pretty=true
@@ -70,7 +70,7 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
     "executionType" : "CLI",
     "executionSystem" : "docker.iplantcollaborative.org",
     "deploymentPath" : "/api/v2/apps/demo-pyplot-demo-advanced-0.1.0u1.zip",
-    "deploymentSystem" : "data.agaveapi.co",
+    "deploymentSystem" : "data.agaveplatform.org",
     "templatePath" : "wrapper.sh",
     "testPath" : "test/test.sh",
     "checkpointable" : false,
@@ -362,22 +362,22 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
     "outputs" : [ ],
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0u1"
+        "href" : "https://sandbox.agaveplatform.org/apps/v2/demo-pyplot-demo-advanced-0.1.0u1"
       },
       "executionSystem" : {
-        "href" : "https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/docker.iplantcollaborative.org"
       },
       "storageSystem" : {
-        "href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
       },
       "owner" : {
-        "href" : "https://public.agaveapi.co/profiles/v2/api_sample_user"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/api_sample_user"
       },
       "permissions" : {
-        "href" : "https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0u1/pems"
+        "href" : "https://sandbox.agaveplatform.org/apps/v2/demo-pyplot-demo-advanced-0.1.0u1/pems"
       },
       "metadata" : {
-        "href" : "https://public.agaveapi.co/meta/v2/data/?q={\\"associationIds\\":\\"0001414144637043-5056a550b8-0001-005\\"}"
+        "href" : "https://sandbox.agaveplatform.org/meta/v2/data/?q={\\"associationIds\\":\\"0001414144637043-5056a550b8-0001-005\\"}"
       }
     }
   }
@@ -437,7 +437,7 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
     "executionType" : "CLI",
     "executionSystem" : "docker.iplantcollaborative.org",
     "deploymentPath" : "/api/v2/apps/demo-pyplot-demo-advanced-0.1.0u2.zip",
-    "deploymentSystem" : "data.agaveapi.co",
+    "deploymentSystem" : "data.agaveplatform.org",
     "templatePath" : "wrapper.sh",
     "testPath" : "test/test.sh",
     "checkpointable" : false,
@@ -452,7 +452,7 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
         "required" : true,
         "order" : 0,
         "enquote" : false,
-        "default" : [ "agave://data.agaveapi.co/datasets/tutorials/apps/demo-pyplot-demo-advanced-0.1.0/testdata.csv" ]
+        "default" : [ "agave://data.agaveplatform.org/datasets/tutorials/apps/demo-pyplot-demo-advanced-0.1.0/testdata.csv" ]
       },
       "details" : {
         "label" : "Dataset",
@@ -729,22 +729,22 @@ apps-publish -v demo-pyplot-demo-advanced-0.1.0
     "outputs" : [ ],
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0u2"
+        "href" : "https://sandbox.agaveplatform.org/apps/v2/demo-pyplot-demo-advanced-0.1.0u2"
       },
       "executionSystem" : {
-        "href" : "https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/docker.iplantcollaborative.org"
       },
       "storageSystem" : {
-        "href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
       },
       "owner" : {
-        "href" : "https://public.agaveapi.co/profiles/v2/api_sample_user"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/api_sample_user"
       },
       "permissions" : {
-        "href" : "https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0u2/pems"
+        "href" : "https://sandbox.agaveplatform.org/apps/v2/demo-pyplot-demo-advanced-0.1.0u2/pems"
       },
       "metadata" : {
-        "href" : "https://public.agaveapi.co/meta/v2/data/?q={"associationIds":"0001414144632114-5056a550b8-0001-005"}"
+        "href" : "https://sandbox.agaveplatform.org/meta/v2/data/?q={"associationIds":"0001414144632114-5056a550b8-0001-005"}"
       }
     }
   }

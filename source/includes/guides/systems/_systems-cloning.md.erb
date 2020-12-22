@@ -11,7 +11,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
      -H "Content-Type: application/json"
      -X PUT
      --data-binary '{"action":"clone","id":"systest.demo.clone"}'
-     https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+     https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 ```plaintext
@@ -48,19 +48,19 @@ systems-clone -v -I systest.demo.clone $SYSTEM_ID
   },
   "_links": {
     "roles": {
-      "href": "https://public.agaveapi.co/systems/v2/systest.demo.clone/roles"
+      "href": "https://sandbox.agaveplatform.org/systems/v2/systest.demo.clone/roles"
     },
     "owner": {
-      "href": "https://public.agaveapi.co/profiles/v2/nryan"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
     },
     "credentials": {
-      "href": "https://public.agaveapi.co/systems/v2/systest.demo.clone/credentials"
+      "href": "https://sandbox.agaveplatform.org/systems/v2/systest.demo.clone/credentials"
     },
     "self": {
-      "href": "https://public.agaveapi.co/systems/v2/systest.demo.clone"
+      "href": "https://sandbox.agaveplatform.org/systems/v2/systest.demo.clone"
     },
     "metadata": {
-      "href": "https://public.agaveapi.co/meta/v2/data/?q=%7B%22associationIds%22%3A%225950027791507722726-242ac117-0001%22%7D"
+      "href": "https://sandbox.agaveplatform.org/meta/v2/data/?q=%7B%22associationIds%22%3A%225950027791507722726-242ac117-0001%22%7D"
     }
   }
 }

@@ -13,15 +13,15 @@ Agave will record all the direct events related to an app. Examples of direct ev
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -X PUT --data-binary '{"action":"publish","name":"demo-pyplot-demo"}' \
-    https://public.agaveapi.co/apps/v2/demo-pyplot-demo-basic-0.1.0
+    https://sandbox.agaveplatform.org/apps/v2/demo-pyplot-demo-basic-0.1.0
     
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -X PUT --data-binary '{"action":"publish","name":"demo-pyplot-demo"}' \
-    https://public.agaveapi.co/apps/v2/demo-pyplot-demo-intermediate-0.1.0
+    https://sandbox.agaveplatform.org/apps/v2/demo-pyplot-demo-intermediate-0.1.0
     
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -X PUT --data-binary '{"action":"publish","name":"demo-pyplot-demo"}' \
-    https://public.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0
+    https://sandbox.agaveplatform.org/apps/v2/demo-pyplot-demo-advanced-0.1.0
 ```  
 
 ```plaintext
@@ -130,7 +130,7 @@ We see that republishing an app records the change in the history of every app i
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
-    https://public.agaveapi.co/apps/v2/history/demo-pyplot-demo-advanced-0.1.0
+    https://sandbox.agaveplatform.org/apps/v2/history/demo-pyplot-demo-advanced-0.1.0
 ```
 
 ```plaintext
@@ -163,7 +163,7 @@ app-history -v demo-pyplot-demo-advanced-0.1.0
     "status": "TRANSFORMING_COMPLETED",
     "created": "2016-09-20T19:48:17.000-05:00",
     "createdBy": "nryan",
-    "description": "Your scheduled transfer of http://129.114.97.92/picksumipsum.txt completed staging. You can access the raw file on iPlant Data Store at /home/nryan/picksumipsum.txt or via the API at https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co//nryan/picksumipsum.txt."
+    "description": "Your scheduled transfer of http://129.114.97.92/picksumipsum.txt completed staging. You can access the raw file on iPlant Data Store at /home/nryan/picksumipsum.txt or via the API at https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org//nryan/picksumipsum.txt."
   }
 ]
 ```

@@ -17,25 +17,25 @@ The Agave Files service allows you to manage data across multiple storage system
 > Canonical URL for all file items accessible in the Platform
 
 ```http
-https://public.tenants.agaveapi.co/files/v2/media/system/$SYSTEM_ID/$PATH
+https://sandbox.agaveplatform.org/files/v2/media/system/$SYSTEM_ID/$PATH
 ```
 
 Every file and directory referenced through the Files service has a canonical URL show in the first example. The following table defines each component:
 
 <%= partial "includes/tables/22" %>
 
-Agave also supports the concept of _default systems_. Excluding the `/system/$SYSTEM_ID` segments from the above URL, the Files service will automatically assume you are referencing your default storage system. Thus, if your default system was `data.agaveapi.co`, the following two examples would be identical.
+Agave also supports the concept of _default systems_. Excluding the `/system/$SYSTEM_ID` segments from the above URL, the Files service will automatically assume you are referencing your default storage system. Thus, if your default system was `data.agaveplatform.org`, the following two examples would be identical.
 
-> If `data.agaveapi.co` is your default storage system then
+> If `data.agaveplatform.org` is your default storage system then
 
 ```http
-https://public.tenants.agaveapi.co/files/v2/media/shared
+https://sandbox.agaveplatform.org/files/v2/media/shared
 ```
 
 > is equivalent to this:
 
 ```http
-https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/shared
+https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/shared
 ```
 
 This comes in especially handy when referencing your default system paths in other contexts such as job requests and when interacting with the Agave CLI. A good example of this situation is when you have a global default storage system accessible to all your users. In this case, most users will use that for all of their data staging and archiving needs. These users may find it easier not to even think about the system they are using. The default system support in the Files service allows them to do just that.
@@ -64,11 +64,11 @@ Before we talk about how to do basic operations on your data, let's first talk a
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -X POST \
     -F "fileToUpload=@files/picksumipsum.txt" \
-    https://public.tenants.agaveapi.co/files/v2/media/data.agaveapi.co/nryan
+    https://sandbox.agaveplatform.org/files/v2/media/data.agaveplatform.org/nryan
 ```
 
 ```plaintext
-files-upload -v -F files/picksumipsum.txt -S data.agaveapi.co nryan
+files-upload -v -F files/picksumipsum.txt -S data.agaveplatform.org nryan
 ```  
 
 > The response will look something like this:
@@ -83,17 +83,17 @@ files-upload -v -F files/picksumipsum.txt -S data.agaveapi.co nryan
     "path": "/home/nryan/picksumipsum.txt",
     "source": "http://127.0.0.1/picksumipsum.txt",
     "status": "STAGING_QUEUED",
-    "systemId": "data.agaveapi.co",
+    "systemId": "data.agaveplatform.org",
     "uuid": "0001409758089943-5056a550b8-0001-002",
     "_links": {
         "history": {
-            "href": "https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/picksumipsum.txt"
+            "href": "https://sandbox.agaveplatform.org/files/v2/history/system/data.agaveplatform.org/nryan/picksumipsum.txt"
         },
         "self": {
-            "href": "https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"
+            "href": "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/nryan/picksumipsum.txt"
         },
         "system": {
-            "href": "https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
         }
     }
 }
@@ -110,19 +110,19 @@ You can also have Agave download data from an external URL. Rather than making a
 
 <%= partial "includes/tables/23" %>
 
-To demonstrate how this works, we will import a README.md file from the <a href="https://bitbucket.org/agaveapi/science-api-samples" title="Agave Samples" target="_blank">Agave Samples</a> git repository in Bitbucket.
+To demonstrate how this works, we will import a README.md file from the <a href="https://github.com/agavetraining/science-api-samples" title="Agave Samples" target="_blank">Agave Samples</a> git repository in Bitbucket.
 
 > Download a file from a web accessible URL  
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST
-    -- data &#039;{ "url":"https://bitbucket.org/agaveapi/science-api-samples/raw/master/README.md"}&#039;
-    https://public.tenants.agaveapi.co/files/v2/media/data.agaveapi.co/nryan
+    -- data &#039;{ "url":"https://github.com/agavetraining/science-api-samples/raw/master/README.md"}&#039;
+    https://sandbox.agaveplatform.org/files/v2/media/data.agaveplatform.org/nryan
 ```
 
 ```plaintext
-files-import -v -U "https://bitbucket.org/agaveapi/science-api-samples/raw/master/README.md"
-    -S data.agaveapi.co nryan
+files-import -v -U "https://github.com/agavetraining/science-api-samples/raw/master/README.md"
+    -S data.agaveplatform.org nryan
 ```
 
 > The response will look something like this:
@@ -134,20 +134,20 @@ files-import -v -U "https://bitbucket.org/agaveapi/science-api-samples/raw/maste
     "owner" : "nryan",
     "internalUsername" : null,
     "lastModified" : "2014-09-10T20:00:55.266-05:00",
-    "source" : "https://bitbucket.org/agaveapi/science-api-samples/raw/master/README.md",
+    "source" : "https://github.com/agavetraining/science-api-samples/raw/master/README.md",
     "path" : "/home/nryan/README.md",
     "status" : "STAGING_QUEUED",
-    "systemId" : "data.agaveapi.co",
+    "systemId" : "data.agaveplatform.org",
     "nativeFormat" : "raw",
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/README.md"
+        "href" : "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/nryan/README.md"
       },
       "system" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
       },
       "history" : {
-        "href" : "https://public.tenants.agaveapi.co/files/v2/history/system/data.agaveapi.co/nryan/README.md"
+        "href" : "https://sandbox.agaveplatform.org/files/v2/history/system/data.agaveplatform.org/nryan/README.md"
       }
     }
 }
@@ -155,7 +155,7 @@ files-import -v -U "https://bitbucket.org/agaveapi/science-api-samples/raw/maste
 
 Downloading data from a third party is done offline as an asynchronous activity, so the response from the server will come right away. One thing worth noting is that the file length given in the response will always be -1. This is because, generally speaking, Agave does not know what the actual source file size is until after the repsonse is send back. The file size will be updated as the download progresses. You can track the progress by querying the destination file item's history. An entry will be present showing the progress of the download.
 
-For this exercise, the file we just downloaded is just a few KB, so you should see it appear in your home folder on `data.agaveapi.co` almost immediately. If you were importing larger datasets, the transfer could take significantly longer depending on the network quality between Agave and the source location. In this case, you would see the file size continue to increase until it completed. In the event of a failed transfer, Agave will retry several times before canceling the transfer.
+For this exercise, the file we just downloaded is just a few KB, so you should see it appear in your home folder on `data.agaveplatform.org` almost immediately. If you were importing larger datasets, the transfer could take significantly longer depending on the network quality between Agave and the source location. In this case, you would see the file size continue to increase until it completed. In the event of a failed transfer, Agave will retry several times before canceling the transfer.
 
 <aside class="notice">Agave attempts to make smart decisions about how and when to transfer data. This includes leveraging third-party transfers whenever possible, scaling directory copies out horizontally, and taking advantage of chunked or parallel uploads. As a result, data may arrive in a non-deterministic way on the target system. This is normal and should be expected.</aside>
 
@@ -168,18 +168,18 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
     --data-binary '{"url":"agave://stampede.tacc.utexas.edu//etc/motd"}' \
-    https://public.tenants.agaveapi.co/files/v2/media/data.agaveapi.co/nryan
+    https://sandbox.agaveplatform.org/files/v2/media/data.agaveplatform.org/nryan
 ```
 
 ```plaintext
-files-import -v -U "agave://stampede.tacc.utexas.edu//etc/motd" -S data.agaveapi.co nryan
+files-import -v -U "agave://stampede.tacc.utexas.edu//etc/motd" -S data.agaveplatform.org nryan
 ```
 
 > The response from the service will be the same as the one we received importing a file.
 
 Much like downloading data, Agave can manage the transfer of data between registered systems. This is, in fact, how data is staged prior to running a simulation. Data transfers are carried out asynchronously, so you can simply start a transfer and go about your business. Agave will ensure it completes. If you would like a notification when the transfer completes or reaches a certain stage, you can subscribe for one or more emails, <a href="http://webhooks.org" title="Webhooks" target="_blank">webhooks</a>, and/or <a href="#reatime-notifications" title="Realtime Notifications">realtime</a> notifications, and Agave will alert them when as the transfer progresses. The following table lists the available file events. For more information about the events and notifications systems, please see the <a href="#notifications" title="Notifications Guide" target="_blank">Notifications Guide</a> and <a href="#event-reference" title="Event Reference" target="_blank">Event Reference</a>.
 
-In the example below, we will transfer a file from `stampede.tacc.utexas.edu` to `data.agaveapi.co`. While the request looks pretty basic, there is a lot going on behind the scenes. Agave will authenticate to both systems, check permissions, stream data out of Stampede using GridFTP and proxy it into `data.agaveapi.co` using the SFTP protocol, adjusting the transfer buffer size along the way to optimize throughput. Doing this by hand is both painful and error prone. Doing it with Agave is nearly identical to copying a file from one directory to another on your local system.
+In the example below, we will transfer a file from `stampede.tacc.utexas.edu` to `data.agaveplatform.org`. While the request looks pretty basic, there is a lot going on behind the scenes. Agave will authenticate to both systems, check permissions, stream data out of Stampede using GridFTP and proxy it into `data.agaveplatform.org` using the SFTP protocol, adjusting the transfer buffer size along the way to optimize throughput. Doing this by hand is both painful and error prone. Doing it with Agave is nearly identical to copying a file from one directory to another on your local system.
 
 One of the benefits of the Files service is that it frees you up to work in parallel and scale with your application demands. In the next example we will use the Files service to create redundant archives of a shared project directory.
 
@@ -187,20 +187,20 @@ One of the benefits of the Files service is that it frees you up to work in para
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
-    --data-binary '{"url":"agave://data.agaveapi.co/nryan/foo_project"}' \
-    https://public.tenants.agaveapi.co/files/v2/media/system/nryan.storage1/
+    --data-binary '{"url":"agave://data.agaveplatform.org/nryan/foo_project"}' \
+    https://sandbox.agaveplatform.org/files/v2/media/system/nryan.storage1/
 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
-    --data-binary '{"url":"agave://data.agaveapi.co/nryan/foo_project"}' \
-    https://public.tenants.agaveapi.co/files/v2/media/system/nryan.storage2/
+    --data-binary '{"url":"agave://data.agaveplatform.org/nryan/foo_project"}' \
+    https://sandbox.agaveplatform.org/files/v2/media/system/nryan.storage2/
 ```
 
 ```plaintext
-files-import -v -U "agave://data.agaveapi.co/nryan/foo_project" -S nryan.storage1
+files-import -v -U "agave://data.agaveplatform.org/nryan/foo_project" -S nryan.storage1
 
-files-import -v -U "agave://data.agaveapi.co/nryan/foo_project" -S nryan.storage2
+files-import -v -U "agave://data.agaveplatform.org/nryan/foo_project" -S nryan.storage2
 ```
 
 <aside class="notice">Notice in the above examples that the Files services works identically regardless of whether the source is a file or directory. If the source is a file, it will copy the file. If the source is a directory, it will recursively process the contents until everything has been copied.</aside>
@@ -215,11 +215,11 @@ Now that we understand how to move data into, out of, and between systems, we wi
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
-    https://public.tenants.agaveapi.co/files/v2/listings/data.agaveapi.co/nryan
+    https://sandbox.agaveplatform.org/files/v2/listings/data.agaveplatform.org/nryan
 ```
 
 ```plaintext
-files-list -v -S data.agaveapi.co nryan
+files-list -v -S data.agaveplatform.org nryan
 ```
 
 > The response would look something like this:
@@ -234,14 +234,14 @@ files-list -v -S data.agaveapi.co nryan
         "name": ".",
         "path": "nryan",
         "permisssions": "ALL",
-        "system": "data.agaveapi.co",
+        "system": "data.agaveplatform.org",
         "type": "dir",
         "_links": {
             "self": {
-                "href": "https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan"
+                "href": "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/nryan"
             },
             "system": {
-                "href": "https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"
+                "href": "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
             }
         }
     },
@@ -253,14 +253,14 @@ files-list -v -S data.agaveapi.co nryan
     "name": "picksumipsum.txt",
     "path": "nryan/picksumipsum.txt",
     "permissions": "ALL",
-    "system": "data.agaveapi.co",
+    "system": "data.agaveplatform.org",
     "type": "file",
     "_links": {
             "self": {
-                "href": "https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"
+                "href": "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/nryan/picksumipsum.txt"
         },
         "system": {
-            "href": "https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
         }
     }
     }
@@ -269,7 +269,7 @@ files-list -v -S data.agaveapi.co nryan
 
 Obtaining a directory listing, or information about a specific file is done by making a GET request on the `/files/v2/listings/` resource.
 
-The response to this contains a summary listing of the contents of your home directory on  `data.agaveapi.co`. Appending a file path to your commands above would give information on a specific file.
+The response to this contains a summary listing of the contents of your home directory on  `data.agaveplatform.org`. Appending a file path to your commands above would give information on a specific file.
 
 #### Move, copy, rename, delete
 
@@ -286,11 +286,11 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
     --data-binary '{"action":"copy","path":"$DESTPATH"}' \
-    https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/$PATH
+    https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/$PATH
 ```
 
 ```plaintext
-files-copy -D $DESTPATH -S data.agaveapi.co $PATH
+files-copy -D $DESTPATH -S data.agaveplatform.org $PATH
 ```
 
 > The response from a copy operation will be a JSON object describing the new file or folder.
@@ -308,11 +308,11 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
     --data-binary '{"action":"move","path":"$DESTPATH"}' \
-    https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/$PATH
+    https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/$PATH
 ```
 
 ```plaintext
-files-move -D $DESTPATH -S data.agaveapi.co $PATH
+files-move -D $DESTPATH -S data.agaveplatform.org $PATH
 ```
 
 > The response will reflect the new file item
@@ -332,7 +332,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
    -H "Content-Type: application/json" \
    -X POST \
    --data-binary '{"action":"rename","path":"$NEWNAME"}' \
-    https://public.tenants.agaveapi.co/files/v2/media/system/$SYSTEM_ID/$PATH
+    https://sandbox.agaveplatform.org/files/v2/media/system/$SYSTEM_ID/$PATH
 ```  
 
 ```plaintext
@@ -355,7 +355,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
     --data-binary '{"action":"mkdir","path":"$NEWDIR"}' \
-    https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/$PATH
+    https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/$PATH
 ```
 
 ```plaintext
@@ -377,7 +377,7 @@ Creating a new directory is a recursive action in Agave. If the parent directori
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -X DELETE \
-    https://public.tenants.agaveapi.co/files/v2/media/system/$SYSTEM_ID/$PATH
+    https://sandbox.agaveplatform.org/files/v2/media/system/$SYSTEM_ID/$PATH
 ```
 
 ```plaintext

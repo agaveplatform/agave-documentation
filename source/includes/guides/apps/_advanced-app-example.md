@@ -1,6 +1,6 @@
 This is the second of three app examples demonstrating how a real world code can be registered and used in Agave. The app is a Python code that takes a csv file and creates a graph of the data. We detail how to create a JSON description of the code we want to run, how to create the wrapper template that Agave uses to run the code, and how to test and run the app with Agave.
 
-<aside class="notice">You can download the full source code for this example app and client application in the <a href="https://bitbucket.org/agaveapi/science-api-samples" title="Agave Samples">Agave Samples</a> repository in the <span class="code">apps/pyplot-demo/advanced/pyplot-demo-advanced-0.1.0</span> directory. The webapp source code is provided in the <span class="code">apps/pyplot-demo/intermediate/webapp</span>directory. If you would like to run this app in a live environment, you can register your own compute and storage systems, or use one of our developer sandbox environments.</aside>
+<aside class="notice">You can download the full source code for this example app and client application in the <a href="https://github.com/agavetraining/science-api-samples" title="Agave Samples">Agave Samples</a> repository in the <span class="code">apps/pyplot-demo/advanced/pyplot-demo-advanced-0.1.0</span> directory. The webapp source code is provided in the <span class="code">apps/pyplot-demo/intermediate/webapp</span>directory. If you would like to run this app in a live environment, you can register your own compute and storage systems, or use one of our developer sandbox environments.</aside>
 
 ## Basic app overview  
 
@@ -98,7 +98,7 @@ The JSON for our intermediate app is below.
     {
       "id":"dataset",
       "value":{
-        "default":"agave://data.agaveapi.co/nryan/inputs/pyplot/testdata.csv",
+        "default":"agave://data.agaveplatform.org/nryan/inputs/pyplot/testdata.csv",
         "type":"string",
         "validator":"([^s]+(.(?i)(zip|gz|tgz|tar.gz|bz2|rar|csv))$)",
         "visible":true,
@@ -423,7 +423,7 @@ The parameters section is significantly larger than last time. Whereas the basic
 
 Another change from the basic app is that our new parameters are optional. As you will see when we create our wrapper template, this means we will need to check for the existence of these values at run time.
 
-<pre>`There are many, many other attributes and options that we could include in our app description. We will get to some of them in the intermediate and advanced examples. For a full description of all the app description attributes and options, see the &lt;a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/app-inputs-and-parameters-tutorial/" title="App Inputs and Parameters Tutorial"&gt;App Inputs and Parameters Tutorial&lt;/a&gt;.
+<pre>`There are many, many other attributes and options that we could include in our app description. We will get to some of them in the intermediate and advanced examples. For a full description of all the app description attributes and options, see the &lt;a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/app-inputs-and-parameters-tutorial/" title="App Inputs and Parameters Tutorial"&gt;App Inputs and Parameters Tutorial&lt;/a&gt;.
 `</pre>
 
 ### Creating a wrapper script <a name="creating-a-wrapper-script"></a>  
@@ -493,7 +493,7 @@ As you probably guessed, the wrapper template, like the app description, is a li
 
 When a user runs this example app, they will specify a `dataset` and `chartType` in their job request. During job submission, Agave will stage the `dataset` to the execution system, demo.execute.example.com, and place it in the job's work directory. It will then copy the contents of the app's `deploymentPath`, apps/pyplot-demo-intermediate-0.1.0, from the `deploymentSystem`, demo.storage.example.com, to the job work directory on demo.execute.example.com and process the contents of the wrapper template, wrapper.sh, into an executable file.
 
-During processing, Agave will replace all occurrences of `${dataset}`, `${chartType}`, `${xlabel}`, etc. with the name of the corresponding input or parameter value provided in the job description. Depending on whether the execution system registered with Agave uses a batch scheduler, specifies a custom environment, or requires other custom environment variables set, Agave will prepend these values to the top of the file, resolve any other <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">predefined template variables</a> in the wrapper, save the file in the job work directory, and run it.
+During processing, Agave will replace all occurrences of `${dataset}`, `${chartType}`, `${xlabel}`, etc. with the name of the corresponding input or parameter value provided in the job description. Depending on whether the execution system registered with Agave uses a batch scheduler, specifies a custom environment, or requires other custom environment variables set, Agave will prepend these values to the top of the file, resolve any other <a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">predefined template variables</a> in the wrapper, save the file in the job work directory, and run it.
 
 ### Things you don't worry about <a name="things-you-dont-worry-about"></a>  
 
@@ -509,7 +509,7 @@ Logging is handled for you by Agave. Both stderr and stdout will be captured for
 
 This is a bit of a moot point since pyplot is Python, but Agave handles the app staging for you by copying the `deploymentPath` from the `deploymentSystem` given in your app description to the job work folder on the `executionSystem`. As long as you can package up your app's assets into the `deploymentPath`, or ensure that they are already present on the system, you can run your app without dealing with pulling in dependencies, etc.
 
-Of course, you still have the option of including a build or compilation in your wrapper script. For throughput reasons, however, that may not be the best approach. For another option with much better portability and performance, see the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/docker-app-containers-tutorial/" title="Docker App Containers Tutorial">Docker App Containers Tutorial</a>.
+Of course, you still have the option of including a build or compilation in your wrapper script. For throughput reasons, however, that may not be the best approach. For another option with much better portability and performance, see the <a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/docker-app-containers-tutorial/" title="Docker App Containers Tutorial">Docker App Containers Tutorial</a>.
 
 ### Testing the wrapper template <a name="testing-the-wrapper-template"></a>  
 
@@ -570,8 +570,8 @@ That will produce JSON similar to the following in the `submit.json` file. In th
   "appId": "demo-pyplot-demo-advanced-0.1.0",
   "inputs": {
     "dataset": [
-      "agave://data.agaveapi.co/nryan/inputs/pyplot/testdata.csv",
-      "agave://data.agaveapi.co/nryan/inputs/pyplot/testdata2.csv"
+      "agave://data.agaveplatform.org/nryan/inputs/pyplot/testdata.csv",
+      "agave://data.agaveplatform.org/nryan/inputs/pyplot/testdata2.csv"
     ]
   },
   "archive": false,

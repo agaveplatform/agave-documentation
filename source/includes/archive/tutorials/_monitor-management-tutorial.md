@@ -15,19 +15,19 @@ monitors-addupdate -S storage.example.com
 {
     "_links": {
         "checks": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
         },
         "notifications": {
-            "href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
         },
         "owner": {
-            "href": "https://public.agaveapi.co/profiles/v2/nryan"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
         },
         "self": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
         }
     },
     "active": true,
@@ -61,19 +61,19 @@ monitors-addupdate -S storage.example.com -I 15
 {
     "_links": {
         "checks": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
         },
         "notifications": {
-            "href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
         },
         "owner": {
-            "href": "https://public.agaveapi.co/profiles/v2/nryan"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
         },
         "self": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
         }
     },
     "active": true,
@@ -108,19 +108,19 @@ monitors-addupdate -S storage.example.com -I 15 -U true
 {
     "_links": {
         "checks": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
         },
         "notifications": {
-            "href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
         },
         "owner": {
-            "href": "https://public.agaveapi.co/profiles/v2/nryan"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
         },
         "self": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
         }
     },
     "active": true,
@@ -153,19 +153,19 @@ monitors-addupdate -S storage.example.com -I 5 -U false 5024717285821443610-242a
 {
     "_links": {
         "checks": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
         },
         "notifications": {
-            "href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
         },
         "owner": {
-            "href": "https://public.agaveapi.co/profiles/v2/nryan"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
         },
         "self": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
         }
     },
     "active": true,
@@ -195,19 +195,19 @@ Monitors can be managed by making traditional GET, POST, and DELETE operations. 
 {
     "_links": {
         "checks": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks"
         },
         "notifications": {
-            "href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=5024717285821443610-242ac11f-0001-014"
         },
         "owner": {
-            "href": "https://public.agaveapi.co/profiles/v2/nryan"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
         },
         "self": {
-            "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
         }
     },
     "active": false,
@@ -254,13 +254,13 @@ monitors-checks-list -v -l 1 -M  5024717285821443610-242ac11f-0001-014
     {
         "_links": {
             "monitor": {
-                "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+                "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
             },
             "self": {
-                "href": "https://public.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks/4035070921477123610-242ac11f-0001-015"
+                "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks/4035070921477123610-242ac11f-0001-015"
             },
             "system": {
-                "href": "https://public.agaveapi.co/systems/v2/storage.example.com"
+                "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
             }
         },
         "created": "2016-06-03T17:29:59.000-05:00",
@@ -285,13 +285,13 @@ monitors-fire -v 5024717285821443610-242ac11f-0001-014
 {
     "_links": {
         "monitor": {
-            "href": "https://dev.tenants.staging.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014"
         },
         "self": {
-            "href": "https://dev.tenants.staging.agaveapi.co/monitor/v2/5024717285821443610-242ac11f-0001-014/checks/5314048891498786330-242ac11f-0001-015"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/5024717285821443610-242ac11f-0001-014/checks/5314048891498786330-242ac11f-0001-015"
         },
         "system": {
-            "href": "https://dev.tenants.staging.agaveapi.co/systems/v2/storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/storage.example.com"
         }
     },
     "created": "2016-06-10T11:30:58.920-05:00",

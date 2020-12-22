@@ -53,13 +53,13 @@ The response below has a single role representing the owner of the system. By de
     "role" : "OWNER",
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/systems/v2/systest-rodeo-docker/roles/systest"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/systest-rodeo-docker/roles/systest"
       },
       "parent" : {
-        "href" : "https://public.agaveapi.co/systems/v2/systest-rodeo-docker"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/systest-rodeo-docker"
       },
       "profile" : {
-        "href" : "https://public.agaveapi.co/profiles/v2/systest"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/systest"
       }
     }
   }
@@ -69,12 +69,12 @@ The response below has a single role representing the owner of the system. By de
 Now let's look at the permissions for a public system.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/$API_VERSION/data.agaveapi.co/roles
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/$API_VERSION/data.agaveplatform.org/roles
 ```
 
 
 ```plaintext
-systems-roles-list -v data.agaveapi.co
+systems-roles-list -v data.agaveplatform.org
 ```
 
 
@@ -89,13 +89,13 @@ Rather than returning a list of all API users, the response contains just your u
     "role" : "USER",
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co/roles/systest"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org/roles/systest"
       },
       "parent" : {
-        "href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
       },
       "profile" : {
-        "href" : "https://public.agaveapi.co/profiles/v2/systest"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/systest"
       }
     }
   }
@@ -128,13 +128,13 @@ The response from the service will be a JSON object representing the role we jus
     "role" : "USER",
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/systems/v2/systest-rodeo-docker/roles/rjohnson"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/systest-rodeo-docker/roles/rjohnson"
       },
       "parent" : {
-        "href" : "https://public.agaveapi.co/systems/v2/systest-rodeo-docker"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/systest-rodeo-docker"
       },
       "profile" : {
-        "href" : "https://public.agaveapi.co/profiles/v2/rjohnson"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/rjohnson"
       }
     }
 }
@@ -166,13 +166,13 @@ The response from the service will be a JSON object representing the updated rol
     "role" : "ADMIN",
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/systems/v2/systest-rodeo-docker/roles/rjohnson"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/systest-rodeo-docker/roles/rjohnson"
       },
       "parent" : {
-        "href" : "https://public.agaveapi.co/systems/v2/systest-rodeo-docker"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/systest-rodeo-docker"
       },
       "profile" : {
-        "href" : "https://public.agaveapi.co/profiles/v2/rjohnson"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/rjohnson"
       }
     }
 }

@@ -43,19 +43,19 @@ When describing the JSON objects passed back and forth with the APIs, Javascript
     "updateSystemStatus": false,
     "_links": {
         "checks": {
-            "href": "https://public.agaveapi.co/monitor/v2/0001409867973952-5056a550b8-0001-014/checks"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/0001409867973952-5056a550b8-0001-014/checks"
         },
         "notifications": {
-            "href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=0001409867973952-5056a550b8-0001-014"
+            "href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=0001409867973952-5056a550b8-0001-014"
         },
         "owner": {
-            "href": "https://public.agaveapi.co/profiles/v2/systest"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/systest"
         },
         "self": {
-            "href": "https://public.agaveapi.co/monitor/v2/0001409867973952-5056a550b8-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/0001409867973952-5056a550b8-0001-014"
         },
         "system": {
-            "href": "https://public.agaveapi.co/systems/v2/demo.storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/demo.storage.example.com"
         }
     }
 }
@@ -70,7 +70,7 @@ When describing the JSON objects passed back and forth with the APIs, Javascript
 
 ### Versioning  
 
-The current major version of Agave is given in the URI immediately following the API resource name. For example, if the endpoint is <code>https://public.agaveapi.co/jobs/v2/</code>, the API version would be <code>v2</code>. The current major version of agave is v2.
+The current major version of Agave is given in the URI immediately following the API resource name. For example, if the endpoint is <code>https://sandbox.agaveplatform.org/jobs/v2/</code>, the API version would be <code>v2</code>. The current major version of agave is v2.
 
 ### Slugs  
 
@@ -136,7 +136,7 @@ Note that offset numbering is zero-based and that omitting the offset parameter 
 
 ### Timestamps  
 
-Timestamps are returned in <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> format as <a title="Offset to Coordinated Universal Time" href="http://en.wikipedia.org/wiki/Offset_to_Coordinated_Universal_Time" target="_blank">Coordinated Universal Time</a>(UTC) with zero offset: <code>YYYY-MM-DDTHH:MM:SSZ</code>. If the time is imprecise (for example, the date/time of an album release), an additional field will show the precision; see for example, <code>created</code> in an <a title="Job object" href="http://agaveapi.co/live-docs/#!/jobs/list_get_0" target="_blank">Job object</a>.
+Timestamps are returned in <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> format as <a title="Offset to Coordinated Universal Time" href="http://en.wikipedia.org/wiki/Offset_to_Coordinated_Universal_Time" target="_blank">Coordinated Universal Time</a>(UTC) with zero offset: <code>YYYY-MM-DDTHH:MM:SSZ</code>. If the time is imprecise (for example, the date/time of an album release), an additional field will show the precision; see for example, <code>created</code> in an <a title="Job object" href="https://agaveplatform.org/live-docs/#!/jobs/list_get_0" target="_blank">Job object</a>.
 
 ### Status Codes  
 
@@ -163,10 +163,10 @@ Agave strives to be a fully descriptive hypermedia API. Given any endpoint, you 
     "value": "red",
     "_links": {
         "self": {
-            "href": "https://public.agaveapi.co/meta/v2/data/0001384622738900-5056a550b8-0001-012"
+            "href": "https://sandbox.agaveplatform.org/meta/v2/data/0001384622738900-5056a550b8-0001-012"
         },
         "owner": {
-            "href": "https://public.agaveapi.co/profiles/v2/dooley"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/dooley"
         }
     }
 }

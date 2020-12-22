@@ -5,8 +5,8 @@
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST \
     -H "Content-Type: application/json" \
-    --data-binary '{"associatedUuid": "7554973644402463206-242ac114-0001-007", "event": "FINISHED", "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}" }' \
-    https://public.tenants.agaveapi.co/notifications/v2?pretty=true
+    --data-binary '{"associatedUuid": "7554973644402463206-242ac114-0001-007", "event": "FINISHED", "url": "http://requestbin.agaveplatform.org/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}" }' \
+    https://sandbox.agaveplatform.org/notifications/v2?pretty=true
 ```
 
 ```plaintext
@@ -19,7 +19,7 @@ notifications-addupdate -F notification.json
 {
   "id": "7612526206168863206-242ac114-0001-011",
   "owner": "nryan",
-  "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}",
+  "url": "http://requestbin.agaveplatform.org/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}",
   "associatedUuid": "7554973644402463206-242ac114-0001-007",
   "event": "FINISHED",
   "responseCode": null,
@@ -39,19 +39,19 @@ notifications-addupdate -F notification.json
   },
   "_links": {
     "self": {
-      "href": "https://public.agaveapi.co/notifications/v2/7612526206168863206-242ac114-0001-011"
+      "href": "https://sandbox.agaveplatform.org/notifications/v2/7612526206168863206-242ac114-0001-011"
     },
     "history": {
-      "href": "https://public.agaveapi.co/notifications/v2/7612526206168863206-242ac114-0001-011/history"
+      "href": "https://sandbox.agaveplatform.org/notifications/v2/7612526206168863206-242ac114-0001-011/history"
     },
     "attempts": {
-      "href": "https://public.agaveapi.co/notifications/v2/7612526206168863206-242ac114-0001-011/attempts"
+      "href": "https://sandbox.agaveplatform.org/notifications/v2/7612526206168863206-242ac114-0001-011/attempts"
     },
     "owner": {
-      "href": "https://public.agaveapi.co/profiles/v2/nryan"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
     },
     "job": {
-      "href": "https://public.agaveapi.co/jobs/v2/7554973644402463206-242ac114-0001-007"
+      "href": "https://sandbox.agaveplatform.org/jobs/v2/7554973644402463206-242ac114-0001-007"
     }
   }
 }
@@ -68,7 +68,7 @@ Subscribing to an event is done by posting a form or JSON object to the Notifica
 {
     "associatedUuid": "7554973644402463206-242ac114-0001-007",
     "event": "*",
-    "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}"
+    "url": "http://requestbin.agaveplatform.org/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}"
 }
 ```
 
@@ -80,7 +80,7 @@ Updating a subscription is done identically to creation except that the form or 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST \
     -H "Content-Type: application/json" \
     -F "fileToUpload=@notification.json" \
-    https://public.tenants.agaveapi.co/notifications/v2/2699130208276770330-242ac114-0001-011
+    https://sandbox.agaveplatform.org/notifications/v2/2699130208276770330-242ac114-0001-011
 ```
 
 ```plaintext
@@ -93,7 +93,7 @@ notifications-addupdate -F notification.json 2699130208276770330-242ac114-0001-0
 {
   "id": "7612526206168863206-242ac114-0001-011",
   "owner": "nryan",
-  "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}",
+  "url": "http://requestbin.agaveplatform.org/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}",
   "associatedUuid": "7554973644402463206-242ac114-0001-007",
   "event": "*",
   "responseCode": null,
@@ -113,19 +113,19 @@ notifications-addupdate -F notification.json 2699130208276770330-242ac114-0001-0
   },
   "_links": {
     "self": {
-      "href": "https://public.agaveapi.co/notifications/v2/7612526206168863206-242ac114-0001-011"
+      "href": "https://sandbox.agaveplatform.org/notifications/v2/7612526206168863206-242ac114-0001-011"
     },
     "history": {
-      "href": "https://public.agaveapi.co/notifications/v2/7612526206168863206-242ac114-0001-011/history"
+      "href": "https://sandbox.agaveplatform.org/notifications/v2/7612526206168863206-242ac114-0001-011/history"
     },
     "attempts": {
-      "href": "https://public.agaveapi.co/notifications/v2/7612526206168863206-242ac114-0001-011/attempts"
+      "href": "https://sandbox.agaveplatform.org/notifications/v2/7612526206168863206-242ac114-0001-011/attempts"
     },
     "owner": {
-      "href": "https://public.agaveapi.co/profiles/v2/nryan"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
     },
     "job": {
-      "href": "https://public.agaveapi.co/jobs/v2/7554973644402463206-242ac114-0001-007"
+      "href": "https://sandbox.agaveplatform.org/jobs/v2/7554973644402463206-242ac114-0001-007"
     }
   }
 }
@@ -137,7 +137,7 @@ notifications-addupdate -F notification.json 2699130208276770330-242ac114-0001-0
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
-    https://public.tenants.agaveapi.co/notifications/v2/2699130208276770330-242ac114-0001-011
+    https://sandbox.agaveplatform.org/notifications/v2/2699130208276770330-242ac114-0001-011
 ```
 
 ```plaintext
@@ -150,18 +150,18 @@ notifications-list -V
 [
   {
     "id": "7612526206168863206-242ac114-0001-011",
-    "url": "http://requestbin.agaveapi.co/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}",
+    "url": "http://requestbin.agaveplatform.org/zyiomxzy?path=${PATH}&system=${SYSTEM}&event=${EVENT}",
     "associatedUuid": "7554973644402463206-242ac114-0001-007",
     "event": "*",
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/notifications/v2/7612526206168863206-242ac114-0001-011"
+        "href": "https://sandbox.agaveplatform.org/notifications/v2/7612526206168863206-242ac114-0001-011"
       },
       "profile": {
-        "href": "https://public.agaveapi.co/profiles/v2/nryan"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
       },
       "job": {
-        "href": "https://public.agaveapi.co/jobs/v2/7554973644402463206-242ac114-0001-007"
+        "href": "https://sandbox.agaveplatform.org/jobs/v2/7554973644402463206-242ac114-0001-007"
       }
     }
   },
@@ -172,13 +172,13 @@ notifications-list -V
     "event": "FINISHED",
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/notifications/v2/7404907487080223206-242ac114-0001-011"
+        "href": "https://sandbox.agaveplatform.org/notifications/v2/7404907487080223206-242ac114-0001-011"
       },
       "profile": {
-        "href": "https://public.agaveapi.co/profiles/v2/nryan"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
       },
       "job": {
-        "href": "https://public.agaveapi.co/jobs/v2/6904887394479903206-242ac114-0001-007"
+        "href": "https://sandbox.agaveplatform.org/jobs/v2/6904887394479903206-242ac114-0001-007"
       }
     }
   },
@@ -189,13 +189,13 @@ notifications-list -V
     "event": "FINISHED",
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/notifications/v2/3676815741209931290-242ac114-0001-011"
+        "href": "https://sandbox.agaveplatform.org/notifications/v2/3676815741209931290-242ac114-0001-011"
       },
       "profile": {
-        "href": "https://public.agaveapi.co/profiles/v2/nryan"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
       },
       "job": {
-        "href": "https://public.agaveapi.co/jobs/v2/3717016635100491290-242ac114-0001-007"
+        "href": "https://sandbox.agaveplatform.org/jobs/v2/3717016635100491290-242ac114-0001-007"
       }
     }
   }
@@ -211,7 +211,7 @@ You can get a list of your current notification subscriptions by performing a GE
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
      -X DELETE \
-     https://public.tenants.agaveapi.co/notifications/v2/2699130208276770330-242ac114-0001-011
+     https://sandbox.agaveplatform.org/notifications/v2/2699130208276770330-242ac114-0001-011
 ```
 
 ```plaintext

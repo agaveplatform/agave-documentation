@@ -1,4 +1,4 @@
-We saw in the <a href="http://agaveapi.co/documentation/beginners-guides/system-discovery/" title="System Discovery">System Discovery</a> guide that there were both storage and execution systems. The <a href="http://agaveapi.co/documentation/beginners-guides/managing-data/" title="Managing Data">Data Management</a> guide covered interacting with storage systems. In this section we look at Apps, which are the primary point of interaction with execution systems.
+We saw in the <a href="https://agaveplatform.org/documentation/beginners-guides/system-discovery/" title="System Discovery">System Discovery</a> guide that there were both storage and execution systems. The <a href="https://agaveplatform.org/documentation/beginners-guides/managing-data/" title="Managing Data">Data Management</a> guide covered interacting with storage systems. In this section we look at Apps, which are the primary point of interaction with execution systems.
 
 An app in Agave is most easily thought of as the installation of a simulation code on a physical resource. For example, the official installation of Blast on Stampede would be described by a single app. Your personally compiled version of Blast on Stampede would be described by a different app. Ditto for the same two codes on Lonestar.
 
@@ -34,7 +34,7 @@ The response is a JSON array of summary app descriptions.
       "version":"1.00",
       "_links":{  
          "self":{  
-            "href":"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1"
+            "href":"https://sandbox.agaveplatform.org/apps/v2/wc-osg-1.00u1"
          }
       }
    },
@@ -49,7 +49,7 @@ The response is a JSON array of summary app descriptions.
       "version":"0.1.0",
       "_links":{  
          "self":{  
-            "href":"https://public.agaveapi.co/apps/v2/docker-python-demo-0.1.0u2"
+            "href":"https://sandbox.agaveplatform.org/apps/v2/docker-python-demo-0.1.0u2"
          }
       }
    },
@@ -64,7 +64,7 @@ The response is a JSON array of summary app descriptions.
       "version":"0.1.0",
       "_links":{  
          "self":{  
-            "href":"https://public.agaveapi.co/apps/v2/docker-python-demo-0.1.0u1"
+            "href":"https://sandbox.agaveplatform.org/apps/v2/docker-python-demo-0.1.0u1"
          }
       }
    },
@@ -79,7 +79,7 @@ The response is a JSON array of summary app descriptions.
       "version":"0.1.0",
       "_links":{  
          "self":{  
-            "href":"https://public.agaveapi.co/apps/v2/docker-python-demo-0.1.0u3"
+            "href":"https://sandbox.agaveplatform.org/apps/v2/docker-python-demo-0.1.0u3"
          }
       }
    },
@@ -94,7 +94,7 @@ The response is a JSON array of summary app descriptions.
       "version":"0.1.0",
       "_links":{  
          "self":{  
-            "href":"https://public.agaveapi.co/apps/v2/docker-r-demo-0.1.0u1"
+            "href":"https://sandbox.agaveplatform.org/apps/v2/docker-r-demo-0.1.0u1"
          }
       }
    },
@@ -109,14 +109,14 @@ The response is a JSON array of summary app descriptions.
       "version":"0.1.0",
       "_links":{  
          "self":{  
-            "href":"https://public.agaveapi.co/apps/v2/docker-r-demo-0.1.0u2"
+            "href":"https://sandbox.agaveplatform.org/apps/v2/docker-r-demo-0.1.0u2"
          }
       }
    }
 ]
 ```
 
-<aside class="notice">Depending on who is administering the Agave platform for your organization, you may see many or few apps returned from the above response. This is normal and has to do with what systems and apps they have chosen to make publicly available. If you don't see any apps there by default, no worries, see the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a> for a quick reference on how to add your own.</aside>
+<aside class="notice">Depending on who is administering the Agave platform for your organization, you may see many or few apps returned from the above response. This is normal and has to do with what systems and apps they have chosen to make publicly available. If you don't see any apps there by default, no worries, see the <a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a> for a quick reference on how to add your own.</aside>
 
 ## Viewing app details  
 
@@ -143,7 +143,7 @@ The response is a JSON object with a lot of information that we elaborate more o
    "defaultProcessorsPerNode":null,
    "defaultQueue":null,
    "deploymentPath":"/api/v2/apps/wc-osg-1.00u1.zip",
-   "deploymentSystem":"data.agaveapi.co",
+   "deploymentSystem":"data.agaveplatform.org",
    "executionSystem":"condor.opensciencegrid.org",
    "executionType":"CONDOR",
    "helpURI":"http://www.gnu.org/s/coreutils/manual/html_node/wc-invocation.html",
@@ -228,22 +228,22 @@ The response is a JSON object with a lot of information that we elaborate more o
    "version":"1.00",
    "_links":{  
       "executionSystem":{  
-         "href":"https://public.agaveapi.co/systems/v2/condor.opensciencegrid.org"
+         "href":"https://sandbox.agaveplatform.org/systems/v2/condor.opensciencegrid.org"
       },
       "metadata":{  
-         "href":"https://public.agaveapi.co/meta/v2/data/?q={\\"associationIds\\":\\"0001402162152914-5056a550b8-0001-005\\"}"
+         "href":"https://sandbox.agaveplatform.org/meta/v2/data/?q={\\"associationIds\\":\\"0001402162152914-5056a550b8-0001-005\\"}"
       },
       "owner":{  
-         "href":"https://public.agaveapi.co/profiles/v2/dooley"
+         "href":"https://sandbox.agaveplatform.org/profiles/v2/dooley"
       },
       "permissions":{  
-         "href":"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1/pems"
+         "href":"https://sandbox.agaveplatform.org/apps/v2/wc-osg-1.00u1/pems"
       },
       "self":{  
-         "href":"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1"
+         "href":"https://sandbox.agaveplatform.org/apps/v2/wc-osg-1.00u1"
       },
       "storageSystem":{  
-         "href":"https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+         "href":"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
       }
    }
 }
@@ -273,4 +273,4 @@ In the above response, the important fields to notice are <code>id</code>, <code
 <li><code>executionSystem</code>: the system on which this app code will run. You don't actually need to know this to run a job with this app, but it's helpful in case you need/want to debug at some point.</li>
 </ul>
 
-Now that you understand how to find an app and how to identify the inputs and parameters needed in a job request, we can move on to the next lesson on <a href="http://agaveapi.co/documentation/beginners-guides/running-a-simulation/" title="Running a Simulation">Running a Simulation</a>.
+Now that you understand how to find an app and how to identify the inputs and parameters needed in a job request, we can move on to the next lesson on <a href="https://agaveplatform.org/documentation/beginners-guides/running-a-simulation/" title="Running a Simulation">Running a Simulation</a>.

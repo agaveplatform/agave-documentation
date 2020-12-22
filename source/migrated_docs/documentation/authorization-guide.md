@@ -30,7 +30,7 @@ The method is suitable for long-running applications in which the user logs in o
 The authorization process starts with your application sending a request to the Agave authorization service. (The reason your application sends this request can vary: it may be a step in the initialization of your application or in response to some user action, like a button click.) The request is sent to the /authorize endpoint of the Authorization service:
 
 ```shell
-GET https://public.agaveapi.co/authorize
+GET https://sandbox.agaveplatform.org/authorize
 ```
 
 The request will include parameters in the query string:
@@ -40,7 +40,7 @@ The request will include parameters in the query string:
 A typical request looks like this:
 
 ```shell
-GET https://public.agaveapi.co/authorize/?client_id=gTgp...SV8a&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&amp;scope=PRODUCTION&amp;state=866
+GET https://sandbox.agaveplatform.org/authorize/?client_id=gTgp...SV8a&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&amp;scope=PRODUCTION&amp;state=866
 ```
 
 ### 2. The user is asked to authorize access within the scopes  
@@ -82,7 +82,7 @@ https://example.com/callback?error=access_denied&amp;state=867
 When the authorization code has been received, you will need to exchange it with an access token by making a POST request to the Agave Authorization service, this time to its <code>/token</code> endpoint:
 
 ```shell
-POST https://public.agaveapi.co/token
+POST https://sandbox.agaveplatform.org/token
 ```
 
 The body of this POST request must contain the following parameters:
@@ -102,7 +102,7 @@ curl -X POST -d "grant_type= authorization_code"
     -d "code=Pq3S..M4sY"
     -d "client_id=gTgp...SV8a"
     -d "client_secret=hZ_z3f...BOD6"
-    "redirect_uri=https%3A%2F%2Fwww.foo.com%2Fauth" https://public.agaveapi.co/token
+    "redirect_uri=https%3A%2F%2Fwww.foo.com%2Fauth" https://sandbox.agaveplatform.org/token
 ```
 
 ```javascript
@@ -119,7 +119,7 @@ curl -X POST -d "grant_type= authorization_code"
 The access token allows you to make requests to the Agave REST APIs on a behalf of a user, for example:
 
 ```shell
-curl -H "Authorization: Bearer a742...12d2" https://public.agaveapi.co/profiles/v2/me?pretty=true
+curl -H "Authorization: Bearer a742...12d2" https://sandbox.agaveplatform.org/profiles/v2/me?pretty=true
 ```
 
 ```javascript
@@ -144,7 +144,7 @@ Access tokens are deliberately set to expire after a short time, usually 4 hours
 The request is sent to the token endpoint of the Agave Authorization service:
 
 ```shell
-POST https://public.agaveapi.co/token
+POST https://sandbox.agaveplatform.org/token
 ```
 
 The body of this POST request must contain the following parameters:
@@ -160,7 +160,7 @@ For example:
 ```shell
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=refresh_token
-    -d refresh_token=d77c...Sacf https://public.agaveapi.co/token
+    -d refresh_token=d77c...Sacf https://sandbox.agaveplatform.org/token
 ```
 
 ```javascript
@@ -182,7 +182,7 @@ Implicit grant flow is for clients that are implemented entirely using JavaScrip
 Redirect the user to the /authorize endpoint of the Accounts service:
 
 ```shell
-GET https://public.agaveapi.co/authorize
+GET https://sandbox.agaveplatform.org/authorize
 ```
 
 The request will include parameters in the query string:
@@ -192,7 +192,7 @@ The request will include parameters in the query string:
 For example you would redirect the user to
 
 ```shell
-https://public.agaveapi.co/authorize?client_id=gTgp...SV8a&amp;redirect_uri=http:%2F%2Fexample.com%2Fcallback&amp;scope=PRODUCTION&amp;response_type=token&amp;state=867
+https://sandbox.agaveplatform.org/authorize?client_id=gTgp...SV8a&amp;redirect_uri=http:%2F%2Fexample.com%2Fcallback&amp;scope=PRODUCTION&amp;response_type=token&amp;state=867
 ```
 
 ### 2. The user is asked to authorize access within the scopes  
@@ -240,7 +240,7 @@ The method is suitable for scenarios where there is a high degree of trust betwe
 The request is sent to the <code>/token</code> endpoint of the Agave Authentication service.
 
 ```shell
-POST https://public.agaveapi.co/token
+POST https://sandbox.agaveplatform.org/token
 ```
 
 The request will include the following parameters in the request body:
@@ -258,7 +258,7 @@ curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=password
     -d username=rjohnson
     -d password=password
-    -d scope=PRODUCTION https://public.agaveapi.co/token
+    -d scope=PRODUCTION https://sandbox.agaveplatform.org/token
 ```
 
 ```javascript
@@ -283,7 +283,7 @@ https://example.com/callback?error=access_denied
 The access token allows you to make requests to any of the Agave REST APIs on behalf of the authenticated user.
 
 ```shell
-curl -H "Authorization: Bearer 3Dsr...pv21" https://public.agaveapi.co/profiles/v2/me?pretty=true
+curl -H "Authorization: Bearer 3Dsr...pv21" https://sandbox.agaveplatform.org/profiles/v2/me?pretty=true
 ```
 
 ```javascript
@@ -308,7 +308,7 @@ Access tokens are deliberately set to expire after a short time, usually 4 hours
 The request is sent to the token endpoint of the Agave Authorization service:
 
 ```shell
-POST https://public.agaveapi.co/token
+POST https://sandbox.agaveplatform.org/token
 ```
 
 The body of this POST request must contain the following parameters:
@@ -325,7 +325,7 @@ For example:
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=refresh_token
     -d refresh_token=dyVa...MqR0
-    -d scope=PRODUCTION https://public.agaveapi.co/token
+    -d scope=PRODUCTION https://sandbox.agaveplatform.org/token
 ```
 
 ```javascript
@@ -347,7 +347,7 @@ The method is suitable for authenticating your requests to the Agave REST API. T
 The request is sent to the <code>/token</code> endpoint of the Agave Authentication service:
 
 ```shell
-POST https://public.agaveapi.co/token
+POST https://sandbox.agaveplatform.org/token
 ```
 
 The request will include parameters in the request body:
@@ -363,7 +363,7 @@ For example:
 ```shell
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=client_credentials
-    -d scope=PRODUCTION https://public.agaveapi.co/token
+    -d scope=PRODUCTION https://sandbox.agaveplatform.org/token
 ```
 
 ```javascript
@@ -379,7 +379,7 @@ curl -sku "Authorization: Basic Qt3c...Rm1y="
 Agave REST APIs that do not require user authorization or which are owned by user who registered the client application:
 
 ```shell
-curl -H "Authorization: Bearer 61e6...Mc96" https://public.agaveapi.co/profiles/v2/me?pretty=true
+curl -H "Authorization: Bearer 61e6...Mc96" https://sandbox.agaveplatform.org/profiles/v2/me?pretty=true
 ```
 
 ```javascript

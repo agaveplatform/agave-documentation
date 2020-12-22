@@ -71,12 +71,12 @@ Building and Deploying to Production
 
  1. `git checkout devel`
  2. `git pull origin devel`
- 3. `docker run -it -v $HOME/.ssh:/root/.ssh -v $(pwd):/usr/src/docs -w /usr/src/docs agaveapi/doc-builder:latest rake publish`
+ 3. `docker run -it -v $HOME/.ssh:/root/.ssh -v $(pwd):/usr/src/docs -w /usr/src/docs agaveplatform/doc-builder:latest rake publish`
 
 Need Help? Found a bug?
 --------------------
 
-Just [submit a issue](http://support.agaveapi.co) to the Agave Help Desk if you need any help. And, of course, feel free to submit pull requests with bug fixes or changes.
+Just [submit a issue](https://support.agaveplatform.org) to the Agave Help Desk if you need any help. And, of course, feel free to submit pull requests with bug fixes or changes.
 
 
 Contributors

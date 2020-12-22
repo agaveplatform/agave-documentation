@@ -1,16 +1,16 @@
-In the previous lesson on <a title="App Discovery" href="http://agaveapi.co/documentation/beginners-guides/app-discovery/">Discovering Apps</a>, we learned how to identify the inputs and parameters needed to run an app from its app description. Using that knowledge, we can craft a JSON description of our public app, <code>wc-osg-1.00u1</code>.
+In the previous lesson on <a title="App Discovery" href="https://agaveplatform.org/documentation/beginners-guides/app-discovery/">Discovering Apps</a>, we learned how to identify the inputs and parameters needed to run an app from its app description. Using that knowledge, we can craft a JSON description of our public app, <code>wc-osg-1.00u1</code>.
 
 ```javascript
 {
 "name":"wordcount demo",
 "appId":"wc-osg-1.00u1",
 "inputs":{
-"query1":"agave://data.agaveapi.co/systest/picksumipsum.txt"
+"query1":"agave://data.agaveplatform.org/systest/picksumipsum.txt"
 },
 "parameters": {},
 "notifications":[
 {
-"url":"http://postbin.agaveapi.co/ad3a9dz?job_status=${JOB_STATUS}&amp;job_id=${JOB_ID}",
+"url":"http://requestbin.docs.agaveplatform.org/ad3a9dz?job_status=${JOB_STATUS}&amp;job_id=${JOB_ID}",
 "event":"*",
 "persistent":true
 }
@@ -18,7 +18,7 @@ In the previous lesson on <a title="App Discovery" href="http://agaveapi.co/docu
 }
 ```
 
-You should recognize the attributes in this object from the app description in the <a title="App Discovery" href="http://agaveapi.co/documentation/beginners-guides/app-discovery/">Discovering Apps</a> guide. Additionally we add two new attributes: <code>name</code> and <code>notifications</code>. The <code>name</code> attribute is a mandatory descriptive name for the job. The <code>notifications</code> attribute is an optional array of notification objects used to send you alerts of various job events. We cover notifications more in a couple sections.
+You should recognize the attributes in this object from the app description in the <a title="App Discovery" href="https://agaveplatform.org/documentation/beginners-guides/app-discovery/">Discovering Apps</a> guide. Additionally we add two new attributes: <code>name</code> and <code>notifications</code>. The <code>name</code> attribute is a mandatory descriptive name for the job. The <code>notifications</code> attribute is an optional array of notification objects used to send you alerts of various job events. We cover notifications more in a couple sections.
 
 ## Submitting a job request  
 
@@ -40,13 +40,13 @@ Submitting this job description will return a JSON object with a full descriptio
 "appId": "wc-osg-1.00u1",
 "archive": true,
 "archivePath": "systest/archive/jobs/job-0001409784588509-5056a550b8-0001-007",
-"archiveSystem": "data.agaveapi.co",
+"archiveSystem": "data.agaveplatform.org",
 "batchQueue": "condorqueue",
 "endTime": null,
 "executionSystem": "condor.opensciencegrid.org",
 "id": "0001409784588509-5056a550b8-0001-007",
 "inputs": {
-"query1": "agave://data.agaveapi.co/systest/picksumipsum.txt"
+"query1": "agave://data.agaveplatform.org/systest/picksumipsum.txt"
 },
 "localId": null,
 "maxRunTime": "999:59:59",
@@ -63,34 +63,34 @@ Submitting this job description will return a JSON object with a full descriptio
 "submitTime": "2014-09-03T17:49:48.568-05:00",
 "_links": {
 "app": {
-"href": "https://public.agaveapi.co/apps/v2/wc-osg-1.00u1"
+"href": "https://sandbox.agaveplatform.org/apps/v2/wc-osg-1.00u1"
 },
 "archiveData": {
-"href": "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/listings"
+"href": "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/listings"
 },
 "archiveSystem": {
-"href": "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+"href": "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
 },
 "executionSystem": {
-"href": "https://public.agaveapi.co/systems/v2/condor.opensciencegrid.org"
+"href": "https://sandbox.agaveplatform.org/systems/v2/condor.opensciencegrid.org"
 },
 "history": {
-"href": "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/history"
+"href": "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/history"
 },
 "metadata": {
-"href": "https://public.agaveapi.co/meta/v2/data/?q={"associationIds":"0001409784588509-5056a550b8-0001-007"}"
+"href": "https://sandbox.agaveplatform.org/meta/v2/data/?q={"associationIds":"0001409784588509-5056a550b8-0001-007"}"
 },
 "notifications": {
-"href": "https://public.agaveapi.co/notifications/v2/?associatedUuid=0001409784588509-5056a550b8-0001-007"
+"href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=0001409784588509-5056a550b8-0001-007"
 },
 "owner": {
-"href": "https://public.agaveapi.co/profiles/v2/systest"
+"href": "https://sandbox.agaveplatform.org/profiles/v2/systest"
 },
 "permissions": {
-"href": "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/pems"
+"href": "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/pems"
 },
 "self": {
-"href": "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href": "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }
@@ -118,7 +118,7 @@ The response will be an abbreviated JSON object containing just the status of th
 "status": "FINISHED",
 "_links": {
 "self": {
-"href": "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href": "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }
@@ -130,7 +130,7 @@ When we described our job in the first section, we pointed out a <code>notificat
 
 ```javascript
 {
-"url":"http://agaveapi.co/requestbin/ad3a9dz?job_status=${JOB_STATUS}&amp;job_id=${JOB_ID}",
+"url":"https://agaveplatform.org/requestbin/ad3a9dz?job_status=${JOB_STATUS}&amp;job_id=${JOB_ID}",
 "event":"*",
 "persistent":true
 }
@@ -138,7 +138,7 @@ When we described our job in the first section, we pointed out a <code>notificat
 
 Agave supports two kinds of notifications: <a title="Webhooks" href="http://webhooks.org" target="_blank">webhooks</a> and email. In the job notification we created, we specified a webhook. Webhooks are just HTTP endpoints that will receive a POST from Agave's Notification service when the desired event occurs. Agave supports a rich set of template variables that allow you to craft informative, custom URLS to suite your particular application needs. Our URL will be resolved at run time to include the job's id, <code>${JOB_ID}</code>, and status, <code>${JOB_STATUS}</code> before being called.
 
-<aside class="notice">There are several good services available online for testing webhooks. Runscope's <a title="Request Bin by Runscope" href="http://requestb.in" target="_blank">RequestBin</a> is a good, free hosted service. A simple, self-hosted node listener is available <a href="https://github.com/deardooley/node-http-post-listener">here</a>. You can also create a <a title="Agave Request Bin" href="http://requestbin.agaveapi.co" target="_blank">request bin</a> on this site to use in your development.</aside>
+<aside class="notice">There are several good services available online for testing webhooks. Runscope's <a title="Request Bin by Runscope" href="http://requestb.in" target="_blank">RequestBin</a> is a good, free hosted service. A simple, self-hosted node listener is available <a href="https://github.com/deardooley/node-http-post-listener">here</a>. You can also create a <a title="Agave Request Bin" href="http://requestbin.agaveplatform.org" target="_blank">request bin</a> on this site to use in your development.</aside>
 
 ## Job history  
 
@@ -173,7 +173,7 @@ The response will be a JSON array of events related to the job. At this point we
 },
 {
 "created": "2014-09-03T17:49:51.000-05:00",
-"description": "Staging agave://data.agaveapi.co/systest/picksumipsum.txt to remote job directory",
+"description": "Staging agave://data.agaveplatform.org/systest/picksumipsum.txt to remote job directory",
 "status": "STAGING_INPUTS"
 },
 {
@@ -181,7 +181,7 @@ The response will be a JSON array of events related to the job. At this point we
 "description": "Copy in progress",
 "progress": {
 "averageRate": 3235,
-"source": "agave://data.agaveapi.co/systest/picksumipsum.txt",
+"source": "agave://data.agaveplatform.org/systest/picksumipsum.txt",
 "totalActiveTransfers": 0,
 "totalBytes": 3235,
 "totalBytesTransferred": 3235,
@@ -236,7 +236,7 @@ The response will be a JSON array of events related to the job. At this point we
 },
 {
 "created": "2014-09-03T17:51:03.000-05:00",
-"description": "Archiving agave://condor.opensciencegrid.org//condor/scratch/systest/job-0001409784588509-5056a550b8-0001-007-wordcount-demo to agave://data.agaveapi.co/systest/archive/jobs/job-0001409784588509-5056a550b8-0001-007",
+"description": "Archiving agave://condor.opensciencegrid.org//condor/scratch/systest/job-0001409784588509-5056a550b8-0001-007-wordcount-demo to agave://data.agaveplatform.org/systest/archive/jobs/job-0001409784588509-5056a550b8-0001-007",
 "progress": {
 "averageRate": 0,
 "source": "agave://condor.opensciencegrid.org//condor/scratch/systest/job-0001409784588509-5056a550b8-0001-007-wordcount-demo",
@@ -291,13 +291,13 @@ The response will be a JSON array of file objects identical to that returned fro
 "type" : "file",
 "_links" : {
 "self" : {
-"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/condorSubmit"
+"href" : "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/condorSubmit"
 },
 "system" : {
-"href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+"href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
 },
 "parent" : {
-"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href" : "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }, {
@@ -311,13 +311,13 @@ The response will be a JSON array of file objects identical to that returned fro
 "type" : "file",
 "_links" : {
 "self" : {
-"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.err"
+"href" : "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.err"
 },
 "system" : {
-"href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+"href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
 },
 "parent" : {
-"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href" : "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }, {
@@ -331,13 +331,13 @@ The response will be a JSON array of file objects identical to that returned fro
 "type" : "file",
 "_links" : {
 "self" : {
-"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.out"
+"href" : "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/job.out"
 },
 "system" : {
-"href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+"href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
 },
 "parent" : {
-"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href" : "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }, {
@@ -351,13 +351,13 @@ The response will be a JSON array of file objects identical to that returned fro
 "type" : "file",
 "_links" : {
 "self" : {
-"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/output.txt"
+"href" : "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/output.txt"
 },
 "system" : {
-"href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+"href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
 },
 "parent" : {
-"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href" : "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }, {
@@ -371,13 +371,13 @@ The response will be a JSON array of file objects identical to that returned fro
 "type" : "file",
 "_links" : {
 "self" : {
-"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/picksumipsum.txt"
+"href" : "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/picksumipsum.txt"
 },
 "system" : {
-"href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+"href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
 },
 "parent" : {
-"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href" : "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }, {
@@ -391,13 +391,13 @@ The response will be a JSON array of file objects identical to that returned fro
 "type" : "file",
 "_links" : {
 "self" : {
-"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/runtime.log"
+"href" : "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/runtime.log"
 },
 "system" : {
-"href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+"href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
 },
 "parent" : {
-"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href" : "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }, {
@@ -411,13 +411,13 @@ The response will be a JSON array of file objects identical to that returned fro
 "type" : "file",
 "_links" : {
 "self" : {
-"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/transfer.tar.gz"
+"href" : "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007/outputs/media/transfer.tar.gz"
 },
 "system" : {
-"href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+"href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
 },
 "parent" : {
-"href" : "https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
+"href" : "https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
 }
 }
 }

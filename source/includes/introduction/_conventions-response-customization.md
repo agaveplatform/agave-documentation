@@ -5,7 +5,7 @@
 ```shell
 curl -sk -H \
     "Authorization: Bearer ${API_KEY}" \
-    "https://public.tenants.agaveapi.co/profiles/v2/me?filter=username,email
+    "https://sandbox.agaveplatform.org/profiles/v2/me?filter=username,email
 ```  
 
 ```plaintext
@@ -26,7 +26,7 @@ profiles-list -v --filter=username,email me
 ```shell
 curl -sk -H \
     "Authorization: Bearer ${API_KEY}" \
-    "https://public.tenants.agaveapi.co/jobs/v2/?limit=2&filter=name,status,appId,_links.archiveData.href
+    "https://sandbox.agaveplatform.org/jobs/v2/?limit=2&filter=name,status,appId,_links.archiveData.href
 ```  
 
 ```plaintext
@@ -75,11 +75,11 @@ systems-list -v --limit=2 --filter=id,type,default,storage.host
 ```json 
 [
   {
-    "id": "data.agaveapi.co",
+    "id": "data.agaveplatform.org",
     "type": "STORAGE",
     "default": true,
     "storage": {
-      "host": "dtn01.prod.agaveapi.co"
+      "host": "dtn01.prod.agaveplatform.org"
     }
   },
   {

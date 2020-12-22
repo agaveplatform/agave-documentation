@@ -8,7 +8,7 @@ The gateways that successfully navigated this obstacle did so by implementing a 
 
 Agave supports each of these scenarios through its concept of Internal Users. An internal user is a profile object similar to those described by the Profiles service, but localized to a single user account. That is to say, if our tutorial example user, nryan, creates an internal user named bgibson, then bgibson will only be visible to nryan and not to any other user.
 
-If you plan to take advantage of the Files, Systems, or Jobs services, you can assign authentication credentials for internal users on each system. When you authenticate to those services, the service will use the credentials of the internal user attached to the authentication token rather than the default account. This allows you to leverage both community and individual accounts through your application. <aside class="notice">For more information on how to attach internal user identities to authentication tokens, see the <a title="Authentication Tutorial" href="http://agaveapi.co/authentication-tutorial/">Authentication Tutorial</a>.</aside>[title size="3"]Creating a new interal user[/title]Creating a new internal user is done by posting to the internal users collection. Internal users have several preset fields, most of which are optional. The only required fields are username and email address. Usernames must be unique within the context of your application. An example of creating a new internal user is given below. ```shellcurl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c" -X POST --data "{'username':'bgibson', 'email':'bgibson@dodgers.com'}" https://public.tenants.agaveapi.co/profiles/v2/nryan/users``````shell{
+If you plan to take advantage of the Files, Systems, or Jobs services, you can assign authentication credentials for internal users on each system. When you authenticate to those services, the service will use the credentials of the internal user attached to the authentication token rather than the default account. This allows you to leverage both community and individual accounts through your application. <aside class="notice">For more information on how to attach internal user identities to authentication tokens, see the <a title="Authentication Tutorial" href="https://agaveplatform.org/authentication-tutorial/">Authentication Tutorial</a>.</aside>[title size="3"]Creating a new interal user[/title]Creating a new internal user is done by posting to the internal users collection. Internal users have several preset fields, most of which are optional. The only required fields are username and email address. Usernames must be unique within the context of your application. An example of creating a new internal user is given below. ```shellcurl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c" -X POST --data "{'username':'bgibson', 'email':'bgibson@dodgers.com'}" https://sandbox.agaveplatform.org/profiles/v2/nryan/users``````shell{
    "status":"success",
    "message":null,
    "version":"2.1.8-SNAPSHOT-r8236",
@@ -32,17 +32,17 @@ If you plan to take advantage of the Files, Systems, or Jobs services, you can a
          "username":"bgibson",
          "_links":{
             "profile":{
-               "href":"https://public.tenants.agaveapi.co/profiles/v2/nryan"
+               "href":"https://sandbox.agaveplatform.org/profiles/v2/nryan"
             },
             "self":{
-               "href":"https://public.tenants.agaveapi.co/profiles/v2/nryan/users/bgibson"
+               "href":"https://sandbox.agaveplatform.org/profiles/v2/nryan/users/bgibson"
             }
          }
       }
    ]
 }```
 
-[title size="3"]Updating an internal user[/title] Updating the user later on is done by posting to the "self" link in the response snippet.```shellcurl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c" -X POST --data "{'username':'bgibson', 'email':'bgibson@dodgers.com', 'firstName':'Bob', 'lastName':'Gibson', 'position': 'pitcher'}" https://public.tenants.agaveapi.co/profiles/v2/nryan/users/bgibson``````shell{
+[title size="3"]Updating an internal user[/title] Updating the user later on is done by posting to the "self" link in the response snippet.```shellcurl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c" -X POST --data "{'username':'bgibson', 'email':'bgibson@dodgers.com', 'firstName':'Bob', 'lastName':'Gibson', 'position': 'pitcher'}" https://sandbox.agaveplatform.org/profiles/v2/nryan/users/bgibson``````shell{
    "status":"success",
    "message":null,
    "version":"2.1.8-SNAPSHOT-r8236",
@@ -66,17 +66,17 @@ If you plan to take advantage of the Files, Systems, or Jobs services, you can a
          "username":"bgibson",
          "_links":{
             "profile":{
-               "href":"https://public.tenants.agaveapi.co/profiles/v2/nryan"
+               "href":"https://sandbox.agaveplatform.org/profiles/v2/nryan"
             },
             "self":{
-               "href":"https://public.tenants.agaveapi.co/profiles/v2/nryan/users/bgibson"
+               "href":"https://sandbox.agaveplatform.org/profiles/v2/nryan/users/bgibson"
             }
          }
       }
    ]
 }```
 
-[title size="3"]Creating a new interal user[/title] A list of internal users can be obtained by querying the internal user collection. ```shellcurl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c" https://public.tenants.agaveapi.co/profiles/v2/nryan/users``````shell{
+[title size="3"]Creating a new interal user[/title] A list of internal users can be obtained by querying the internal user collection. ```shellcurl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c" https://sandbox.agaveplatform.org/profiles/v2/nryan/users``````shell{
    "status":"success",
    "message":null,
    "version":"2.1.8-SNAPSHOT-r8236",
@@ -100,10 +100,10 @@ If you plan to take advantage of the Files, Systems, or Jobs services, you can a
          "username":"bgibson",
          "_links":{
             "profile":{
-               "href":"https://public.tenants.agaveapi.co/profiles/v2/nryan"
+               "href":"https://sandbox.agaveplatform.org/profiles/v2/nryan"
             },
             "self":{
-               "href":"https://public.tenants.agaveapi.co/profiles/v2/nryan/users/bgibson"
+               "href":"https://sandbox.agaveplatform.org/profiles/v2/nryan/users/bgibson"
             }
          }
       },
@@ -126,17 +126,17 @@ If you plan to take advantage of the Files, Systems, or Jobs services, you can a
          "username":"spaige",
          "_links":{
             "profile":{
-               "href":"https://public.tenants.agaveapi.co/profiles/v2/nryan"
+               "href":"https://sandbox.agaveplatform.org/profiles/v2/nryan"
             },
             "self":{
-               "href":"https://public.tenants.agaveapi.co/profiles/v2/nryan/users/spaige"
+               "href":"https://sandbox.agaveplatform.org/profiles/v2/nryan/users/spaige"
             }
          }
       }
    ]
 }```
 
-[title size="3"]Deleting an internal user[/title] Deleting an internal user is done by invoking a DELETE action on the any of the internal user "self" links from their json representations. ```shellcurl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c" -X DELETEhttps://public.tenants.agaveapi.co/profiles/v2/nryan/users/spaige``````shell{
+[title size="3"]Deleting an internal user[/title] Deleting an internal user is done by invoking a DELETE action on the any of the internal user "self" links from their json representations. ```shellcurl -sk -H "Authorization: Bearer de32225c235cf47b9965997270a1496c" -X DELETEhttps://sandbox.agaveplatform.org/profiles/v2/nryan/users/spaige``````shell{
    "message":"",
    "result":null,
    "status":"success",

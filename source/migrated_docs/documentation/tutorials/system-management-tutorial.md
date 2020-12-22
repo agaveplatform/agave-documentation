@@ -27,7 +27,7 @@ The response will be a JSON array of summary system objects. The full system des
 ```javascript
 [
   {
-    "id" : "data.agaveapi.co",
+    "id" : "data.agaveplatform.org",
     "name" : "iPlant Data Store",
     "type" : "STORAGE",
     "description" : "The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&#039;s technologies.",
@@ -36,7 +36,7 @@ The response will be a JSON array of summary system objects. The full system des
     "default" : true,
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
       }
     }
   },
@@ -50,7 +50,7 @@ The response will be a JSON array of summary system objects. The full system des
     "default" : false,
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/docker.iplantcollaborative.org"
       }
     }
   }
@@ -123,7 +123,7 @@ This time, the response will be a JSON object with a full system description. Th
 {  
    "default":true,
    "description":"The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&#039;s technologies.",
-   "id":"data.agaveapi.co",
+   "id":"data.agaveplatform.org",
    "lastModified":"2013-11-12T07:08:30.000-06:00",
    "name":"iPlant Data Store",
    "public":true,
@@ -135,7 +135,7 @@ This time, the response will be a JSON object with a full system description. Th
          "type":"PASSWORD"
       },
       "homeDir":"/",
-      "host":"data.agaveapi.co",
+      "host":"data.agaveplatform.org",
       "mirror":true,
       "port":1247,
       "protocol":"IRODS",
@@ -149,16 +149,16 @@ This time, the response will be a JSON object with a full system description. Th
    "uuid":"0001384260598633-5056a550b8-0001-006",
    "_links":{  
       "credentials":{  
-         "href":"https://public.agaveapi.co/systems/v2/data.agaveapi.co/credentials"
+         "href":"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org/credentials"
       },
       "metadata":{  
-         "href":"https://public.agaveapi.co/meta/v2/data/?q={"associationIds":"0001384260598633-5056a550b8-0001-006"}"
+         "href":"https://sandbox.agaveplatform.org/meta/v2/data/?q={"associationIds":"0001384260598633-5056a550b8-0001-006"}"
       },
       "roles":{  
-         "href":"https://public.agaveapi.co/systems/v2/data.agaveapi.co/roles"
+         "href":"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org/roles"
       },
       "self":{  
-         "href":"https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+         "href":"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
       }
    }
 }
@@ -561,7 +561,7 @@ The response from the service will be similar to the following:
 }
 ```
 
-Congratulations, you just added your first system. This storage system can now be used by the <a title="File Management" href="http://agaveapi.co/documentation/tutorials/data-management/">Files service</a> to manage data, the Transfer service as a source or destination of data movement, the Apps service as a application repository, and the <a title="Job Submission" href="http://agaveapi.co/documentation/tutorials/job-managment/">Jobs Service</a> as both a staging and archiving destination.
+Congratulations, you just added your first system. This storage system can now be used by the <a title="File Management" href="https://agaveplatform.org/documentation/tutorials/data-management/">Files service</a> to manage data, the Transfer service as a source or destination of data movement, the Apps service as a application repository, and the <a title="Job Submission" href="https://agaveplatform.org/documentation/tutorials/job-managment/">Jobs Service</a> as both a staging and archiving destination.
 
 Notice that the JSON returned from the Systems service is different than what was submitted. Several fields have been added, and several other have been removed. On line 3, the UUID of the system has been added. This is the same UUID that is used in notifications and metadata references. On line 5, the <code>status</code> value was added in and assigned a default value since we did not specify it. Ditto for the <code>site</code> attribute on line 8.
 
@@ -920,7 +920,7 @@ systems-clone -v -I systest.demo.clone $SYSTEM_ID
 
 ## System scope  
 
-Throughout these tutorials and <a href="http://agaveapi.co/documentation/beginners-guides/" title="Beginner’s Guides">Beginner's Guides</a>, we have referred to both public and private systems. In addition to roles, systems have a concept of scope associated with them. Not to be confused with OAuth scope mentioned in the <a href="http://agaveapi.co/documentation/authorization/" title="Authorization Guide">Authentication Guide</a>, system scope refers to the availability of a system to the general user community. The following table lists the available scopes and their meanings.
+Throughout these tutorials and <a href="https://agaveplatform.org/documentation/beginners-guides/" title="Beginner’s Guides">Beginner's Guides</a>, we have referred to both public and private systems. In addition to roles, systems have a concept of scope associated with them. Not to be confused with OAuth scope mentioned in the <a href="https://agaveplatform.org/documentation/authorization/" title="Authorization Guide">Authentication Guide</a>, system scope refers to the availability of a system to the general user community. The following table lists the available scopes and their meanings.
 
 <%= partial "includes/tables/53" %>
 
@@ -938,7 +938,7 @@ Public systems are available for use by every API user within your tenant. Once 
 
 #### Public Storage Systems  
 
-Public storage systems enforce a virtual user home directory with implied user permissions. The following table gives a brief summary of the permission implications. You can read more about data permissions in the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/data-permissions-tutorial/" title="Data Permissions Tutorial">Data Permissions</a> tutorial.
+Public storage systems enforce a virtual user home directory with implied user permissions. The following table gives a brief summary of the permission implications. You can read more about data permissions in the <a href="https://agaveplatform.org/documentation/tutorials/data-management-tutorial/data-permissions-tutorial/" title="Data Permissions Tutorial">Data Permissions</a> tutorial.
 
 <%= partial "includes/tables/54" %>
 
@@ -1074,4 +1074,4 @@ Deleting a system will disable the system and all applications published on that
 
 ## Multi-user environments  
 
-If your application supports a multi-user environment and those users do not have API accounts, then you may run into a situation where you are juggling multiple user credentials for a single system. Agave has a solution for this problem in the for of its Internal User feature. You can map your application users into a private user store Agave provides you and assign those users credentials on your systems. This allows you to move seamlessly from community users to private users and back without having to alter your application code. For a deep discussion on the mechanics and implications of credential management with internal users, see the <a href="http://agaveapi.co/documentation/tutorials/system-management/internal-user-credential-management/" title="Internal User Credential Management">Internal User Credential Management</a> tutorial.
+If your application supports a multi-user environment and those users do not have API accounts, then you may run into a situation where you are juggling multiple user credentials for a single system. Agave has a solution for this problem in the for of its Internal User feature. You can map your application users into a private user store Agave provides you and assign those users credentials on your systems. This allows you to move seamlessly from community users to private users and back without having to alter your application code. For a deep discussion on the mechanics and implications of credential management with internal users, see the <a href="https://agaveplatform.org/documentation/tutorials/system-management/internal-user-credential-management/" title="Internal User Credential Management">Internal User Credential Management</a> tutorial.

@@ -2,7 +2,7 @@
 
 Once you submit your job request, the job will be handed off to Agave's back end execution service. Your job may run right away, or it may wait in a batch queue on the execution system until the required resources are available. Either way, the execution process occurs completely asynchronous to the submission process. To monitor the status of your job, Agave supports two different mechanisms: polling and webhooks.
 
-<aside class="notice">For the sake of brevity, we placed a detailed explanation of the job lifecycle in a separate, aptly title post, <a href="http://agaveapi.co/documentation/tutorials/job-management-tutorial/the-job-lifecycle" title="The Job Lifecycle">The Job Lifecycle</a>. There you will find detailed information about how, when, and why everything moves from place to place and how you can peek behind the curtains.</aside>
+<aside class="notice">For the sake of brevity, we placed a detailed explanation of the job lifecycle in a separate, aptly title post, <a href="https://agaveplatform.org/documentation/tutorials/job-management-tutorial/the-job-lifecycle" title="The Job Lifecycle">The Job Lifecycle</a>. There you will find detailed information about how, when, and why everything moves from place to place and how you can peek behind the curtains.</aside>
 
 #### Polling
 
@@ -11,9 +11,9 @@ If you have ever taken a long road trip with children, you are probably painfull
 Polling for your job status works the same way. After submitting your job, you start a while loop that queries the Jobs service for your job status until it detects that the job is in a terminal state. The following two URLs both return the status of your job. The first will result in a list of abbreviated job descriptions, the second will result in a full description of the job with the given $JOB_ID, exactly like that returned when submitting the job. The third will result in a much smaller response object that contains only the $JOB_ID and status being returned.
 
 ```shell
-curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" https://public.tenants.agaveapi.co/jobs/v2
-curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007
-curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/status
+curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" https://sandbox.agaveplatform.org/jobs/v2
+curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007
+curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007/status
 ```
 
 Sample response snippet
@@ -46,7 +46,7 @@ Polling is an incredibly effective approach, but it is bad practice for two reas
 The job history URL provides much more detailed information on the various state changes, system messages, and progress information associated with data staging. The syntax of the job history URL is as follows
 
 ```shell
-curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/history
+curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007/history
 ```
 
 Sample response snippet
@@ -131,7 +131,7 @@ Often times, however, polling is unavoidable. In these situations, we recommend 
 
 Webhooks are the alternative, preferred way for your application to monitor the status of asynchronous actions in Agave. If you are a <a href="http://en.wikipedia.org/wiki/Design_Patterns_(book)" title="Gang of Four" target="_blank">Gang of Four</a> disciple, webhooks are a mechanism for implementing the <a href="http://en.wikipedia.org/wiki/Observer%5Fpattern" title="Observer Pattern" target="_blank">Observer Pattern</a>. They are widely used across the web and chances are that something you're using right now is leveraging them. In the context of Agave, a webhook is a URL that you give to Agave in advance of an event which it later POSTs a response to when that event occurs. A webhook can be any web accessible URL.
 
-<aside class="notice">For more information about webhooks, events, and notifications in Agave, please see the <a href="http://developer.agaveapi.co/#notifications/" title="Notifications Guide">Notifications</a> and <a href="http://developer.agaveapi.co/#events/" title="Events Guide">Events</a> Guides.</aside>
+<aside class="notice">For more information about webhooks, events, and notifications in Agave, please see the <a href="http://docs.agaveplatform.org/#notifications/" title="Notifications Guide">Notifications</a> and <a href="http://docs.agaveplatform.org/#events/" title="Events Guide">Events</a> Guides.</aside>
 
 The Jobs service provides several template variables for constructing dynamic URLs. Template variables can be included anywhere in your URL by surrounding the variable name in the following manner `${VARIABLE_NAME}`. When an event of interest occurs, the variables will be resolved and the resulting URL called. Several example urls are given below.
 
@@ -157,18 +157,18 @@ In situations where you do not have a persistent web address, or access to a bac
 The status of job 0001414144065563-5056a550b8-0001-007, "demo-pyplot-demo-advanced test-1414139896," has changed to FINISHED.
 
 Name: demo-pyplot-demo-advanced test-1414139896
-URL: https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007
+URL: https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007
 Message: Job completed successfully.
 Submit Time: 2014-10-24T04:48:11.000-05:00
 Start Time: 2014-10-24T04:48:08.000-05:0
 End Time: 2014-10-24T04:48:15.000-05:00
 Output Path: $API_USERNAME/archive/jobs/job-0001414144065563-5056a550b8-0001-007
-Output URL: https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/outputs
+Output URL: https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007/outputs
 ```
 
 #### Websockets
 
-Websockets are a realtime approach to monitoring where your client application listens on a dedicated channel for notification messages from Agave. Simply subscribe to Agave's websocket server ([https://realtime.agaveapi.co](https://realtime.agaveapi.co) and listen for a channel matching the job id.
+Websockets are a realtime approach to monitoring where your client application listens on a dedicated channel for notification messages from Agave. Simply subscribe to Agave's websocket server ([https://realtime.agaveplatform.org](https://realtime.agaveplatform.org) and listen for a channel matching the job id.
 
 ```json
 /agave.prod/$API_USERNAME/$JOB_ID

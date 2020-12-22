@@ -4,10 +4,10 @@
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
-    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/associations
+    https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/associations
 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
-    https://public.tenants.agaveapi.co/tags/v2/demo/associations
+    https://sandbox.agaveplatform.org/tags/v2/demo/associations
 
 ```
 
@@ -25,10 +25,10 @@ tags-associations-list -v demo
     "type": "job",
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/tags/v2/demo/associations/576158795084066330-242ac119-0001-007"
+        "href": "https://sandbox.agaveplatform.org/tags/v2/demo/associations/576158795084066330-242ac119-0001-007"
       },
       "job": {
-        "href": "https://public.agaveapi.co/jobs/v2/576158795084066330-242ac119-0001-007"
+        "href": "https://sandbox.agaveplatform.org/jobs/v2/576158795084066330-242ac119-0001-007"
       }
     }
   },
@@ -37,10 +37,10 @@ tags-associations-list -v demo
     "type": "job",
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/tags/v2/demo/associations/1557538007895839206-242ac119-0001-007"
+        "href": "https://sandbox.agaveplatform.org/tags/v2/demo/associations/1557538007895839206-242ac119-0001-007"
       },
       "job": {
-        "href": "https://public.agaveapi.co/jobs/v2/1557538007895839206-242ac119-0001-007"
+        "href": "https://sandbox.agaveplatform.org/jobs/v2/1557538007895839206-242ac119-0001-007"
       }
     }
   }
@@ -63,7 +63,7 @@ To fetch a list of the resources associated with a given tag, query the `associa
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
     -X POST
-    https://public.tenants.agaveapi.co/tags/v2/demo/associations/7322676215012195046-242ac114-0001-007
+    https://sandbox.agaveplatform.org/tags/v2/demo/associations/7322676215012195046-242ac114-0001-007
 ```
 
 ```plaintext
@@ -78,10 +78,10 @@ tags-associations-addupdate -v demo 7322676215012195046-242ac114-0001-007
     "type": "job",
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/tags/v2/demo/associations/7322676215012195046-242ac114-0001-007"
+        "href": "https://sandbox.agaveplatform.org/tags/v2/demo/associations/7322676215012195046-242ac114-0001-007"
       }
       "job": {
-        "href": "https://public.agaveapi.co/jobs/v2/7322676215012195046-242ac114-0001-007"
+        "href": "https://sandbox.agaveplatform.org/jobs/v2/7322676215012195046-242ac114-0001-007"
       }
     }
   }
@@ -97,7 +97,7 @@ To tag a single resource, you can make an empty POST request to the tagged resou
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
     -X DELETE
-    https://public.tenants.agaveapi.co/tags/v2/demo/associations/7322676215012195046-242ac114-0001-007
+    https://sandbox.agaveplatform.org/tags/v2/demo/associations/7322676215012195046-242ac114-0001-007
 ```
 
 ```plaintext
@@ -117,7 +117,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
     --data-binary '["911605847797535206-242ac114-0001-007",
                     "5369569074237730330-242ac114-0001-007",
                     "8333211822347981286-242ac114-0001-007"]'
-    https://public.tenants.agaveapi.co/tags/v2/demo/associations
+    https://sandbox.agaveplatform.org/tags/v2/demo/associations
 ```
 
 ```plaintext
@@ -136,10 +136,10 @@ tags-associations-addupdate -v demo \
     "type": "job",
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/tags/v2/demo/associations/911605847797535206-242ac114-0001-007"
+        "href": "https://sandbox.agaveplatform.org/tags/v2/demo/associations/911605847797535206-242ac114-0001-007"
       },
       "job": {
-        "href": "https://public.agaveapi.co/jobs/v2/911605847797535206-242ac114-0001-007"
+        "href": "https://sandbox.agaveplatform.org/jobs/v2/911605847797535206-242ac114-0001-007"
       }
     }
   },
@@ -148,10 +148,10 @@ tags-associations-addupdate -v demo \
     "type": "job",
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/tags/v2/demo/associations/5369569074237730330-242ac114-0001-007"
+        "href": "https://sandbox.agaveplatform.org/tags/v2/demo/associations/5369569074237730330-242ac114-0001-007"
       },
       "job": {
-        "href": "https://public.agaveapi.co/jobs/v2/5369569074237730330-242ac114-0001-007"
+        "href": "https://sandbox.agaveplatform.org/jobs/v2/5369569074237730330-242ac114-0001-007"
       }
     }
   },
@@ -160,10 +160,10 @@ tags-associations-addupdate -v demo \
     "type": "job",
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/tags/v2/demo/associations/8333211822347981286-242ac114-0001-007"
+        "href": "https://sandbox.agaveplatform.org/tags/v2/demo/associations/8333211822347981286-242ac114-0001-007"
       },
       "job": {
-        "href": "https://public.agaveapi.co/jobs/v2/8333211822347981286-242ac114-0001-007"
+        "href": "https://sandbox.agaveplatform.org/jobs/v2/8333211822347981286-242ac114-0001-007"
       }
     }
   }
@@ -179,11 +179,11 @@ To tag multiple resources at once, POST a JSON array of the resource UUID to the
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
     -X DELETE
-    https://public.tenants.agaveapi.co/tags/v2/demo/associations
+    https://sandbox.agaveplatform.org/tags/v2/demo/associations
 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
     -X DELETE
-    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/associations
+    https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/associations
 ```
 
 ```plaintext

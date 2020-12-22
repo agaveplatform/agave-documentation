@@ -1,4 +1,4 @@
-By now you already have a user account. Your user account identifies you to the web applications you interact with. A username and password is sufficient for interacting with an application because the application has a user interface, so it knows that the authenticated user is the same one interacting with it. The Agave API does not have a user interface, so simply providing it a username and password is not sufficient. Agave needs to know both the user on whose behalf it is acting as well as the client application that is making the call. Whereas every person has a single user account, they may leverage multiple services to do their daily work. They may start out using the <a href="https://de.iplantcollaborative.org" title="iPlant Discovery Environment" target="_blank">Discovery Environment</a> to kick of an analysis, then switch to <a href="https://my-plant.org/" title="MyPlant" target="_blank">MyPlant</a> to discuss some results, then receive an email that new data has been shared with them, click a <a href="http://agaveapi.co/pre-authenticated-url-shortening-with-postits/" title="Pre-Authenticated URL Shortening with PostIts">PostIt</a> link that allows them to download the data directly to their desktop, edit the file locally, and save it in a local folder that syncs with their iPlant <a href="http://www.iplantcollaborative.org/discover/data-store" title="iPlant Data Store" target="_blank">cloud storage</a> in the background.
+By now you already have a user account. Your user account identifies you to the web applications you interact with. A username and password is sufficient for interacting with an application because the application has a user interface, so it knows that the authenticated user is the same one interacting with it. The Agave API does not have a user interface, so simply providing it a username and password is not sufficient. Agave needs to know both the user on whose behalf it is acting as well as the client application that is making the call. Whereas every person has a single user account, they may leverage multiple services to do their daily work. They may start out using the <a href="https://de.iplantcollaborative.org" title="iPlant Discovery Environment" target="_blank">Discovery Environment</a> to kick of an analysis, then switch to <a href="https://my-plant.org/" title="MyPlant" target="_blank">MyPlant</a> to discuss some results, then receive an email that new data has been shared with them, click a <a href="https://agaveplatform.org/pre-authenticated-url-shortening-with-postits/" title="Pre-Authenticated URL Shortening with PostIts">PostIt</a> link that allows them to download the data directly to their desktop, edit the file locally, and save it in a local folder that syncs with their iPlant <a href="http://www.iplantcollaborative.org/discover/data-store" title="iPlant Data Store" target="_blank">cloud storage</a> in the background.
 
 In each of the above interactions, the user is the same, but the context with which they interact with the Agave is different. Further, the above interactions all involved client applications developed by the same organization. The situation is further complicated when one or more 3rd party client applications are used to leverage the infrastructure. Agave needs to track both the users and client applications with whom it interacts. It does this through the issuance of API keys.
 
@@ -6,10 +6,10 @@ Agave uses <a href="http://oauth.net/2" title="OAuth2" target="_blank">OAuth2</a
 
 ## Creating a new client application  
 
-In order to interact with any of the Agave APIs, you will need to first get a set of API keys. You can get your API keys from the <a href="http://agaveapi.co/live-docs/#!/clients/create_post_1" title="Clients API">Clients service</a>. The example below shows how to get your API keys using both curl and the <a href="http://agaveapi.co/agave-cli/" title="Agave CLI">Agave CLI</a>.
+In order to interact with any of the Agave APIs, you will need to first get a set of API keys. You can get your API keys from the <a href="https://agaveplatform.org/live-docs/#!/clients/create_post_1" title="Clients API">Clients service</a>. The example below shows how to get your API keys using both curl and the <a href="https://agaveplatform.org/agave-cli/" title="Agave CLI">Agave CLI</a>.
 
 ```shell
-curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "client_name=my_cli_app" -d "description=Client app used for scripting up cool stuff" https://public.tenants.agaveapi.co/clients/v2
+curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "client_name=my_cli_app" -d "description=Client app used for scripting up cool stuff" https://sandbox.agaveplatform.org/clients/v2
 ```
 
 ```plaintext
@@ -30,13 +30,13 @@ The response to this call for our example user looks like this:
    "tier":"Unlimited",
    "_links":{  
       "self":{  
-         "href":"https://public.tenants.agaveapi.co/clients/v2/my_cli_app"
+         "href":"https://sandbox.agaveplatform.org/clients/v2/my_cli_app"
       },
       "subscriber":{  
-         "href":"https://public.tenants.agaveapi.coprofiles/v2/nryan"
+         "href":"https://sandbox.agaveplatform.orgprofiles/v2/nryan"
       },
       "subscriptions":{  
-         "href":"https://public.tenants.agaveapi.co/clients/v2/my_cli_app/subscriptions/"
+         "href":"https://sandbox.agaveplatform.org/clients/v2/my_cli_app/subscriptions/"
       }
    }
 }
@@ -49,7 +49,7 @@ Your API keys should be kept in a secure place and not shared with others. This 
 Over time you may develop several client applications. Managing several sets of API keys can become tricky. You can see which applications you have created by querying the Clients service.
 
 ```shell
-curl -sku "$API_USERNAME:$API_PASSWORD" https://public.tenants.agaveapi.co/clients/v2
+curl -sku "$API_USERNAME:$API_PASSWORD" https://sandbox.agaveplatform.org/clients/v2
 ```
 
 ```plaintext
@@ -68,13 +68,13 @@ The response to this call for our example user looks like this:
       "tier":"Unlimited",
       "_links":{  
          "self":{  
-            "href":"https://public.tenants.agaveapi.co/clients/v2/DefaultApplication"
+            "href":"https://sandbox.agaveplatform.org/clients/v2/DefaultApplication"
          },
          "subscriber":{  
-            "href":"https://public.tenants.agaveapi.coprofiles/v2/nryan"
+            "href":"https://sandbox.agaveplatform.orgprofiles/v2/nryan"
          },
          "subscriptions":{  
-            "href":"https://public.tenants.agaveapi.co/clients/v2/DefaultApplication/subscriptions/"
+            "href":"https://sandbox.agaveplatform.org/clients/v2/DefaultApplication/subscriptions/"
          }
       }
    },
@@ -86,13 +86,13 @@ The response to this call for our example user looks like this:
       "tier":"Unlimited",
       "_links":{  
          "self":{  
-            "href":"https://public.tenants.agaveapi.co/clients/v2/my_cli_app"
+            "href":"https://sandbox.agaveplatform.org/clients/v2/my_cli_app"
          },
          "subscriber":{  
-            "href":"https://public.tenants.agaveapi.coprofiles/v2/nryan"
+            "href":"https://sandbox.agaveplatform.orgprofiles/v2/nryan"
          },
          "subscriptions":{  
-            "href":"https://public.tenants.agaveapi.co/clients/v2/my_cli_app/subscriptions/"
+            "href":"https://sandbox.agaveplatform.org/clients/v2/my_cli_app/subscriptions/"
          }
       }
    }
@@ -106,7 +106,7 @@ The response to this call for our example user looks like this:
 At some point you may need to delete a client. You can do this by requesting a DELETE on your client in the Clients service.
 
 ```shell
-curl -sku "$API_USERNAME:$API_PASSWORD" -X DELETE https://public.tenants.agaveapi.co/clients/v2/my_cli_app
+curl -sku "$API_USERNAME:$API_PASSWORD" -X DELETE https://sandbox.agaveplatform.org/clients/v2/my_cli_app
 ```
 
 ```plaintext
@@ -121,7 +121,7 @@ The response to this call is simply a null result object.
 When you register a new client application and get your API keys, you are given access to all the Agave APIs by default. You can see the APIs you have access to by querying the subscriptions collection of your client.
 
 ```shell
-curl -sku "$API_USERNAME:$API_PASSWORD" https://public.tenants.agaveapi.co/clients/v2/my_cli_app/subscriptions
+curl -sku "$API_USERNAME:$API_PASSWORD" https://sandbox.agaveplatform.org/clients/v2/my_cli_app/subscriptions
 ```
 
 ```plaintext
@@ -142,13 +142,13 @@ The response to this call for our example client looks like this:
      "tier":"Unlimited",
      "_links":{
         "api":{
-           "href":"https://public.tenants.agaveapi.co/apps/v2/"
+           "href":"https://sandbox.agaveplatform.org/apps/v2/"
         },
         "client":{
-           "href":"https://public.tenants.agaveapi.co/clients/v2/systest_test_client"
+           "href":"https://sandbox.agaveplatform.org/clients/v2/systest_test_client"
         },
         "self":{
-           "href":"https://public.tenants.agaveapi.co/clients/v2/systest_test_client/subscriptions/"
+           "href":"https://sandbox.agaveplatform.org/clients/v2/systest_test_client/subscriptions/"
         }
      }   
   },
@@ -161,13 +161,13 @@ The response to this call for our example client looks like this:
      "tier":"Unlimited"
      "_links":{
         "api":{
-           "href":"https://public.tenants.agaveapi.co/files/v2/"
+           "href":"https://sandbox.agaveplatform.org/files/v2/"
         },
         "client":{
-           "href":"https://public.tenants.agaveapi.co/clients/v2/systest_test_client"
+           "href":"https://sandbox.agaveplatform.org/clients/v2/systest_test_client"
         },
         "self":{
-           "href":"https://public.tenants.agaveapi.co/clients/v2/systest_test_client/subscriptions/"
+           "href":"https://sandbox.agaveplatform.org/clients/v2/systest_test_client/subscriptions/"
         }
      }
   },
@@ -178,7 +178,7 @@ The response to this call for our example client looks like this:
 Over time, new APIs will be deployed. When this happens you will need to subscribe to the new APIs. You can do this by POSTing a request to the subscription collection with the information about the new API.
 
 ```shell
-curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "name=transforms" https://public.tenants.agaveapi.co/clients/v2/my_cli_app/subscriptions
+curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "name=transforms" https://sandbox.agaveplatform.org/clients/v2/my_cli_app/subscriptions
 ```
 
 ```plaintext
@@ -189,7 +189,7 @@ clients-subscriptions-update -v -N transforms my_cli_app
 The response to this call will be a JSON array identical to the one returned when listing your subscriptions. You could repeat this step for each new API, or you could use the wildcard API name, *, to resubscribe to all active APIs.
 
 ```shell
-curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "name=*" https://public.tenants.agaveapi.co/clients/v2/my_cli_app/subscriptions
+curl -sku "$API_USERNAME:$API_PASSWORD" -X POST -d "name=*" https://sandbox.agaveplatform.org/clients/v2/my_cli_app/subscriptions
 ```
 
 ```plaintext

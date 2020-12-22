@@ -25,7 +25,7 @@ In this tutorial we walk you through how to discovery, manage, share, and config
 ### Discovering systems
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/
 ```
 
 ```plaintext
@@ -37,7 +37,7 @@ systems-list -v
 ```json
 [
   {
-    "id" : "data.agaveapi.co",
+    "id" : "data.agaveplatform.org",
     "name" : "iPlant Data Store",
     "type" : "STORAGE",
     "description" : "The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&#039;s technologies.",
@@ -46,7 +46,7 @@ systems-list -v
     "default" : true,
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
       }
     }
   },
@@ -60,7 +60,7 @@ systems-list -v
     "default" : false,
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/docker.iplantcollaborative.org"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/docker.iplantcollaborative.org"
       }
     }
   }
@@ -78,7 +78,7 @@ System description can get rather verbose, so a summary object is returned when 
 > List all systems (up to the page limit)
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?type=storage
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/?type=storage
 ```
 ```plaintext
 systems-list -v -S
@@ -87,7 +87,7 @@ systems-list -v -S
 > Only execution systems
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?type=execution
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/?type=execution
 ```
 ```plaintext
 systems-list -v -E
@@ -96,7 +96,7 @@ systems-list -v -E
 > Only public systems
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?publicOnly=true
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/?publicOnly=true
 ```
 ```plaintext
 systems-list -v -P
@@ -105,7 +105,7 @@ systems-list -v -P
 > Only private systems
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?privateOnly=true
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/?privateOnly=true
 ```
 ```plaintext
 systems-list -v -Q
@@ -114,7 +114,7 @@ systems-list -v -Q
 > Only return default systems
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?default=true
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/?default=true
 ```
 ```plaintext
 systems-list -v -D
@@ -125,17 +125,17 @@ You can further filter the results by type, scope, and default status. See the s
 ### System details
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org
 ```
 ```plaintext
-systems-list -v data.agaveapi.co
+systems-list -v data.agaveplatform.org
 ```
 > The response will be something like this:
 
 ```json
 {
-  "site": "agaveapi.co",
-  "id": "data.agaveapi.co",
+  "site": "agaveplatform.org",
+  "id": "data.agaveplatform.org",
   "revision": 4,
   "default": true,
   "lastModified": "2016-09-30T21:43:11.000-05:00",
@@ -145,16 +145,16 @@ systems-list -v data.agaveapi.co
   "owner": "dooley",
   "_links": {
     "roles": {
-      "href": "https://public.agaveapi.co/systems/v2/data.agaveapi.co/roles"
+      "href": "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org/roles"
     },
     "credentials": {
-      "href": "https://public.agaveapi.co/systems/v2/data.agaveapi.co/credentials"
+      "href": "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org/credentials"
     },
     "self": {
-      "href": "https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+      "href": "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
     },
     "metadata": {
-      "href": "https://public.agaveapi.co/meta/v2/data/?q=%7B%22associationIds%22%3A%224602981590618992154-242ac116-0001-006%22%7D"
+      "href": "https://sandbox.agaveplatform.org/meta/v2/data/?q=%7B%22associationIds%22%3A%224602981590618992154-242ac116-0001-006%22%7D"
     }
   },
   "globalDefault": true,

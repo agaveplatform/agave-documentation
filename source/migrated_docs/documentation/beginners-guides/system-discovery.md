@@ -19,7 +19,7 @@ The response to this call for our example user looks like this:
    {  
       "_links":{  
          "self":{  
-            "href":"https://public.agaveapi.co/systems/v2/lonestar4.tacc.teragrid.org"
+            "href":"https://sandbox.agaveplatform.org/systems/v2/lonestar4.tacc.teragrid.org"
          }
       },
       "default":false,
@@ -33,12 +33,12 @@ The response to this call for our example user looks like this:
    {  
       "_links":{  
          "self":{  
-            "href":"https://public.agaveapi.co/systems/v2/data.agaveapi.co"
+            "href":"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
          }
       },
       "default":true,
       "description":"The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&#039;s technologies.",
-      "id":"data.agaveapi.co",
+      "id":"data.agaveplatform.org",
       "name":"iPlant Data Store",
       "public":true,
       "status":"UP",
@@ -47,7 +47,7 @@ The response to this call for our example user looks like this:
    {  
       "_links":{  
          "self":{  
-            "href":"https://public.agaveapi.co/systems/v2/condor.opensciencegrid.org"
+            "href":"https://sandbox.agaveplatform.org/systems/v2/condor.opensciencegrid.org"
          }
       },
       "default":false,
@@ -61,7 +61,7 @@ The response to this call for our example user looks like this:
    {  
       "_links":{  
          "self":{  
-            "href":"https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org"
+            "href":"https://sandbox.agaveplatform.org/systems/v2/docker.iplantcollaborative.org"
          }
       },
       "default":false,
@@ -75,7 +75,7 @@ The response to this call for our example user looks like this:
    {  
       "_links":{  
          "self":{  
-            "href":"https://public.agaveapi.co/systems/v2/stampede.tacc.utexas.edu"
+            "href":"https://sandbox.agaveplatform.org/systems/v2/stampede.tacc.utexas.edu"
          }
       },
       "default":false,
@@ -161,16 +161,16 @@ The response to this contains the full description of the system <code>docker.ip
    "uuid":"0001402177703917-5056a550b8-0001-006",
    "_links":{  
       "credentials":{  
-         "href":"https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org/credentials"
+         "href":"https://sandbox.agaveplatform.org/systems/v2/docker.iplantcollaborative.org/credentials"
       },
       "metadata":{  
-         "href":"https://public.agaveapi.co/meta/v2/data/?q={\"associationIds\":\"0001402177703917-5056a550b8-0001-006\"}"
+         "href":"https://sandbox.agaveplatform.org/meta/v2/data/?q={\"associationIds\":\"0001402177703917-5056a550b8-0001-006\"}"
       },
       "roles":{  
-         "href":"https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org/roles"
+         "href":"https://sandbox.agaveplatform.org/systems/v2/docker.iplantcollaborative.org/roles"
       },
       "self":{  
-         "href":"https://public.agaveapi.co/systems/v2/docker.iplantcollaborative.org"
+         "href":"https://sandbox.agaveplatform.org/systems/v2/docker.iplantcollaborative.org"
       }
    }
 }

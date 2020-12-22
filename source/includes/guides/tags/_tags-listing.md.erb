@@ -4,10 +4,10 @@
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
-    https://public.tenants.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048
+    https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048
 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
-    https://public.tenants.agaveapi.co/tags/v2/demo
+    https://sandbox.agaveplatform.org/tags/v2/demo
 
 ```
 
@@ -30,16 +30,16 @@ tags-list -v demo
   "created": "2017-03-13T12:38:14.000-05:00",
   "_links": {
     "self": {
-      "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"
+      "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048"
     },
     "associationIds": {
-      "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/associations"
+      "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/associations"
     },
     "permissions": {
-      "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems"
+      "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/pems"
     },
     "owner": {
-      "href": "https://public.agaveapi.co/profiles/v2/nryan"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
     }
   }
 }
@@ -57,7 +57,7 @@ To fetch a detailed description of a tag, make a GET request on the resource URL
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
-    https://public.tenants.agaveapi.co/tags/v2?limit=1
+    https://sandbox.agaveplatform.org/tags/v2?limit=1
 ```
 
 ```plaintext
@@ -79,16 +79,16 @@ tags-list -v -l 1
     "created": "2017-03-13T12:38:14.000-05:00",
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048"
+        "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048"
       },
       "associationIds": {
-        "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/associations"
+        "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/associations"
       },
       "permissions": {
-        "href": "https://public.agaveapi.co/tags/v2/3042501574756462105-242ac113-0001-048/pems"
+        "href": "https://sandbox.agaveplatform.org/tags/v2/3042501574756462105-242ac113-0001-048/pems"
       },
       "owner": {
-        "href": "https://public.agaveapi.co/profiles/v2/nryan"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
       }
     }
   }

@@ -5,7 +5,7 @@ Nothing great is ever accomplished alone. In the course of conducting your resea
 ## Finding others  
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/profiles/v2/?email=nryan?naked=true
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/profiles/v2/?email=nryan?naked=true
 ```
 
 ```plaintext
@@ -30,10 +30,10 @@ profiles-list -v -E nryan
     "gender" : "",
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/profiles/v2/tilefish2"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/tilefish2"
       },
       "users" : {
-        "href" : "https://public.tenants.agaveapi.co/profiles/v2/tilefish2/users"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/tilefish2/users"
       }
     }
   }, 
@@ -54,10 +54,10 @@ profiles-list -v -E nryan
     "gender" : "",
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/profiles/v2/nryan"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/nryan"
       },
       "users" : {
-        "href" : "https://public.tenants.agaveapi.co/profiles/v2/nryan/users"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/nryan/users"
       }
     }
   }, 
@@ -78,10 +78,10 @@ profiles-list -v -E nryan
     "gender" : "",
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/profiles/v2/systest"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/systest"
       },
       "users" : {
-        "href" : "https://public.tenants.agaveapi.co/profiles/v2/systest/users"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/systest/users"
       }
     }
   } 
@@ -104,7 +104,7 @@ The response to this call is a JSON array of users who email addresses match the
 ## Finding yourself  
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/profiles/v2/me?naked=true
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/profiles/v2/me?naked=true
 ```
 
 ```plaintext
@@ -129,10 +129,10 @@ profiles-list -v me
     "gender" : "",
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/profiles/v2/systest"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/systest"
       },
       "users" : {
-        "href" : "https://public.tenants.agaveapi.co/profiles/v2/systest/users"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/systest/users"
       }
     }
 }

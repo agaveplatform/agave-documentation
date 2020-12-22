@@ -41,12 +41,12 @@ Agave does not own the storage and execution systems you access through the REST
 #### Listing history events  
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/files/$API_VERSION/hisotry/data.agaveapi.co/$API_USERNAME/picksumipsum.txt
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/files/$API_VERSION/hisotry/data.agaveplatform.org/$API_USERNAME/picksumipsum.txt
 ```
 
 
 ```plaintext
-files-history -v -S data.agaveapi.co $API_USERNAME/picksumipsum.txt
+files-history -v -S data.agaveplatform.org $API_USERNAME/picksumipsum.txt
 ``` 
 
 
@@ -59,12 +59,12 @@ The response to this contains a summary listing all permissions on the
 ### Searching for events  
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/files/$API_VERSION/hisotry/data.agaveapi.co/$API_USERNAME/picksumipsum.txt?agent=rjohnson
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/files/$API_VERSION/hisotry/data.agaveplatform.org/$API_USERNAME/picksumipsum.txt?agent=rjohnson
 ```
 
 
 ```plaintext
-files-history -v -S data.agaveapi.co -U rjohnson $API_USERNAME/picksumipsum.txt
+files-history -v -S data.agaveplatform.org -U rjohnson $API_USERNAME/picksumipsum.txt
 ``` 
 
 

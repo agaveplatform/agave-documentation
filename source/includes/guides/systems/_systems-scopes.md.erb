@@ -1,6 +1,6 @@
 ### System scope
 
-Throughout these tutorials and <a href="http://agaveapi.co/documentation/beginners-guides/" title="Beginner’s Guides">Beginner's Guides</a>, we have referred to both public and private systems. In addition to roles, systems have a concept of scope associated with them. Not to be confused with OAuth scope mentioned in the <a href="http://agaveapi.co/documentation/authorization/" title="Authorization Guide">Authentication Guide</a>, system scope refers to the availability of a system to the general user community. The following table lists the available scopes and their meanings.
+Throughout these tutorials and <a href="https://agaveplatform.org/documentation/beginners-guides/" title="Beginner’s Guides">Beginner's Guides</a>, we have referred to both public and private systems. In addition to roles, systems have a concept of scope associated with them. Not to be confused with OAuth scope mentioned in the <a href="https://agaveplatform.org/documentation/authorization/" title="Authorization Guide">Authentication Guide</a>, system scope refers to the availability of a system to the general user community. The following table lists the available scopes and their meanings.
 
 <%= partial "includes/tables/53" %>
 
@@ -18,7 +18,7 @@ Public systems are available for use by every API user within your tenant. Once 
 
 #### Public Storage Systems
 
-Public storage systems enforce a virtual user home directory with implied user permissions. The following table gives a brief summary of the permission implications. You can read more about data permissions in the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/data-permissions-tutorial/" title="Data Permissions Tutorial">Data Permissions</a> tutorial.
+Public storage systems enforce a virtual user home directory with implied user permissions. The following table gives a brief summary of the permission implications. You can read more about data permissions in the <a href="https://agaveplatform.org/documentation/tutorials/data-management-tutorial/data-permissions-tutorial/" title="Data Permissions Tutorial">Data Permissions</a> tutorial.
 
 <%= partial "includes/tables/54" %>
 
@@ -39,7 +39,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
      -H "Content-Type: application/json"
      -X PUT
      --data-binary '{"action":"publish"}'
-     https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+     https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 ```plaintext
@@ -55,7 +55,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
      -H "Content-Type: application/json"
      -X PUT
      --data-binary '{"action":"unpublish"}'
-     https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+     https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 ```plaintext
@@ -88,7 +88,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
      -H "Content-Type: application/json"
      -X PUT
      --data-binary '{"action":"setDefault"}'
-     https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+     https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 ```plaintext
@@ -104,7 +104,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
      -H "Content-Type: application/json"
      -X PUT
      --data-binary '{"action":"unsetDefault"}'
-     https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+     https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 ```plaintext
@@ -125,7 +125,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
      -H "Content-Type: application/json"
      -X PUT
      --data-binary '{"action":"setGlobalDefault"}'
-     https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+     https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 ```plaintext
@@ -143,7 +143,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
      -H "Content-Type: application/json"
      -X PUT
      --data-binary '{"action":"unsetGlobalDefault"}'
-     https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+     https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 ```plaintext

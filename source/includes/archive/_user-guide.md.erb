@@ -1,8 +1,8 @@
 # User Guide
 
-Through the Agave REST API your applications can retrieve and manage all aspects of your digital lab. The base address of the API varies from tenant to tenant, however, by logging in to the developer portal, all content will be customized for your account. The base structure of the API is `https://public.tenants.agaveapi.co/${resource}/v2`. Where `${resource}` represents a particular API endpoint. While your tenant may have one or more boutique APIs providing domain-specific services, all tenants have a common set of APIs <a title="Live Documentation" href="/live-docs/">endpoints</a>, each with their own unique path.
+Through the Agave REST API your applications can retrieve and manage all aspects of your digital lab. The base address of the API varies from tenant to tenant, however, by logging in to the developer portal, all content will be customized for your account. The base structure of the API is `https://sandbox.agaveplatform.org/${resource}/v2`. Where `${resource}` represents a particular API endpoint. While your tenant may have one or more boutique APIs providing domain-specific services, all tenants have a common set of APIs <a title="Live Documentation" href="/live-docs/">endpoints</a>, each with their own unique path.
 
-Several endpoints are open and you do not need any special permissions to access them. To access private data through the Agave API, such as user profiles, data, apps, jobs, an application must get the user’s permission to access the data. <a title="Authorization">Authorization</a> is via the Agave Auth service at `https://public.tenants.agaveapi.co/token`.
+Several endpoints are open and you do not need any special permissions to access them. To access private data through the Agave API, such as user profiles, data, apps, jobs, an application must get the user’s permission to access the data. <a title="Authorization">Authorization</a> is via the Agave Auth service at `https://sandbox.agaveplatform.org/token`.
 
 ## Conventions  
 
@@ -41,19 +41,19 @@ Throughout the documentation you will regularly encounter the following variable
     "updateSystemStatus": false,
     "_links": {
         "checks": {
-            "href": "https://public.tenants.agaveapi.co/monitor/v2/0001409867973952-5056a550b8-0001-014/checks"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/0001409867973952-5056a550b8-0001-014/checks"
         },
         "notifications": {
-            "href": "https://public.tenants.agaveapi.co/notifications/v2/?associatedUuid=0001409867973952-5056a550b8-0001-014"
+            "href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=0001409867973952-5056a550b8-0001-014"
         },
         "owner": {
-            "href": "https://public.tenants.agaveapi.co/profiles/v2/systest"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/systest"
         },
         "self": {
-            "href": "https://public.tenants.agaveapi.co/monitor/v2/0001409867973952-5056a550b8-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/0001409867973952-5056a550b8-0001-014"
         },
         "system": {
-            "href": "https://public.tenants.agaveapi.co/systems/v2/demo.storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/demo.storage.example.com"
         }
     }
 }
@@ -68,7 +68,7 @@ When describing the JSON objects passed back and forth with the APIs, Javascript
 
 ### Versioning  
 
-The current major version of Agave is given in the URI immediately following the API resource name. For example, if the endpoint is `https://public.tenants.agaveapi.co/jobs/v2/`, the API version would be `v2`. The current major version of agave is v2.
+The current major version of Agave is given in the URI immediately following the API resource name. For example, if the endpoint is `https://sandbox.agaveplatform.org/jobs/v2/`, the API version would be `v2`. The current major version of agave is v2.
 
 ### Slugs  
 
@@ -131,14 +131,14 @@ By default, all responses are serialized JSON. To receive pre-formatted JSON, ad
 All resource collections support a way of paging the dataset, taking an `offset` and `limit` as query parameters:
 
 ```shell
-$ curl -sk -H "Authorization: Bearer ${API_KEY}" "https://public.tenants.agaveapi.co/jobs/v2/?offset=50&amp;limit=25"
+$ curl -sk -H "Authorization: Bearer ${API_KEY}" "https://sandbox.agaveplatform.org/jobs/v2/?offset=50&amp;limit=25"
 ```
 
 Note that offset numbering is zero-based and that omitting the offset parameter will return the first X elements. Unless specified, all result sets are paginated in groups of 100. Check the documentation for the specific endpoint to see specific information.
 
 ### Timestamps  
 
-Timestamps are returned in <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> format as <a title="Offset to Coordinated Universal Time" href="http://en.wikipedia.org/wiki/Offset_to_Coordinated_Universal_Time" target="_blank">Coordinated Universal Time</a>(UTC) with zero offset: `YYYY-MM-DDTHH:MM:SSZ`. If the time is imprecise (for example, the date/time of an album release), an additional field will show the precision; see for example, `created` in an <a title="Job object" href="http://agaveapi.co/live-docs/#!/jobs/list_get_0" target="_blank">Job object</a>.
+Timestamps are returned in <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> format as <a title="Offset to Coordinated Universal Time" href="http://en.wikipedia.org/wiki/Offset_to_Coordinated_Universal_Time" target="_blank">Coordinated Universal Time</a>(UTC) with zero offset: `YYYY-MM-DDTHH:MM:SSZ`. If the time is imprecise (for example, the date/time of an album release), an additional field will show the precision; see for example, `created` in an <a title="Job object" href="https://agaveplatform.org/live-docs/#!/jobs/list_get_0" target="_blank">Job object</a>.
 
 ### Status Codes  
 
@@ -163,10 +163,10 @@ Many modern applications choose to implement client-server communication exclusi
     "value": "red",
     "_links": {
         "self": {
-            "href": "https://public.tenants.agaveapi.co/meta/v2/data/0001384622738900-5056a550b8-0001-012"
+            "href": "https://sandbox.agaveplatform.org/meta/v2/data/0001384622738900-5056a550b8-0001-012"
         },
         "owner": {
-            "href": "https://public.tenants.agaveapi.co/profiles/v2/nryan"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
         }
     }
 }

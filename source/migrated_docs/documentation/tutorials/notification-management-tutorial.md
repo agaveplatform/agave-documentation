@@ -23,7 +23,7 @@ The Notifications service is the primary mechanism by which you create and manag
 }
 ```
 
-The <code>associatedUuid</code> value is the UUID of her job. Here, we given the UUID of the <code>picsumipsum.txt</code> file we uploaded in the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/" title="Data Management Tutorial">Data Management</a> tutorial. The <code>event</code> value is the name of the event to which she wants to be notified. This example is asking for an email to be sent whenever the file is overwritten. She could have just as easily specified a status of DELETED or RENAME to be notified when the file was deleted or renamed.
+The <code>associatedUuid</code> value is the UUID of her job. Here, we given the UUID of the <code>picsumipsum.txt</code> file we uploaded in the <a href="https://agaveplatform.org/documentation/tutorials/data-management-tutorial/" title="Data Management Tutorial">Data Management</a> tutorial. The <code>event</code> value is the name of the event to which she wants to be notified. This example is asking for an email to be sent whenever the file is overwritten. She could have just as easily specified a status of DELETED or RENAME to be notified when the file was deleted or renamed.
 
 The <code>persistent</code> value specifies whether the notification should fire more than once. By default, all event subscriptions are transient. This is because the events themselves are transient. An event occurs, then it is over. There are, however, many situations where events could occur over and over again. Permission events, changes to metadata and data, application registrations on a system, job submissions to a system or queue, etc., all are transient events that can potentially occur many, many times. In these cases it is either not possible or highly undesirable to constantly resubscribe for the same event. The persistent attribute tells the notification service to keep a subscription alive until it is explicitly deleted.
 
@@ -86,7 +86,7 @@ The value of webhook template variables is that they allow you to build custom c
 </ul>
 
 ```shell
-https://example.com/sendWelcome.php?username=${USERNAME}&amp;email=${EMAIL}&amp;firstName=${FIRST_NAME}&amp;lastName=${LAST_NAME}&amp;src=agaveapi.co&amp;nonce=1234567
+https://example.com/sendWelcome.php?username=${USERNAME}&amp;email=${EMAIL}&amp;firstName=${FIRST_NAME}&amp;lastName=${LAST_NAME}&amp;src=agaveplatform.org&amp;nonce=1234567
 ```
 
 <ul>

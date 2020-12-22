@@ -2,7 +2,7 @@
 
 The Jobs service is a basic execution service that allows you to run applications registered with the Apps service across multiple, distributed, heterogeneous systems through a common REST interface. The service manages all aspects of execution and job management from data staging, job submission, monitoring, output archiving, event logging, sharing, and notifications. The Jobs service also provides a persistent reference to your job's output data and a mechanism for sharing all aspects of your job with others. Each feature will be described in more detail below.
 
-<aside class="notice">If you are not familiar with batch computing and why we refer to a simulation run as a "job," we wrote a good blog post on the topic, <a href="http://agaveapi.co/what-is-a-job2/" title="What is a Job">What is a "Job"</a> that will help give you some context and background on the subject and terminology.</aside>
+<aside class="notice">If you are not familiar with batch computing and why we refer to a simulation run as a "job," we wrote a good blog post on the topic, <a href="https://agaveplatform.org/what-is-a-job2/" title="What is a Job">What is a "Job"</a> that will help give you some context and background on the subject and terminology.</aside>
 
 ### Job submission  
 
@@ -24,11 +24,11 @@ As mentioned previously, jobs are submitted by making a HTTP POST request either
 
 <p class="table-caption">Table 1. The optional and required attributes common to all job submissions. Optional fields are marked with an astericks.</p>
 
-<aside class="notice">In this tutorial we will use JSON for our examples, however, one could replace the JSON object with a HTML form mapping JSON attribute and values to HTML form attributes and values one for one and get the same results, with the exception of the `notifications` attribute which is not accepted using HTML form submission and would need to be added after submitting the job request by sending each of the notification objects with the returned job id to the <a href="http://agaveapi.co/documentation/tutorials/notification-management-tutorial/" title="Notification Management Tutorial">Notifications API</a>.</aside>
+<aside class="notice">In this tutorial we will use JSON for our examples, however, one could replace the JSON object with a HTML form mapping JSON attribute and values to HTML form attributes and values one for one and get the same results, with the exception of the `notifications` attribute which is not accepted using HTML form submission and would need to be added after submitting the job request by sending each of the notification objects with the returned job id to the <a href="https://agaveplatform.org/documentation/tutorials/notification-management-tutorial/" title="Notification Management Tutorial">Notifications API</a>.</aside>
 
-In addition to the standard fields for all jobs, the application you specify in the <code>appId</code> field will also have its own set of inputs and parameters specified during registration that are unique to that app. (For more information about app registration and descriptions, see the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a>).
+In addition to the standard fields for all jobs, the application you specify in the <code>appId</code> field will also have its own set of inputs and parameters specified during registration that are unique to that app. (For more information about app registration and descriptions, see the <a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a>).
 
-The following snippet shows a sample JSON job request that could be submitted to the Jobs service to run the <code>pyplot-0.1.0</code> app from the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/advanced-app-example/" title="Advanced App Example">Advanced App Example</a> tutorial.
+The following snippet shows a sample JSON job request that could be submitted to the Jobs service to run the <code>pyplot-0.1.0</code> app from the <a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/advanced-app-example/" title="Advanced App Example">Advanced App Example</a> tutorial.
 
 ```javascript
 {  
@@ -67,7 +67,7 @@ The following snippet shows a sample JSON job request that could be submitted to
       "event":"FINISHED"
     },
     {  
-      "url":"http://http://requestbin.agaveapi.co/o1aiawo1?job_id=${JOB_ID}&amp;status=${JOB_STATUS}",
+      "url":"http://requestbin.agaveplatform.org/o1aiawo1?job_id=${JOB_ID}&amp;status=${JOB_STATUS}",
       "event":"*",
       "persistent":true
     }
@@ -75,7 +75,7 @@ The following snippet shows a sample JSON job request that could be submitted to
 }
 ```
 
-Notice that this example specifies a single input attribute, <code>dataset</code>. The <code>pyplot-0.1.0</code> app definition specified that the <code>dataset</code> input attribute could accept more than one value (maxCardinality = 2). In the job request object, that translates to an array of string values. Each string represents a piece of data that Agave will transfer into the job work directory prior to job execution. Any value accepted by the Files service when <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/#importing-data">importing data</a> is accepted here. Some examples of valid values are given in the following table.
+Notice that this example specifies a single input attribute, <code>dataset</code>. The <code>pyplot-0.1.0</code> app definition specified that the <code>dataset</code> input attribute could accept more than one value (maxCardinality = 2). In the job request object, that translates to an array of string values. Each string represents a piece of data that Agave will transfer into the job work directory prior to job execution. Any value accepted by the Files service when <a href="https://agaveplatform.org/documentation/tutorials/data-management-tutorial/#importing-data">importing data</a> is accepted here. Some examples of valid values are given in the following table.
 
 <%= partial "includes/tables/73" %>
 
@@ -176,7 +176,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@job.
 
 Once you submit your job request, the job will be handed off to Agave's back end execution service. Your job may run right away, or it may wait in a batch queue on the execution system until the required resources are available. Either way, the execution process occurs completely asynchronous to the submission process. To monitor the status of your job, Agave supports two different mechanisms: polling and webhooks.
 
-<aside class="notice">For the sake of brevity, we placed a detailed explanation of the job lifecycle in a separate, aptly title post, <a href="http://agaveapi.co/documentation/tutorials/job-management-tutorial/the-job-lifecycle" title="The Job Lifecycle">The Job Lifecycle</a>. There you will find detailed information about how, when, and why everything moves from place to place and how you can peek behind the curtains.</aside>
+<aside class="notice">For the sake of brevity, we placed a detailed explanation of the job lifecycle in a separate, aptly title post, <a href="https://agaveplatform.org/documentation/tutorials/job-management-tutorial/the-job-lifecycle" title="The Job Lifecycle">The Job Lifecycle</a>. There you will find detailed information about how, when, and why everything moves from place to place and how you can peek behind the curtains.</aside>
 
 #### Polling  
 
@@ -305,7 +305,7 @@ Often times, however, polling is unavoidable. In these situations, we recommend 
 
 Webhooks are the alternative, preferred way for your application to monitor the status of asynchronous actions in Agave. If you are a <a href="http://en.wikipedia.org/wiki/Design_Patterns_(book)" title="Gang of Four" target="_blank">Gang of Four</a> disciple, webhooks are a mechanism for implementing the <a href="http://en.wikipedia.org/wiki/Observer%5Fpattern" title="Observer Pattern" target="_blank">Observer Pattern</a>. They are widely used across the web and chances are that something you're using right now is leveraging them. In the context of Agave, a webhook is a URL that you give to Agave in advance of an event which it later POSTs a response to when that event occurs. A webhook can be any web accessible URL.
 
-<aside class="notice">For more information about webhooks, events, and notifications in Agave, please see the <a href="http://agaveapi.co/notifications-and-events/" title="Notifications and Events">Notifications and Events</a> page.</aside>
+<aside class="notice">For more information about webhooks, events, and notifications in Agave, please see the <a href="https://agaveplatform.org/notifications-and-events/" title="Notifications and Events">Notifications and Events</a> page.</aside>
 
 The Jobs service provides several template variables for constructing dynamic URLs. Template variables can be included anywhere in your URL by surrounding the variable name in the following manner <code>${VARIABLE_NAME}</code>. When an event of interest occurs, the variables will be resolved and the resulting URL called. Several example urls are given below.
 
@@ -375,7 +375,7 @@ The syntax of this service is consistent with the Files service syntax, as is th
         "href" : "https://$API_BASE_URL/jobs/$API_VERSION/0001414144065563-5056a550b8-0001-007/outputs/media/output"
       },
       "system" : {
-        "href" : "https://$API_BASE_URL/systems/$API_VERSION/data.agaveapi.co"
+        "href" : "https://$API_BASE_URL/systems/$API_VERSION/data.agaveplatform.org"
       },
       "parent" : {
         "href" : "https://$API_BASE_URL/jobs/$API_VERSION/0001414144065563-5056a550b8-0001-007"
@@ -395,7 +395,7 @@ The syntax of this service is consistent with the Files service syntax, as is th
         "href" : "https://$API_BASE_URL/jobs/$API_VERSION/0001414144065563-5056a550b8-0001-007/outputs/media/demo-pyplot-demo-advanced-test-1414139896.err"
       },
       "system" : {
-        "href" : "https://$API_BASE_URL/systems/$API_VERSION/data.agaveapi.co"
+        "href" : "https://$API_BASE_URL/systems/$API_VERSION/data.agaveplatform.org"
       },
       "parent" : {
         "href" : "https://$API_BASE_URL/jobs/$API_VERSION/0001414144065563-5056a550b8-0001-007"
@@ -415,7 +415,7 @@ The syntax of this service is consistent with the Files service syntax, as is th
         "href" : "https://$API_BASE_URL/jobs/$API_VERSION/0001414144065563-5056a550b8-0001-007/outputs/media/demo-pyplot-demo-advanced-test-1414139896.out"
       },
       "system" : {
-        "href" : "https://$API_BASE_URL/systems/$API_VERSION/data.agaveapi.co"
+        "href" : "https://$API_BASE_URL/systems/$API_VERSION/data.agaveplatform.org"
       },
       "parent" : {
         "href" : "https://$API_BASE_URL/jobs/$API_VERSION/0001414144065563-5056a550b8-0001-007"
@@ -435,7 +435,7 @@ The syntax of this service is consistent with the Files service syntax, as is th
         "href" : "https://$API_BASE_URL/jobs/$API_VERSION/0001414144065563-5056a550b8-0001-007/outputs/media/demo-pyplot-demo-advanced-test-1414139896.pid"
       },
       "system" : {
-        "href" : "https://$API_BASE_URL/systems/$API_VERSION/data.agaveapi.co"
+        "href" : "https://$API_BASE_URL/systems/$API_VERSION/data.agaveplatform.org"
       },
       "parent" : {
         "href" : "https://$API_BASE_URL/jobs/$API_VERSION/0001414144065563-5056a550b8-0001-007"
@@ -455,7 +455,7 @@ The syntax of this service is consistent with the Files service syntax, as is th
         "href" : "https://$API_BASE_URL/jobs/$API_VERSION/0001414144065563-5056a550b8-0001-007/outputs/media/testdata.csv"
       },
       "system" : {
-        "href" : "https://$API_BASE_URL/systems/$API_VERSION/data.agaveapi.co"
+        "href" : "https://$API_BASE_URL/systems/$API_VERSION/data.agaveplatform.org"
       },
       "parent" : {
         "href" : "https://$API_BASE_URL/jobs/$API_VERSION/0001414144065563-5056a550b8-0001-007"
@@ -499,7 +499,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -d "action=resubmit" h
 
 ### Permissions and sharing  
 
-As with the <a title="System Registration" href="http://agaveapi.co/system-registration/">Systems</a>, <a title="Application Management" href="http://agaveapi.co/application-management/">Apps</a>, and <a title="File Management" href="http://agaveapi.co/file-management/">Files</a> services, your jobs have their own set of access controls. Using these, you can share your job and its data with other Agave users. Job permissions are private by default. The permissions you give a job apply both to the job, its outputs, its metadata, and the permissions themselves. Thus, by sharing a job with another user, you share all aspects of that job.
+As with the <a title="System Registration" href="https://agaveplatform.org/system-registration/">Systems</a>, <a title="Application Management" href="https://agaveplatform.org/application-management/">Apps</a>, and <a title="File Management" href="https://agaveplatform.org/file-management/">Files</a> services, your jobs have their own set of access controls. Using these, you can share your job and its data with other Agave users. Job permissions are private by default. The permissions you give a job apply both to the job, its outputs, its metadata, and the permissions themselves. Thus, by sharing a job with another user, you share all aspects of that job.
 
 Job permissions are managed through a set of URLs consistent with the permissions URL elsewhere in the API.
 

@@ -14,7 +14,7 @@ yarn install agaveplatform/agave-angularjs-sdk
 git clone https://github.com/agaveplatform/agave-angularjs-sdk.git
 ```  
 
-The [AngularJS SDK](https://bitbucket.org/agaveapi/angularjs-sdk) is a native Angularjs module with complete coverage of the Agave Science API. It features individual Angular services for each API and domain objects to assist with marshalling requests and responses.  
+The [AngularJS SDK](https://github.com/agaveplatform/angularjs-sdk) is a native Angularjs module with complete coverage of the Agave Science API. It features individual Angular services for each API and domain objects to assist with marshalling requests and responses.  
  
 ### Python
 
@@ -54,7 +54,7 @@ mvn clean install
 </dependency>
 ```  
 
-The [Java SDK](https://bitbucket.org/agaveapi/java-sdk) is a Java 7+ library to the Science APIs. It features a full domain model to interact with the Science APIs and support services. This is currently a preview version of the library and feedback is welcome to help improve the developer experience.
+The [Java SDK](https://github.com/agaveplatform/java-sdk) is a Java 7+ library to the Science APIs. It features a full domain model to interact with the Science APIs and support services. This is currently a preview version of the library and feedback is welcome to help improve the developer experience.
 
 <aside class="info">Please note this library is distributed through Maven Central. You must download and build from source.</aside>
 

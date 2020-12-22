@@ -10,12 +10,12 @@ Agave has a fine-grained permission model supporting use cases from creating and
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
-    'https://public.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?pretty=true''
+    'https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt?pretty=true''
 ```
 
 ```plaintext
 files-pems-list \
-    -S data.agaveapi.co \
+    -S data.agaveplatform.org \
     nryan/picksumipsum.txt
 ```
 
@@ -34,13 +34,13 @@ files-pems-list \
     "recursive": true,
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username.eq=nryan"
+        "href": "https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt?username.eq=nryan"
       },
       "file": {
-        "href": "https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"
+        "href": "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/nryan/picksumipsum.txt"
       },
       "profile": {
-        "href": "https://public.agaveapi.co/profiles/v2/nryan"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
       }
     }
   }
@@ -55,13 +55,13 @@ To list all permissions for a file item, make a GET request on the file item's p
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
-    https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username=rclemens
+    https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt?username=rclemens
 ```
 
 ```plaintext
 files-pems-list \
     -u rclemens \
-    -S data.agaveapi.co \
+    -S data.agaveplatform.org \
     nryan/picksumipsum.txt
 ```
 
@@ -76,13 +76,13 @@ files-pems-list \
   },
   "_links":{
     "self":{
-      "href":"https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username=rclemens"
+      "href":"https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt?username=rclemens"
     },
     "parent":{
-      "href":"https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt"
+      "href":"https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt"
     },
     "profile":{
-      "href":"https://public.agaveapi.co/profiles/v2/rclemens"
+      "href":"https://sandbox.agaveplatform.org/profiles/v2/rclemens"
     }
   }
 }
@@ -99,14 +99,14 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
     --data '{"username":"rclemens", "permission":"READ"}' \
-    https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt
+    https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt
 ```
 
 ```plaintext
 files-pems-update 
     -u rclemens \
     -p READ \
-    -S data.agaveapi.co \
+    -S data.agaveplatform.org \
     nryan/picksumipsum.txt
 ```
 
@@ -117,14 +117,14 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
     --data '{"username","rclemens", "permission":"READ_WRITE"}' \
-    https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt
+    https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt
 ```
 
 ```plaintext
 files-pems-addupdate 
     -u rclemens \
     -p READ_WRITE \
-    -S data.agaveapi.co \
+    -S data.agaveplatform.org \
     nryan/picksumipsum.txt
 ```
 
@@ -143,13 +143,13 @@ files-pems-addupdate
     "recursive": false,
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username.eq=rclemens"
+        "href": "https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt?username.eq=rclemens"
       },
       "file": {
-        "href": "https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"
+        "href": "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/nryan/picksumipsum.txt"
       },
       "profile": {
-        "href": "https://public.agaveapi.co/profiles/v2/rclemens"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/rclemens"
       }
     }
   }
@@ -167,14 +167,14 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
      -H "Content-Type: application/json" \
      -X POST \
      --data '{"username","rclemens", "permission":"NONE"}' \
-     https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt
+     https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt
 ```
 
 ```plaintext
 files-pems-update  \
     -u rclemens \
     -p 'NONE' \
-    -S data.agaveapi.co \
+    -S data.agaveplatform.org \
     nryan/picksumipsum.txt
 ```
 
@@ -193,13 +193,13 @@ files-pems-update  \
     "recursive": false,
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username.eq=rclemens"
+        "href": "https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt?username.eq=rclemens"
       },
       "file": {
-        "href": "https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"
+        "href": "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/nryan/picksumipsum.txt"
       },
       "profile": {
-        "href": "https://public.agaveapi.co/profiles/v2/rclemens"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/rclemens"
       }
     }
   }
@@ -220,16 +220,16 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
      -H "Content-Type: application/json" \
      -X POST \
      --data '{"username","*", "permission":"NONE"}' \
-     https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt
+     https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt
 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
      -X DELETE \
-     https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt
+     https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt
 ```
 
 ```plaintext
 files-pems-delete \
-    -S data.agaveapi.co \
+    -S data.agaveplatform.org \
     nryan/picksumipsum.txt
 ```
 
@@ -248,17 +248,17 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
      -H "Content-Type: application/json" \
      -X POST \
      --data '{"username","*", "permission":"READ_WRITE", "recursive": true}' \
-     https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt
+     https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt
 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
      -X DELETE \
-     https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?recursive=true
+     https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt?recursive=true
 ```
 
 ```plaintext
 files-pems-delete \
     --recursive \
-    -S data.agaveapi.co \
+    -S data.agaveplatform.org \
     nryan/picksumipsum.txt
 ```
 
@@ -277,13 +277,13 @@ files-pems-delete \
     "recursive": true,
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username.eq=nryan"
+        "href": "https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt?username.eq=nryan"
       },
       "file": {
-        "href": "https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/nryan/picksumipsum.txt"
+        "href": "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/nryan/picksumipsum.txt"
       },
       "profile": {
-        "href": "https://public.agaveapi.co/profiles/v2/nryan"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
       }
     }
   }

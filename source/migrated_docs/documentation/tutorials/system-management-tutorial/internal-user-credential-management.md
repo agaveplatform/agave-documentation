@@ -1,8 +1,8 @@
 ## Introduction  
 
-The systems you create are private to you. If you changed nothing else from the examples in the <a href="http://agaveapi.co/documentation/tutorials/system-management/" title="System Management">System Management</a> tutorial, you would have a shared storage resource which your client application could use to host data for all your application users. Such a setup is often referred to as a <em>community account</em> because a single account is used by an entire community of people.
+The systems you create are private to you. If you changed nothing else from the examples in the <a href="https://agaveplatform.org/documentation/tutorials/system-management/" title="System Management">System Management</a> tutorial, you would have a shared storage resource which your client application could use to host data for all your application users. Such a setup is often referred to as a <em>community account</em> because a single account is used by an entire community of people.
 
-One challenge that comes with using community accounts is tracking the usage of individual users. Such fine-grained accounting is both time consuming and difficult to implement. Agave solves this problem for you through its Internal User feature. If you are not familiar with this particular topic, please consult the <a href="http://agaveapi.co/documentation/tutorials/internal-user-management/" title="Internal User Tutorial">Internal User Management</a> tutorial for a detailed introduction.
+One challenge that comes with using community accounts is tracking the usage of individual users. Such fine-grained accounting is both time consuming and difficult to implement. Agave solves this problem for you through its Internal User feature. If you are not familiar with this particular topic, please consult the <a href="https://agaveplatform.org/documentation/tutorials/internal-user-management/" title="Internal User Tutorial">Internal User Management</a> tutorial for a detailed introduction.
 
 Even though you share the account among your application users, Agave will still track individual activity, so you can generate reports on the activity of any user you've created.
 
@@ -182,10 +182,10 @@ The response from the service will be a JSON array of credential objects. Notice
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/storage"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/default/storage"
       },
       "parent" : {
-        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       }
     }
   }, 
@@ -200,10 +200,10 @@ The response from the service will be a JSON array of credential objects. Notice
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/login"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/default/login"
       },
       "parent" : {
-        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       }
     }
   }
@@ -294,13 +294,13 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis/storage"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis/storage"
       },
       "parent" : {
-        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       },
       "internalUser" : {
-        "href" : "https://public.agaveapi.co/profiles/v2/systest/users/cdavis"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/systest/users/cdavis"
       }
     }
   }
@@ -367,10 +367,10 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/storage"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/default/storage"
       },
       "parent" : {
-        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       }
     }
   }
@@ -414,10 +414,10 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/storage"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/default/storage"
       },
       "parent" : {
-        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       }
     }
   },
@@ -432,10 +432,10 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://$API_BASE_URL/systems/
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/login"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/default/login"
       },
       "parent" : {
-        "href" : "https://public.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       }
     }
   }

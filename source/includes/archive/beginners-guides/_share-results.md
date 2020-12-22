@@ -4,7 +4,7 @@ A PostIt is a pre-authenticated, disposable URL, similar to a Bit.ly URL that yo
 
 ```javascript
 {
-  "url": "https://public.tenants.agaveapi.co/meta/v2/data/0001409792924730-5056a550b8-0001-012",
+  "url": "https://sandbox.agaveplatform.org/meta/v2/data/0001409792924730-5056a550b8-0001-012",
   "maxUses": 2,
   "method": "GET"
 }
@@ -15,12 +15,12 @@ A PostIt is a pre-authenticated, disposable URL, similar to a Bit.ly URL that yo
 To create a PostIt, send a POST request with the above JSON object to the PostIts service.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@postit.json" https://public.tenants.agaveapi.co/postits/v2/
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@postit.json" https://sandbox.agaveplatform.org/postits/v2/
 ```
 
 
 ```plaintext
-postits-create -v -m 2 https://public.tenants.agaveapi.co/meta/v2/data/0001409792924730-5056a550b8-0001-012
+postits-create -v -m 2 https://sandbox.agaveplatform.org/meta/v2/data/0001409792924730-5056a550b8-0001-012
 ```
 
 
@@ -37,13 +37,13 @@ This will return a JSON object with a reference to the URL we are sharing and Po
     "noauth": false,
     "postit": "a6804886706aec2cf5a9fb51cb52e016",
     "remainingUses": 2,
-    "url": "https://public.tenants.agaveapi.co/meta/v2/data/0001409792924730-5056a550b8-0001-012",
+    "url": "https://sandbox.agaveplatform.org/meta/v2/data/0001409792924730-5056a550b8-0001-012",
     "_links": {
         "profile": {
-            "href": "https://public.tenants.agaveapi.co/profiles/v2/systest"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/systest"
         },
         "self": {
-            "href": "https://public.tenants.agaveapi.co/postits/v2/a6804886706aec2cf5a9fb51cb52e016"
+            "href": "https://sandbox.agaveplatform.org/postits/v2/a6804886706aec2cf5a9fb51cb52e016"
         }
     }
 }
@@ -53,19 +53,19 @@ Let's also create a PostIt of our output data that we can email to our colleague
 
 ```javascript
 {
-  "url": "https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt",
+  "url": "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/systest/picksumipsum.txt",
   "maxUses": 2,
   "method": "GET"
 }
 ```
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@output.json" https://public.tenants.agaveapi.co/postits/v2/
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@output.json" https://sandbox.agaveplatform.org/postits/v2/
 ```
 
 
 ```plaintext
-postits-create -v -m 2 https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt
+postits-create -v -m 2 https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/systest/picksumipsum.txt
 ```
 
 
@@ -80,13 +80,13 @@ postits-create -v -m 2 https://public.tenants.agaveapi.co/files/v2/media/system/
     "noauth": false,
     "postit": "14e86bb1a039a03a2463e6e0f0a4421f",
     "remainingUses": 2,
-    "url": "https://public.tenants.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt",
+    "url": "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/systest/picksumipsum.txt",
     "_links": {
         "profile": {
-            "href": "https://public.tenants.agaveapi.co/profiles/v2/systest"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/systest"
         },
         "self": {
-            "href": "https://public.tenants.agaveapi.co/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f"
+            "href": "https://sandbox.agaveplatform.org/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f"
         }
     }
 }
@@ -97,10 +97,10 @@ postits-create -v -m 2 https://public.tenants.agaveapi.co/files/v2/media/system/
 Now that you have created these URLs, you can share them freely with whoever you wish. If, at any time, you need to delete them before they expire, you can do so by issuing a DELETE on the URL.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://sandbox.agaveplatform.org/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f
 ```
 
 
 ```plaintext
-postits-delete -v https://public.tenants.agaveapi.co/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f
+postits-delete -v https://sandbox.agaveplatform.org/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f
 ```

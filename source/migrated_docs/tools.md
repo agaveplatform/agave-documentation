@@ -4,12 +4,12 @@ Get a head start on your next development sprint by leveraging the open source <
 
 ### Web API  
 
-Manage apps, jobs, and data. Share anything, generate reports, track usage, and manage your digital lab through <a href="http://agaveapi.co/documentation/live-docs/" title="Live Documentation">Agave's RESTful web APIs</a>.
+Manage apps, jobs, and data. Share anything, generate reports, track usage, and manage your digital lab through <a href="https://agaveplatform.org/documentation/live-docs/" title="Live Documentation">Agave's RESTful web APIs</a>.
 
 ### Client SDK  
 
-The <a href="http://agaveapi.co/tools/client-sdk/" title="Client SDK">Agave Client SDK</a> makes it easy to add auth, job, data, and collaboration features to your Java, Python, PHP, R, and Perl apps.
+The <a href="https://agaveplatform.org/tools/client-sdk/" title="Client SDK">Agave Client SDK</a> makes it easy to add auth, job, data, and collaboration features to your Java, Python, PHP, R, and Perl apps.
 
 ### Command Line Interface (CLI)  
 
-Tap into the full power of the Agave Web API and integrate Agave into your existing scripts and workflows from the command line using the <a href="http://agaveapi.co/tools/command-line-interface/" title="Agave Command Line Interface (CLI)">Agave CLI</a>.
+Tap into the full power of the Agave Web API and integrate Agave into your existing scripts and workflows from the command line using the <a href="https://agaveplatform.org/tools/command-line-interface/" title="Agave Command Line Interface (CLI)">Agave CLI</a>.

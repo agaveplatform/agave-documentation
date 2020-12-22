@@ -4,7 +4,7 @@ Agave provides multiple ways to share your data with your colleagues and the gen
 
 Publishing a file for folder is simply a matter of granting the special `public` user `READ` permission on a file or folder. Similar to the way listings and permissions are exposed through unique paths in the Files API, published data is served from a custom `/files/v2/download` path. The public data URLs have the following structure:
 
-`https://public.agaveapi.co/files/v2/download/<username>/system/<system_id>/<path>`
+`https://sandbox.agaveplatform.org/files/v2/download/<username>/system/<system_id>/<path>`
 
 Notice two things. First, a username is inserted after the *download* path element. This is needed because there is no authorized user for whom to validate system or file ownership on a public request. The username gives the context by which to verify the availability of the system and file item being requested. Second, the `system_id` is mandatory in public data requests. This ensures that the public URL remains the same even when the default storage system of the user who published it changes.
 
@@ -22,7 +22,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
     --data '{"username","public", "permission":"READ"}' \
-    https://public.tenants.agaveapi.co/files/v2/pems/nryan/picksumipsum.txt
+    https://sandbox.agaveplatform.org/files/v2/pems/nryan/picksumipsum.txt
 ```
 
 ```plaintext
@@ -39,14 +39,14 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
     --data '{"username","public", "permission":"READ"}' \
-    https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt
+    https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt
 ```
 
 ```plaintext
 files-pems-addupdate \
     -u public \
     -p READ \
-    -S data.agaveapi.co \
+    -S data.agaveplatform.org \
     nryan/picksumipsum.txt
 ```
 
@@ -63,13 +63,13 @@ files-pems-addupdate \
   "recursive": false,
   "_links": {
     "self": {
-      "href": "https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt?username.eq=public"
+      "href": "https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt?username.eq=public"
     },
     "file": {
-      "href": "https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/picksumipsum.txt"
+      "href": "https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/picksumipsum.txt"
     },
     "profile": {
-      "href": "https://public.agaveapi.co/profiles/v2/public"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/public"
     }
   }
 }
@@ -77,7 +77,7 @@ files-pems-addupdate \
 
 Publishing a file for folder is simply a matter of giving the special `public` user `READ` permission on the file. Once published, the file will be available at the following URL:
 
-`https://public.tenants.agaveapi.co/files/v2/download/nryan/system/data.agaveapi.co/nryan/picksumipsum.txt`
+`https://sandbox.agaveplatform.org/files/v2/download/nryan/system/data.agaveplatform.org/nryan/picksumipsum.txt`
 
 #### Publishing directories
 
@@ -88,7 +88,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
     --data '{"username","public", "permission":"READ", "recursive": true}' \
-    https://public.tenants.agaveapi.co/files/v2/pems/nryan/public
+    https://sandbox.agaveplatform.org/files/v2/pems/nryan/public
 ```
 
 ```plaintext
@@ -106,7 +106,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -X POST \
     --data '{"username","public", "permission":"READ", "recursive": true}' \
-    https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/public
+    https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/public
 ```
 
 ```plaintext
@@ -114,7 +114,7 @@ files-pems-addupdate \
     --recursive \
     -u public \
     -p READ \
-    -S data.agaveapi.co \
+    -S data.agaveplatform.org \
     nryan/public
 ```
 
@@ -131,21 +131,21 @@ files-pems-addupdate \
   "recursive": true,
   "_links": {
     "self": {
-      "href": "https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/public?username.eq=public"
+      "href": "https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/public?username.eq=public"
     },
     "file": {
-      "href": "https://public.tenants.agaveapi.co/files/v2/pems/system/data.agaveapi.co/nryan/public"
+      "href": "https://sandbox.agaveplatform.org/files/v2/pems/system/data.agaveplatform.org/nryan/public"
     },
     "profile": {
-      "href": "https://public.agaveapi.co/profiles/v2/public"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/public"
     }
   }
 }
 ```
 
-Publishing an entire directory is identical to publishing a single file item. To make all the contents of the directory public as well, include a `recursive` field to your request with a value of `true`. Once published, the directory and all its contents will be avaialble for download. The above example will make every file and folder in the "nryan/public" directory of "data.agaveapi.co" available for download at the following URL:
+Publishing an entire directory is identical to publishing a single file item. To make all the contents of the directory public as well, include a `recursive` field to your request with a value of `true`. Once published, the directory and all its contents will be avaialble for download. The above example will make every file and folder in the "nryan/public" directory of "data.agaveplatform.org" available for download at the following URL:
 
- `https://public.agaveapi.co/files/v2/download/nryan/system/data.agaveapi.co/nryan/public`
+ `https://sandbox.agaveplatform.org/files/v2/download/nryan/system/data.agaveplatform.org/nryan/public`
 
 <aside class="notice">Remember that whenever you publish a folder, anything you put in that folder becomes publicly available. As with any cloud storage service, think before blindly copying data into your cloud storage. If you want to restrict the duration or frequency which your public data is accessed, you should see the <a href="#postits">PostIts Guide</a> for other ways to securely share your data with others.</aside>
  

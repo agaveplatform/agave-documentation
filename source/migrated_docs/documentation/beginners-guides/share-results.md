@@ -4,7 +4,7 @@ A PostIt is a pre-authenticated, disposable URL, similar to a Bit.ly URL that yo
 
 ```javascript
 {
-  "url": "https://public.agaveapi.co/meta/v2/data/0001409792924730-5056a550b8-0001-012",
+  "url": "https://sandbox.agaveplatform.org/meta/v2/data/0001409792924730-5056a550b8-0001-012",
   "maxUses": 2,
   "method": "GET"
 }
@@ -20,7 +20,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@post
 
 
 ```plaintext
-postits-create -v -m 2 https://public.agaveapi.co/meta/v2/data/0001409792924730-5056a550b8-0001-012
+postits-create -v -m 2 https://sandbox.agaveplatform.org/meta/v2/data/0001409792924730-5056a550b8-0001-012
 ```
 
 
@@ -37,13 +37,13 @@ This will return a JSON object with a reference to the URL we are sharing and Po
     "noauth": false,
     "postit": "a6804886706aec2cf5a9fb51cb52e016",
     "remainingUses": 2,
-    "url": "https://public.agaveapi.co/meta/v2/data/0001409792924730-5056a550b8-0001-012",
+    "url": "https://sandbox.agaveplatform.org/meta/v2/data/0001409792924730-5056a550b8-0001-012",
     "_links": {
         "profile": {
-            "href": "https://public.agaveapi.co/profiles/v2/systest"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/systest"
         },
         "self": {
-            "href": "https://public.agaveapi.co/postits/v2/a6804886706aec2cf5a9fb51cb52e016"
+            "href": "https://sandbox.agaveplatform.org/postits/v2/a6804886706aec2cf5a9fb51cb52e016"
         }
     }
 }
@@ -53,7 +53,7 @@ Let's also create a PostIt of our output data that we can email to our colleague
 
 ```javascript
 {
-  "url": "https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt",
+  "url": "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/systest/picksumipsum.txt",
   "maxUses": 2,
   "method": "GET"
 }
@@ -65,7 +65,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@outp
 
 
 ```plaintext
-postits-create -v -m 2 https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt
+postits-create -v -m 2 https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/systest/picksumipsum.txt
 ```
 
 
@@ -80,13 +80,13 @@ postits-create -v -m 2 https://public.agaveapi.co/files/v2/media/system/data.aga
     "noauth": false,
     "postit": "14e86bb1a039a03a2463e6e0f0a4421f",
     "remainingUses": 2,
-    "url": "https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt",
+    "url": "https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/systest/picksumipsum.txt",
     "_links": {
         "profile": {
-            "href": "https://public.agaveapi.co/profiles/v2/systest"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/systest"
         },
         "self": {
-            "href": "https://public.agaveapi.co/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f"
+            "href": "https://sandbox.agaveplatform.org/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f"
         }
     }
 }
@@ -102,5 +102,5 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://$API_BASE_UR
 
 
 ```plaintext
-postits-delete -v https://public.agaveapi.co/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f
+postits-delete -v https://sandbox.agaveplatform.org/postits/v2/14e86bb1a039a03a2463e6e0f0a4421f
 ```

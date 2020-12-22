@@ -1,6 +1,6 @@
 ### Permissions and sharing
 
-As with the <a title="System Registration" href="http://agaveapi.co/system-registration/">Systems</a>, <a title="Application Management" href="http://agaveapi.co/application-management/">Apps</a>, and <a title="File Management" href="http://agaveapi.co/file-management/">Files</a> services, your jobs have their own set of access controls. Using these, you can share your job and its data with other Agave users. Job permissions are private by default. The permissions you give a job apply both to the job, its outputs, its metadata, and the permissions themselves. Thus, by sharing a job with another user, you share all aspects of that job.
+As with the <a title="System Registration" href="https://agaveplatform.org/system-registration/">Systems</a>, <a title="Application Management" href="https://agaveplatform.org/application-management/">Apps</a>, and <a title="File Management" href="https://agaveplatform.org/file-management/">Files</a> services, your jobs have their own set of access controls. Using these, you can share your job and its data with other Agave users. Job permissions are private by default. The permissions you give a job apply both to the job, its outputs, its metadata, and the permissions themselves. Thus, by sharing a job with another user, you share all aspects of that job.
 
 Job permissions are managed through a set of URLs consistent with the permissions URL elsewhere in the API.
 
@@ -11,13 +11,13 @@ Job permissions are managed through a set of URLs consistent with the permission
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
      -H "Content-Type: application/json" \
      -X POST --data-binary '{"permission":"READ","username":"$USERNAME"}' \
-     https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID/pems
+     https://sandbox.agaveplatform.org/jobs/v2/$JOB_ID/pems
 
 # Custom url grant
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
      -H "Content-Type: application/json" \
      -X POST --data-binary '{"permission":"READ"}' \
-     https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID/pems/$USERNAME
+     https://sandbox.agaveplatform.org/jobs/v2/$JOB_ID/pems/$USERNAME
 ```
 ```plaintext
 jobs-pems-update -u $USERNAME $JOB_ID
@@ -33,13 +33,13 @@ jobs-pems-update -u $USERNAME $JOB_ID
   },
   "_links": {
     "self": {
-      "href": "https://public.agaveapi.co/jobs/v2/$JOB_ID/pems/$USERNAME"
+      "href": "https://sandbox.agaveplatform.org/jobs/v2/$JOB_ID/pems/$USERNAME"
     },
     "parent": {
-      "href": "https://public.agaveapi.co/jobs/v2/$JOB_ID"
+      "href": "https://sandbox.agaveplatform.org/jobs/v2/$JOB_ID"
     },
     "profile": {
-      "href": "https://public.agaveapi.co/profiles/v2/$USERNAME"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/$USERNAME"
     }
   }
 }
@@ -59,7 +59,7 @@ The available permission values are listed in Table 2.
 
 ```shell
 curl -sk -H "Authorization: Bearer $AUTH_TOKEN" \
-    'https://public.agaveapi.co/jobs/v2/$JOB_ID/pems/'
+    'https://sandbox.agaveplatform.org/jobs/v2/$JOB_ID/pems/'
 ```
 ```plaintext
 jobs-pems-list -V $JOB_ID
@@ -76,13 +76,13 @@ jobs-pems-list -V $JOB_ID
     },
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/jobs/v2/6608339759546166810-242ac114-0001-007/pems/$API_USERNAME"
+        "href": "https://sandbox.agaveplatform.org/jobs/v2/6608339759546166810-242ac114-0001-007/pems/$API_USERNAME"
       },
       "parent": {
-        "href": "https://public.agaveapi.co/jobs/v2/6608339759546166810-242ac114-0001-007"
+        "href": "https://sandbox.agaveplatform.org/jobs/v2/6608339759546166810-242ac114-0001-007"
       },
       "profile": {
-        "href": "https://public.agaveapi.co/profiles/v2/$API_USERNAME"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/$API_USERNAME"
       }
     }
   },
@@ -95,13 +95,13 @@ jobs-pems-list -V $JOB_ID
     },
     "_links": {
       "self": {
-        "href": "https://public.agaveapi.co/jobs/v2/$JOB_ID/pems/$USERNAME"
+        "href": "https://sandbox.agaveplatform.org/jobs/v2/$JOB_ID/pems/$USERNAME"
       },
       "parent": {
-        "href": "https://public.agaveapi.co/jobs/v2/$JOB_ID"
+        "href": "https://sandbox.agaveplatform.org/jobs/v2/$JOB_ID"
       },
       "profile": {
-        "href": "https://public.agaveapi.co/profiles/v2/$USERNAME"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/$USERNAME"
       }
     }
   }
@@ -116,7 +116,7 @@ To find the permissions for a given job, make a GET on the job's `pems` collecti
 curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" \
      -H "Content-Type: application/json" \
      -X POST --data-binary {"permission":"READ_WRITE}" \
-     https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID/$USERNAME
+     https://sandbox.agaveplatform.org/jobs/v2/$JOB_ID/$USERNAME
 ```
 ```plaintext
 jobs-pems-update -u $USERNAME -p READ_WRITE $JOB_ID
@@ -132,13 +132,13 @@ jobs-pems-update -u $USERNAME -p READ_WRITE $JOB_ID
   },
   "_links": {
     "self": {
-      "href": "https://public.agaveapi.co/jobs/v2/$JOB_ID/pems/$USERNAME"
+      "href": "https://sandbox.agaveplatform.org/jobs/v2/$JOB_ID/pems/$USERNAME"
     },
     "parent": {
-      "href": "https://public.agaveapi.co/jobs/v2/$JOB_ID"
+      "href": "https://sandbox.agaveplatform.org/jobs/v2/$JOB_ID"
     },
     "profile": {
-      "href": "https://public.agaveapi.co/profiles/v2/$USERNAME"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/$USERNAME"
     }
   }
 }
@@ -152,7 +152,7 @@ Updating is exactly like granting permissions. Just POST to the same job's `pems
 ```shell
 curl -sk -H "Authorization: Bearer  $ACCESS_TOKEN" \
      -X DELETE \
-     https://public.tenants.agaveapi.co/jobs/v2/$JOB_ID/$USERNAME
+     https://sandbox.agaveplatform.org/jobs/v2/$JOB_ID/$USERNAME
 ```
 ```plaintext
 jobs-pems-update -u $USERNAME -p '' $JOB_ID

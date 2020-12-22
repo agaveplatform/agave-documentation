@@ -57,7 +57,7 @@
     });
 
     // $('#tocify-header2 li:first-child a')
-    //     .attr('href', 'https://agaveapi.co/live-docs/')
+    //     .attr('href', 'https://docs.agaveplatform.org/live-docs/')
     //     .addClass('live-docs');
   });
 

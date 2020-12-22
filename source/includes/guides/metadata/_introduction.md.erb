@@ -72,7 +72,7 @@ Metadata items can also be associated with other metadata items to create hierar
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST  
     -H 'Content-Type: application/json'
     --data-binary '{"value": {"title": "Example Metadata", "properties": {"species": "arabidopsis", "description": "A model organism..."}}, "name": "some metadata"}'
-    https://public.tenants.agaveapi.co/meta/v2/data
+    https://sandbox.agaveplatform.org/meta/v2/data
 ```
 
 ```plaintext
@@ -100,13 +100,13 @@ metadata-addupdate -v -F - <<<'{"value": {"title": "Example Metadata", "properti
   "created": "2016-08-29T04:49:34.532-05:00",
   "_links": {
     "self": {
-      "href": "https://public.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012"
+      "href": "https://sandbox.agaveplatform.org/meta/v2/data/7341557475441971686-242ac11f-0001-012"
     },
     "permissions": {
-      "href": "https://public.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012/pems"
+      "href": "https://sandbox.agaveplatform.org/meta/v2/data/7341557475441971686-242ac11f-0001-012/pems"
     },
     "owner": {
-      "href": "https://public.agaveapi.co/profiles/v2/nryan"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
     },
   }
 }
@@ -122,7 +122,7 @@ New Metadata are created in the repository via a POST to their collection URLs. 
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST
     -H 'Content-Type: application/json'
     --data-binary '{"value": {"title": "Example Metadata", "properties": {"species": "arabidopsis", "description": "A model plant organism..."}}, "name": "some metadata", "associationIds":["179338873096442342-242ac113-0001-002","6608339759546166810-242ac114-0001-007"]}'
-    https://public.tenants.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012
+    https://sandbox.agaveplatform.org/meta/v2/data/7341557475441971686-242ac11f-0001-012
 ```
 
 ```plaintext
@@ -153,23 +153,23 @@ metadata-addupdate -v -F - 7341557475441971686-242ac11f-0001-012 <<<'{"value": {
   "owner": "nryan",
   "_links": {
     "self": {
-      "href": "https://public.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012"
+      "href": "https://sandbox.agaveplatform.org/meta/v2/data/7341557475441971686-242ac11f-0001-012"
     },
     "permissions": {
-      "href": "https://public.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012/pems"
+      "href": "https://sandbox.agaveplatform.org/meta/v2/data/7341557475441971686-242ac11f-0001-012/pems"
     },
     "owner": {
-      "href": "https://public.agaveapi.co/profiles/v2/nryan"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
     },
     "associationIds": [
       {
         "rel": "179338873096442342-242ac113-0001-002",
-        "href": "https://public.agaveapi.co/files/v2/media/system/storage.example.com//",
+        "href": "https://sandbox.agaveplatform.org/files/v2/media/system/storage.example.com//",
         "title": "file"
       },
       {
         "rel": "6608339759546166810-242ac114-0001-007",
-        "href": "https://public.agaveapi.co/jobs/v2/6608339759546166810-242ac114-0001-007",
+        "href": "https://sandbox.agaveplatform.org/jobs/v2/6608339759546166810-242ac114-0001-007",
         "title": "job"
       }
     ]
@@ -186,7 +186,7 @@ Updating metadata is done by POSTing an updated metadata object to the existing 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
     -X DELETE
-    https://public.tenants.agaveapi.co/meta/v2/data/7341557475441971686-242ac11f-0001-012
+    https://sandbox.agaveplatform.org/meta/v2/data/7341557475441971686-242ac11f-0001-012
 ```
 
 ```plaintext

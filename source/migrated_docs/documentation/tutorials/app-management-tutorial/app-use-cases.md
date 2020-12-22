@@ -4,4 +4,4 @@ One thing we learned very early on was that your science and the ways in which y
 
 To help illustrate the the flexibility you have in defining your apps, we have collected several use cases and how real world users solved them with Agave. You can use these examples as references, for inspiration, or clone their git repositories and use them as templates. The choice is entirely up to you.
 
-<aside class="notice">If you feel we've missed out on a critical use case or just want to share yours so we can brag on you, please <a href="http://agaveapi.co/contact-2/" title="Contact">let us know</a>.</aside>
+<aside class="notice">If you feel we've missed out on a critical use case or just want to share yours so we can brag on you, please <a href="https://agaveplatform.org/contact-2/" title="Contact">let us know</a>.</aside>

@@ -4,16 +4,16 @@ Search is a fundamental feature of the Agave Platform. Each of the core science 
 
 By default, search is enabled on each collection endpoint allowing you to trim the response down to the results you care about most. The list of available search terms is identical to the attributes included in the JSON returned when requesting the full resource description.
 
-<aside class="info">To see a full listing of the JSON attributes for each resource in the core science APIs, please see the <a href="http://agaveapi.co/documentation/live-docs/" title="Live Documentation">Live Docs</a>.</aside>
+<aside class="info">To see a full listing of the JSON attributes for each resource in the core science APIs, please see the <a href="https://agaveplatform.org/documentation/live-docs/" title="Live Documentation">Live Docs</a>.</aside>
 
 ## Search syntax
 
 ```shell 
 # Search by a single attribute 
-curl -H "Authorization: Bearer $TOKEN" https://public.tenants.agaveapi.co/jobs/v2?name=somejob
+curl -H "Authorization: Bearer $TOKEN" https://sandbox.agaveplatform.org/jobs/v2?name=somejob
 
 # Remember to URL encode spaces in the search terms 
-curl -H "Authorization: Bearer $TOKEN" https://public.tenants.agaveapi.co/jobs/v2?name=test+job  
+curl -H "Authorization: Bearer $TOKEN" https://sandbox.agaveplatform.org/jobs/v2?name=test+job  
 
 ``` 
 

@@ -6,7 +6,7 @@ Agave provides a service for searching and viewing profile information about use
 
 
 ```shell  
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/profiles/v2/me
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/profiles/v2/me
 ```  
 
 ```plaintext
@@ -39,10 +39,10 @@ The response from the service will resemble the following:
         "gender":"MALE",
         "_links":{
            "self":{
-"href":"https://public.tenants.agaveapi.co/profiles/v2/nryan"
+"href":"https://sandbox.agaveplatform.org/profiles/v2/nryan"
            },
            "users":{
-"href":"https://public.tenants.agaveapi.co/profiles/v2/nryan/users"
+"href":"https://sandbox.agaveplatform.org/profiles/v2/nryan/users"
            }
         }
      }
@@ -93,7 +93,7 @@ To create a new user profile, send a POST request with a JSON description of the
 ```shell  
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
    --data &#039;{"username":"rclemens","email":"rclemens@mlb.com", "firstname":"Roger","lastname":"Clemens"}&#039;
-   "https://public.tenants.agaveapi.co/profiles/v2/
+   "https://sandbox.agaveplatform.org/profiles/v2/
 ```  
 
 ```plaintext
@@ -126,10 +126,10 @@ The response from the service will resemble the following:
         "gender":"MALE",
         "_links":{
            "self":{
-"href":"https://public.tenants.agaveapi.co/profiles/v2/rclemens"
+"href":"https://sandbox.agaveplatform.org/profiles/v2/rclemens"
            },
            "users":{
-"href":"https://public.tenants.agaveapi.co/profiles/v2/rclemens/users"
+"href":"https://sandbox.agaveplatform.org/profiles/v2/rclemens/users"
            }
         }
      }
@@ -146,7 +146,7 @@ updated description of the user in the payload.
 ```shell  
 curl -sk -X PUT -H "Authorization: Bearer $ACCESS_TOKEN"
    --data &#039;{"username":"rclemens","email":"rclemens@mlb.com", "firstname":"Roger","lastname":"Clemens"}&#039;
-   "https://public.tenants.agaveapi.co/profiles/v2/rclemens
+   "https://sandbox.agaveplatform.org/profiles/v2/rclemens
 ```  
 
 ```plaintext
@@ -175,10 +175,10 @@ The response from the service will resemble the following:
     "gender":"MALE",
     "_links":{  
       "self":{  
-        "href":"https://public.tenants.agaveapi.co/profiles/v2/rclemens"
+        "href":"https://sandbox.agaveplatform.org/profiles/v2/rclemens"
       },
       "users":{  
-        "href":"https://public.tenants.agaveapi.co/profiles/v2/rclemens/users"
+        "href":"https://sandbox.agaveplatform.org/profiles/v2/rclemens/users"
       }
     }
   }
@@ -192,7 +192,7 @@ To delete a user profile, make a DELETE request to the URI of the user.
 
 ```shell  
 curl -sk -X DELETE -H "Authorization: Bearer $ACCESS_TOKEN"
-   "https://public.tenants.agaveapi.co/profiles/v2/rclemens
+   "https://sandbox.agaveplatform.org/profiles/v2/rclemens
 ```  
 
 ```plaintext

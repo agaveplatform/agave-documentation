@@ -18,11 +18,11 @@ As mentioned previously, jobs are submitted by making a HTTP POST request either
 
 <p class="table-caption">Table 1. The optional and required attributes common to all job submissions. Optional fields are marked with an astericks.</p>
 
-<aside class="notice">In this tutorial we will use JSON for our examples, however, one could replace the JSON object with a HTML form mapping JSON attribute and values to HTML form attributes and values one for one and get the same results, with the exception of the `notifications` attribute which is not accepted using HTML form submission and would need to be added after submitting the job request by sending each of the notification objects with the returned job id to the <a href="http://agaveapi.co/documentation/tutorials/notification-management-tutorial/" title="Notification Management Tutorial">Notifications API</a>.</aside>
+<aside class="notice">In this tutorial we will use JSON for our examples, however, one could replace the JSON object with a HTML form mapping JSON attribute and values to HTML form attributes and values one for one and get the same results, with the exception of the `notifications` attribute which is not accepted using HTML form submission and would need to be added after submitting the job request by sending each of the notification objects with the returned job id to the <a href="https://agaveplatform.org/documentation/tutorials/notification-management-tutorial/" title="Notification Management Tutorial">Notifications API</a>.</aside>
 
-In addition to the standard fields for all jobs, the application you specify in the `appId` field will also have its own set of inputs and parameters specified during registration that are unique to that app. (For more information about app registration and descriptions, see the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a>).
+In addition to the standard fields for all jobs, the application you specify in the `appId` field will also have its own set of inputs and parameters specified during registration that are unique to that app. (For more information about app registration and descriptions, see the <a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/" title="App Management Tutorial">App Management Tutorial</a>).
 
-The following snippet shows a sample JSON job request that could be submitted to the Jobs service to run the `pyplot-0.1.0` app from the <a href="http://agaveapi.co/documentation/tutorials/app-management-tutorial/advanced-app-example/" title="Advanced App Example">Advanced App Example</a> tutorial.
+The following snippet shows a sample JSON job request that could be submitted to the Jobs service to run the `pyplot-0.1.0` app from the <a href="https://agaveplatform.org/documentation/tutorials/app-management-tutorial/advanced-app-example/" title="Advanced App Example">Advanced App Example</a> tutorial.
 
 ```json
 {
@@ -61,7 +61,7 @@ The following snippet shows a sample JSON job request that could be submitted to
       "event":"FINISHED"
     },
     {
-      "url":"http://http://requestbin.agaveapi.co/o1aiawo1?job_id=${JOB_ID}&amp;status=${JOB_STATUS}",
+      "url":"http://requestbin.agaveplatform.org/o1aiawo1?job_id=${JOB_ID}&amp;status=${JOB_STATUS}",
       "event":"*",
       "persistent":true
     }
@@ -69,7 +69,7 @@ The following snippet shows a sample JSON job request that could be submitted to
 }
 ```
 
-Notice that this example specifies a single input attribute, `dataset`. The `pyplot-0.1.0` app definition specified that the `dataset` input attribute could accept more than one value (maxCardinality = 2). In the job request object, that translates to an array of string values. Each string represents a piece of data that Agave will transfer into the job work directory prior to job execution. Any value accepted by the Files service when <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/#importing-data">importing data</a> is accepted here. Some examples of valid values are given in the following table.
+Notice that this example specifies a single input attribute, `dataset`. The `pyplot-0.1.0` app definition specified that the `dataset` input attribute could accept more than one value (maxCardinality = 2). In the job request object, that translates to an array of string values. Each string represents a piece of data that Agave will transfer into the job work directory prior to job execution. Any value accepted by the Files service when <a href="https://agaveplatform.org/documentation/tutorials/data-management-tutorial/#importing-data">importing data</a> is accepted here. Some examples of valid values are given in the following table.
 
 <%= partial "includes/tables/73" %>
 
@@ -84,7 +84,7 @@ Finally, we see a `notifications` array specifying that we want Agave send three
 If everything went well, you will receive a response that looks something like the following JSON object.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@job.json" https://public.tenants.agaveapi.co/jobs/v2?pretty=true
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X POST -F "fileToUpload=@job.json" https://sandbox.agaveplatform.org/jobs/v2?pretty=true
 ```
 ```plaintext
 jobs-submit -F job.json
@@ -132,31 +132,31 @@ jobs-submit -F job.json
     },
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007"
+        "href" : "https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007"
       },
       "app" : {
-        "href" : "https://public.tenants.agaveapi.co/apps/v2/demo-pyplot-demo-advanced-0.1.0"
+        "href" : "https://sandbox.agaveplatform.org/apps/v2/demo-pyplot-demo-advanced-0.1.0"
       },
       "executionSystem" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/$PUBLIC_EXECUTION_SYSTEM"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/$PUBLIC_EXECUTION_SYSTEM"
       },
       "archiveData" : {
-        "href" : "https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/outputs/listings"
+        "href" : "https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007/outputs/listings"
       },
       "owner" : {
-        "href" : "https://public.tenants.agaveapi.co/profiles/v2/$API_USERNAME"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/$API_USERNAME"
       },
       "permissions" : {
-        "href" : "https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/pems"
+        "href" : "https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007/pems"
       },
       "history" : {
-        "href" : "https://public.tenants.agaveapi.co/jobs/v2/0001414144065563-5056a550b8-0001-007/history"
+        "href" : "https://sandbox.agaveplatform.org/jobs/v2/0001414144065563-5056a550b8-0001-007/history"
       },
       "metadata" : {
-        "href" : "https://public.tenants.agaveapi.co/meta/v2/data/?q={"associationIds":"0001414144065563-5056a550b8-0001-007"}"
+        "href" : "https://sandbox.agaveplatform.org/meta/v2/data/?q={"associationIds":"0001414144065563-5056a550b8-0001-007"}"
       },
       "notifications" : {
-        "href" : "https://public.tenants.agaveapi.co/notifications/v2/?associatedUuid=0001414144065563-5056a550b8-0001-007"
+        "href" : "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=0001414144065563-5056a550b8-0001-007"
       }
     }
   }

@@ -6,7 +6,7 @@ Agave is reactive in its interactions with a remote file system. That is an adva
 
 #### File indexing use cases  
 
-This service was driven by user requests over the last year. Some of the most common use cases are described below. If you have a use case that you would like to share, we'd love to hear about it in our <a href="https://support.agaveapi.co/" target="_blank">Help Desk</a>.
+This service was driven by user requests over the last year. Some of the most common use cases are described below. If you have a use case that you would like to share, we'd love to hear about it in our <a href="https://support.agaveplatform.org/" target="_blank">Help Desk</a>.
 
 ##### UUID generation
 
@@ -37,12 +37,12 @@ When a directory is indexed, Agave performs a directory listing on the requested
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
-    'https://public.agaveapi.co/files/v2/index/system/data.agaveapi.co/nryan?pretty=true''
+    'https://sandbox.agaveplatform.org/files/v2/index/system/data.agaveplatform.org/nryan?pretty=true''
 ```
 
 ```plaintext
 files-index \
-    -S data.agaveapi.co \
+    -S data.agaveplatform.org \
     nryan
 ```
 
@@ -58,12 +58,12 @@ The semantics for indexing a directory are nearly identical to listing a directo
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
-    'https://public.agaveapi.co/files/v2/index/system/data.agaveapi.co/nryan/picksumipsum.txt?pretty=true''
+    'https://sandbox.agaveplatform.org/files/v2/index/system/data.agaveplatform.org/nryan/picksumipsum.txt?pretty=true''
 ```
 
 ```plaintext
 files-index \
-    -S data.agaveapi.co \
+    -S data.agaveplatform.org \
     nryan/picksumipsum.txt
 ```
 

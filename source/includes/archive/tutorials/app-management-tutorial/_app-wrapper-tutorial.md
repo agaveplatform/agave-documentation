@@ -151,7 +151,7 @@ Your first objective is to create a script that you know will run to completion 
 First, you will need some test data in your current directory (i.e., $WORK/iPlant/samtools-0.1.19/stampede/ ). You can use this test file
 
 ```shell
-files-get -S data.agaveapi.co /shared/iplantcollaborative/example_data/Samtools_mpileup/ex1.bam
+files-get -S data.agaveplatform.org /shared/iplantcollaborative/example_data/Samtools_mpileup/ex1.bam
 ```
 
 or you can any other BAM file for your testing purposes. Make sure if you use another file to change the filename in your test script accordingly!
@@ -248,7 +248,7 @@ Open up samtools-sort.json in a text editor or <a href="../examples/samtools-0.1
 
 ### Overview  
 
-Your file <em>samtools-sort.json</em> is written in <a href="http://www.json.org/">JSON</a>, and conforms to an Agave-specific data model. You can find fully fleshed out details about all fields under <em>Parameters -> Data Type -> Model</em> at the <a href="http://agaveapi.co/live-docs/#!/apps/add_post_1">Agave API live docs on the /apps service</a>. We will dive into key elements here:
+Your file <em>samtools-sort.json</em> is written in <a href="http://www.json.org/">JSON</a>, and conforms to an Agave-specific data model. You can find fully fleshed out details about all fields under <em>Parameters -> Data Type -> Model</em> at the <a href="https://agaveplatform.org/live-docs/#!/apps/add_post_1">Agave API live docs on the /apps service</a>. We will dive into key elements here:
 
 To make this file work for you, you will be, at a minimum, editting:
 
@@ -550,7 +550,7 @@ Here's a walkthrough of what these fields mean:
 </tbody>
 </table>
 
-*A note on paths*: In this iPlant-oriented tutorial, we assume you will stage data to and from "data.agaveapi.co", the default storage system for iPlant users. In this case, you can use relative paths relative to homeDir on that system (i.e. vaughn/analyses/foobar). To add portability, marshal data from other storageSystems, or import from public servers, you can also specify fully qualified URIs as follows:
+*A note on paths*: In this iPlant-oriented tutorial, we assume you will stage data to and from "data.agaveplatform.org", the default storage system for iPlant users. In this case, you can use relative paths relative to homeDir on that system (i.e. vaughn/analyses/foobar). To add portability, marshal data from other storageSystems, or import from public servers, you can also specify fully qualified URIs as follows:
 * storageSystem namespace: agave://storage-system-name/path/to/file
 * public URI namespace: https://www.cnn.com/index.html
 

@@ -36,19 +36,19 @@ Throughout the documentation you will regularly encounter the following variable
     "updateSystemStatus": false,
     "_links": {
         "checks": {
-            "href": "https://public.tenants.agaveapi.co/monitor/v2/0001409867973952-5056a550b8-0001-014/checks"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/0001409867973952-5056a550b8-0001-014/checks"
         },
         "notifications": {
-            "href": "https://public.tenants.agaveapi.co/notifications/v2/?associatedUuid=0001409867973952-5056a550b8-0001-014"
+            "href": "https://sandbox.agaveplatform.org/notifications/v2/?associatedUuid=0001409867973952-5056a550b8-0001-014"
         },
         "owner": {
-            "href": "https://public.tenants.agaveapi.co/profiles/v2/systest"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/systest"
         },
         "self": {
-            "href": "https://public.tenants.agaveapi.co/monitor/v2/0001409867973952-5056a550b8-0001-014"
+            "href": "https://sandbox.agaveplatform.org/monitor/v2/0001409867973952-5056a550b8-0001-014"
         },
         "system": {
-            "href": "https://public.tenants.agaveapi.co/systems/v2/demo.storage.example.com"
+            "href": "https://sandbox.agaveplatform.org/systems/v2/demo.storage.example.com"
         }
     }
 }
@@ -63,7 +63,7 @@ When describing the JSON objects passed back and forth with the APIs, Javascript
 
 ### Versioning
 
-The current major version of Agave is given in the URI immediately following the API resource name. For example, if the endpoint is `https://public.tenants.agaveapi.co/jobs/v2/`, the API version would be `v2`. The current major version of agave is v2.
+The current major version of Agave is given in the URI immediately following the API resource name. For example, if the endpoint is `https://sandbox.agaveplatform.org/jobs/v2/`, the API version would be `v2`. The current major version of agave is v2.
 
 ### Slugs
 
@@ -111,7 +111,7 @@ All data is received and returned as a JSON object. The <a title="Live Documenta
 {
     "status": "error",
     "message": "Permission denied. You do not have permission to view this system",
-    "version": "2.1.10-r8228",
+    "version": "2.1.27-r8228",
     "result": {}
 }
 ```
@@ -137,7 +137,7 @@ By default, all responses are serialized JSON. To receive pre-formatted JSON, ad
 ```shell
 curl -sk -H \
     "Authorization: Bearer ${API_KEY}" \
-    "https://public.tenants.agaveapi.co/jobs/v2/?offset=50&limit=25"
+    "https://sandbox.agaveplatform.org/jobs/v2/?offset=50&limit=25"
 ```
 
 ```plaintext
@@ -176,10 +176,10 @@ Many modern applications choose to implement client-server communication exclusi
     "value": "red",
     "_links": {
         "self": {
-            "href": "https://public.tenants.agaveapi.co/meta/v2/data/0001384622738900-5056a550b8-0001-012"
+            "href": "https://sandbox.agaveplatform.org/meta/v2/data/0001384622738900-5056a550b8-0001-012"
         },
         "owner": {
-            "href": "https://public.tenants.agaveapi.co/profiles/v2/nryan"
+            "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
         }
     }
 }

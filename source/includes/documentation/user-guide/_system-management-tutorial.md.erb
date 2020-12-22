@@ -13,7 +13,7 @@ In this tutorial we walk you through how to discovery, manage, share, and config
 The Systems service allows you to list and search for systems you have registered and systems that have been shared with you. To get a list of all your systems, make a GET request on the Systems collection.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/
 ```
 
 
@@ -27,7 +27,7 @@ The response will be a JSON array of summary system objects. The full system des
 ```javascript
 [
   {
-    "id" : "data.agaveapi.co",
+    "id" : "data.agaveplatform.org",
     "name" : "iPlant Data Store",
     "type" : "STORAGE",
     "description" : "The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&#039;s technologies.",
@@ -36,7 +36,7 @@ The response will be a JSON array of summary system objects. The full system des
     "default" : true,
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
       }
     }
   },
@@ -50,7 +50,7 @@ The response will be a JSON array of summary system objects. The full system des
     "default" : false,
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/docker.iplantcollaborative.org"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/docker.iplantcollaborative.org"
       }
     }
   }
@@ -63,23 +63,23 @@ You can further filter the results by type, scope, and default status.
 
 ```shell
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?type=storage
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/?type=storage
 ```
 Only execution systems
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?type=execution
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/?type=execution
 ```
 Only public systems
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?publicOnly=true
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/?publicOnly=true
 ```
 Only private systems
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?privateOnly=true
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/?privateOnly=true
 ```
 Only give the user's default systems
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/?default=true
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/?default=true
 ```
 
 
@@ -108,7 +108,7 @@ systems-list -v -D
 To query for detailed information about a specific system, add the system id to the url and make another GET request.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 
@@ -123,7 +123,7 @@ This time, the response will be a JSON object with a full system description. Th
 {  
    "default":true,
    "description":"The iPlant Data Store is where your data are stored. The Data Store is cloud-based and is the central repository from which data is accessed by all of iPlant&#039;s technologies.",
-   "id":"data.agaveapi.co",
+   "id":"data.agaveplatform.org",
    "lastModified":"2013-11-12T07:08:30.000-06:00",
    "name":"iPlant Data Store",
    "public":true,
@@ -135,7 +135,7 @@ This time, the response will be a JSON object with a full system description. Th
          "type":"PASSWORD"
       },
       "homeDir":"/",
-      "host":"data.agaveapi.co",
+      "host":"data.agaveplatform.org",
       "mirror":true,
       "port":1247,
       "protocol":"IRODS",
@@ -149,16 +149,16 @@ This time, the response will be a JSON object with a full system description. Th
    "uuid":"0001384260598633-5056a550b8-0001-006",
    "_links":{  
       "credentials":{  
-         "href":"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co/credentials"
+         "href":"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org/credentials"
       },
       "metadata":{  
-         "href":"https://public.tenants.agaveapi.co/meta/v2/data/?q={"associationIds":"0001384260598633-5056a550b8-0001-006"}"
+         "href":"https://sandbox.agaveplatform.org/meta/v2/data/?q={"associationIds":"0001384260598633-5056a550b8-0001-006"}"
       },
       "roles":{  
-         "href":"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co/roles"
+         "href":"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org/roles"
       },
       "self":{  
-         "href":"https://public.tenants.agaveapi.co/systems/v2/data.agaveapi.co"
+         "href":"https://sandbox.agaveplatform.org/systems/v2/data.agaveplatform.org"
       }
    }
 }
@@ -522,7 +522,7 @@ In each of the examples above, the `storage` objects were slightly different, ea
 #### Creating a new storage system  
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -F "fileToUpload=@sftp-password.json" https://public.tenants.agaveapi.co/systems/v2
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -F "fileToUpload=@sftp-password.json" https://sandbox.agaveplatform.org/systems/v2
 ```
 
 
@@ -561,7 +561,7 @@ The response from the service will be similar to the following:
 }
 ```
 
-Congratulations, you just added your first system. This storage system can now be used by the <a title="File Management" href="http://agaveapi.co/documentation/tutorials/data-management/">Files service</a> to manage data, the Transfer service as a source or destination of data movement, the Apps service as a application repository, and the <a title="Job Submission" href="http://agaveapi.co/documentation/tutorials/job-managment/">Jobs Service</a> as both a staging and archiving destination.
+Congratulations, you just added your first system. This storage system can now be used by the <a title="File Management" href="https://agaveplatform.org/documentation/tutorials/data-management/">Files service</a> to manage data, the Transfer service as a source or destination of data movement, the Apps service as a application repository, and the <a title="Job Submission" href="https://agaveplatform.org/documentation/tutorials/job-managment/">Jobs Service</a> as both a staging and archiving destination.
 
 Notice that the JSON returned from the Systems service is different than what was submitted. Several fields have been added, and several other have been removed. On line 3, the UUID of the system has been added. This is the same UUID that is used in notifications and metadata references. On line 5, the `status` value was added in and assigned a default value since we did not specify it. Ditto for the `site` attribute on line 8.
 
@@ -814,7 +814,7 @@ Another common error that arises from not specifying thoughtful `scratchDir` and
 #### Creating a new execution system  
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -F "fileToUpload=@ssh-password.json" https://public.tenants.agaveapi.co/systems/v2
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -F "fileToUpload=@ssh-password.json" https://sandbox.agaveplatform.org/systems/v2
 ```
 
 
@@ -909,7 +909,7 @@ Cloning an existing system will create a new system, with a new id, and all attr
 To clone a system, you make a PUT request on the system's url and pass it a new system id.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=clone&amp;id=systest.demo.clone" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=clone&amp;id=systest.demo.clone" https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 
@@ -920,7 +920,7 @@ systems-clone -v -I systest.demo.clone $SYSTEM_ID
 
 ### System scope  
 
-Throughout these tutorials and <a href="http://agaveapi.co/documentation/beginners-guides/" title="Beginner’s Guides">Beginner's Guides</a>, we have referred to both public and private systems. In addition to roles, systems have a concept of scope associated with them. Not to be confused with OAuth scope mentioned in the <a href="http://agaveapi.co/documentation/authorization/" title="Authorization Guide">Authentication Guide</a>, system scope refers to the availability of a system to the general user community. The following table lists the available scopes and their meanings.
+Throughout these tutorials and <a href="https://agaveplatform.org/documentation/beginners-guides/" title="Beginner’s Guides">Beginner's Guides</a>, we have referred to both public and private systems. In addition to roles, systems have a concept of scope associated with them. Not to be confused with OAuth scope mentioned in the <a href="https://agaveplatform.org/documentation/authorization/" title="Authorization Guide">Authentication Guide</a>, system scope refers to the availability of a system to the general user community. The following table lists the available scopes and their meanings.
 
 <%= partial "includes/tables/53" %>
 
@@ -938,7 +938,7 @@ Public systems are available for use by every API user within your tenant. Once 
 
 #### Public Storage Systems  
 
-Public storage systems enforce a virtual user home directory with implied user permissions. The following table gives a brief summary of the permission implications. You can read more about data permissions in the <a href="http://agaveapi.co/documentation/tutorials/data-management-tutorial/data-permissions-tutorial/" title="Data Permissions Tutorial">Data Permissions</a> tutorial.
+Public storage systems enforce a virtual user home directory with implied user permissions. The following table gives a brief summary of the permission implications. You can read more about data permissions in the <a href="https://agaveplatform.org/documentation/tutorials/data-management-tutorial/data-permissions-tutorial/" title="Data Permissions Tutorial">Data Permissions</a> tutorial.
 
 <%= partial "includes/tables/54" %>
 
@@ -955,7 +955,7 @@ Public execution systems do not share the same behavior as public storage system
 To publish a system and make it public, you make a PUT request on the system's url.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=publish" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=publish" https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 
@@ -969,7 +969,7 @@ The response from the service will be the same system description we saw before,
 To unpublish a system, make the same request with the `action` attribute set to <em>unpublish</em>.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unpublish" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unpublish" https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 
@@ -995,7 +995,7 @@ Four types of default systems are possible. The following table describes them.
 To set a system as the user's default, you make a PUT request on the system's url. Only systems the user has access to may be used as their default.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=setdefault" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=setdefault" https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 
@@ -1011,7 +1011,7 @@ The response from the service will be the same system description we saw before,
 To remove a system as the user's default, make the same request with the `action` attribute set to <em>unsetDefault</em>. Keep in mind that you cannot remove the global default system from being the user's default. You can only set a different one to replace it.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unsetDefault" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unsetDefault" https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 
@@ -1025,7 +1025,7 @@ systems-unsetdefault -v $SYSTEM_ID
 Tenant administrators may wish to set default storage and execution systems for an entire tenant. These are called global default systems. There may be at most one system of each type set as a global default. To set a global default system, first make sure that the system is public. Only public systems may be set as a global default. Next, make sure you have administrator permissions for your tenant. Only tenant admins may publish systems and manage the global defaults. Lastly, make a PUT request on the system's url with an `action` attribute in the body set to <em>unsetGlobalDefault</em>.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=setglobaldefault" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=setglobaldefault" https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 
@@ -1041,7 +1041,7 @@ The response from the service will be the same system description we saw before,
 To remove a system from being the global default, make the same request with the `action` attribute set to <em>unsetGlobalDefault</em>.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unsetGlobalDefault" https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X PUT -d "action=unsetGlobalDefault" https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 
@@ -1057,7 +1057,7 @@ This time the response from the service will have `default` set to <em>false</em
 In the event you wish to permanently delete a system, you can make a DELETE request on the system URL.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/systems/v2/$SYSTEM_ID
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://sandbox.agaveplatform.org/systems/v2/$SYSTEM_ID
 ```
 
 
@@ -1074,4 +1074,4 @@ Deleting a system will disable the system and all applications published on that
 
 ### Multi-user environments  
 
-If your application supports a multi-user environment and those users do not have API accounts, then you may run into a situation where you are juggling multiple user credentials for a single system. Agave has a solution for this problem in the for of its Internal User feature. You can map your application users into a private user store Agave provides you and assign those users credentials on your systems. This allows you to move seamlessly from community users to private users and back without having to alter your application code. For a deep discussion on the mechanics and implications of credential management with internal users, see the <a href="http://agaveapi.co/documentation/tutorials/system-management/internal-user-credential-management/" title="Internal User Credential Management">Internal User Credential Management</a> tutorial.
+If your application supports a multi-user environment and those users do not have API accounts, then you may run into a situation where you are juggling multiple user credentials for a single system. Agave has a solution for this problem in the for of its Internal User feature. You can map your application users into a private user store Agave provides you and assign those users credentials on your systems. This allows you to move seamlessly from community users to private users and back without having to alter your application code. For a deep discussion on the mechanics and implications of credential management with internal users, see the <a href="https://agaveplatform.org/documentation/tutorials/system-management/internal-user-credential-management/" title="Internal User Credential Management">Internal User Credential Management</a> tutorial.

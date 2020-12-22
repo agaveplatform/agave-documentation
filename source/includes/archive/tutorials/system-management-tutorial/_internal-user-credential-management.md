@@ -1,8 +1,8 @@
 ## Introduction  
 
-The systems you create are private to you. If you changed nothing else from the examples in the <a href="http://agaveapi.co/documentation/tutorials/system-management/" title="System Management">System Management</a> tutorial, you would have a shared storage resource which your client application could use to host data for all your application users. Such a setup is often referred to as a <em>community account</em> because a single account is used by an entire community of people.
+The systems you create are private to you. If you changed nothing else from the examples in the <a href="https://agaveplatform.org/documentation/tutorials/system-management/" title="System Management">System Management</a> tutorial, you would have a shared storage resource which your client application could use to host data for all your application users. Such a setup is often referred to as a <em>community account</em> because a single account is used by an entire community of people.
 
-One challenge that comes with using community accounts is tracking the usage of individual users. Such fine-grained accounting is both time consuming and difficult to implement. Agave solves this problem for you through its Internal User feature. If you are not familiar with this particular topic, please consult the <a href="http://agaveapi.co/documentation/tutorials/internal-user-management/" title="Internal User Tutorial">Internal User Management</a> tutorial for a detailed introduction.
+One challenge that comes with using community accounts is tracking the usage of individual users. Such fine-grained accounting is both time consuming and difficult to implement. Agave solves this problem for you through its Internal User feature. If you are not familiar with this particular topic, please consult the <a href="https://agaveplatform.org/documentation/tutorials/internal-user-management/" title="Internal User Tutorial">Internal User Management</a> tutorial for a detailed introduction.
 
 Even though you share the account among your application users, Agave will still track individual activity, so you can generate reports on the activity of any user you've created.
 
@@ -13,7 +13,7 @@ A hybrid model is also possible. Internal user credentials will always be looked
 ### Assigning a internal user credential to a system  
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST --data &#039;{"internal_username": "cdavis", "username": "cdavis", "password": "changeit", "type": "PASSWORD", "default": false}&#039; https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST --data &#039;{"internal_username": "cdavis", "username": "cdavis", "password": "changeit", "type": "PASSWORD", "default": false}&#039; https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis
 ```
 
 
@@ -37,13 +37,13 @@ The response from the service will return a JSON array of credentials created fo
     "valid": true,
     "_links": {
       "internalUser": {
-        "href": "https://public.tenants.agaveapi.co/profiles/v2/systest/users/cdavis"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/systest/users/cdavis"
       },
       "parent": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       },
       "self": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis/login"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis/login"
       }
     }
   }, 
@@ -58,13 +58,13 @@ The response from the service will return a JSON array of credentials created fo
     "valid": true,
     "_links": {
       "internalUser": {
-        "href": "https://public.tenants.agaveapi.co/profiles/v2/systest/users/cdavis"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/systest/users/cdavis"
       },
       "parent": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       },
       "self": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis/storage"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis/storage"
       }
     }
   }
@@ -74,7 +74,7 @@ The response from the service will return a JSON array of credentials created fo
 To set just the storage credential for the internal user, we can append the internal username and type to the URL.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST --data &#039;{"internal_username": "cdavis", "username": "cdavis", "password": "changeit", "type": "PASSWORD", "default": false}&#039; https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis/storage
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST --data &#039;{"internal_username": "cdavis", "username": "cdavis", "password": "changeit", "type": "PASSWORD", "default": false}&#039; https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis/storage
 ```
 
 
@@ -98,13 +98,13 @@ The response from the service will return a JSON array with just the newly creat
     "valid": true,
     "_links": {
       "internalUser": {
-        "href": "https://public.tenants.agaveapi.co/profiles/v2/systest/users/cdavis"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/systest/users/cdavis"
       },
       "parent": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       },
       "self": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis/storage"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis/storage"
       }
     }
   }
@@ -116,7 +116,7 @@ The response from the service will return a JSON array with just the newly creat
 To obtain a listing of internal users with default credentials assigned to them on a particular system, perform a GET on the system credentials collection.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials
 ```
 
 
@@ -140,13 +140,13 @@ The response from the service will be a JSON array of credential objects. Notice
     "valid": true,
     "_links": {
       "internalUser": {
-        "href": "https://public.tenants.agaveapi.co/profiles/v2/systest/users/cdavis"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/systest/users/cdavis"
       },
       "parent": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       },
       "self": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis/login"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis/login"
       }
     }
   }, 
@@ -161,13 +161,13 @@ The response from the service will be a JSON array of credential objects. Notice
     "valid": true,
     "_links": {
       "internalUser": {
-        "href": "https://public.tenants.agaveapi.co/profiles/v2/systest/users/cdavis"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/systest/users/cdavis"
       },
       "parent": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       },
       "self": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis/storage"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis/storage"
       }
     }
   },
@@ -182,10 +182,10 @@ The response from the service will be a JSON array of credential objects. Notice
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/storage"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/default/storage"
       },
       "parent" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       }
     }
   }, 
@@ -200,10 +200,10 @@ The response from the service will be a JSON array of credential objects. Notice
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/login"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/default/login"
       },
       "parent" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       }
     }
   }
@@ -213,7 +213,7 @@ The response from the service will be a JSON array of credential objects. Notice
 Adding the internal username to the URL will return just the credentials for that internal user if present.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis
 ```
 
 
@@ -235,13 +235,13 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
     "valid": true,
     "_links": {
       "internalUser": {
-        "href": "https://public.tenants.agaveapi.co/profiles/v2/systest/users/cdavis"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/systest/users/cdavis"
       },
       "parent": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       },
       "self": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis/login"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis/login"
       }
     }
   }, 
@@ -256,13 +256,13 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
     "valid": true,
     "_links": {
       "internalUser": {
-        "href": "https://public.tenants.agaveapi.co/profiles/v2/systest/users/cdavis"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/systest/users/cdavis"
       },
       "parent": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       },
       "self": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis/storage"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis/storage"
       }
     }
   }
@@ -272,7 +272,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 To list the credentials of a specific type, append either <em>storage</em> or <em>login</em> to the previous URL.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis/storage
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis/storage
 ```
 
 
@@ -294,13 +294,13 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis/storage"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis/storage"
       },
       "parent" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       },
       "internalUser" : {
-        "href" : "https://public.tenants.agaveapi.co/profiles/v2/systest/users/cdavis"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/systest/users/cdavis"
       }
     }
   }
@@ -312,7 +312,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 To remove internal user credentials, make a DELETE request on the credential's URL.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis/storage
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis/storage
 ```
 
 
@@ -324,7 +324,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenan
 An empty response object will be returned. If we then query for the user's credentials again, we will see that the user's storage credential has been replaced with the system default credential.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis
 ```
 
 
@@ -346,13 +346,13 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
     "valid": true,
     "_links": {
       "internalUser": {
-        "href": "https://public.tenants.agaveapi.co/profiles/v2/systest/users/cdavis"
+        "href": "https://sandbox.agaveplatform.org/profiles/v2/systest/users/cdavis"
       },
       "parent": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       },
       "self": {
-        "href": "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis/login"
+        "href": "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis/login"
       }
     }
   },
@@ -367,10 +367,10 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/storage"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/default/storage"
       },
       "parent" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       }
     }
   }
@@ -380,7 +380,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 To delete all of the internal user's credentials, omit the type from the URL.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis
 ```
 
 
@@ -392,7 +392,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" -X DELETE https://public.tenan
 Once again the response will be empty. Querying for the internal user credentials will now return just the system defaults.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis
 ```
 
 
@@ -414,10 +414,10 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/storage"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/default/storage"
       },
       "parent" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       }
     }
   },
@@ -432,10 +432,10 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
     "server" : null,
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/default/login"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/default/login"
       },
       "parent" : {
-        "href" : "https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials"
+        "href" : "https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials"
       }
     }
   }
@@ -445,7 +445,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveap
 Clearing all internal user credentials from a system can be done by omitting the internal username from the URL.
 
 ```shell
-curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://public.tenants.agaveapi.co/systems/v2/demo.execute.example.com/credentials/cdavis
+curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" https://sandbox.agaveplatform.org/systems/v2/demo.execute.example.com/credentials/cdavis
 ```
 
 

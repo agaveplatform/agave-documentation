@@ -20,7 +20,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
      -H "Content-Type: application/json"
      -X PUT
      --data-binary '{"action":"publish","executionSystem":"condor.opensciencegrid.org"}'
-     https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00
+     https://sandbox.agaveplatform.org/apps/v2/wc-osg-1.00
 ```
 
 ```plaintext
@@ -125,25 +125,25 @@ apps-publish -e condor.opensciencegrid.org wc-osg-1.00
   ],
   "_links": {
     "self": {
-      "href": "https://public.agaveapi.co/apps/v2/wc-osg-1.00u1"
+      "href": "https://sandbox.agaveplatform.org/apps/v2/wc-osg-1.00u1"
     },
     "executionSystem": {
-      "href": "https://public.agaveapi.co/systems/v2/condor.opensciencegrid.org"
+      "href": "https://sandbox.agaveplatform.org/systems/v2/condor.opensciencegrid.org"
     },
     "storageSystem": {
-      "href": "https://public.agaveapi.co/systems/v2/public.storage.agave"
+      "href": "https://sandbox.agaveplatform.org/systems/v2/public.storage.agave"
     },
     "history": {
-      "href": "https://public.agaveapi.co/apps/v2/wc-osg-1.00u1/history"
+      "href": "https://sandbox.agaveplatform.org/apps/v2/wc-osg-1.00u1/history"
     },
     "metadata": {
-      "href": "https://public.agaveapi.co/meta/v2/data/?q=%7B%22associationIds%22%3A%228734854070765284890-242ac116-0001-005%22%7D"
+      "href": "https://sandbox.agaveplatform.org/meta/v2/data/?q=%7B%22associationIds%22%3A%228734854070765284890-242ac116-0001-005%22%7D"
     },
     "owner": {
-      "href": "https://public.agaveapi.co/profiles/v2/nryan"
+      "href": "https://sandbox.agaveplatform.org/profiles/v2/nryan"
     },
     "permissions": {
-      "href": "https://public.agaveapi.co/apps/v2/wc-osg-1.00u1/pems"
+      "href": "https://sandbox.agaveplatform.org/apps/v2/wc-osg-1.00u1/pems"
     }
   }
 }
@@ -167,7 +167,7 @@ curl -sk -H "Authorization: Bearer $ACCESS_TOKEN"
      -H "Content-Type: application/json"
      -X PUT
      --data-binary '{"action":"disable"}'
-     https://public.tenants.agaveapi.co/apps/v2/wc-osg-1.00u1
+     https://sandbox.agaveplatform.org/apps/v2/wc-osg-1.00u1
 ```
 
 ```plaintext

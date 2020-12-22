@@ -1,4 +1,4 @@
-Until now we have see how to interact with <a href="http://agaveapi.co/documentation/beginners-guides/system-discovery/" title="System Discovery">systems</a>, <a href="http://agaveapi.co/documentation/beginners-guides/managing-data/" title="Managing Data">data</a>, <a href="http://agaveapi.co/documentation/beginners-guides/app-discovery/" title="App Discovery">apps</a>, and <a href="http://agaveapi.co/documentation/beginners-guides/running-a-simulation/" title="Running a Simulation">jobs</a>. These are a few of the core resources in the Agave APIs. Individually these services give you tremendous flexibility and capability to carry out your digital science. However, the process of conducting science is more than just a series of <em>hows</em>. Tying together all the different data and activities that constitute a computational experiment in a way that adds understanding to the process is just as important as the activities themselves. This is one of the key roles of the Metadata service.
+Until now we have see how to interact with <a href="https://agaveplatform.org/documentation/beginners-guides/system-discovery/" title="System Discovery">systems</a>, <a href="https://agaveplatform.org/documentation/beginners-guides/managing-data/" title="Managing Data">data</a>, <a href="https://agaveplatform.org/documentation/beginners-guides/app-discovery/" title="App Discovery">apps</a>, and <a href="https://agaveplatform.org/documentation/beginners-guides/running-a-simulation/" title="Running a Simulation">jobs</a>. These are a few of the core resources in the Agave APIs. Individually these services give you tremendous flexibility and capability to carry out your digital science. However, the process of conducting science is more than just a series of <em>hows</em>. Tying together all the different data and activities that constitute a computational experiment in a way that adds understanding to the process is just as important as the activities themselves. This is one of the key roles of the Metadata service.
 
 The Metadata service is an unstructured document store supporting object relationships, advanced search, schema definitions, and optional validation. Let's create two pieces of metadata to tie together what we've done in this lesson. First, we will create a new "project" and associate the input data, job, and app we used to run our simulation with it by including each uuid in the list of <code>associatedIds</code> for this metadata object.
 
@@ -46,16 +46,16 @@ The response to this request will be a JSON object describing the metadata item 
    "created":"2014-09-03T20:08:44.652-05:00",
    "_links":{  
       "self":{  
-         "href":"https://public.agaveapi.co/meta/v2/data/0001409792924730-5056a550b8-0001-012"
+         "href":"https://sandbox.agaveplatform.org/meta/v2/data/0001409792924730-5056a550b8-0001-012"
       },
       "job":{  
-         "href":"https://public.agaveapi.co/jobs/v2/0001409784588509-5056a550b8-0001-007"
+         "href":"https://sandbox.agaveplatform.org/jobs/v2/0001409784588509-5056a550b8-0001-007"
       },
       "app":{  
-         "href":"https://public.agaveapi.co/apps/v2/wc-osg-1.00u1"
+         "href":"https://sandbox.agaveplatform.org/apps/v2/wc-osg-1.00u1"
       },
       "file":{  
-         "href":"https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co/systest/picksumipsum.txt"
+         "href":"https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org/systest/picksumipsum.txt"
       }
    }
 }
@@ -102,10 +102,10 @@ This time the response will be a JSON object describing the metadata item, but o
    "created":"2014-09-03T20:12:11.587-05:00",
    "_links":{  
       "self":{  
-         "href":"https://public.agaveapi.co/meta/v2/data/0001409793131588-5056a550b8-0001-012"
+         "href":"https://sandbox.agaveplatform.org/meta/v2/data/0001409793131588-5056a550b8-0001-012"
       },
       "metadata":{  
-         "href":"https://public.agaveapi.co/meta/v2//data/0001409792924730-5056a550b8-0001-012"
+         "href":"https://sandbox.agaveplatform.org/meta/v2//data/0001409792924730-5056a550b8-0001-012"
       }
    }
 }

@@ -92,7 +92,7 @@ main() {
   parse_args "$@"
 
   if [[ -z "$skip_build" ]]; then
-    bundle exec middleman build --clean --verbose
+    docker run -it --rm -v $(pwd):/usr/src/docs -v $HOME/.ssh:/root/.ssh agaveplatform/doc-builder:latest bundle exec middleman build --clean --verbose
   fi
 
   enable_expanded_output

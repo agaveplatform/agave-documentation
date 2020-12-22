@@ -24,7 +24,7 @@ The method is suitable for long-running applications in which the user logs in o
 > A typical request will look something like this
 
 ```http
-https://public.tenants.agaveapi.co/authorize/?client_id=gTgp...SV8a&response_type=code&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&scope=PRODUCTION&state=866
+https://sandbox.agaveplatform.org/authorize/?client_id=gTgp...SV8a&response_type=code&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&scope=PRODUCTION&state=866
 ```
 
 The authorization process starts with your application sending a request to the Agave authorization service. (The reason your application sends this request can vary: it may be a step in the initialization of your application or in response to some user action, like a button click.) The request is sent to the /authorize endpoint of the Authorization service:
@@ -70,7 +70,7 @@ https://example.com/callback?error=access_denied&state=867
 #### 4. Your application requests refresh and access tokens
 
 ```http
-POST https://public.tenants.agaveapi.co/token
+POST https://sandbox.agaveplatform.org/token
 ```
 
 When the authorization code has been received, you will need to exchange it with an access token by making a POST request to the Agave Authorization service, this time to its `/token` endpoint. The body of this POST request must contain the following parameters:
@@ -86,7 +86,7 @@ curl -X POST -d "grant_type= authorization_code"
     -d "client_id=gTgp...SV8a"
     -d "client_secret=hZ_z3f...BOD6"
     -d "redirect_uri=https%3A%2F%2Fwww.foo.com%2Fauth"
-    https://public.tenants.agaveapi.co/token
+    https://sandbox.agaveplatform.org/token
 ```
 
 > The response would look something like this:
@@ -111,7 +111,7 @@ On success, the response from the Agave Authorization service has the status cod
 
 ```http
 curl -H "Authorization: Bearer a742...12d2"
-    https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true&naked=true
+    https://sandbox.agaveplatform.org/profiles/v2/me?pretty=true&naked=true
 ```
 
 > The response would look something like this:
@@ -139,7 +139,7 @@ Once you have a valid access token, you can include it in `Authorization` header
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=refresh_token
     -d refresh_token=d77c...Sacf
-    https://public.tenants.agaveapi.co/token
+    https://sandbox.agaveplatform.org/token
 ```
 
 > The response would look something like this.
@@ -157,7 +157,7 @@ Access tokens are deliberately set to expire after a short time, usually 4 hours
 The request is sent to the token endpoint of the Agave Authorization service:
 
 ```http
-POST https://public.tenants.agaveapi.co/token
+POST https://sandbox.agaveplatform.org/token
 ```
 
 The body of this POST request must contain the following parameters:
@@ -178,7 +178,7 @@ Implicit grant flow is for clients that are implemented entirely using JavaScrip
 #### 1. Your application requests authorization
 
 ```http
-https://public.tenants.agaveapi.co/authorize?client_id=gTgp...SV8a&redirect_uri=http:%2F%2Fexample.com%2Fcallback&scope=PRODUCTION&response_type=token&state=867
+https://sandbox.agaveplatform.org/authorize?client_id=gTgp...SV8a&redirect_uri=http:%2F%2Fexample.com%2Fcallback&scope=PRODUCTION&response_type=token&state=867
 ```
 
 The flow starts off with your application redirecting the user to the `/authorize` endpoint of the Authorization service. The request will include parameters in the query string:
@@ -227,7 +227,7 @@ https://example.com/callback?error=access_denied&state=867
 > A call to the profiles API to fetch the profile of the authenticated user would look like the following
 
 ```bash
-curl -H "Authorization: Bearer 61e6...Mc96" https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true
+curl -H "Authorization: Bearer 61e6...Mc96" https://sandbox.agaveplatform.org/profiles/v2/me?pretty=true
 ```
 
 ```plaintext
@@ -268,7 +268,7 @@ curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d username=rjohnson
     -d password=password
     -d scope=PRODUCTION
-    https://public.tenants.agaveapi.co/token
+    https://sandbox.agaveplatform.org/token
 ```
 ```plaintext
 auth-tokens-create -u rjohnson -p password
@@ -305,7 +305,7 @@ If the user has not accepted your request or an error has occurred, the response
 
 ```bash
 curl -H "Authorization: Bearer 3Dsr...pv21"
-    https://public.tenants.agaveapi.co/profiles/v2/me?pretty=true
+    https://sandbox.agaveplatform.org/profiles/v2/me?pretty=true
 ```
 
 > The response would look something like this:
@@ -333,7 +333,7 @@ curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=refresh_token
     -d refresh_token=dyVa...MqR0
     -d scope=PRODUCTION
-    https://public.tenants.agaveapi.co/token
+    https://sandbox.agaveplatform.org/token
 ```
 
 > The response would look something like this:
@@ -368,7 +368,7 @@ The method is suitable for authenticating your requests to the Agave REST API. T
 curl -sku "Authorization: Basic Qt3c...Rm1y="
     -d grant_type=client_credentials
     -d scope=PRODUCTION
-    https://public.tenants.agaveapi.co/token
+    https://sandbox.agaveplatform.org/token
 ```
 
 > The response would look something like this:
@@ -394,7 +394,7 @@ The header of this POST request must contain the following parameter:
 
 ```bash
 curl -H "Authorization: Bearer 61e6...Mc96"
-     https://public.tenants.agaveapi.co/profiles/v2/me
+     https://sandbox.agaveplatform.org/profiles/v2/me
 ```
 
 > The response would look something like this:
@@ -416,10 +416,10 @@ curl -H "Authorization: Bearer 61e6...Mc96"
     "gender" : "M",
     "_links" : {
       "self" : {
-        "href" : "https://public.tenants.agaveapi.co/profiles/v2/nryan"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/nryan"
       },
       "users" : {
-        "href" : "https://public.tenants.agaveapi.co/profiles/v2/nryan/users"
+        "href" : "https://sandbox.agaveplatform.org/profiles/v2/nryan/users"
       }
     }
 }

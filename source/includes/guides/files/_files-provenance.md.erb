@@ -18,7 +18,7 @@ Agave does not own the storage and execution systems you access through the Scie
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
-    https://public.agaveapi.co/files/v2/history/nryan/picksumipsum.txt
+    https://sandbox.agaveplatform.org/files/v2/history/nryan/picksumipsum.txt
 ```
 
 ```plaintext
@@ -52,7 +52,7 @@ $ files-history -v nryan/picksumipsum.txt
     "status": "TRANSFORMING_COMPLETED",
     "created": "2016-09-20T19:48:17.000-05:00",
     "createdBy": "nryan",
-    "description": "Your scheduled transfer of http://129.114.97.92/picksumipsum.txt completed staging. You can access the raw file on iPlant Data Store at /home/nryan/picksumipsum.txt or via the API at https://public.agaveapi.co/files/v2/media/system/data.agaveapi.co//nryan/picksumipsum.txt."
+    "description": "Your scheduled transfer of http://129.114.97.92/picksumipsum.txt completed staging. You can access the raw file on iPlant Data Store at /home/nryan/picksumipsum.txt or via the API at https://sandbox.agaveplatform.org/files/v2/media/system/data.agaveplatform.org//nryan/picksumipsum.txt."
   }
 ]
 ```
@@ -65,11 +65,11 @@ Basic paginated listing of file item history events is available as shown in the
 
 ```shell
 curl -sk -H "Authorization: Bearer $ACCESS_TOKEN" \
-    https://public.agaveapi.co/files/v2/history/nryan/picksumipsum.txt?limit=2&offset=1&createdBy.like=*ryan
+    https://sandbox.agaveplatform.org/files/v2/history/nryan/picksumipsum.txt?limit=2&offset=1&createdBy.like=*ryan
 ```
 
 ```plaintext
-files-history-search -v -l 2 -o 1 -S data.agaveapi.co nryan/picksumipsum.txt createdBy.like=*ryan
+files-history-search -v -l 2 -o 1 -S data.agaveplatform.org nryan/picksumipsum.txt createdBy.like=*ryan
 ```
 
 > The response is a JSON array of every action performed on the file by users with a username ending in `ryan`.
