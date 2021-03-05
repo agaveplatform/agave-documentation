@@ -7,10 +7,10 @@ language_tabs:
 
 toc_footers:
   - <a href='https://sandbox.agaveplatform.org/create_account' target='_blank'>Create an Account</a>
-  - <a href='https://github.com/agaveplatform/science-apis/src/master/CHANGELOG.md' target='_blank'>CHANGELOG</a>
+  - <a href='https://github.com/agaveplatform/science-apis/blob/develop/CHANGELOG.md' target='_blank'>CHANGELOG</a>
   - <a href='https://status.agaveplatform.org' target='_blank'>Status Page</a>
-  - <a href='https://support.agaveplatform.org' target='_blank'>Issues</a>
-  - <a href='https://support.agaveplatform.org' target='_blank'>Knowledge Base</a>
+  - <a href='https://github.com/agaveplatform/science-apis/issues' target='_blank'>Issues</a>
+  - <a href='https://slackin.agaveplatform.org' target='_blank'>Slack</a>
 
 includes:
 - introduction/introduction
